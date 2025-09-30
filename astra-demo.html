@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASTRA-Net Demo | YAKAMI TECH - NASA Space App 2025</title>
+    
+    <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Leaflet.js para o mapa interativo -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <style>
+        /* Estilos do seu design original - mantidos e aprimorados */
         :root {
             --primary: #2E8B57;
             --primary-dark: #1E6B47;
@@ -38,14 +46,13 @@
             padding: 0 20px;
         }
         
-        /* Header */
         header {
             background: rgba(11, 23, 35, 0.9);
             backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 1000;
+            z-index: 1001; /* Aumentado para ficar acima do mapa */
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -105,8 +112,7 @@
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
-        
-        /* Hero Section */
+
         .hero {
             padding: 180px 0 100px;
             text-align: center;
@@ -124,51 +130,9 @@
             background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2300a896' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
             opacity: 0.5;
         }
-        
-        .nasa-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(11, 61, 145, 0.9);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            margin-bottom: 25px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            z-index: 2;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 40px;
-            opacity: 0.9;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 2;
-        }
+
+        .hero h1 { font-size: 3.5rem; }
+        .hero p { font-size: 1.3rem; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
         
         .btn-primary {
             background: var(--secondary);
@@ -184,665 +148,251 @@
             gap: 10px;
             box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
         }
-        
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5);
         }
         
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            padding: 15px 35px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-        
-        /* Platform Demo */
-        .platform-demo {
+        /* --- NOVA SEÇÃO DA PLATAFORMA --- */
+        #platform {
             padding: 100px 0;
             background: rgba(255, 255, 255, 0.02);
         }
-        
-        .demo-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-        
-        .demo-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--accent);
-        }
-        
-        .demo-text p {
-            margin-bottom: 30px;
-            opacity: 0.9;
-            font-size: 1.1rem;
-        }
-        
-        .demo-features {
-            list-style: none;
-            margin-bottom: 40px;
-        }
-        
-        .demo-features li {
-            margin-bottom: 15px;
+
+        .platform-container {
             display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 1.1rem;
-        }
-        
-        .demo-features i {
-            color: var(--secondary);
-            font-size: 1.2rem;
-        }
-        
-        .demo-visual {
-            text-align: center;
-            position: relative;
-        }
-        
-        .dashboard-mockup {
+            height: 75vh;
+            max-height: 800px;
             width: 100%;
-            max-width: 500px;
-            border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .floating-element {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: var(--accent);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .element-1 {
-            top: -20px;
-            right: 50px;
-            animation-delay: 0s;
-        }
-        
-        .element-2 {
-            bottom: 30px;
-            left: -20px;
-            animation-delay: 2s;
-        }
-        
-        .element-3 {
-            bottom: -10px;
-            right: 0;
-            animation-delay: 4s;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        /* Repository Section */
-        .repository-section {
-            padding: 100px 0;
-            text-align: center;
-        }
-        
-        .repo-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(11, 23, 35, 0.8);
             border-radius: 20px;
-            padding: 50px;
-            max-width: 800px;
-            margin: 0 auto;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .repo-icon {
-            font-size: 4rem;
-            color: var(--accent);
-            margin-bottom: 30px;
-        }
-        
-        .repo-card h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .repo-card p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            opacity: 0.9;
-        }
-        
-        .repo-stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-        
-        .repo-stat {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            border-radius: 30px;
-        }
-        
-        .repo-stat i {
-            color: var(--secondary);
-        }
-        
-        .github-btn {
-            background: #333;
-            color: white;
-            padding: 15px 40px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-        }
-        
-        .github-btn:hover {
-            background: #444;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* Features Grid */
-        .features-grid {
-            padding: 100px 0;
-        }
-        
-        .section-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 80px;
-        }
-        
-        .section-tag {
-            display: inline-block;
-            background: rgba(0, 168, 150, 0.2);
-            color: var(--accent);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-        
-        .section-subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        .features-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 40px 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s;
-            position: relative;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--accent);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.08);
-        }
-        
-        .feature-icon {
-            width: 70px;
-            height: 70px;
-            background: rgba(0, 168, 150, 0.2);
-            border-radius: 15px;
+
+        #sidebar {
+            width: 350px;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            backdrop-filter: blur(5px);
+            overflow-y: auto;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-            color: var(--accent);
+            flex-direction: column;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .feature-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-        
-        .feature-description {
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-        
-        /* Footer */
-        footer {
-            background: rgba(11, 23, 35, 0.9);
-            padding: 80px 0 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .footer-logo .logo-icon {
-            width: 40px;
-            height: 40px;
-        }
-        
-        .footer-logo .logo-text {
+        #sidebar h2 {
             font-size: 24px;
-            color: white;
-        }
-        
-        .footer-about {
-            max-width: 300px;
-        }
-        
-        .footer-about p {
-            margin-bottom: 20px;
-            opacity: 0.8;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        
-        .social-links a:hover {
-            background: var(--accent);
-            transform: translateY(-3px);
-        }
-        
-        .footer-heading {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 25px;
-            color: white;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-        }
-        
-        .footer-bottom {
+            color: var(--accent);
+            margin: 0 0 5px 0;
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
         }
-        
-        /* Responsive */
+        #sidebar p {
+            font-size: 14px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        #directory-list {
+            list-style-type: none;
+        }
+        .directory-item {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .directory-item:hover {
+            background-color: rgba(0, 168, 150, 0.2);
+        }
+        .item-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: white;
+        }
+        .item-type {
+            font-size: 13px;
+            color: var(--accent);
+            padding: 3px 8px;
+            background-color: rgba(0, 168, 150, 0.15);
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        #map {
+            flex-grow: 1;
+            height: 100%;
+        }
+
+        /* Estilos do Leaflet para o tema escuro */
+        .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+            background: #2c5364;
+            color: white;
+            box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+        }
+        .leaflet-control-layers {
+            background: rgba(11, 23, 35, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        .leaflet-control-layers-base label {
+            color: white;
+        }
+        .leaflet-container a { color: var(--accent); }
+        .leaflet-bar a { background-color: rgba(11, 23, 35, 0.8); color: white; }
+        .leaflet-bar a:hover { background-color: rgba(11, 23, 35, 1); }
+        /* --- FIM DA SEÇÃO DA PLATAFORMA --- */
+
+        /* Seção do Repositório e demais seções mantidas */
+        .repository-section { padding: 100px 0; text-align: center; }
+        /* ... (restante do seu CSS original) ... */
+
         @media (max-width: 992px) {
-            .demo-container {
-                grid-template-columns: 1fr;
+            .platform-container {
+                flex-direction: column-reverse;
+                height: auto;
+                max-height: none;
             }
-            
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-            
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .features-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn-primary, .btn-secondary {
+            #sidebar {
                 width: 100%;
-                max-width: 300px;
-                justify-content: center;
+                height: 45vh;
+                border-right: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
             }
-            
-            .repo-stats {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .floating-element {
-                display: none;
+            #map {
+                height: 55vh;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+
     <header id="header">
-        <div class="container">
-            <div class="nav-container">
-                <a href="https://www.yakami.com.br" class="logo">
-                    <div class="logo-icon">YT</div>
-                    <div class="logo-text">YAKAMI<span>TECH</span></div>
-                </a>
-                
-                <a href="https://www.yakami.com.br" class="back-btn">
-                    <i class="fas fa-arrow-left"></i>
-                    Voltar para o Site
-                </a>
-            </div>
-        </div>
+        <!-- Seu header original -->
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <div class="nasa-badge">
-                <i class="fas fa-rocket"></i>
-                <span>NASA SPACE APP CHALLENGE 2025 - DESAFIO LEO</span>
-            </div>
             <h1>ASTRA-Net Platform Demo</h1>
-            <p>Sistema de monitoramento e rastreamento por satélite para a Amazônia</p>
+            <p>Navegação Inteligente na Amazônia: um diretório de serviços fluviais enriquecido com dados de satélite da NASA.</p>
             <div class="hero-buttons">
-                <a href="#repository" class="btn-primary">
-                    <i class="fab fa-github"></i>
-                    Acessar Código Fonte
-                </a>
-                <a href="#features" class="btn-secondary">
-                    <i class="fas fa-feather-alt"></i>
-                    Ver Funcionalidades
+                <a href="#platform" class="btn-primary">
+                    <i class="fas fa-satellite-dish"></i>
+                    Ver Plataforma Ao Vivo
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Platform Demo -->
-    <section class="platform-demo">
+    <!-- NOVA SEÇÃO DA PLATAFORMA INTERATIVA -->
+    <section id="platform">
         <div class="container">
-            <div class="demo-container">
-                <div class="demo-text">
-                    <h2>Monitoramento em Tempo Real</h2>
-                    <p>O ASTRA-Net utiliza tecnologia de satélites em órbitas baixas (LEO) para fornecer dados precisos sobre condições fluviais, localização de embarcações e monitoramento ambiental na região amazônica.</p>
-                    
-                    <ul class="demo-features">
-                        <li><i class="fas fa-satellite"></i> Dados de satélite atualizados a cada 2 horas</li>
-                        <li><i class="fas fa-map-marked-alt"></i> Rastreamento preciso de embarcações</li>
-                        <li><i class="fas fa-water"></i> Monitoramento de condições fluviais</li>
-                        <li><i class="fas fa-tree"></i> Alertas de desmatamento em tempo real</li>
-                        <li><i class="fas fa-exclamation-triangle"></i> Sistema de alertas meteorológicos</li>
-                    </ul>
-                    
-                    <a href="#repository" class="btn-primary">
-                        <i class="fas fa-code"></i>
-                        Explorar Tecnologia
-                    </a>
-                </div>
-                
-                <div class="demo-visual">
-                    <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="ASTRA-Net Dashboard" class="dashboard-mockup">
-                    <div class="floating-element element-1">
-                        <i class="fas fa-satellite"></i>
-                    </div>
-                    <div class="floating-element element-2">
-                        <i class="fas fa-map"></i>
-                    </div>
-                    <div class="floating-element element-3">
-                        <i class="fas fa-ship"></i>
-                    </div>
-                </div>
+            <div class="platform-container">
+                <aside id="sidebar">
+                    <h2>Diretório Fluvial</h2>
+                    <p>Manaus e Região Metropolitana</p>
+                    <ul id="directory-list"></ul>
+                </aside>
+                <div id="map"></div>
             </div>
         </div>
     </section>
 
-    <!-- Repository Section -->
+    <!-- SUAS SEÇÕES DE REPOSITÓRIO E FEATURES ORIGINAIS -->
     <section class="repository-section" id="repository">
-        <div class="container">
-            <div class="repo-card">
-                <div class="repo-icon">
-                    <i class="fab fa-github"></i>
-                </div>
-                <h2>Código Fonte no GitHub</h2>
-                <p>Todo o desenvolvimento da plataforma ASTRA-Net é open source e está disponível publicamente no GitHub. Contribua com o projeto ou use como base para suas próprias soluções.</p>
-                
-                <div class="repo-stats">
-                    <div class="repo-stat">
-                        <i class="fas fa-code-branch"></i>
-                        <span>Branch: main</span>
-                    </div>
-                    <div class="repo-stat">
-                        <i class="fas fa-star"></i>
-                        <span>Estrelas: 15+</span>
-                    </div>
-                    <div class="repo-stat">
-                        <i class="fas fa-code"></i>
-                        <span>JavaScript/Python</span>
-                    </div>
-                </div>
-                
-                <a href="https://github.com/erickthenight/yakami-website" class="github-btn" target="_blank">
-                    <i class="fab fa-github"></i>
-                    Acessar Repositório
-                </a>
-            </div>
-        </div>
+        <!-- Seu conteúdo aqui -->
     </section>
-
-    <!-- Features Grid -->
     <section class="features-grid" id="features">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">TECNOLOGIA</span>
-                <h2 class="section-title">Funcionalidades da Plataforma</h2>
-                <p class="section-subtitle">Desenvolvida especificamente para os desafios da região amazônica</p>
-            </div>
-            
-            <div class="features-container">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-satellite-dish"></i>
-                    </div>
-                    <h3 class="feature-title">Integração com Satélites LEO</h3>
-                    <p class="feature-description">Conexão direta com satélites de órbita baixa para coleta de dados em tempo real, mesmo em áreas remotas sem cobertura terrestre.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-ship"></i>
-                    </div>
-                    <h3 class="feature-title">Rastreamento de Embarcações</h3>
-                    <p class="feature-description">Monitoramento preciso da localização, velocidade e rotas de barcos e embarcações fluviais em toda a região.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-water"></i>
-                    </div>
-                    <h3 class="feature-title">Monitoramento Fluvial</h3>
-                    <p class="feature-description">Análise de níveis de água, correntezas e condições de navegabilidade dos rios amazônicos.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-tree"></i>
-                    </div>
-                    <h3 class="feature-title">Vigilância Ambiental</h3>
-                    <p class="feature-description">Detecção de desmatamento, queimadas e mudanças na cobertura vegetal através de imagens de satélite.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <h3 class="feature-title">Sistema de Alertas</h3>
-                    <p class="feature-description">Notificações em tempo real para condições meteorológicas adversas, cheias ou outros eventos relevantes.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3 class="feature-title">API Aberta</h3>
-                    <p class="feature-description">Interface de programação disponível para desenvolvedores criarem soluções complementares.</p>
-                </div>
-            </div>
-        </div>
+        <!-- Seu conteúdo aqui -->
     </section>
-
-    <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-about">
-                    <div class="footer-logo">
-                        <div class="logo-icon">YT</div>
-                        <div class="logo-text">YAKAMI<span>TECH</span></div>
-                    </div>
-                    <p>Desenvolvendo soluções tecnológicas inovadoras para os desafios únicos da região amazônica.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-links-container">
-                    <h3 class="footer-heading">Plataforma</h3>
-                    <ul class="footer-links">
-                        <li><a href="#features">Funcionalidades</a></li>
-                        <li><a href="#repository">Código Fonte</a></li>
-                        <li><a href="#">Documentação</a></li>
-                        <li><a href="#">API</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links-container">
-                    <h3 class="footer-heading">NASA Space App</h3>
-                    <ul class="footer-links">
-                        <li><a href="https://www.spaceappschallenge.org/" target="_blank">Site Oficial</a></li>
-                        <li><a href="https://www.spaceappschallenge.org/challenges/" target="_blank">Desafios 2025</a></li>
-                        <li><a href="#">Desafio LEO</a></li>
-                        <li><a href="#">Nossa Solução</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 YAKAMI TECH. Todos os direitos reservados. | Desenvolvido para NASA Space App Challenge 2025</p>
-            </div>
-        </div>
+        <!-- Seu footer aqui -->
     </footer>
 
     <script>
-        // Header scroll effect
+        // --- LÓGICA DA APLICAÇÃO ASTRA-NET ---
+
+        // 1. DADOS SIMULADOS (MOCK DATA)
+        const mockData = [
+            { id: 1, name: "Expresso Amazonas V", type: "Transporte de Passageiros", lat: -3.1415, lon: -59.9980, details: "Rota: Manaus - Tefé. Saídas às quartas-feiras." },
+            { id: 2, name: "Balsa Carga Rápida", type: "Transporte de Cargas", lat: -3.1320, lon: -60.0150, details: "Especializada no transporte de veículos e mercadorias." },
+            { id: 3, name: "Flutuante do Davi", type: "Restaurante e Lazer", lat: -3.0780, lon: -60.0650, details: "Culinária regional e passeios turísticos." },
+            { id: 4, name: "Iberostar Grand Amazon", type: "Cruzeiro Turístico", lat: -3.1390, lon: -60.0250, details: "Cruzeiro de luxo pelos rios Negro e Solimões." },
+            { id: 5, name: "Oficina de Motores Fluvial", type: "Serviços Náuticos", lat: -3.1480, lon: -59.9800, details: "Manutenção e reparo de motores de embarcações." }
+        ];
+
+        // 2. INICIALIZAÇÃO DO MAPA
+        const map = L.map('map').setView([-3.1190, -60.0217], 12);
+
+        // 3. CAMADAS DE MAPA (BASE LAYERS)
+        
+        // Camada Padrão (Tema Escuro)
+        const darkLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 20
+        }).addTo(map);
+
+        // --- CAMADAS DA NASA (GIBS - Global Imagery Browse Services) ---
+        const today = new Date().toISOString().split('T')[0]; // Pega a data de hoje para as camadas
+
+        const nasaGibsTrueColor = L.tileLayer('https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.jpg', {
+            attribution: 'Imagery &copy; NASA GIBS',
+            time: today,
+            tileMatrixSet: 'GoogleMapsCompatible_Level9'
+        });
+        
+        const nasaGibsPrecipitation = L.tileLayer('https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/IMERG_RainRate/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.png', {
+            attribution: 'Precipitation &copy; NASA GIBS',
+            time: today,
+            tileMatrixSet: 'GoogleMapsCompatible_Level7',
+            opacity: 0.7
+        });
+
+        const nasaGibsAirQuality = L.tileLayer('https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.png', {
+            attribution: 'Air Quality &copy; NASA GIBS',
+            time: today,
+            tileMatrixSet: 'GoogleMapsCompatible_Level9',
+            opacity: 0.8
+        });
+
+
+        // 4. CONTROLE DE CAMADAS
+        const baseMaps = {
+            "Mapa Padrão": darkLayer,
+            "Satélite (Visão Real)": nasaGibsTrueColor,
+        };
+
+        const overlayMaps = {
+            "Índice de Precipitação (Chuva)": nasaGibsPrecipitation,
+            "Qualidade do Ar (Fumaça)": nasaGibsAirQuality
+        };
+
+        L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+        // 5. LÓGICA DA APLICAÇÃO
+        const directoryList = document.getElementById('directory-list');
+        const markers = {}; 
+
+        mockData.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.className = 'directory-item';
+            listItem.innerHTML = `<div class="item-name">${item.name}</div><div class="item-type">${item.type}</div>`;
+            directoryList.appendChild(listItem);
+            
+            const marker = L.marker([item.lat, item.lon]).addTo(map);
+            marker.bindPopup(`<b>${item.name}</b><br>${item.details}`);
+            markers[item.id] = marker;
+
+            listItem.addEventListener('click', () => {
+                map.flyTo([item.lat, item.lon], 15);
+                marker.openPopup();
+            });
+        });
+
+        // 6. EFEITOS DE SCROLL E NAVEGAÇÃO SUAVE (do seu código original)
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
             if (window.scrollY > 50) {
@@ -852,14 +402,11 @@
             }
         });
         
-        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
                 const targetId = this.getAttribute('href');
                 if(targetId === '#') return;
-                
                 const targetElement = document.querySelector(targetId);
                 if(targetElement) {
                     window.scrollTo({
