@@ -94,7 +94,7 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 35px;
+            gap: 25px;
         }
         
         .nav-links a {
@@ -474,6 +474,59 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
         }
         
+        /* Company Section */
+        .company-section {
+            padding: 120px 0;
+            background: white;
+        }
+        
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .company-card {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .company-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .company-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(46, 139, 87, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .company-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .company-description {
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+        
         /* CTA Section */
         .cta-section {
             padding: 100px 0;
@@ -616,6 +669,10 @@
             .footer-content {
                 grid-template-columns: 1fr 1fr;
             }
+            
+            .company-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 768px) {
@@ -667,9 +724,11 @@
                     <li><a href="logistica.html">Logística</a></li>
                     <li><a href="comunidades-flutuantes.html">Comunidades</a></li>
                     <li><a href="astra-net.html">ASTRA-Net</a></li>
+                    <li><a href="empresa.html">Empresa</a></li>
+                    <li><a href="contato.html">Contato</a></li>
                 </ul>
                 
-                <a href="#contact" class="nav-cta">Experimente Grátis</a>
+                <a href="contato.html" class="nav-cta">Experimente Grátis</a>
                 
                 <div class="mobile-menu">
                     <i class="fas fa-bars"></i>
@@ -689,7 +748,7 @@
                 <h1>Conectando a Amazônia com Tecnologia Espacial</h1>
                 <p>Soluções inovadoras para transporte fluvial, monitoramento ambiental e logística na região amazônica através da plataforma ASTRA-Net.</p>
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn-primary">
+                    <a href="contato.html" class="btn-primary">
                         <i class="fas fa-paper-plane"></i>
                         Começar Agora
                     </a>
@@ -822,13 +881,62 @@
         </div>
     </section>
 
+    <!-- Company Section -->
+    <section class="company-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">EMPRESA</span>
+                <h2 class="section-title">Conheça a YAKAMI TECH</h2>
+                <p class="section-subtitle">Mais do que tecnologia, uma missão de transformar a Amazônia</p>
+            </div>
+            
+            <div class="company-grid">
+                <div class="company-card">
+                    <div class="company-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="company-title">Nossa Empresa</h3>
+                    <p class="company-description">Conheça nossa história, missão, visão e valores que nos guiam na transformação da Amazônia.</p>
+                    <a href="empresa.html" class="feature-link">
+                        Conhecer Empresa
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="company-card">
+                    <div class="company-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="company-title">Nossa Equipe</h3>
+                    <p class="company-description">Conheça os profissionais apaixonados por tecnologia e pela Amazônia que fazem a YAKAMI TECH.</p>
+                    <a href="equipe.html" class="feature-link">
+                        Conhecer Equipe
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="company-card">
+                    <div class="company-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="company-title">Carreiras</h3>
+                    <p class="company-description">Junte-se ao nosso time e faça parte da missão de conectar a Amazônia através da tecnologia.</p>
+                    <a href="carreiras.html" class="feature-link">
+                        Ver Vagas
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta-section" id="contact">
         <div class="container">
             <div class="cta-content">
                 <h2 class="cta-title">Pronto para Transformar a Amazônia?</h2>
                 <p class="cta-text">Junte-se a nós nesta missão de conectar comunidades, melhorar o transporte e preservar o meio ambiente através da tecnologia.</p>
-                <a href="#contact" class="btn-primary" style="background: white; color: var(--secondary);">
+                <a href="contato.html" class="btn-primary" style="background: white; color: var(--secondary);">
                     <i class="fas fa-paper-plane"></i>
                     Entrar em Contato
                 </a>
@@ -867,18 +975,18 @@
                 <div class="footer-links-container">
                     <h3 class="footer-heading">Empresa</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Sobre Nós</a></li>
-                        <li><a href="#">Equipe</a></li>
-                        <li><a href="#">Carreiras</a></li>
-                        <li><a href="#">Contato</a></li>
+                        <li><a href="empresa.html">Empresa</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                        <li><a href="equipe.html">Equipe</a></li>
+                        <li><a href="carreiras.html">Carreiras</a></li>
+                        <li><a href="contato.html">Contato</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-links-container">
                     <h3 class="footer-heading">NASA Space App</h3>
                     <ul class="footer-links">
                         <li><a href="https://www.spaceappschallenge.org/" target="_blank">Site Oficial</a></li>
-                        <li><a href="https://www.spaceappschallenge.org/challenges/" target="_blank">Desafios 2025</a></li>
                         <li><a href="astra-net.html">Nossa Solução</a></li>
                         <li><a href="https://github.com/erickthenight/yakami-website" target="_blank">GitHub</a></li>
                     </ul>
