@@ -344,6 +344,7 @@
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            text-align: center;
         }
         
         .feature-card::before {
@@ -362,15 +363,15 @@
         }
         
         .feature-icon {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             background: rgba(46, 139, 87, 0.1);
-            border-radius: 15px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 25px;
-            font-size: 1.8rem;
+            margin: 0 auto 25px;
+            font-size: 2rem;
             color: var(--primary);
         }
         
@@ -387,16 +388,23 @@
         }
         
         .feature-link {
-            color: var(--primary);
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
             text-decoration: none;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: gap 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
         }
         
         .feature-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 139, 87, 0.4);
             gap: 12px;
         }
         
@@ -441,6 +449,7 @@
         
         .astra-features {
             list-style: none;
+            margin-bottom: 40px;
         }
         
         .astra-features li {
@@ -654,10 +663,10 @@
                 </a>
                 
                 <ul class="nav-links">
-                    <li><a href="#features">Soluções</a></li>
-                    <li><a href="#astra">ASTRA-Net</a></li>
-                    <li><a href="#about">Sobre Nós</a></li>
-                    <li><a href="#contact">Contato</a></li>
+                    <li><a href="transporte-fluvial.html">Transporte Fluvial</a></li>
+                    <li><a href="logistica.html">Logística</a></li>
+                    <li><a href="comunidades-flutuantes.html">Comunidades</a></li>
+                    <li><a href="astra-net.html">ASTRA-Net</a></li>
                 </ul>
                 
                 <a href="#contact" class="nav-cta">Experimente Grátis</a>
@@ -684,9 +693,9 @@
                         <i class="fas fa-paper-plane"></i>
                         Começar Agora
                     </a>
-                    <a href="#astra" class="btn-secondary">
+                    <a href="astra-net.html" class="btn-secondary">
                         <i class="fas fa-play-circle"></i>
-                        Ver Demonstração
+                        Ver ASTRA-Net
                     </a>
                 </div>
             </div>
@@ -743,10 +752,10 @@
                     <div class="feature-icon">
                         <i class="fas fa-ship"></i>
                     </div>
-                    <h3 class="feature-title">Transporte Inteligente</h3>
-                    <p class="feature-description">Conectamos passageiros, embarcações e cooperativas para otimizar rotas, aumentar a segurança e melhorar a eficiência do transporte fluvial.</p>
-                    <a href="#" class="feature-link">
-                        Saiba mais
+                    <h3 class="feature-title">Transporte Fluvial Inteligente</h3>
+                    <p class="feature-description">Conectamos passageiros, embarcações e cooperativas para otimizar rotas, aumentar a segurança e melhorar a eficiência do transporte fluvial na Amazônia.</p>
+                    <a href="transporte-fluvial.html" class="feature-link">
+                        Conhecer Solução
                         <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -756,9 +765,9 @@
                         <i class="fas fa-box-open"></i>
                     </div>
                     <h3 class="feature-title">Logística de Encomendas</h3>
-                    <p class="feature-description">Sistema de rastreamento e gestão para transporte de cargas e encomendas entre comunidades ribeirinhas e centros urbanos.</p>
-                    <a href="#" class="feature-link">
-                        Saiba mais
+                    <p class="feature-description">Sistema completo de rastreamento e gestão para transporte de cargas e encomendas entre comunidades ribeirinhas e centros urbanos.</p>
+                    <a href="logistica.html" class="feature-link">
+                        Ver Plataforma
                         <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -768,9 +777,9 @@
                         <i class="fas fa-water"></i>
                     </div>
                     <h3 class="feature-title">Comunidades Flutuantes</h3>
-                    <p class="feature-description">Serviços de comunicação, comércio e conexão para residências e estabelecimentos em áreas flutuantes da Amazônia.</p>
-                    <a href="#" class="feature-link">
-                        Saiba mais
+                    <p class="feature-description">Serviços digitais integrados para residências e estabelecimentos em áreas flutuantes, incluindo comércio, saúde e educação.</p>
+                    <a href="comunidades-flutuantes.html" class="feature-link">
+                        Explorar Soluções
                         <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -794,10 +803,16 @@
                         <li><i class="fas fa-check-circle"></i> Dados abertos para pesquisa e desenvolvimento</li>
                     </ul>
                     
-                    <a href="astra-demo.html" class="btn-secondary">
-                    <i class="fas fa-play-circle"></i>
-                    Ver Demonstração
-                    </a>
+                    <div class="hero-buttons">
+                        <a href="astra-net.html" class="btn-primary">
+                            <i class="fas fa-rocket"></i>
+                            Conhecer ASTRA-Net
+                        </a>
+                        <a href="https://github.com/erickthenight/yakami-website" class="btn-secondary" target="_blank">
+                            <i class="fab fa-github"></i>
+                            Ver Código no GitHub
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="astra-image">
@@ -840,12 +855,12 @@
                 </div>
                 
                 <div class="footer-links-container">
-                    <h3 class="footer-heading">Soluções</h3>
+                    <h3 class="footer-heading">Nossas Soluções</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Transporte Fluvial</a></li>
-                        <li><a href="#">Logística</a></li>
-                        <li><a href="#">Comunidades Flutuantes</a></li>
-                        <li><a href="#">ASTRA-Net</a></li>
+                        <li><a href="transporte-fluvial.html">Transporte Fluvial</a></li>
+                        <li><a href="logistica.html">Logística</a></li>
+                        <li><a href="comunidades-flutuantes.html">Comunidades Flutuantes</a></li>
+                        <li><a href="astra-net.html">ASTRA-Net</a></li>
                     </ul>
                 </div>
                 
@@ -860,11 +875,12 @@
                 </div>
                 
                 <div class="footer-links-container">
-                    <h3 class="footer-heading">Legal</h3>
+                    <h3 class="footer-heading">NASA Space App</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Termos de Uso</a></li>
-                        <li><a href="#">Política de Privacidade</a></li>
-                        <li><a href="#">Cookies</a></li>
+                        <li><a href="https://www.spaceappschallenge.org/" target="_blank">Site Oficial</a></li>
+                        <li><a href="https://www.spaceappschallenge.org/challenges/" target="_blank">Desafios 2025</a></li>
+                        <li><a href="astra-net.html">Nossa Solução</a></li>
+                        <li><a href="https://github.com/erickthenight/yakami-website" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
             </div>
@@ -906,7 +922,24 @@
         
         // Mobile menu toggle
         document.querySelector('.mobile-menu').addEventListener('click', function() {
-            alert('Menu mobile será implementado em breve!');
+            const navLinks = document.querySelector('.nav-links');
+            const navCta = document.querySelector('.nav-cta');
+            
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.display = 'none';
+                navCta.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+                navCta.style.display = 'block';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.background = 'white';
+                navLinks.style.padding = '20px';
+                navLinks.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            }
         });
     </script>
 </body>
