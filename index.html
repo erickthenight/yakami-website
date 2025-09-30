@@ -1,42 +1,561 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YAKAMI TECH - Conectando a Amazônia</title>
-    <link rel="stylesheet" href="style.css">
+    <title>YAKAMI TECH - ASTRA-Net | NASA Space App 2025</title>
+    <style>
+        :root {
+            --primary: #0066CC;
+            --secondary: #00A859;
+            --dark: #003366;
+            --light: #F0F8FF;
+            --accent: #FF6B00;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--accent);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 51, 102, 0.8), rgba(0, 102, 204, 0.8)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4);
+        }
+        
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark);
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #666;
+        }
+        
+        /* About */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* ASTRA-Net */
+        .astra-features {
+            background: var(--dark);
+            color: white;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-item {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        /* Contact */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background: var(--dark);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #ccc;
+        }
+        
+        /* NASA Badge */
+        .nasa-badge {
+            background: #0B3D91;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <h1>YAKAMI TECH</h1>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <div class="logo">YT</div>
+                    <h1>YAKAMI TECH</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#services">Serviços</a></li>
+                    <li><a href="#astra">ASTRA-Net</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <section id="hero">
-            <h2>Conectando a Amazônia, um rio de cada vez.</h2>
-            <p>A plataforma digital que moderniza o transporte de passageiros e encomendas nos rios da Amazônia.</p>
-        </section>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="nasa-badge">
+                <span>NASA SPACE APP 2025</span>
+            </div>
+            <h1>Conectando a Amazônia Fluvial</h1>
+            <p>Soluções inovadoras para transporte, logística e monitoramento ambiental na região amazônica</p>
+            <a href="#contact" class="cta-button">Participe do Projeto</a>
+        </div>
+    </section>
 
-        <section id="problema">
-            <h3>O Desafio</h3>
-            <p>A informalidade no transporte fluvial gera incertezas e insegurança para milhares de pessoas que dependem dos rios para viajar e trabalhar.</p>
-        </section>
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre a YAKAMI TECH</h2>
+                <p>Uma startup focada em desenvolver soluções tecnológicas para os desafios únicos da região amazônica</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Missão e Visão</h3>
+                    <p>A YAKAMI TECH nasceu da necessidade de conectar comunidades ribeirinhas, transportadores fluviais e turistas através de tecnologia acessível e inovadora.</p>
+                    <p>Nossa visão é transformar o transporte e logística na Amazônia, tornando-os mais seguros, eficientes e sustentáveis.</p>
+                    <p>Para o NASA Space App 2025, estamos focados no desafio LEO (Low Earth Orbit) com nossa plataforma ASTRA-Net, utilizando tecnologia espacial para monitoramento ambiental e apoio à navegação fluvial.</p>
+                </div>
+                <div class="about-image">
+                    <!-- Imagem ilustrativa da Amazônia -->
+                    <img src="https://images.unsplash.com/photo-1516627145497-ae69578cfc42?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Transporte fluvial na Amazônia">
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section id="solucao">
-            <h3>Nossa Solução</h3>
-            <p>Com tecnologia de rastreamento e uma plataforma unificada, trazemos previsibilidade, segurança e novas oportunidades para toda a comunidade ribeirinha.</p>
-        </section>
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nossos Serviços</h2>
+                <p>Soluções desenvolvidas especificamente para a realidade amazônica</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🚤</div>
+                    <h3>Plataforma de Transporte Fluvial</h3>
+                    <p>Conecta passageiros, embarcações e cooperativas de transporte para otimizar rotas e aumentar a segurança nas viagens.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📦</div>
+                    <h3>Logística de Encomendas</h3>
+                    <p>Sistema de rastreamento e gestão para transporte de cargas e encomendas entre comunidades ribeirinhas e Manaus.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏠</div>
+                    <h3>Conexão para Flutuantes</h3>
+                    <p>Serviços de comunicação e comércio para residências e estabelecimentos em áreas flutuantes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <<form action="https://formspree.io/f/SEU_CODIGO_AQUI" method="POST">
-    <label for="email-input">Seu melhor e-mail:</label>
-    <input id="email-input" type="email" name="email" placeholder="seuemail@exemplo.com" required>
-    <button type="submit">QUERO FAZER PARTE!</button>
-</form>
+    <!-- ASTRA-Net Section -->
+    <section id="astra" class="astra-features">
+        <div class="container">
+            <div class="section-title">
+                <h2>ASTRA-Net</h2>
+                <p>Amazonia Sistemas de Rastreamento e Monitoramento Ambiental</p>
+            </div>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">🛰️</div>
+                    <h3>Monitoramento por Satélite</h3>
+                    <p>Utiliza dados de órbitas baixas (LEO) para monitorar condições fluviais e ambientais em tempo real.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📡</div>
+                    <h3>Rastreamento de Embarcações</h3>
+                    <p>Sistema de localização e comunicação para embarcações mesmo em áreas com pouca cobertura.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌊</div>
+                    <h3>Alertas Hidrometeorológicos</h3>
+                    <p>Previsão de condições fluviais e alertas antecipados para comunidades ribeirinhas.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Monitoramento Ambiental</h3>
+                    <p>Acompanhamento de desmatamento, qualidade da água e mudanças no ecossistema amazônico.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    </main>
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Entre em Contato</h2>
+                <p>Junte-se a nós nesta missão de transformar o transporte e monitoramento na Amazônia</p>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm" action="https://formspree.io/f/your-form-id" method="POST">
+                    <div class="form-group">
+                        <label for="name">Nome Completo</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="interest">Interesse</label>
+                        <select id="interest" name="interest">
+                            <option value="parceria">Parceria</option>
+                            <option value="investimento">Investimento</option>
+                            <option value="usuario">Futuro Usuário</option>
+                            <option value="imprensa">Imprensa</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 YAKAMI TECH. Desenvolvido no NASA Space Apps.</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>YAKAMI TECH</h3>
+                    <p>Inovação para a Amazônia</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="#services">Serviços</a></li>
+                        <li><a href="#astra">ASTRA-Net</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>NASA Space App</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://www.spaceappschallenge.org/" target="_blank">Site Oficial</a></li>
+                        <li><a href="https://www.spaceappschallenge.org/challenges/" target="_blank">Desafios 2025</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 YAKAMI TECH - Todos os direitos reservados | Desenvolvido para NASA Space App Challenge 2025</p>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // Form submission handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Here you would typically send the data to a server
+            // For now, we'll just show an alert
+            alert('Obrigado pelo seu interesse! Entraremos em contato em breve.');
+            this.reset();
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
