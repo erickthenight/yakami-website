@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transporte Fluvial | YAKAMI TECH - Conectando a Amazônia</title>
+    <title>ASTRA-Net | YAKAMI TECH - Monitoramento por Satélite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2E8B57;
-            --primary-dark: #1E6B47;
+            --primary: #4361EE;
+            --primary-dark: #3A56D4;
             --secondary: #FF6B35;
-            --dark: #1A3C27;
+            --dark: #1A1F36;
             --light: #F8FFF8;
-            --accent: #00A896;
+            --accent: #4CC9F0;
             --text: #2D3748;
             --text-light: #718096;
         }
@@ -25,7 +25,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0a2e3a, #1a4a5a, #2c5364);
+            background: linear-gradient(135deg, #1a1f36, #2d325c, #4361ee);
             color: white;
             line-height: 1.7;
             min-height: 100vh;
@@ -40,7 +40,7 @@
         
         /* Header */
         header {
-            background: rgba(11, 23, 35, 0.9);
+            background: rgba(26, 31, 54, 0.9);
             backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
@@ -144,22 +144,36 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(10, 46, 58, 0.8), rgba(26, 74, 90, 0.9)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background: linear-gradient(rgba(26, 31, 54, 0.8), rgba(45, 50, 92, 0.9)), url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
             z-index: -1;
+        }
+        
+        .nasa-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(11, 61, 145, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .service-badge {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: rgba(255, 107, 53, 0.9);
-            color: white;
+            background: rgba(76, 201, 240, 0.9);
+            color: var(--dark);
             padding: 10px 20px;
             border-radius: 30px;
             font-weight: 600;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
@@ -227,6 +241,26 @@
             border-color: rgba(255, 255, 255, 0.5);
         }
         
+        .github-btn {
+            background: #333;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .github-btn:hover {
+            background: #444;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+        
         /* Service Overview */
         .service-overview {
             padding: 100px 0;
@@ -283,6 +317,46 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
+        .floating-element {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .element-1 {
+            top: -20px;
+            right: 30px;
+            animation-delay: 0s;
+        }
+        
+        .element-2 {
+            bottom: 20px;
+            left: -10px;
+            animation-delay: 2s;
+        }
+        
+        .element-3 {
+            bottom: -10px;
+            right: 10px;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
         /* Solutions Grid */
         .solutions-grid {
             padding: 100px 0;
@@ -296,7 +370,7 @@
         
         .section-tag {
             display: inline-block;
-            background: rgba(0, 168, 150, 0.2);
+            background: rgba(76, 201, 240, 0.2);
             color: var(--accent);
             padding: 8px 20px;
             border-radius: 30px;
@@ -351,7 +425,7 @@
         .solution-icon {
             width: 80px;
             height: 80px;
-            background: rgba(0, 168, 150, 0.2);
+            background: rgba(76, 201, 240, 0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -372,37 +446,60 @@
             margin-bottom: 20px;
         }
         
-        /* Benefits Section */
-        .benefits-section {
+        /* Repository Section */
+        .repository-section {
             padding: 100px 0;
+            text-align: center;
             background: rgba(255, 255, 255, 0.02);
         }
         
-        .benefits-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+        .repo-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 800px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
         
-        .benefit-item {
-            text-align: center;
-            padding: 40px 20px;
+        .repo-icon {
+            font-size: 4rem;
+            color: var(--accent);
+            margin-bottom: 30px;
         }
         
-        .benefit-icon {
-            font-size: 3rem;
-            color: var(--secondary);
+        .repo-card h2 {
+            font-size: 2.5rem;
             margin-bottom: 20px;
         }
         
-        .benefit-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 15px;
+        .repo-card p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
         }
         
-        .benefit-description {
-            opacity: 0.9;
+        .repo-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .repo-stat {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
+        
+        .repo-stat i {
+            color: var(--secondary);
         }
         
         /* CTA Section */
@@ -431,7 +528,7 @@
         
         /* Footer */
         footer {
-            background: rgba(11, 23, 35, 0.9);
+            background: rgba(26, 31, 54, 0.9);
             padding: 80px 0 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -542,6 +639,10 @@
             .nav-links {
                 display: none;
             }
+            
+            .floating-element {
+                display: none;
+            }
         }
         
         @media (max-width: 768px) {
@@ -570,10 +671,15 @@
                 align-items: center;
             }
             
-            .btn-primary, .btn-secondary {
+            .btn-primary, .btn-secondary, .github-btn {
                 width: 100%;
                 max-width: 300px;
                 justify-content: center;
+            }
+            
+            .repo-stats {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
@@ -607,20 +713,24 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <div class="service-badge">
-                <i class="fas fa-ship"></i>
-                <span>SERVIÇO YAKAMI TECH</span>
+            <div class="nasa-badge">
+                <i class="fas fa-rocket"></i>
+                <span>NASA SPACE APP CHALLENGE 2025 - DESAFIO LEO</span>
             </div>
-            <h1>Transporte Fluvial Inteligente</h1>
-            <p>Conectando turistas, lanchas expressas e embarcações turísticas na Amazônia através de tecnologia avançada</p>
+            <div class="service-badge">
+                <i class="fas fa-satellite"></i>
+                <span>PLATAFORMA YAKAMI TECH</span>
+            </div>
+            <h1>ASTRA-Net Platform</h1>
+            <p>Sistema de monitoramento e rastreamento por satélite para a Amazônia - Tecnologia de Órbita Baixa (LEO)</p>
             <div class="hero-buttons">
-                <a href="#solutions" class="btn-primary">
-                    <i class="fas fa-map-marked-alt"></i>
-                    Ver Soluções
+                <a href="https://github.com/erickthenight/yakami-website" class="github-btn" target="_blank">
+                    <i class="fab fa-github"></i>
+                    Acessar Código no GitHub
                 </a>
-                <a href="#cta" class="btn-secondary">
-                    <i class="fas fa-calendar-check"></i>
-                    Agendar Demonstração
+                <a href="#solutions" class="btn-secondary">
+                    <i class="fas fa-feather-alt"></i>
+                    Ver Funcionalidades
                 </a>
             </div>
         </div>
@@ -631,25 +741,40 @@
         <div class="container">
             <div class="overview-container">
                 <div class="overview-text">
-                    <h2>Revolucionando o Transporte na Amazônia</h2>
-                    <p>Nosso sistema integra todas as embarcações turísticas, lanchas expressas e serviços de transporte fluvial em uma única plataforma inteligente, oferecendo segurança, eficiência e comodidade para passageiros e operadores.</p>
+                    <h2>Monitoramento por Satélite em Tempo Real</h2>
+                    <p>O ASTRA-Net utiliza tecnologia de satélites em órbitas baixas (LEO) para fornecer dados precisos sobre condições fluviais, localização de embarcações e monitoramento ambiental na região amazônica, mesmo nas áreas mais remotas.</p>
                     
                     <ul class="service-features">
-                        <li><i class="fas fa-check-circle"></i> Rastreamento em tempo real de embarcações</li>
-                        <li><i class="fas fa-check-circle"></i> Reservas online integradas</li>
-                        <li><i class="fas fa-check-circle"></i> Sistema de pagamento digital seguro</li>
-                        <li><i class="fas fa-check-circle"></i> Alertas meteorológicos e de navegabilidade</li>
-                        <li><i class="fas fa-check-circle"></i> Otimização de rotas e horários</li>
+                        <li><i class="fas fa-check-circle"></i> Dados de satélite atualizados a cada 2 horas</li>
+                        <li><i class="fas fa-check-circle"></i> Rastreamento preciso de embarcações em tempo real</li>
+                        <li><i class="fas fa-check-circle"></i> Monitoramento de condições fluviais e meteorológicas</li>
+                        <li><i class="fas fa-check-circle"></i> Alertas de desmatamento e queimadas</li>
+                        <li><i class="fas fa-check-circle"></i> Sistema de alertas antecipados para comunidades</li>
                     </ul>
                     
-                    <a href="#cta" class="btn-primary">
-                        <i class="fas fa-rocket"></i>
-                        Começar a Usar
-                    </a>
+                    <div class="hero-buttons">
+                        <a href="https://github.com/erickthenight/yakami-website" class="github-btn" target="_blank">
+                            <i class="fab fa-github"></i>
+                            Ver Código Fonte
+                        </a>
+                        <a href="#cta" class="btn-primary">
+                            <i class="fas fa-rocket"></i>
+                            Saber Mais
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="service-visual">
-                    <img src="https://images.unsplash.com/photo-1516627145497-ae69578cfc42?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Transporte Fluvial na Amazônia" class="service-image">
+                    <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="ASTRA-Net Dashboard" class="service-image">
+                    <div class="floating-element element-1">
+                        <i class="fas fa-satellite"></i>
+                    </div>
+                    <div class="floating-element element-2">
+                        <i class="fas fa-map"></i>
+                    </div>
+                    <div class="floating-element element-3">
+                        <i class="fas fa-ship"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -659,88 +784,77 @@
     <section class="solutions-grid" id="solutions">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">SOLUÇÕES</span>
-                <h2 class="section-title">Nossas Plataformas Especializadas</h2>
-                <p class="section-subtitle">Tecnologia desenvolvida para cada necessidade do transporte fluvial amazônico</p>
+                <span class="section-tag">TECNOLOGIA ESPACIAL</span>
+                <h2 class="section-title">Funcionalidades da Plataforma</h2>
+                <p class="section-subtitle">Desenvolvida com tecnologia de ponta para os desafios únicos da Amazônia</p>
             </div>
             
             <div class="solutions-container">
                 <div class="solution-card">
                     <div class="solution-icon">
-                        <i class="fas fa-umbrella-beach"></i>
+                        <i class="fas fa-satellite-dish"></i>
                     </div>
-                    <h3 class="solution-title">Turismo Fluvial</h3>
-                    <p class="solution-description">Plataforma completa para operadoras de turismo, com reservas, roteiros personalizados e experiência digital para turistas.</p>
+                    <h3 class="solution-title">Integração com Satélites LEO</h3>
+                    <p class="solution-description">Conexão direta com satélites de órbita baixa para coleta de dados em tempo real, mesmo em áreas remotas sem cobertura terrestre.</p>
                     <a href="#" class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">
-                        Saiba Mais
+                        Detalhes Técnicos
                     </a>
                 </div>
                 
                 <div class="solution-card">
                     <div class="solution-icon">
-                        <i class="fas fa-tachometer-alt"></i>
+                        <i class="fas fa-ship"></i>
                     </div>
-                    <h3 class="solution-title">Lanchas Expressas</h3>
-                    <p class="solution-description">Sistema de gestão para lanchas rápidas, com controle de capacidade, horários e integração com terminais.</p>
+                    <h3 class="solution-title">Rastreamento de Embarcações</h3>
+                    <p class="solution-description">Monitoramento preciso da localização, velocidade e rotas de barcos e embarcações fluviais em toda a região.</p>
                     <a href="#" class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">
-                        Saiba Mais
+                        Ver Demonstração
                     </a>
                 </div>
                 
                 <div class="solution-card">
                     <div class="solution-icon">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-tree"></i>
                     </div>
-                    <h3 class="solution-title">Transporte Coletivo</h3>
-                    <p class="solution-description">Solução para embarcações de transporte coletivo, com gestão de passageiros e rotas otimizadas.</p>
+                    <h3 class="solution-title">Vigilância Ambiental</h3>
+                    <p class="solution-description">Detecção de desmatamento, queimadas e mudanças na cobertura vegetal através de imagens de satélite de alta resolução.</p>
                     <a href="#" class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">
-                        Saiba Mais
+                        Ver Relatórios
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Benefits Section -->
-    <section class="benefits-section">
+    <!-- Repository Section -->
+    <section class="repository-section">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Vantagens para Todos</h2>
-                <p class="section-subtitle">Benefícios para passageiros, operadores e comunidades</p>
-            </div>
-            
-            <div class="benefits-container">
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-shield-alt"></i>
+            <div class="repo-card">
+                <div class="repo-icon">
+                    <i class="fab fa-github"></i>
+                </div>
+                <h2>Código Fonte Disponível</h2>
+                <p>Todo o desenvolvimento da plataforma ASTRA-Net é open source e está disponível publicamente no GitHub. Contribua com o projeto ou use como base para suas próprias soluções de monitoramento.</p>
+                
+                <div class="repo-stats">
+                    <div class="repo-stat">
+                        <i class="fas fa-code-branch"></i>
+                        <span>Branch: main</span>
                     </div>
-                    <h3 class="benefit-title">Segurança</h3>
-                    <p class="benefit-description">Monitoramento 24/7 e alertas de segurança para todas as embarcações</p>
+                    <div class="repo-stat">
+                        <i class="fas fa-star"></i>
+                        <span>Estrelas: 15+</span>
+                    </div>
+                    <div class="repo-stat">
+                        <i class="fas fa-code"></i>
+                        <span>JavaScript/Python</span>
+                    </div>
                 </div>
                 
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3 class="benefit-title">Eficiência</h3>
-                    <p class="benefit-description">Otimização de rotas e horários, reduzindo tempo e custos</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3 class="benefit-title">Crescimento</h3>
-                    <p class="benefit-description">Aumento de receita para operadores através de maior ocupação</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3 class="benefit-title">Conveniência</h3>
-                    <p class="benefit-description">Reservas e pagamentos via aplicativo para passageiros</p>
-                </div>
+                <a href="https://github.com/erickthenight/yakami-website" class="github-btn" style="padding: 15px 40px; font-size: 1.2rem;" target="_blank">
+                    <i class="fab fa-github"></i>
+                    Acessar Repositório no GitHub
+                </a>
             </div>
         </div>
     </section>
@@ -749,8 +863,8 @@
     <section class="cta-section" id="cta">
         <div class="container">
             <div class="cta-content">
-                <h2 class="cta-title">Pronto para Transformar o Transporte Fluvial?</h2>
-                <p class="cta-text">Junte-se à rede de operadores que já estão revolucionando o transporte na Amazônia</p>
+                <h2 class="cta-title">Pronto para Explorar o ASTRA-Net?</h2>
+                <p class="cta-text">Junte-se a nós nesta missão de monitorar e proteger a Amazônia através da tecnologia espacial</p>
                 <a href="#contact" class="btn-primary" style="background: white; color: var(--secondary);">
                     <i class="fas fa-paper-plane"></i>
                     Entrar em Contato
@@ -800,8 +914,8 @@
                 <div class="footer-links-container">
                     <h3 class="footer-heading">Suporte</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Central de Ajuda</a></li>
-                        <li><a href="#">Documentação</a></li>
+                        <li><a href="#">Documentação Técnica</a></li>
+                        <li><a href="#">API ASTRA-Net</a></li>
                         <li><a href="#">Status do Sistema</a></li>
                         <li><a href="#">Fale Conosco</a></li>
                     </ul>
@@ -819,9 +933,9 @@
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
             if (window.scrollY > 50) {
-                header.style.background = 'rgba(11, 23, 35, 0.95)';
+                header.style.background = 'rgba(26, 31, 54, 0.95)';
             } else {
-                header.style.background = 'rgba(11, 23, 35, 0.9)';
+                header.style.background = 'rgba(26, 31, 54, 0.9)';
             }
         });
         

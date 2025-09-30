@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transporte Fluvial | YAKAMI TECH - Conectando a Amazônia</title>
+    <title>Logística | YAKAMI TECH - Conectando a Amazônia</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2E8B57;
-            --primary-dark: #1E6B47;
-            --secondary: #FF6B35;
-            --dark: #1A3C27;
+            --primary: #F72585;
+            --primary-dark: #B5179E;
+            --secondary: #4CC9F0;
+            --dark: #2B193D;
             --light: #F8FFF8;
-            --accent: #00A896;
+            --accent: #7209B7;
             --text: #2D3748;
             --text-light: #718096;
         }
@@ -25,7 +25,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0a2e3a, #1a4a5a, #2c5364);
+            background: linear-gradient(135deg, #2b193d, #4a194d, #7209b7);
             color: white;
             line-height: 1.7;
             min-height: 100vh;
@@ -40,7 +40,7 @@
         
         /* Header */
         header {
-            background: rgba(11, 23, 35, 0.9);
+            background: rgba(43, 25, 61, 0.9);
             backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
@@ -84,7 +84,7 @@
         }
         
         .logo-text span {
-            color: var(--accent);
+            color: var(--secondary);
         }
         
         .nav-menu {
@@ -144,7 +144,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(10, 46, 58, 0.8), rgba(26, 74, 90, 0.9)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background: linear-gradient(rgba(43, 25, 61, 0.8), rgba(74, 25, 77, 0.9)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
             z-index: -1;
@@ -154,8 +154,8 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: rgba(255, 107, 53, 0.9);
-            color: white;
+            background: rgba(76, 201, 240, 0.9);
+            color: var(--dark);
             padding: 10px 20px;
             border-radius: 30px;
             font-weight: 600;
@@ -189,7 +189,7 @@
         
         .btn-primary {
             background: var(--secondary);
-            color: white;
+            color: var(--dark);
             padding: 15px 35px;
             border-radius: 30px;
             text-decoration: none;
@@ -199,12 +199,12 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
+            box-shadow: 0 5px 20px rgba(76, 201, 240, 0.4);
         }
         
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5);
+            box-shadow: 0 8px 25px rgba(76, 201, 240, 0.5);
         }
         
         .btn-secondary {
@@ -243,7 +243,7 @@
         .overview-text h2 {
             font-size: 2.5rem;
             margin-bottom: 20px;
-            color: var(--accent);
+            color: var(--secondary);
         }
         
         .overview-text p {
@@ -296,8 +296,8 @@
         
         .section-tag {
             display: inline-block;
-            background: rgba(0, 168, 150, 0.2);
-            color: var(--accent);
+            background: rgba(76, 201, 240, 0.2);
+            color: var(--secondary);
             padding: 8px 20px;
             border-radius: 30px;
             font-weight: 600;
@@ -340,7 +340,7 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: var(--accent);
+            background: var(--secondary);
         }
         
         .solution-card:hover {
@@ -351,14 +351,14 @@
         .solution-icon {
             width: 80px;
             height: 80px;
-            background: rgba(0, 168, 150, 0.2);
+            background: rgba(76, 201, 240, 0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 25px;
             font-size: 2rem;
-            color: var(--accent);
+            color: var(--secondary);
         }
         
         .solution-title {
@@ -409,7 +409,7 @@
         .cta-section {
             padding: 100px 0;
             text-align: center;
-            background: linear-gradient(135deg, var(--secondary), #FF8C42);
+            background: linear-gradient(135deg, var(--secondary), #72DDF7);
         }
         
         .cta-content {
@@ -421,17 +421,19 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 20px;
+            color: var(--dark);
         }
         
         .cta-text {
             font-size: 1.2rem;
             margin-bottom: 40px;
             opacity: 0.9;
+            color: var(--dark);
         }
         
         /* Footer */
         footer {
-            background: rgba(11, 23, 35, 0.9);
+            background: rgba(43, 25, 61, 0.9);
             padding: 80px 0 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -488,7 +490,7 @@
         }
         
         .social-links a:hover {
-            background: var(--accent);
+            background: var(--secondary);
             transform: translateY(-3px);
         }
         
@@ -608,14 +610,14 @@
     <section class="hero">
         <div class="container">
             <div class="service-badge">
-                <i class="fas fa-ship"></i>
+                <i class="fas fa-box-open"></i>
                 <span>SERVIÇO YAKAMI TECH</span>
             </div>
-            <h1>Transporte Fluvial Inteligente</h1>
-            <p>Conectando turistas, lanchas expressas e embarcações turísticas na Amazônia através de tecnologia avançada</p>
+            <h1>Logística Inteligente</h1>
+            <p>Sistema completo para transporte de encomendas, cargas e suprimentos na região amazônica</p>
             <div class="hero-buttons">
                 <a href="#solutions" class="btn-primary">
-                    <i class="fas fa-map-marked-alt"></i>
+                    <i class="fas fa-shipping-fast"></i>
                     Ver Soluções
                 </a>
                 <a href="#cta" class="btn-secondary">
@@ -631,15 +633,15 @@
         <div class="container">
             <div class="overview-container">
                 <div class="overview-text">
-                    <h2>Revolucionando o Transporte na Amazônia</h2>
-                    <p>Nosso sistema integra todas as embarcações turísticas, lanchas expressas e serviços de transporte fluvial em uma única plataforma inteligente, oferecendo segurança, eficiência e comodidade para passageiros e operadores.</p>
+                    <h2>Revolucionando a Logística Amazônica</h2>
+                    <p>Nossa plataforma integra todos os aspectos da logística na região amazônica, desde o transporte de encomendas até o abastecimento de comunidades remotas, com eficiência e rastreabilidade total.</p>
                     
                     <ul class="service-features">
-                        <li><i class="fas fa-check-circle"></i> Rastreamento em tempo real de embarcações</li>
-                        <li><i class="fas fa-check-circle"></i> Reservas online integradas</li>
-                        <li><i class="fas fa-check-circle"></i> Sistema de pagamento digital seguro</li>
-                        <li><i class="fas fa-check-circle"></i> Alertas meteorológicos e de navegabilidade</li>
-                        <li><i class="fas fa-check-circle"></i> Otimização de rotas e horários</li>
+                        <li><i class="fas fa-check-circle"></i> Rastreamento em tempo real de cargas</li>
+                        <li><i class="fas fa-check-circle"></i> Gestão inteligente de rotas</li>
+                        <li><i class="fas fa-check-circle"></i> Sistema de entregas otimizado</li>
+                        <li><i class="fas fa-check-circle"></i> Integração com comércio local</li>
+                        <li><i class="fas fa-check-circle"></i> Pagamentos digitais seguros</li>
                     </ul>
                     
                     <a href="#cta" class="btn-primary">
@@ -649,7 +651,7 @@
                 </div>
                 
                 <div class="service-visual">
-                    <img src="https://images.unsplash.com/photo-1516627145497-ae69578cfc42?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Transporte Fluvial na Amazônia" class="service-image">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Logística na Amazônia" class="service-image">
                 </div>
             </div>
         </div>
@@ -660,17 +662,17 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">SOLUÇÕES</span>
-                <h2 class="section-title">Nossas Plataformas Especializadas</h2>
-                <p class="section-subtitle">Tecnologia desenvolvida para cada necessidade do transporte fluvial amazônico</p>
+                <h2 class="section-title">Nossas Plataformas de Logística</h2>
+                <p class="section-subtitle">Tecnologia desenvolvida para cada necessidade logística da região amazônica</p>
             </div>
             
             <div class="solutions-container">
                 <div class="solution-card">
                     <div class="solution-icon">
-                        <i class="fas fa-umbrella-beach"></i>
+                        <i class="fas fa-shipping-fast"></i>
                     </div>
-                    <h3 class="solution-title">Turismo Fluvial</h3>
-                    <p class="solution-description">Plataforma completa para operadoras de turismo, com reservas, roteiros personalizados e experiência digital para turistas.</p>
+                    <h3 class="solution-title">Yakami Encomendas</h3>
+                    <p class="solution-description">Sistema completo para transporte de encomendas e pequenas cargas entre comunidades e centros urbanos.</p>
                     <a href="#" class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">
                         Saiba Mais
                     </a>
@@ -678,10 +680,10 @@
                 
                 <div class="solution-card">
                     <div class="solution-icon">
-                        <i class="fas fa-tachometer-alt"></i>
+                        <i class="fas fa-truck-loading"></i>
                     </div>
-                    <h3 class="solution-title">Lanchas Expressas</h3>
-                    <p class="solution-description">Sistema de gestão para lanchas rápidas, com controle de capacidade, horários e integração com terminais.</p>
+                    <h3 class="solution-title">Logística de Cargas</h3>
+                    <p class="solution-description">Gestão especializada para transporte de cargas maiores e suprimentos para comércios locais.</p>
                     <a href="#" class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">
                         Saiba Mais
                     </a>
@@ -689,10 +691,10 @@
                 
                 <div class="solution-card">
                     <div class="solution-icon">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-warehouse"></i>
                     </div>
-                    <h3 class="solution-title">Transporte Coletivo</h3>
-                    <p class="solution-description">Solução para embarcações de transporte coletivo, com gestão de passageiros e rotas otimizadas.</p>
+                    <h3 class="solution-title">Centros de Distribuição</h3>
+                    <p class="solution-description">Rede de centros logísticos estrategicamente localizados para otimização das entregas.</p>
                     <a href="#" class="btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">
                         Saiba Mais
                     </a>
@@ -705,41 +707,41 @@
     <section class="benefits-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Vantagens para Todos</h2>
-                <p class="section-subtitle">Benefícios para passageiros, operadores e comunidades</p>
+                <h2 class="section-title">Vantagens da Nossa Logística</h2>
+                <p class="section-subtitle">Benefícios para comerciantes, comunidades e clientes finais</p>
             </div>
             
             <div class="benefits-container">
                 <div class="benefit-item">
                     <div class="benefit-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="benefit-title">Segurança</h3>
-                    <p class="benefit-description">Monitoramento 24/7 e alertas de segurança para todas as embarcações</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <h3 class="benefit-title">Eficiência</h3>
-                    <p class="benefit-description">Otimização de rotas e horários, reduzindo tempo e custos</p>
+                    <h3 class="benefit-title">Agilidade</h3>
+                    <p class="benefit-description">Entregas mais rápidas através de rotas otimizadas e gestão eficiente</p>
                 </div>
                 
                 <div class="benefit-item">
                     <div class="benefit-icon">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-search-location"></i>
                     </div>
-                    <h3 class="benefit-title">Crescimento</h3>
-                    <p class="benefit-description">Aumento de receita para operadores através de maior ocupação</p>
+                    <h3 class="benefit-title">Rastreabilidade</h3>
+                    <p class="benefit-description">Acompanhamento em tempo real de todas as encomendas e cargas</p>
                 </div>
                 
                 <div class="benefit-item">
                     <div class="benefit-icon">
-                        <i class="fas fa-mobile-alt"></i>
+                        <i class="fas fa-hand-holding-usd"></i>
                     </div>
-                    <h3 class="benefit-title">Conveniência</h3>
-                    <p class="benefit-description">Reservas e pagamentos via aplicativo para passageiros</p>
+                    <h3 class="benefit-title">Economia</h3>
+                    <p class="benefit-description">Redução de custos logísticos através de otimização e escala</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </div>
+                    <h3 class="benefit-title">Alcance</h3>
+                    <p class="benefit-description">Cobertura ampliada para comunidades remotas antes inacessíveis</p>
                 </div>
             </div>
         </div>
@@ -749,9 +751,9 @@
     <section class="cta-section" id="cta">
         <div class="container">
             <div class="cta-content">
-                <h2 class="cta-title">Pronto para Transformar o Transporte Fluvial?</h2>
-                <p class="cta-text">Junte-se à rede de operadores que já estão revolucionando o transporte na Amazônia</p>
-                <a href="#contact" class="btn-primary" style="background: white; color: var(--secondary);">
+                <h2 class="cta-title">Pronto para Otimizar sua Logística?</h2>
+                <p class="cta-text">Junte-se à rede de empresas que já estão transformando a logística na Amazônia</p>
+                <a href="#contact" class="btn-primary" style="background: var(--dark); color: var(--secondary);">
                     <i class="fas fa-paper-plane"></i>
                     Entrar em Contato
                 </a>
@@ -819,9 +821,9 @@
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
             if (window.scrollY > 50) {
-                header.style.background = 'rgba(11, 23, 35, 0.95)';
+                header.style.background = 'rgba(43, 25, 61, 0.95)';
             } else {
-                header.style.background = 'rgba(11, 23, 35, 0.9)';
+                header.style.background = 'rgba(43, 25, 61, 0.9)';
             }
         });
         
