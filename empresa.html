@@ -3,101 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nossa Jornada - YAKAMI TECH</title>
+    <title>Nossa História e Missão - YAKAMI TECH</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
+        html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; }
-         .timeline-item::before {
-            content: '';
+        .hero-bg-company {
+            /* [Imagem de uma antena de satélite com a floresta amazônica ao fundo] */
+            background-image: url('https://images.unsplash.com/photo-1581093450021-4a7360aa9a2f?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .timeline-item { position: relative; padding-left: 3rem; border-left: 2px solid #4A5568; }
+        .timeline-item:last-child { border-left: 2px solid transparent; }
+        .timeline-marker {
             position: absolute;
-            left: -30px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
+            left: -0.7rem;
+            top: 0;
+            width: 1.25rem;
+            height: 1.25rem;
             background-color: #F97316;
-            border: 3px solid #4B5563;
+            border-radius: 9999px;
+            border: 4px solid #1F2937;
+        }
+        .lang-btn {
+            cursor: pointer;
+            padding: 2px 5px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+        }
+        .lang-btn.active {
+            border-color: #F97316;
+            background-color: rgba(249, 115, 22, 0.1);
         }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
 
     <!-- Header -->
-    <header class="bg-gray-800 shadow-md p-4 sticky top-0 z-10">
+    <header class="sticky top-0 z-20 p-4 bg-gray-900 bg-opacity-70 backdrop-blur-sm">
         <div class="container mx-auto flex justify-between items-center">
-             <a href="index.html" class="text-3xl font-bold">YAKAMI<span class="text-orange-500">.</span>TECH</a>
-             <a href="index.html" class="text-gray-300 hover:text-orange-500">&larr; Voltar</a>
+            <a href="index.html" class="text-3xl font-bold">YAKAMI<span class="text-orange-500">.</span>TECH</a>
+            <nav class="hidden md:flex items-center space-x-6 text-lg">
+                <a href="index.html#services" class="hover:text-orange-500" data-lang-key="nav_services">Serviços</a>
+                <a href="empresa.html" class="text-orange-500 font-semibold" data-lang-key="nav_company">Empresa</a>
+                <a href="equipe.html" class="hover:text-orange-500" data-lang-key="nav_team">Equipe</a>
+                <a href="contato.html" class="hover:text-orange-500" data-lang-key="nav_contact">Contato</a>
+            </nav>
+            <div class="flex items-center space-x-2">
+                <span id="lang-pt" class="lang-btn active" onclick="changeLanguage('pt')">🇧🇷 PT</span>
+                <span>|</span>
+                <span id="lang-en" class="lang-btn" onclick="changeLanguage('en')">🇺🇸 EN</span>
+            </div>
         </div>
     </header>
 
-    <!-- About Us / Mission -->
-    <section class="py-16 px-4">
-        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <h2 class="text-4xl font-bold mb-4">Nossa Missão: Conectar o Coração da Amazônia</h2>
-                <p class="text-lg text-gray-300 mb-4">
-                    A YAKAMI TECH nasceu do desafio de superar as barreiras de comunicação e logística na vasta e complexa região amazônica. Nossa missão é empoderar comunidades ribeirinhas, transportadores fluviais e negócios locais com tecnologia espacial acessível e de ponta.
-                </p>
-                <p class="text-gray-400">
-                    Através da plataforma ASTRA-Net, transformamos dados de satélites de baixa órbita em inteligência acionável, promovendo segurança na navegação, eficiência logística e monitoramento ambiental para um desenvolvimento sustentável. Somos uma Deep Tech amazônida, para a Amazônia.
-                </p>
-            </div>
-            <div>
-                 <!-- Could be an infographic image -->
-                <img src="https://images.unsplash.com/photo-1590499825514-8f46a78a873c?q=80&w=1974&auto=format&fit=crop" alt="Comunidade ribeirinha na Amazônia" class="rounded-lg shadow-2xl">
+    <!-- Hero Section -->
+    <main class="relative hero-bg-company min-h-[50vh] flex items-center justify-center text-center">
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+        <div class="relative z-10 p-4">
+            <h1 class="text-4xl md:text-6xl font-black mb-4" data-lang-key="company_hero_title">Inovação Deep Tech Nascida na Amazônia</h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto" data-lang-key="company_hero_subtitle">Nossa jornada para conectar a maior floresta tropical do mundo com tecnologia de ponta.</p>
+        </div>
+    </main>
+
+    <!-- About Us Section -->
+    <section class="py-20 px-4 bg-gray-800">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4" data-lang-key="about_title">Quem Somos</h2>
+            <p class="max-w-4xl mx-auto text-gray-300 text-lg" data-lang-key="about_desc">A YAKAMI TECH é a primeira startup Deep Tech de tecnologia espacial da Amazônia. Nascemos do desafio de resolver problemas reais de conectividade, logística e segurança que afetam milhões de pessoas que dependem dos rios. Nossa missão é desenvolver soluções inovadoras e de baixo custo, utilizando dados de satélite e sistemas embarcados para criar um futuro mais conectado e sustentável para a região.</p>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="py-20 px-4 bg-gray-900">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12" data-lang-key="timeline_title">Nossa Trajetória</h2>
+            <div class="max-w-3xl mx-auto">
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item pb-12">
+                    <div class="timeline-marker"></div>
+                    <p class="text-orange-500 font-semibold" data-lang-key="timeline_date1">Abril 2025</p>
+                    <h3 class="text-xl font-bold mt-1" data-lang-key="timeline_title1">Competição EmbarcaHack & Criação do Eco Station EDU</h3>
+                </div>
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item pb-12">
+                    <div class="timeline-marker"></div>
+                    <p class="text-orange-500 font-semibold" data-lang-key="timeline_date2">Agosto 2025</p>
+                    <h3 class="text-xl font-bold mt-1" data-lang-key="timeline_title2">Festival Favela Amazonas com protótipo de serviço</h3>
+                </div>
+                <!-- Timeline Item 3 -->
+                <div class="timeline-item pb-12">
+                    <div class="timeline-marker"></div>
+                    <p class="text-orange-500 font-semibold" data-lang-key="timeline_date3">Outubro 2025</p>
+                    <h3 class="text-xl font-bold mt-1" data-lang-key="timeline_title3">NASA Space Apps, fundação da YAKAMI TECH e projeto ASTRA-Net</h3>
+                </div>
+                 <!-- Timeline Item 4 -->
+                 <div class="timeline-item pb-12">
+                    <div class="timeline-marker"></div>
+                    <p class="text-orange-500 font-semibold" data-lang-key="timeline_date4">Dezembro 2025</p>
+                    <h3 class="text-xl font-bold mt-1" data-lang-key="timeline_title4">Submissão de projeto ao programa de fomento CENTELHA AM</h3>
+                </div>
+                <!-- Timeline Item 5 -->
+                <div class="timeline-item pb-12">
+                    <div class="timeline-marker"></div>
+                    <p class="text-orange-500 font-semibold" data-lang-key="timeline_date5">Abril 2026</p>
+                    <h3 class="text-xl font-bold mt-1" data-lang-key="timeline_title5">Entrega do projeto prático da Residência em Sistemas Embarcados Softex</h3>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Timeline -->
-    <section class="py-16 px-4 bg-gray-800">
+     <!-- Pillars Section -->
+    <section class="py-20 px-4 bg-gray-800">
         <div class="container mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-12">Nossa Linha do Tempo</h2>
-            <div class="relative max-w-2xl mx-auto border-l-2 border-gray-700 pl-8">
-                <!-- Item 1 -->
-                <div class="mb-10 relative timeline-item">
-                    <h3 class="text-xl font-semibold text-orange-500">Abril, 2025</h3>
-                    <p class="text-md text-gray-300">Participação na competição EmbarcaHack e criação do "Eco Station EDU".</p>
+            <h2 class="text-3xl font-bold text-center mb-12" data-lang-key="pillars_title">Nossos Pilares</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Pillar 1 -->
+                <div class="text-center p-6 bg-gray-900 rounded-lg">
+                    <i class="fas fa-lightbulb text-4xl text-orange-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2" data-lang-key="pillar1_title">Inovação de Impacto</h3>
+                    <p class="text-gray-400" data-lang-key="pillar1_desc">Criamos tecnologia que resolve problemas reais e melhora vidas.</p>
                 </div>
-                <!-- Item 2 -->
-                <div class="mb-10 relative timeline-item">
-                    <h3 class="text-xl font-semibold text-orange-500">Agosto, 2025</h3>
-                    <p class="text-md text-gray-300">Participação no Festival Favela Amazonas, prototipando serviços para comunidades.</p>
+                <!-- Pillar 2 -->
+                <div class="text-center p-6 bg-gray-900 rounded-lg">
+                    <i class="fas fa-tree text-4xl text-green-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2" data-lang-key="pillar2_title">Raízes Amazônicas</h3>
+                    <p class="text-gray-400" data-lang-key="pillar2_desc">Nossas soluções são pensadas e desenvolvidas para a realidade local.</p>
                 </div>
-                <!-- Item 3 -->
-                <div class="mb-10 relative timeline-item">
-                    <h3 class="text-xl font-semibold text-orange-500">Outubro, 2025</h3>
-                    <p class="text-md text-gray-300">Participação no NASA Space Apps com o projeto ASTRA-Net e fundação da Startup YAKAMI TECH.</p>
+                <!-- Pillar 3 -->
+                <div class="text-center p-6 bg-gray-900 rounded-lg">
+                    <i class="fas fa-handshake text-4xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2" data-lang-key="pillar3_title">Colaboração Aberta</h3>
+                    <p class="text-gray-400" data-lang-key="pillar3_desc">Acreditamos no poder das parcerias para acelerar o desenvolvimento.</p>
                 </div>
-                 <!-- Item 4 -->
-                <div class="mb-10 relative timeline-item">
-                    <h3 class="text-xl font-semibold text-orange-500">Dezembro, 2025</h3>
-                    <p class="text-md text-gray-300">Submissão do projeto para o capital semente no programa CENTELHA AM.</p>
-                </div>
-                 <!-- Item 5 -->
-                <div class="relative timeline-item">
-                    <h3 class="text-xl font-semibold text-orange-500">Abril, 2026</h3>
-                    <p class="text-md text-gray-300">Entrega do projeto prático da residência em sistemas embarcados da Softex.</p>
+                 <!-- Pillar 4 -->
+                 <div class="text-center p-6 bg-gray-900 rounded-lg">
+                    <i class="fas fa-seedling text-4xl text-teal-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2" data-lang-key="pillar4_title">Sustentabilidade</h3>
+                    <p class="text-gray-400" data-lang-key="pillar4_desc">Nosso crescimento está atrelado à preservação e ao desenvolvimento sustentável.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Careers Section -->
-    <section id="careers" class="py-16 px-4 text-center">
-        <div class="container mx-auto max-w-3xl">
-            <h2 class="text-3xl font-bold mb-4">Junte-se a Nós</h2>
-            <p class="text-lg text-gray-300 mb-8">
-                Estamos sempre em busca de talentos apaixonados por tecnologia, inovação e pelo desafio de criar um impacto positivo na Amazônia. Se você é um voluntário, pesquisador ou parceiro técnico, queremos conhecer você.
-            </p>
-            <a href="contato.html" class="bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 px-8 rounded-lg transition-colors">
-                Entre em Contato
-            </a>
+    <section id="careers" class="py-20 px-4 bg-gray-900">
+        <div class="container mx-auto text-center max-w-3xl">
+            <h2 class="text-3xl font-bold mb-4" data-lang-key="careers_title">Junte-se à Nossa Missão</h2>
+            <p class="text-gray-300 mb-8 text-lg" data-lang-key="careers_desc">Estamos sempre em busca de mentes brilhantes e apaixonadas pela Amazônia para colaborar conosco. Se você é pesquisador, voluntário, desenvolvedor ou um potencial parceiro técnico, queremos conhecer suas ideias. Vamos juntos construir o futuro da tecnologia na região.</p>
+            <a href="contato.html" class="bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 px-8 rounded-lg transition-transform transform hover:scale-105" data-lang-key="careers_cta">Entre em Contato</a>
         </div>
     </section>
 
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-6 text-center text-gray-400">
+        <p>&copy; 2025 YAKAMI TECH. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        const translations = {
+            'en': {
+                'nav_services': 'Services',
+                'nav_company': 'Company',
+                'nav_team': 'Team',
+                'nav_contact': 'Contact',
+                'company_hero_title': 'Deep Tech Innovation Born in the Amazon',
+                'company_hero_subtitle': 'Our journey to connect the world\'s largest rainforest with cutting-edge technology.',
+                'about_title': 'Who We Are',
+                'about_desc': 'YAKAMI TECH is the first space tech Deep Tech startup from the Amazon. We were born from the challenge of solving real problems of connectivity, logistics, and security that affect millions of people who depend on the rivers. Our mission is to develop innovative and low-cost solutions, using satellite data and embedded systems to create a more connected and sustainable future for the region.',
+                'timeline_title': 'Our Journey',
+                'timeline_date1': 'April 2025',
+                'timeline_title1': 'EmbarcaHack Competition & Creation of Eco Station EDU',
+                'timeline_date2': 'August 2025',
+                'timeline_title2': 'Favela Amazonas Festival with service prototype',
+                'timeline_date3': 'October 2025',
+                'timeline_title3': 'NASA Space Apps, foundation of YAKAMI TECH & ASTRA-Net project',
+                'timeline_date4': 'December 2025',
+                'timeline_title4': 'Project submission to the CENTELHA AM seed capital program',
+                'timeline_date5': 'April 2026',
+                'timeline_title5': 'Delivery of the practical project from the Softex Embedded Systems Residency',
+                'pillars_title': 'Our Pillars',
+                'pillar1_title': 'Impactful Innovation',
+                'pillar1_desc': 'We create technology that solves real problems and improves lives.',
+                'pillar2_title': 'Amazonian Roots',
+                'pillar2_desc': 'Our solutions are designed and developed for the local reality.',
+                'pillar3_title': 'Open Collaboration',
+                'pillar3_desc': 'We believe in the power of partnerships to accelerate development.',
+                'pillar4_title': 'Sustainability',
+                'pillar4_desc': 'Our growth is linked to preservation and sustainable development.',
+                'careers_title': 'Join Our Mission',
+                'careers_desc': 'We are always looking for brilliant minds passionate about the Amazon to collaborate with us. If you are a researcher, volunteer, developer, or a potential technical partner, we want to hear your ideas. Let\'s build the future of technology in the region together.',
+                'careers_cta': 'Get in Touch'
+            },
+            'pt': {
+                'nav_services': 'Serviços',
+                'nav_company': 'Empresa',
+                'nav_team': 'Equipe',
+                'nav_contact': 'Contato',
+                'company_hero_title': 'Inovação Deep Tech Nascida na Amazônia',
+                'company_hero_subtitle': 'Nossa jornada para conectar a maior floresta tropical do mundo com tecnologia de ponta.',
+                'about_title': 'Quem Somos',
+                'about_desc': 'A YAKAMI TECH é a primeira startup Deep Tech de tecnologia espacial da Amazônia. Nascemos do desafio de resolver problemas reais de conectividade, logística e segurança que afetam milhões de pessoas que dependem dos rios. Nossa missão é desenvolver soluções inovadoras e de baixo custo, utilizando dados de satélite e sistemas embarcados para criar um futuro mais conectado e sustentável para a região.',
+                'timeline_title': 'Nossa Trajetória',
+                'timeline_date1': 'Abril 2025',
+                'timeline_title1': 'Competição EmbarcaHack & Criação do Eco Station EDU',
+                'timeline_date2': 'Agosto 2025',
+                'timeline_title2': 'Festival Favela Amazonas com protótipo de serviço',
+                'timeline_date3': 'Outubro 2025',
+                'timeline_title3': 'NASA Space Apps, fundação da YAKAMI TECH e projeto ASTRA-Net',
+                'timeline_date4': 'Dezembro 2025',
+                'timeline_title4': 'Submissão de projeto ao programa de fomento CENTELHA AM',
+                'timeline_date5': 'Abril 2026',
+                'timeline_title5': 'Entrega do projeto prático da Residência em Sistemas Embarcados Softex',
+                'pillars_title': 'Nossos Pilares',
+                'pillar1_title': 'Inovação de Impacto',
+                'pillar1_desc': 'Criamos tecnologia que resolve problemas reais e melhora vidas.',
+                'pillar2_title': 'Raízes Amazônicas',
+                'pillar2_desc': 'Nossas soluções são pensadas e desenvolvidas para a realidade local.',
+                'pillar3_title': 'Colaboração Aberta',
+                'pillar3_desc': 'Acreditamos no poder das parcerias para acelerar o desenvolvimento.',
+                'pillar4_title': 'Sustentabilidade',
+                'pillar4_desc': 'Nosso crescimento está atrelado à preservação e ao desenvolvimento sustentável.',
+                'careers_title': 'Junte-se à Nossa Missão',
+                'careers_desc': 'Estamos sempre em busca de mentes brilhantes e apaixonadas pela Amazônia para colaborar conosco. Se você é pesquisador, voluntário, desenvolvedor ou um potencial parceiro técnico, queremos conhecer suas ideias. Vamos juntos construir o futuro da tecnologia na região.',
+                'careers_cta': 'Entre em Contato'
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-lang-key]').forEach(elem => {
+                const key = elem.getAttribute('data-lang-key');
+                if (translations[lang] && translations[lang][key]) {
+                    elem.innerText = translations[lang][key];
+                }
+            });
+            document.getElementById('lang-pt').classList.toggle('active', lang === 'pt');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+        }
+
+        // Set initial language
+        changeLanguage('pt');
+    </script>
 </body>
 </html>
