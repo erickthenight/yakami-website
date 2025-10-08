@@ -1,243 +1,292 @@
-
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Monitoramento ASTRA-Net</title>
+    <title>ASTRA HQ - Terminal de Controlo de Missão</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        #map { height: 100%; width: 100%; }
-        .leaflet-popup-content-wrapper { background: #1f2937; color: white; border-radius: 8px; border: 1px solid #f97316; }
-        .leaflet-popup-content { font-family: monospace; }
-        .leaflet-popup-tip { background: #f97316; }
-        .blinking { animation: blinker 1.5s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0.3; } }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1.5); box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7); }
+            50% { transform: scale(1.7); box-shadow: 0 0 0 10px rgba(255, 82, 82, 0); }
+        }
+        .animate-pulse-sos {
+            animation: pulse 1.5s infinite;
+        }
+        .map-layer {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .weather-radar {
+            position: absolute;
+            top: 40%;
+            left: 35%;
+            width: 300px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255,255,0,0.4) 0%, rgba(255,100,0,0.3) 30%, rgba(0,100,255,0.2) 60%, rgba(0,0,255,0.1) 100%);
+            border-radius: 50%;
+            pointer-events: none; /* Permite clicar através da camada */
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-white font-mono flex h-screen overflow-hidden">
+<body class="bg-gray-900 text-gray-200 font-mono flex h-screen overflow-hidden">
 
-    <!-- Painel de Controle Esquerdo -->
-    <div class="w-1/3 h-full bg-gray-800 p-4 overflow-y-auto flex flex-col space-y-4">
-        
-        <!-- Header -->
-        <div>
-            <h1 class="text-2xl font-bold text-orange-500">ASTRA HQ</h1>
-            <p class="text-sm text-gray-400">Terminal de Controle de Missão</p>
-        </div>
-
-        <!-- Ativos Fluviais -->
-        <div class="bg-gray-900 p-3 rounded-lg">
-            <h2 class="text-lg font-semibold border-b border-gray-700 pb-2 mb-2">Ativos Fluviais</h2>
-            <ul id="asset-list" class="space-y-2">
-                <!-- Ativos serão inseridos aqui via JS -->
-            </ul>
-        </div>
-        
-        <!-- Telemetria do Ativo Selecionado -->
-        <div id="telemetry-panel" class="bg-gray-900 p-3 rounded-lg flex-grow">
-            <h2 class="text-lg font-semibold border-b border-gray-700 pb-2 mb-2">Telemetria do Ativo</h2>
-            <div id="telemetry-data" class="text-sm text-gray-300">
-                Selecione um ativo no mapa para ver os dados.
+    <!-- Coluna do Mapa (Esquerda) -->
+    <div class="w-2/3 h-full p-2">
+        <div id="map-container" class="relative w-full h-full bg-gray-800 rounded-lg overflow-hidden border-2 border-gray-700">
+            <!-- Camadas do Mapa -->
+            <div id="weather-layer" class="map-layer weather-radar hidden opacity-70"></div>
+            <div id="hotspots-layer" class="map-layer hidden">
+                <!-- Ícones de focos de calor -->
+                <div class="absolute text-2xl" style="top: 25%; left: 50%;"><i class="fas fa-fire text-red-500"></i></div>
+                <div class="absolute text-2xl" style="top: 60%; left: 70%;"><i class="fas fa-fire text-red-500"></i></div>
             </div>
-        </div>
 
-        <!-- Visibilidade Orbital (NASA) -->
-        <div class="bg-gray-900 p-3 rounded-lg">
-            <h2 class="text-lg font-semibold border-b border-gray-700 pb-2 mb-2 flex items-center">
-                <i class="fas fa-satellite-dish text-green-400 mr-2"></i> Visibilidade Orbital (NASA)
-            </h2>
-            <div id="orbital-visibility-panel">
-                 <!-- Status da Conexão -->
-                <div class="mb-3">
-                    <p class="text-sm text-gray-400">Status da Conexão LEO:</p>
-                    <p id="connection-status" class="text-lg font-bold text-green-400 blinking">SINAL FORTE</p>
-                </div>
-                <!-- Próxima Passagem -->
-                <div>
-                    <p class="text-sm text-gray-400">Próxima Janela de Comunicação:</p>
-                    <p id="next-pass-countdown" class="text-xl font-bold text-orange-400">--:--:--</p>
-                    <p id="next-pass-satellite" class="text-xs text-gray-500">Aguardando dados...</p>
-                </div>
-                 <div class="mt-2 text-xs text-gray-500 space-y-1" id="pass-list">
-                    <!-- Lista de passagens futuras -->
-                 </div>
+            <!-- Controles de Camadas -->
+            <div class="absolute top-2 right-2 bg-gray-900 bg-opacity-80 p-3 rounded-lg border border-gray-700 text-sm">
+                <h3 class="font-bold mb-2 border-b border-gray-600 pb-1">Camadas de Dados</h3>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="checkbox" id="toggle-weather" class="form-checkbox bg-gray-700 text-orange-500">
+                    <span>Radar Climático</span>
+                </label>
+                <label class="flex items-center space-x-2 mt-1 cursor-pointer">
+                    <input type="checkbox" id="toggle-hotspots" class="form-checkbox bg-gray-700 text-orange-500">
+                    <span>Focos de Calor</span>
+                </label>
             </div>
         </div>
     </div>
 
-    <!-- Mapa -->
-    <div class="w-2/3 h-full">
-        <div id="map"></div>
+    <!-- Coluna de Dados (Direita) -->
+    <div class="w-1/3 h-full flex flex-col p-2 space-y-2">
+        <!-- Telemetria -->
+        <div id="telemetry-panel" class="bg-gray-800 p-4 rounded-lg border-2 border-gray-700 flex-grow basis-1/3 overflow-y-auto">
+            <h2 class="text-lg font-bold border-b-2 border-orange-500 pb-1 mb-2"><i class="fas fa-satellite-dish text-orange-500"></i> Telemetria do Ativo</h2>
+            <div id="telemetry-content" class="text-gray-400">Selecione uma embarcação no mapa.</div>
+        </div>
+        <!-- Visibilidade Orbital -->
+        <div id="orbital-panel" class="bg-gray-800 p-4 rounded-lg border-2 border-gray-700 flex-grow basis-1/3 overflow-y-auto">
+             <h2 class="text-lg font-bold border-b-2 border-teal-500 pb-1 mb-2"><i class="fab fa-wpexplorer text-teal-500"></i> Visibilidade Orbital (NASA)</h2>
+            <div id="orbital-content"></div>
+        </div>
+        <!-- Alertas -->
+        <div id="alerts-panel" class="bg-gray-800 p-4 rounded-lg border-2 border-gray-700 flex-grow basis-1/3 overflow-y-auto">
+            <h2 class="text-lg font-bold border-b-2 border-red-500 pb-1 mb-2"><i class="fas fa-triangle-exclamation text-red-500"></i> Registro de Eventos e Alertas</h2>
+            <div id="alerts-content" class="text-sm space-y-2">
+                <p class="text-gray-500">Nenhum evento registrado.</p>
+            </div>
+        </div>
     </div>
 
-    <script>
-        // Coordenadas de Manaus
-        const manausCoords = [-3.1190, -60.0217];
-        const map = L.map('map').setView(manausCoords, 10);
+<script>
+    const mapContainer = document.getElementById('map-container');
+    const telemetryContent = document.getElementById('telemetry-content');
+    const orbitalContent = document.getElementById('orbital-content');
+    const alertsContent = document.getElementById('alerts-content');
 
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-            subdomains: 'abcd',
-            maxZoom: 20
-        }).addTo(map);
+    const toggleWeather = document.getElementById('toggle-weather');
+    const toggleHotspots = document.getElementById('toggle-hotspots');
+    const weatherLayer = document.getElementById('weather-layer');
+    const hotspotsLayer = document.getElementById('hotspots-layer');
 
-        const assets = [
-            { id: 'YK-01', name: 'N/M A. Nunes', type: 'Carga', coords: [-3.10, -60.05], status: 'online' },
-            { id: 'YK-02', name: 'Expresso J. Neto', type: 'Passageiros', coords: [-3.13, -59.98], status: 'online' },
-            { id: 'YK-03', name: 'Balsa S. Pedro', type: 'Carga', coords: [-3.05, -60.01], status: 'offline' },
-            { id: 'YK-COMM-01', name: 'Com. N. Esperança', type: 'Comunidade', coords: [-3.20, -60.15], status: 'online'}
-        ];
+    let selectedVesselId = null;
+    let passSchedule = [];
+    let alerts = [];
 
-        const markers = {};
-        const assetList = document.getElementById('asset-list');
-        const telemetryData = document.getElementById('telemetry-data');
+    // Dados das embarcações
+    const embarcacoes = [
+        { id: 1, nome: "Yakami I", top: 50, left: 30, bateria: 95, sinal: -85, velocidade: 12, sosActive: false, alertedLowBattery: false },
+        { id: 2, nome: "Astra-Net II", top: 20, left: 60, bateria: 78, sinal: -92, velocidade: 15, sosActive: false, alertedLowBattery: false },
+        { id: 3, nome: "Rio Solimões", top: 80, left: 45, bateria: 25, sinal: -110, velocidade: 8, sosActive: false, alertedLowBattery: false }
+    ];
 
-        const boatIconOnline = L.divIcon({
-            html: '<i class="fas fa-ship text-2xl text-cyan-400"></i>',
-            className: '',
-            iconSize: [24, 24],
-            iconAnchor: [12, 12]
-        });
+    // Dados simulados da NASA
+    const nasaData = {
+        temperaturaAgua: 28.5,
+        precipitacao: 80.0, // mm/hr - Nível de tempestade
+        velocidadeVento: 15.2, // km/h
+    };
 
-        const boatIconOffline = L.divIcon({
-            html: '<i class="fas fa-ship text-2xl text-red-500"></i>',
-            className: '',
-            iconSize: [24, 24],
-            iconAnchor: [12, 12]
-        });
-        
-        const communityIcon = L.divIcon({
-            html: '<i class="fas fa-house-user text-2xl text-green-400"></i>',
-            className: '',
-            iconSize: [24, 24],
-            iconAnchor: [12, 12]
-        });
+    // Função para gerar alertas
+    function addAlert(type, message, vesselId = null) {
+        const timestamp = new Date().toLocaleTimeString('pt-BR');
+        const newAlert = { timestamp, type, message, vesselId };
+        alerts.unshift(newAlert); // Adiciona no início
+        if (alerts.length > 20) alerts.pop(); // Limita o log
+        updateAlertsPanel();
+    }
 
-        assets.forEach(asset => {
-            let icon;
-            if(asset.type === 'Comunidade'){
-                icon = communityIcon;
+    // Função para atualizar o painel de alertas
+    function updateAlertsPanel() {
+        if (alerts.length === 0) {
+            alertsContent.innerHTML = '<p class="text-gray-500">Nenhum evento registrado.</p>';
+            return;
+        }
+        alertsContent.innerHTML = alerts.map(alert => {
+            let colorClass = 'text-gray-300';
+            let icon = 'fa-info-circle';
+            if (alert.type === 'SOS') {
+                colorClass = 'text-red-400 font-bold';
+                icon = 'fa-skull-crossbones';
+            } else if (alert.type === 'SISTEMA') {
+                colorClass = 'text-yellow-400';
+                icon = 'fa-cogs';
+            } else if (alert.type === 'CLIMA') {
+                colorClass = 'text-blue-400';
+                icon = 'fa-cloud-showers-heavy';
+            }
+            return `<div class="${colorClass}"><i class="fas ${icon} mr-2"></i>[${alert.timestamp}] ${alert.message}</div>`;
+        }).join('');
+    }
+
+    // Função para atualizar o mapa
+    function updateMap() {
+        let html = '';
+        embarcacoes.forEach(emb => {
+            let extraClasses = '';
+            if (emb.id === selectedVesselId) {
+                extraClasses += ' border-4 border-orange-500';
+            }
+            if (emb.sosActive) {
+                extraClasses += ' animate-pulse-sos bg-red-600';
             } else {
-                icon = asset.status === 'online' ? boatIconOnline : boatIconOffline;
+                extraClasses += ' bg-teal-500';
             }
-
-            const marker = L.marker(asset.coords, { icon: icon }).addTo(map);
-            marker.on('click', () => selectAsset(asset.id));
-            markers[asset.id] = marker;
-            
-            const listItem = document.createElement('li');
-            listItem.id = `asset-list-${asset.id}`;
-            listItem.className = 'flex items-center justify-between p-2 rounded-md hover:bg-gray-700 cursor-pointer';
-            listItem.innerHTML = `
-                <div>
-                    <span class="font-bold">${asset.name}</span>
-                    <span class="text-xs text-gray-400 block">${asset.type}</span>
-                </div>
-                <div class="w-3 h-3 rounded-full ${asset.status === 'online' ? 'bg-green-500' : 'bg-red-500'}"></div>
-            `;
-            listItem.onclick = () => selectAsset(asset.id);
-            assetList.appendChild(listItem);
+            html += `<div id="vessel-${emb.id}" class="absolute w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transform -translate-x-1/2 -translate-y-1/2 ${extraClasses}" style="top:${emb.top}%; left:${emb.left}%;" onclick="selectVessel(${emb.id})">
+                        <i class="fas fa-ship text-white"></i>
+                     </div>`;
         });
-
-        function generateTelemetry(asset) {
-             const baseData = {
-                'ID': asset.id,
-                'Nome': asset.name,
-                'Status': asset.status,
-                'Coords': `${asset.coords[0].toFixed(4)}, ${asset.coords[1].toFixed(4)}`,
-                'Velocidade': asset.type !== 'Comunidade' ? `${(Math.random() * 10 + 5).toFixed(2)} nós` : 'N/A',
-                'Curso': asset.type !== 'Comunidade' ? `${Math.floor(Math.random() * 360)}°` : 'N/A',
-                'Nível Rio': `${(Math.random() * 5 + 15).toFixed(2)} m`,
-                'Qualidade Ar (AQI)': Math.floor(Math.random() * 50 + 10),
-            };
-            
-            let html = '<ul class="space-y-1">';
-            for(const [key, value] of Object.entries(baseData)){
-                html += `<li><span class="font-semibold text-gray-400">${key}:</span> ${value}</li>`
-            }
-            html += '</ul>';
-
-            return html;
+        mapContainer.innerHTML = html + mapContainer.innerHTML; // Mantém as camadas
+    }
+    
+    // Função para selecionar uma embarcação
+    function selectVessel(id) {
+        selectedVesselId = id;
+        const vessel = embarcacoes.find(e => e.id === id);
+        updateTelemetryPanel(vessel);
+        updateMap();
+    }
+    
+    // Função para ativar o SOS
+    function activateSOS() {
+        if (!selectedVesselId) return;
+        const vessel = embarcacoes.find(e => e.id === selectedVesselId);
+        if (vessel && !vessel.sosActive) {
+            vessel.sosActive = true;
+            addAlert('SOS', `Sinal de SOS recebido da embarcação ${vessel.nome}!`, vessel.id);
+            updateMap();
         }
+    }
 
-        function selectAsset(assetId) {
-            const asset = assets.find(a => a.id === assetId);
-            if (!asset) return;
-            
-            map.setView(asset.coords, 14);
-            markers[assetId].openPopup();
-            
-            document.querySelectorAll('#asset-list li').forEach(li => li.classList.remove('bg-orange-900/50'));
-            document.getElementById(`asset-list-${assetId}`).classList.add('bg-orange-900/50');
-            
-            telemetryData.innerHTML = generateTelemetry(asset);
+    // Função para atualizar o painel de telemetria
+    function updateTelemetryPanel(vessel) {
+        if (!vessel) {
+            telemetryContent.innerHTML = 'Selecione uma embarcação no mapa.';
+            return;
         }
+        telemetryContent.innerHTML = `
+            <h3 class="text-xl text-orange-400 font-bold mb-3">${vessel.nome}</h3>
+            <p><i class="fas fa-battery-full w-5 text-green-500"></i> Bateria: <span class="font-bold">${vessel.bateria.toFixed(1)}%</span></p>
+            <p><i class="fas fa-signal w-5 text-blue-500"></i> Sinal GSM: <span class="font-bold">${vessel.sinal} dBm</span></p>
+            <p><i class="fas fa-tachometer-alt w-5 text-yellow-500"></i> Velocidade: <span class="font-bold">${vessel.velocidade} nós</span></p>
+            <h4 class="font-bold mt-4 mb-2 text-gray-300">Dados NASA (Região):</h4>
+            <p><i class="fas fa-thermometer-half w-5 text-red-500"></i> Temp. Água: <span class="font-bold">${nasaData.temperaturaAgua}°C</span></p>
+            <p><i class="fas fa-cloud-rain w-5 text-cyan-500"></i> Precipitação: <span class="font-bold">${nasaData.precipitacao} mm/h</span></p>
+            <p><i class="fas fa-wind w-5 text-gray-400"></i> Vento: <span class="font-bold">${nasaData.velocidadeVento} km/h</span></p>
+            <button onclick="activateSOS()" class="w-full mt-4 bg-red-600 hover:bg-red-500 text-white font-bold py-2 rounded-lg flex items-center justify-center">
+                <i class="fas fa-life-ring mr-2"></i> ATIVAR S.O.S
+            </button>
+        `;
+    }
 
-        // Simulação Orbital
-        const connectionStatusEl = document.getElementById('connection-status');
-        const nextPassCountdownEl = document.getElementById('next-pass-countdown');
-        const nextPassSatelliteEl = document.getElementById('next-pass-satellite');
-        const passListEl = document.getElementById('pass-list');
-
-        const mockSatellites = ["TERRA", "AQUA", "ISS", "LANDSAT-8", "SENTINEL-2"];
-
-        let passSchedule = [];
-        function generatePassSchedule() {
-            passSchedule = [];
-            let nextTime = new Date();
-            for (let i = 0; i < 5; i++) {
-                nextTime.setMinutes(nextTime.getMinutes() + Math.random() * 120 + 90); // Next pass in 1.5-3.5 hours
-                passSchedule.push({
-                    satellite: mockSatellites[Math.floor(Math.random() * mockSatellites.length)],
-                    time: new Date(nextTime),
-                    duration: Math.floor(Math.random() * 8 + 4) // 4-12 minutes duration
-                });
-            }
-        }
-
-        function updateOrbitalPanel() {
-            const now = new Date();
-            const nextPass = passSchedule.find(pass => pass.time > now);
-
-            if (!nextPass) {
-                generatePassSchedule(); // Regenerate if schedule is over
-                return;
+    // Simulação de movimento e dados
+    setInterval(() => {
+        embarcacoes.forEach(emb => {
+            emb.left += (Math.random() - 0.5) * 0.2;
+            emb.top += (Math.random() - 0.5) * 0.2;
+            emb.bateria -= 0.01;
+            
+            // Gerar alerta de bateria baixa
+            if (emb.bateria < 30 && !emb.alertedLowBattery) {
+                addAlert('SISTEMA', `Bateria baixa (${emb.bateria.toFixed(0)}%) na embarcação ${emb.nome}.`, emb.id);
+                emb.alertedLowBattery = true; // Evita alertas repetidos
             }
             
-            const diff = nextPass.time - now;
-            const hours = Math.floor(diff / 3600000).toString().padStart(2, '0');
-            const minutes = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
-            const seconds = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
-
-            nextPassCountdownEl.textContent = `${hours}:${minutes}:${seconds}`;
-            nextPassSatelliteEl.textContent = `Satélite: ${nextPass.satellite} | Duração: ${nextPass.duration} min`;
-            
-            // Update connection status based on proximity to a pass
-            if(diff < nextPass.duration * 60 * 1000){ // If we are inside a pass window
-                 connectionStatusEl.textContent = 'CONEXÃO ATIVA';
-                 connectionStatusEl.classList.remove('text-green-400');
-                 connectionStatusEl.classList.add('text-orange-400');
-            } else {
-                 connectionStatusEl.textContent = 'SINAL FORTE';
-                 connectionStatusEl.classList.add('text-green-400');
-                 connectionStatusEl.classList.remove('text-orange-400');
+            // Gerar alerta climático
+            // Simula se o barco está na área da tempestade
+            if (nasaData.precipitacao > 75 && Math.random() < 0.01) { // 1% de chance por ciclo
+                 addAlert('CLIMA', `Alerta de tempestade próximo à ${emb.nome}!`, emb.id);
             }
-            
-            // Update future pass list
-            passListEl.innerHTML = passSchedule
-                .filter(p => p.time > now)
-                .slice(1, 4) // show next 3
-                .map(p => `<div>${p.satellite} em ${p.time.toLocaleTimeString('pt-BR')}</div>`)
-                .join('');
+        });
+        updateMap();
+        if (selectedVesselId) {
+            const vessel = embarcacoes.find(e => e.id === selectedVesselId);
+            updateTelemetryPanel(vessel);
+        }
+    }, 1000);
+
+    // Funções de visibilidade orbital
+    function generatePassSchedule() {
+        passSchedule = [];
+        const now = new Date();
+        const satellites = ["TERRA", "AQUA", "ISS", "LANDSAT-8"];
+        for (let i = 0; i < 4; i++) {
+            const futureTime = new Date(now.getTime() + (i * 30 + Math.random() * 20) * 60000);
+            passSchedule.push({
+                satellite: satellites[Math.floor(Math.random() * satellites.length)],
+                time: futureTime,
+                duration: Math.floor(5 + Math.random() * 5)
+            });
+        }
+    }
+    
+    function updateOrbitalPanel() {
+        const now = new Date();
+        const upcomingPasses = passSchedule.filter(p => p.time > now);
+
+        if (upcomingPasses.length === 0) {
+            orbitalContent.innerHTML = '<p class="text-gray-400">Aguardando cálculo de novas passagens...</p>';
+            generatePassSchedule();
+            return;
         }
 
-        generatePassSchedule();
-        setInterval(updateOrbitalPanel, 1000);
-        updateOrbitalPanel();
+        const nextPass = upcomingPasses[0];
+        const timeToNextPass = Math.floor((nextPass.time - now) / 1000); // em segundos
+        const minutes = Math.floor(timeToNextPass / 60);
+        const seconds = timeToNextPass % 60;
 
-    </script>
+        let passListHtml = upcomingPasses.slice(0, 4).map(p => `
+            <div class="text-sm p-1 rounded ${p === nextPass ? 'bg-teal-500/20' : ''}">
+                🛰️ ${p.satellite} @ ${p.time.toLocaleTimeString('pt-BR')} (${p.duration} min)
+            </div>
+        `).join('');
+
+        orbitalContent.innerHTML = `
+            <div>
+                <p>Status Conexão: <span class="text-red-500 font-bold">NÃO VISÍVEL</span></p>
+                <p>Próxima Janela em: <span class="text-teal-400 font-bold">${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}</span></p>
+            </div>
+            <div class="mt-3">
+                <h4 class="font-bold text-gray-300">Próximas Passagens:</h4>
+                <div class="space-y-1 mt-1">${passListHtml}</div>
+            </div>
+        `;
+    }
+
+    // Listeners das camadas
+    toggleWeather.addEventListener('change', () => {
+        weatherLayer.classList.toggle('hidden', !toggleWeather.checked);
+    });
+    toggleHotspots.addEventListener('change', () => {
+        hotspotsLayer.classList.toggle('hidden', !toggleHotspots.checked);
+    });
+
+    // Inicialização
+    updateMap();
+    generatePassSchedule();
+    setInterval(updateOrbitalPanel, 1000);
+    addAlert('SISTEMA', 'Terminal de Controle de Missão ASTRA HQ iniciado.');
+</script>
+
 </body>
 </html>
