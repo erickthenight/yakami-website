@@ -1,0 +1,179 @@
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASTRA-Net Platform - YAKAMI TECH</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .lang-btn {
+            cursor: pointer;
+            padding: 2px 5px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+        }
+        .lang-btn.active {
+            border-color: #F97316;
+            background-color: rgba(249, 115, 22, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Header -->
+    <header class="bg-gray-800 shadow-md p-4">
+        <div class="container mx-auto flex justify-between items-center">
+             <a href="index.html" class="text-3xl font-bold">YAKAMI<span class="text-orange-500">.</span>TECH</a>
+            <div class="flex items-center space-x-2">
+                <span id="lang-pt" class="lang-btn active" onclick="changeLanguage('pt')">🇧🇷 PT</span>
+                <span>|</span>
+                <span id="lang-en" class="lang-btn" onclick="changeLanguage('en')">🇺🇸 EN</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-4 md:p-8">
+        
+        <!-- Intro Section -->
+        <section class="text-center my-8">
+            <img src="https://www.spaceappschallenge.org/wp-content/uploads/2024/02/sac-logo-lockup-nasa-2024-color.png" alt="NASA Space Apps Challenge 2025 Logo" class="h-24 mx-auto mb-6">
+            <h1 class="text-5xl font-extrabold text-orange-500" data-lang-key="platform_title">ASTRA-Net Platform</h1>
+            <p class="text-xl text-gray-300 mt-2" data-lang-key="platform_subtitle">Sistema de monitoramento e rastreamento por satélite para a Amazônia - Tecnologia de Órbita Baixa (LEO)</p>
+            <div class="mt-6 flex justify-center items-center space-x-4">
+                <a href="https://github.com/astranetam-dev/astra-net-platform" target="_blank" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg inline-flex items-center">
+                    <i class="fab fa-github mr-2"></i>
+                    <span data-lang-key="github_link">Ver no GitHub</span>
+                </a>
+                <a href="#features" class="bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded-lg inline-flex items-center">
+                    <i class="fas fa-cogs mr-2"></i>
+                    <span data-lang-key="features_link">Ver Funcionalidades</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Interactive Demo Section -->
+        <section class="my-16">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold uppercase" data-lang-key="demo_title">DEMONSTRAÇÃO INTERATIVA</h2>
+                <p class="text-lg text-gray-400" data-lang-key="demo_subtitle">Mapa de Monitoramento & Operações Fluviais da Amazônia</p>
+                <p class="mt-2 max-w-3xl mx-auto" data-lang-key="demo_description">Explore serviços e visualize camadas de dados da NASA em tempo real sobre a região Amazônica Brasileira.</p>
+            </div>
+            
+            <!-- Simulator Embed -->
+            <div class="bg-gray-800 rounded-xl shadow-2xl overflow-hidden border-2 border-orange-500/50">
+                <iframe src="map-simulator.html" frameborder="0" class="w-full h-[80vh]"></iframe>
+            </div>
+        </section>
+
+        <!-- Post-Demo Info -->
+        <section class="my-16 text-center">
+             <h3 class="text-3xl font-bold text-orange-500" data-lang-key="realtime_title">Monitoramento por Satélite em Tempo Real</h3>
+             <p class="mt-4 max-w-4xl mx-auto text-lg text-gray-300" data-lang-key="realtime_desc">O ASTRA-Net utiliza tecnologia de satélites em órbitas baixas (LEO) para fornecer dados precisos sobre condições fluviais, localização de embarcações e monitoramento ambiental na região amazônica, mesmo nas áreas mais remotas.</p>
+             <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 text-left">
+                <div class="bg-gray-800 p-4 rounded-lg"><i class="fas fa-satellite-dish text-orange-400 mr-2"></i> <span data-lang-key="feat1">Dados de satélite atualizados a cada 2 horas</span></div>
+                <div class="bg-gray-800 p-4 rounded-lg"><i class="fas fa-location-arrow text-orange-400 mr-2"></i> <span data-lang-key="feat2">Rastreamento preciso de embarcações em tempo real</span></div>
+                <div class="bg-gray-800 p-4 rounded-lg"><i class="fas fa-water text-orange-400 mr-2"></i> <span data-lang-key="feat3">Monitoramento de condições fluviais e meteorológicas</span></div>
+                <div class="bg-gray-800 p-4 rounded-lg"><i class="fas fa-fire-alt text-orange-400 mr-2"></i> <span data-lang-key="feat4">Alertas de desmatamento, queimadas e fumaça</span></div>
+                <div class="bg-gray-800 p-4 rounded-lg"><i class="fas fa-seedling text-orange-400 mr-2"></i> <span data-lang-key="feat5">Sistema de monitoramento ambiental para comunidades</span></div>
+             </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="my-16">
+            <div class="text-center mb-12">
+                <i class="fas fa-space-shuttle text-5xl text-orange-500 mb-4"></i>
+                <h2 class="text-3xl font-bold uppercase" data-lang-key="space_tech_title">TECNOLOGIA ESPACIAL</h2>
+                <h3 class="text-xl text-gray-300" data-lang-key="platform_features_title">Funcionalidades da Plataforma</h3>
+                <p class="mt-2" data-lang-key="platform_features_desc">Desenvolvida com tecnologia de ponta para os desafios únicos da Amazônia.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-800 p-6 rounded-lg text-center">
+                    <h4 class="text-xl font-bold mb-2" data-lang-key="feature_leo_title">Integração com Satélites LEO</h4>
+                    <p class="text-gray-400" data-lang-key="feature_leo_desc">Conexão direta com satélites de órbita baixa para coleta de dados em tempo real, mesmo em áreas remotas sem cobertura terrestre.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg text-center">
+                    <h4 class="text-xl font-bold mb-2" data-lang-key="feature_tracking_title">Rastreamento de Embarcações</h4>
+                    <p class="text-gray-400" data-lang-key="feature_tracking_desc">Monitoramento preciso da localização, velocidade e rotas de barcos e embarcações fluviais em toda a região.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg text-center">
+                    <h4 class="text-xl font-bold mb-2" data-lang-key="feature_env_title">Vigilância Ambiental</h4>
+                    <p class="text-gray-400" data-lang-key="feature_env_desc">Detecção de desmatamento, queimadas e mudanças na cobertura vegetal através de imagens de satélite de alta resolução.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const translations = {
+            'en': {
+                'platform_title': 'ASTRA-Net Platform',
+                'platform_subtitle': 'Satellite Monitoring and Tracking System for the Amazon - Low Earth Orbit (LEO) Technology',
+                'github_link': 'View on GitHub',
+                'features_link': 'View Features',
+                'demo_title': 'INTERACTIVE DEMONSTRATION',
+                'demo_subtitle': 'Amazon River Monitoring & Operations Map',
+                'demo_description': 'Explore services and visualize real-time NASA data layers over the Brazilian Amazon region.',
+                'realtime_title': 'Real-Time Satellite Monitoring',
+                'realtime_desc': 'ASTRA-Net uses Low Earth Orbit (LEO) satellite technology to provide accurate data on river conditions, vessel location, and environmental monitoring in the Amazon region, even in the most remote areas.',
+                'feat1': 'Satellite data updated every 2 hours',
+                'feat2': 'Precise real-time vessel tracking',
+                'feat3': 'Monitoring of river and weather conditions',
+                'feat4': 'Deforestation, fire, and smoke alerts',
+                'feat5': 'Environmental monitoring system for communities',
+                'space_tech_title': 'SPACE TECHNOLOGY',
+                'platform_features_title': 'Platform Features',
+                'platform_features_desc': 'Developed with cutting-edge technology for the unique challenges of the Amazon.',
+                'feature_leo_title': 'LEO Satellite Integration',
+                'feature_leo_desc': 'Direct connection with low-orbit satellites for real-time data collection, even in remote areas without terrestrial coverage.',
+                'feature_tracking_title': 'Vessel Tracking',
+                'feature_tracking_desc': 'Precise monitoring of location, speed, and routes of boats and river vessels throughout the region.',
+                'feature_env_title': 'Environmental Surveillance',
+                'feature_env_desc': 'Detection of deforestation, fires, and changes in vegetation cover through high-resolution satellite imagery.',
+            },
+            'pt': {
+                'platform_title': 'ASTRA-Net Platform',
+                'platform_subtitle': 'Sistema de monitoramento e rastreamento por satélite para a Amazônia - Tecnologia de Órbita Baixa (LEO)',
+                'github_link': 'Ver no GitHub',
+                'features_link': 'Ver Funcionalidades',
+                'demo_title': 'DEMONSTRAÇÃO INTERATIVA',
+                'demo_subtitle': 'Mapa de Monitoramento & Operações Fluviais da Amazônia',
+                'demo_description': 'Explore serviços e visualize camadas de dados da NASA em tempo real sobre a região Amazônica Brasileira.',
+                'realtime_title': 'Monitoramento por Satélite em Tempo Real',
+                'realtime_desc': 'O ASTRA-Net utiliza tecnologia de satélites em órbitas baixas (LEO) para fornecer dados precisos sobre condições fluviais, localização de embarcações e monitoramento ambiental na região amazônica, mesmo nas áreas mais remotas.',
+                'feat1': 'Dados de satélite atualizados a cada 2 horas',
+                'feat2': 'Rastreamento preciso de embarcações em tempo real',
+                'feat3': 'Monitoramento de condições fluviais e meteorológicas',
+                'feat4': 'Alertas de desmatamento, queimadas e fumaça',
+                'feat5': 'Sistema de monitoramento ambiental para comunidades',
+                'space_tech_title': 'TECNOLOGIA ESPACIAL',
+                'platform_features_title': 'Funcionalidades da Plataforma',
+                'platform_features_desc': 'Desenvolvida com tecnologia de ponta para os desafios únicos da Amazônia.',
+                'feature_leo_title': 'Integração com Satélites LEO',
+                'feature_leo_desc': 'Conexão direta com satélites de órbita baixa para coleta de dados em tempo real, mesmo em áreas remotas sem cobertura terrestre.',
+                'feature_tracking_title': 'Rastreamento de Embarcações',
+                'feature_tracking_desc': 'Monitoramento preciso da localização, velocidade e rotas de barcos e embarcações fluviais em toda a região.',
+                'feature_env_title': 'Vigilância Ambiental',
+                'feature_env_desc': 'Detecção de desmatamento, queimadas e mudanças na cobertura vegetal através de imagens de satélite de alta resolução.',
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-lang-key]').forEach(elem => {
+                const key = elem.getAttribute('data-lang-key');
+                elem.innerText = translations[lang][key];
+            });
+            document.getElementById('lang-pt').classList.toggle('active', lang === 'pt');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+        }
+
+        changeLanguage('pt');
+    </script>
+</body>
+</html>

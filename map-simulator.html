@@ -1,0 +1,243 @@
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Monitoramento ASTRA-Net</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
+        #map { height: 100%; width: 100%; }
+        .leaflet-popup-content-wrapper { background: #1f2937; color: white; border-radius: 8px; border: 1px solid #f97316; }
+        .leaflet-popup-content { font-family: monospace; }
+        .leaflet-popup-tip { background: #f97316; }
+        .blinking { animation: blinker 1.5s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0.3; } }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-mono flex h-screen overflow-hidden">
+
+    <!-- Painel de Controle Esquerdo -->
+    <div class="w-1/3 h-full bg-gray-800 p-4 overflow-y-auto flex flex-col space-y-4">
+        
+        <!-- Header -->
+        <div>
+            <h1 class="text-2xl font-bold text-orange-500">ASTRA HQ</h1>
+            <p class="text-sm text-gray-400">Terminal de Controle de Missão</p>
+        </div>
+
+        <!-- Ativos Fluviais -->
+        <div class="bg-gray-900 p-3 rounded-lg">
+            <h2 class="text-lg font-semibold border-b border-gray-700 pb-2 mb-2">Ativos Fluviais</h2>
+            <ul id="asset-list" class="space-y-2">
+                <!-- Ativos serão inseridos aqui via JS -->
+            </ul>
+        </div>
+        
+        <!-- Telemetria do Ativo Selecionado -->
+        <div id="telemetry-panel" class="bg-gray-900 p-3 rounded-lg flex-grow">
+            <h2 class="text-lg font-semibold border-b border-gray-700 pb-2 mb-2">Telemetria do Ativo</h2>
+            <div id="telemetry-data" class="text-sm text-gray-300">
+                Selecione um ativo no mapa para ver os dados.
+            </div>
+        </div>
+
+        <!-- Visibilidade Orbital (NASA) -->
+        <div class="bg-gray-900 p-3 rounded-lg">
+            <h2 class="text-lg font-semibold border-b border-gray-700 pb-2 mb-2 flex items-center">
+                <i class="fas fa-satellite-dish text-green-400 mr-2"></i> Visibilidade Orbital (NASA)
+            </h2>
+            <div id="orbital-visibility-panel">
+                 <!-- Status da Conexão -->
+                <div class="mb-3">
+                    <p class="text-sm text-gray-400">Status da Conexão LEO:</p>
+                    <p id="connection-status" class="text-lg font-bold text-green-400 blinking">SINAL FORTE</p>
+                </div>
+                <!-- Próxima Passagem -->
+                <div>
+                    <p class="text-sm text-gray-400">Próxima Janela de Comunicação:</p>
+                    <p id="next-pass-countdown" class="text-xl font-bold text-orange-400">--:--:--</p>
+                    <p id="next-pass-satellite" class="text-xs text-gray-500">Aguardando dados...</p>
+                </div>
+                 <div class="mt-2 text-xs text-gray-500 space-y-1" id="pass-list">
+                    <!-- Lista de passagens futuras -->
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mapa -->
+    <div class="w-2/3 h-full">
+        <div id="map"></div>
+    </div>
+
+    <script>
+        // Coordenadas de Manaus
+        const manausCoords = [-3.1190, -60.0217];
+        const map = L.map('map').setView(manausCoords, 10);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 20
+        }).addTo(map);
+
+        const assets = [
+            { id: 'YK-01', name: 'N/M A. Nunes', type: 'Carga', coords: [-3.10, -60.05], status: 'online' },
+            { id: 'YK-02', name: 'Expresso J. Neto', type: 'Passageiros', coords: [-3.13, -59.98], status: 'online' },
+            { id: 'YK-03', name: 'Balsa S. Pedro', type: 'Carga', coords: [-3.05, -60.01], status: 'offline' },
+            { id: 'YK-COMM-01', name: 'Com. N. Esperança', type: 'Comunidade', coords: [-3.20, -60.15], status: 'online'}
+        ];
+
+        const markers = {};
+        const assetList = document.getElementById('asset-list');
+        const telemetryData = document.getElementById('telemetry-data');
+
+        const boatIconOnline = L.divIcon({
+            html: '<i class="fas fa-ship text-2xl text-cyan-400"></i>',
+            className: '',
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+        });
+
+        const boatIconOffline = L.divIcon({
+            html: '<i class="fas fa-ship text-2xl text-red-500"></i>',
+            className: '',
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+        });
+        
+        const communityIcon = L.divIcon({
+            html: '<i class="fas fa-house-user text-2xl text-green-400"></i>',
+            className: '',
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+        });
+
+        assets.forEach(asset => {
+            let icon;
+            if(asset.type === 'Comunidade'){
+                icon = communityIcon;
+            } else {
+                icon = asset.status === 'online' ? boatIconOnline : boatIconOffline;
+            }
+
+            const marker = L.marker(asset.coords, { icon: icon }).addTo(map);
+            marker.on('click', () => selectAsset(asset.id));
+            markers[asset.id] = marker;
+            
+            const listItem = document.createElement('li');
+            listItem.id = `asset-list-${asset.id}`;
+            listItem.className = 'flex items-center justify-between p-2 rounded-md hover:bg-gray-700 cursor-pointer';
+            listItem.innerHTML = `
+                <div>
+                    <span class="font-bold">${asset.name}</span>
+                    <span class="text-xs text-gray-400 block">${asset.type}</span>
+                </div>
+                <div class="w-3 h-3 rounded-full ${asset.status === 'online' ? 'bg-green-500' : 'bg-red-500'}"></div>
+            `;
+            listItem.onclick = () => selectAsset(asset.id);
+            assetList.appendChild(listItem);
+        });
+
+        function generateTelemetry(asset) {
+             const baseData = {
+                'ID': asset.id,
+                'Nome': asset.name,
+                'Status': asset.status,
+                'Coords': `${asset.coords[0].toFixed(4)}, ${asset.coords[1].toFixed(4)}`,
+                'Velocidade': asset.type !== 'Comunidade' ? `${(Math.random() * 10 + 5).toFixed(2)} nós` : 'N/A',
+                'Curso': asset.type !== 'Comunidade' ? `${Math.floor(Math.random() * 360)}°` : 'N/A',
+                'Nível Rio': `${(Math.random() * 5 + 15).toFixed(2)} m`,
+                'Qualidade Ar (AQI)': Math.floor(Math.random() * 50 + 10),
+            };
+            
+            let html = '<ul class="space-y-1">';
+            for(const [key, value] of Object.entries(baseData)){
+                html += `<li><span class="font-semibold text-gray-400">${key}:</span> ${value}</li>`
+            }
+            html += '</ul>';
+
+            return html;
+        }
+
+        function selectAsset(assetId) {
+            const asset = assets.find(a => a.id === assetId);
+            if (!asset) return;
+            
+            map.setView(asset.coords, 14);
+            markers[assetId].openPopup();
+            
+            document.querySelectorAll('#asset-list li').forEach(li => li.classList.remove('bg-orange-900/50'));
+            document.getElementById(`asset-list-${assetId}`).classList.add('bg-orange-900/50');
+            
+            telemetryData.innerHTML = generateTelemetry(asset);
+        }
+
+        // Simulação Orbital
+        const connectionStatusEl = document.getElementById('connection-status');
+        const nextPassCountdownEl = document.getElementById('next-pass-countdown');
+        const nextPassSatelliteEl = document.getElementById('next-pass-satellite');
+        const passListEl = document.getElementById('pass-list');
+
+        const mockSatellites = ["TERRA", "AQUA", "ISS", "LANDSAT-8", "SENTINEL-2"];
+
+        let passSchedule = [];
+        function generatePassSchedule() {
+            passSchedule = [];
+            let nextTime = new Date();
+            for (let i = 0; i < 5; i++) {
+                nextTime.setMinutes(nextTime.getMinutes() + Math.random() * 120 + 90); // Next pass in 1.5-3.5 hours
+                passSchedule.push({
+                    satellite: mockSatellites[Math.floor(Math.random() * mockSatellites.length)],
+                    time: new Date(nextTime),
+                    duration: Math.floor(Math.random() * 8 + 4) // 4-12 minutes duration
+                });
+            }
+        }
+
+        function updateOrbitalPanel() {
+            const now = new Date();
+            const nextPass = passSchedule.find(pass => pass.time > now);
+
+            if (!nextPass) {
+                generatePassSchedule(); // Regenerate if schedule is over
+                return;
+            }
+            
+            const diff = nextPass.time - now;
+            const hours = Math.floor(diff / 3600000).toString().padStart(2, '0');
+            const minutes = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+            const seconds = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+
+            nextPassCountdownEl.textContent = `${hours}:${minutes}:${seconds}`;
+            nextPassSatelliteEl.textContent = `Satélite: ${nextPass.satellite} | Duração: ${nextPass.duration} min`;
+            
+            // Update connection status based on proximity to a pass
+            if(diff < nextPass.duration * 60 * 1000){ // If we are inside a pass window
+                 connectionStatusEl.textContent = 'CONEXÃO ATIVA';
+                 connectionStatusEl.classList.remove('text-green-400');
+                 connectionStatusEl.classList.add('text-orange-400');
+            } else {
+                 connectionStatusEl.textContent = 'SINAL FORTE';
+                 connectionStatusEl.classList.add('text-green-400');
+                 connectionStatusEl.classList.remove('text-orange-400');
+            }
+            
+            // Update future pass list
+            passListEl.innerHTML = passSchedule
+                .filter(p => p.time > now)
+                .slice(1, 4) // show next 3
+                .map(p => `<div>${p.satellite} em ${p.time.toLocaleTimeString('pt-BR')}</div>`)
+                .join('');
+        }
+
+        generatePassSchedule();
+        setInterval(updateOrbitalPanel, 1000);
+        updateOrbitalPanel();
+
+    </script>
+</body>
+</html>

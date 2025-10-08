@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAKAMI TECH - Conectando a Amazônia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1623594637219-29aa152de05b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .lang-btn {
+            cursor: pointer;
+            padding: 2px 5px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+        }
+        .lang-btn.active {
+            border-color: #F97316;
+            background-color: rgba(249, 115, 22, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Header -->
+    <header class="absolute top-0 left-0 right-0 z-10 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold">YAKAMI<span class="text-orange-500">.</span>TECH</h1>
+            <nav class="hidden md:flex items-center space-x-6 text-lg">
+                <a href="#services" class="hover:text-orange-500" data-lang-key="nav_services">Serviços</a>
+                <a href="empresa.html" class="hover:text-orange-500" data-lang-key="nav_company">Empresa</a>
+                <a href="equipe.html" class="hover:text-orange-500" data-lang-key="nav_team">Equipe</a>
+                <a href="contato.html" class="hover:text-orange-500" data-lang-key="nav_contact">Contato</a>
+            </nav>
+            <div class="flex items-center space-x-2">
+                <span id="lang-pt" class="lang-btn active" onclick="changeLanguage('pt')">🇧🇷 PT</span>
+                <span>|</span>
+                <span id="lang-en" class="lang-btn" onclick="changeLanguage('en')">🇺🇸 EN</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="relative hero-bg min-h-screen flex items-center justify-center text-center">
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+        <div class="relative z-10 p-4">
+            <h2 class="text-5xl md:text-7xl font-black mb-4" data-lang-key="hero_title">Conectividade e Logística Inteligente para a Amazônia</h2>
+            <p class="text-xl md:text-2xl mb-8 max-w-4xl mx-auto" data-lang-key="hero_subtitle">Rastreamento via satélite, comunicação para comunidades ribeirinhas e otimização do transporte fluvial.</p>
+            
+            <div class="mt-12 flex flex-wrap justify-center gap-8 text-center">
+                <div class="w-1/2 sm:w-1/4">
+                    <p class="text-4xl font-bold text-orange-500">+3</p>
+                    <p class="text-lg text-gray-300" data-lang-key="stats_vessels">Embarcações Conectadas</p>
+                </div>
+                <div class="w-1/2 sm:w-1/4">
+                    <p class="text-4xl font-bold text-orange-500">2</p>
+                    <p class="text-lg text-gray-300" data-lang-key="stats_communities">Comunidades Atendidas</p>
+                </div>
+                <div class="w-1/2 sm:w-1/4">
+                    <p class="text-4xl font-bold text-orange-500">+1.500 km²</p>
+                    <p class="text-lg text-gray-300" data-lang-key="stats_area">Área Monitorada</p>
+                </div>
+                <div class="w-1/2 sm:w-1/4">
+                    <p class="text-4xl font-bold text-orange-500">24/7</p>
+                    <p class="text-lg text-gray-300" data-lang-key="stats_support">Suporte e Operação</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer / Main Navigation -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-gray-800 bg-opacity-90 backdrop-blur-sm shadow-lg p-4 z-20">
+        <div class="container mx-auto flex justify-center items-center space-x-8 md:space-x-12">
+            <a href="#logistics" class="text-center text-gray-300 hover:text-white transition-colors" title="Logística">
+                <i class="fas fa-truck-fast text-2xl md:text-3xl"></i>
+                <span class="hidden md:block text-xs" data-lang-key="footer_logistics">Logística</span>
+            </a>
+            <a href="#transport" class="text-center text-gray-300 hover:text-white transition-colors" title="Transporte Fluvial">
+                <i class="fas fa-ship text-2xl md:text-3xl"></i>
+                <span class="hidden md:block text-xs" data-lang-key="footer_transport">Transporte Fluvial</span>
+            </a>
+            <a href="astra-net.html" class="text-center text-orange-500 hover:text-orange-400 transition-colors transform hover:scale-110">
+                <span class="font-bold text-lg md:text-xl block leading-tight">ASTRA-Net</span>
+                <span class="bg-orange-500 text-white text-xs font-semibold px-3 py-1 rounded-full" data-lang-key="footer_platform">Plataforma</span>
+            </a>
+            <a href="#communities" class="text-center text-gray-300 hover:text-white transition-colors" title="Comunidades">
+                <i class="fas fa-users text-2xl md:text-3xl"></i>
+                <span class="hidden md:block text-xs" data-lang-key="footer_communities">Comunidades</span>
+            </a>
+            <a href="#careers" class="text-center text-gray-300 hover:text-white transition-colors" title="Carreiras">
+                <i class="fas fa-briefcase text-2xl md:text-3xl"></i>
+                <span class="hidden md:block text-xs" data-lang-key="footer_careers">Carreiras</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Social Links section -->
+     <div class="bg-gray-900 py-6">
+        <div class="container mx-auto text-center text-gray-400">
+            <p class="mb-4" data-lang-key="social_follow">Siga-nos nas redes sociais</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://www.youtube.com/@astranetam" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/astranetam/" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/company/astra-net/" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.tiktok.com/@astranetam" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p class="mt-6 text-sm">&copy; 2025 YAKAMI TECH. Todos os direitos reservados.</p>
+        </div>
+    </div>
+
+
+    <script>
+        const translations = {
+            'en': {
+                'nav_services': 'Services',
+                'nav_company': 'Company',
+                'nav_team': 'Team',
+                'nav_contact': 'Contact',
+                'hero_title': 'Connectivity and Smart Logistics for the Amazon',
+                'hero_subtitle': 'Satellite tracking, communication for riverine communities, and optimization of river transport.',
+                'stats_vessels': 'Connected Vessels',
+                'stats_communities': 'Communities Served',
+                'stats_area': 'Monitored Area',
+                'stats_support': 'Support & Operation',
+                'footer_logistics': 'Logistics',
+                'footer_transport': 'River Transport',
+                'footer_platform': 'Platform',
+                'footer_communities': 'Communities',
+                'footer_careers': 'Careers',
+                'social_follow': 'Follow us on social media',
+            },
+            'pt': {
+                'nav_services': 'Serviços',
+                'nav_company': 'Empresa',
+                'nav_team': 'Equipe',
+                'nav_contact': 'Contato',
+                'hero_title': 'Conectividade e Logística Inteligente para a Amazônia',
+                'hero_subtitle': 'Rastreamento via satélite, comunicação para comunidades ribeirinhas e otimização do transporte fluvial.',
+                'stats_vessels': 'Embarcações Conectadas',
+                'stats_communities': 'Comunidades Atendidas',
+                'stats_area': 'Área Monitorada',
+                'stats_support': 'Suporte e Operação',
+                'footer_logistics': 'Logística',
+                'footer_transport': 'Transporte Fluvial',
+                'footer_platform': 'Plataforma',
+                'footer_communities': 'Comunidades',
+                'footer_careers': 'Carreiras',
+                'social_follow': 'Siga-nos nas redes sociais',
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-lang-key]').forEach(elem => {
+                const key = elem.getAttribute('data-lang-key');
+                elem.innerText = translations[lang][key];
+            });
+            document.getElementById('lang-pt').classList.toggle('active', lang === 'pt');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+        }
+
+        // Set initial language
+        changeLanguage('pt');
+    </script>
+
+</body>
+</html>
