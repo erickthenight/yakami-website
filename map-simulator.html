@@ -40,7 +40,7 @@
             <div id="dynamic-map-elements"></div>
 
             <!-- Camadas de Dados -->
-            <div id="weather-layer" class="map-layer absolute top-1/2 left-1/2 w-[300px] h-[250px] bg-radial-gradient(circle, rgba(255,255,0,0.4), rgba(0,100,255,0.1)) rounded-full hidden opacity-70 transform -translate-x-1/2 -translate-y-1/2"></div>
+            <div id="weather-layer" class="map-layer absolute top-1/2 left-1/2 w-[300px] h-[250px] rounded-full hidden opacity-70 transform -translate-x-1/2 -translate-y-1/2" style="background: radial-gradient(circle, rgba(255,255,0,0.4), rgba(0,100,255,0.1));"></div>
             <div id="hotspots-layer" class="map-layer hidden">
                 <div class="absolute text-2xl" style="top: 25%; left: 50%;"><i class="fas fa-fire text-red-500"></i></div>
                 <div class="absolute text-2xl" style="top: 60%; left: 70%;"><i class="fas fa-fire text-red-500"></i></div>
@@ -122,8 +122,54 @@
             </button>`;
     }
     
+    function generatePassSchedule() {
+        passSchedule = [];
+        const now = new Date();
+        const satellites = ["TERRA", "AQUA", "ISS", "LANDSAT-8"];
+        for (let i = 0; i < 4; i++) {
+            const futureTime = new Date(now.getTime() + (i * 30 + Math.random() * 20) * 60000);
+            passSchedule.push({
+                satellite: satellites[Math.floor(Math.random() * satellites.length)],
+                time: futureTime,
+                duration: Math.floor(5 + Math.random() * 5)
+            });
+        }
+    }
+
     function updateOrbitalPanel() {
-        // Lógica completa do painel orbital... (restaurada)
+        const now = new Date();
+        const upcomingPasses = passSchedule.filter(p => p.time > now);
+
+        if (upcomingPasses.length === 0) {
+            orbitalPanel.innerHTML = `
+                <h2 class="text-lg font-bold border-b-2 border-teal-500 pb-1 mb-2"><i class="fab fa-wpexplorer text-teal-500"></i> Visibilidade Orbital (NASA)</h2>
+                <div class="text-gray-400">Aguardando cálculo de novas passagens...</div>`;
+            generatePassSchedule();
+            return;
+        }
+
+        const nextPass = upcomingPasses[0];
+        const timeToNextPass = Math.floor((nextPass.time - now) / 1000);
+        const minutes = Math.floor(timeToNextPass / 60);
+        const seconds = timeToNextPass % 60;
+
+        let passListHtml = upcomingPasses.slice(0, 4).map(p => `
+            <div class="text-sm p-1 rounded ${p === nextPass ? 'bg-teal-500/20' : ''}">
+                🛰️ ${p.satellite} @ ${p.time.toLocaleTimeString('pt-BR')} (${p.duration} min)
+            </div>
+        `).join('');
+
+        orbitalPanel.innerHTML = `
+            <h2 class="text-lg font-bold border-b-2 border-teal-500 pb-1 mb-2"><i class="fab fa-wpexplorer text-teal-500"></i> Visibilidade Orbital (NASA)</h2>
+            <div>
+                <p>Status Conexão: <span class="text-red-500 font-bold">NÃO VISÍVEL</span></p>
+                <p>Próxima Janela em: <span class="text-teal-400 font-bold">${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}</span></p>
+            </div>
+            <div class="mt-3">
+                <h4 class="font-bold text-gray-300">Próximas Passagens:</h4>
+                <div class="space-y-1 mt-1">${passListHtml}</div>
+            </div>
+        `;
     }
 
     function updateAlertsPanel() {
@@ -149,7 +195,6 @@
         selectedVesselId = id;
         const vessel = embarcacoes.find(e => e.id === id);
         updateTelemetryPanel(vessel);
-        renderDynamicMapElements(); 
     }
 
     function activateSOS() {
@@ -196,7 +241,6 @@
     // --- Loop Principal ---
     function gameLoop() {
         updateVesselPositions();
-        // Lógica de simulação de dados (bateria, etc.)
         embarcacoes.forEach(emb => {
             emb.bateria -= 0.005;
             if (emb.bateria < 30 && !emb.alertedLowBattery) {
@@ -211,19 +255,17 @@
     }
     
     // --- Inicialização ---
-    // Event Listeners para as camadas
     toggleWeather.addEventListener('change', () => weatherLayer.classList.toggle('hidden', !toggleWeather.checked));
     toggleHotspots.addEventListener('change', () => hotspotsLayer.classList.toggle('hidden', !toggleHotspots.checked));
     
-    // Inicia os painéis
     updateTelemetryPanel(null);
     updateAlertsPanel();
     addAlert('SISTEMA', 'Terminal ASTRA HQ iniciado.');
-    //generatePassSchedule(); // A lógica do painel orbital foi omitida por brevidade, mas deve ser restaurada
+    generatePassSchedule();
+    renderDynamicMapElements();
     
-    // Inicia os loops
     setInterval(gameLoop, 100);
-    //setInterval(updateOrbitalPanel, 1000);
+    setInterval(updateOrbitalPanel, 1000);
 </script>
 
 </body>
