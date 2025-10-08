@@ -8,11 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
         .hero-bg {
-            background-image: url('https://images.unsplash.com/photo-1623594637219-29aa152de05b?q=80&w=2070&auto=format&fit=crop');
+            background-image: url('https://images.unsplash.com/photo-1543183539-84813571d382?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
         }
@@ -31,7 +30,7 @@
 <body class="bg-gray-900 text-white">
 
     <!-- Header -->
-    <header class="absolute top-0 left-0 right-0 z-10 p-4">
+    <header class="absolute top-0 left-0 right-0 z-10 p-4 bg-gray-900 bg-opacity-20 backdrop-blur-sm">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold">YAKAMI<span class="text-orange-500">.</span>TECH</h1>
             <nav class="hidden md:flex items-center space-x-6 text-lg">
@@ -76,8 +75,101 @@
         </div>
     </main>
 
+    <div id="services" class="bg-gray-800 py-16 px-4">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4" data-lang-key="challenge_title">O Desafio da Conexão na Amazônia</h2>
+            <p class="max-w-3xl mx-auto text-gray-300" data-lang-key="challenge_desc">Navegar e viver na Amazônia significa enfrentar vastas distâncias e conectividade limitada. A segurança da navegação, a eficiência da logística e a comunicação das comunidades são desafios diários. A YAKAMI TECH nasceu para transformar essa realidade com tecnologia espacial.</p>
+        </div>
+    </div>
+    
+    <!-- ASTRA-Net Section -->
+    <section class="py-20 px-4 bg-gray-900">
+        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="text-center md:text-left">
+                <span class="text-orange-500 font-semibold" data-lang-key="platform_tag">Nossa Plataforma</span>
+                <h3 class="text-4xl font-bold my-3" data-lang-key="platform_title">ASTRA-Net: Inteligência Orbital para os Rios</h3>
+                <p class="text-gray-300 mb-6" data-lang-key="platform_desc">O coração da nossa operação. A ASTRA-Net é uma plataforma de monitoramento que integra dados de satélites de baixa órbita (LEO) da NASA com sensores locais, fornecendo uma visão completa e em tempo real das operações fluviais e condições ambientais.</p>
+                <a href="astra-net.html" class="bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 px-6 rounded-lg inline-flex items-center transition-transform transform hover:scale-105">
+                    <i class="fas fa-satellite-dish mr-2"></i>
+                    <span data-lang-key="platform_cta">Explorar a Plataforma</span>
+                </a>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1639755243883-ef30f83732e7?q=80&w=1932&auto=format&fit=crop" alt="Satélite sobre a Terra" class="rounded-lg shadow-2xl">
+            </div>
+        </div>
+    </section>
+
+    <!-- Transport Section -->
+    <section id="transport" class="py-20 px-4 bg-gray-800">
+        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
+             <div>
+                <img src="https://images.unsplash.com/photo-1606132386591-35b881b4a69e?q=80&w=1974&auto=format&fit=crop" alt="Barco regional de passageiros na Amazônia" class="rounded-lg shadow-2xl">
+            </div>
+            <div class="text-center md:text-left">
+                <h3 class="text-4xl font-bold mb-3" data-lang-key="transport_title">Transporte Fluvial Seguro e Eficiente</h3>
+                <p class="text-gray-300 mb-6" data-lang-key="transport_desc">Oferecemos rastreamento 24/7 para embarcações de todos os portes. Saiba a localização exata, receba alertas de manutenção e condições climáticas, e ofereça mais segurança para seus passageiros e tranquilidade para sua operação.</p>
+                <ul class="space-y-3 text-left">
+                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="transport_feat1">Rastreamento em tempo real via satélite</span></li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="transport_feat2">Alertas de segurança e meteorológicos</span></li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="transport_feat3">Otimização de rotas e consumo de combustível</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logistics Section -->
+    <section id="logistics" class="py-20 px-4 bg-gray-900">
+        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="text-center md:text-left">
+                <h3 class="text-4xl font-bold mb-3" data-lang-key="logistics_title">Logística Inteligente para a Amazônia</h3>
+                <p class="text-gray-300 mb-6" data-lang-key="logistics_desc">Para cooperativas e empresas, a YAKAMI TECH otimiza o transporte de cargas e encomendas. Monitore sua frota, gerencie entregas e reduza custos operacionais com dados precisos, mesmo nas rotas mais isoladas.</p>
+                <ul class="space-y-3 text-left">
+                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="logistics_feat1">Gestão de frota fluvial</span></li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="logistics_feat2">Rastreamento de carga e encomendas</span></li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="logistics_feat3">Comunicação direta com a embarcação</span></li>
+                </ul>
+            </div>
+             <div>
+                <img src="https://images.unsplash.com/photo-1629994723223-3a78d78b8f2d?q=80&w=2070&auto=format&fit=crop" alt="Carga sendo transportada em barco na Amazônia" class="rounded-lg shadow-2xl">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Communities Section -->
+    <section id="communities" class="py-20 px-4 bg-gray-800">
+        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <img src="https://images.unsplash.com/photo-1618037380182-277342559101?q=80&w=2070&auto=format&fit=crop" alt="Comunidade ribeirinha com casas flutuantes" class="rounded-lg shadow-2xl">
+            </div>
+            <div class="text-center md:text-left">
+                <h3 class="text-4xl font-bold mb-3" data-lang-key="communities_title">Conectando Comunidades, Empoderando Pessoas</h3>
+                <p class="text-gray-300 mb-6" data-lang-key="communities_desc">Nosso maior propósito é levar conectividade a flutuantes e comunidades ribeirinhas. Oferecemos pontos de acesso à internet via satélite e sistemas de alerta para emergências, promovendo inclusão digital, segurança e novas oportunidades.</p>
+                <ul class="space-y-3 text-left">
+                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="communities_feat1">Internet via satélite para áreas remotas</span></li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="communities_feat2">Sistema de alerta comunitário</span></li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="communities_feat3">Monitoramento ambiental local</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Careers / Social Section -->
+    <section id="careers" class="bg-gray-900 py-12">
+        <div class="container mx-auto text-center text-gray-400">
+            <p class="mb-4" data-lang-key="social_follow">Siga-nos nas redes sociais</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://www.youtube.com/@astranetam" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/astranetam/" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/company/astra-net/" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.tiktok.com/@astranetam" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p class="mt-8 text-sm">&copy; 2025 YAKAMI TECH. Todos os direitos reservados.</p>
+        </div>
+    </section>
+
     <!-- Footer / Main Navigation -->
-    <footer class="fixed bottom-0 left-0 right-0 bg-gray-800 bg-opacity-90 backdrop-blur-sm shadow-lg p-4 z-20">
+    <footer class="sticky bottom-0 left-0 right-0 bg-gray-800 bg-opacity-90 backdrop-blur-sm shadow-lg p-4 z-20">
         <div class="container mx-auto flex justify-center items-center space-x-8 md:space-x-12">
             <a href="#logistics" class="text-center text-gray-300 hover:text-white transition-colors" title="Logística">
                 <i class="fas fa-truck-fast text-2xl md:text-3xl"></i>
@@ -95,27 +187,12 @@
                 <i class="fas fa-users text-2xl md:text-3xl"></i>
                 <span class="hidden md:block text-xs" data-lang-key="footer_communities">Comunidades</span>
             </a>
-            <a href="#careers" class="text-center text-gray-300 hover:text-white transition-colors" title="Carreiras">
+            <a href="empresa.html#careers" class="text-center text-gray-300 hover:text-white transition-colors" title="Carreiras">
                 <i class="fas fa-briefcase text-2xl md:text-3xl"></i>
                 <span class="hidden md:block text-xs" data-lang-key="footer_careers">Carreiras</span>
             </a>
         </div>
     </footer>
-
-    <!-- Social Links section -->
-     <div class="bg-gray-900 py-6">
-        <div class="container mx-auto text-center text-gray-400">
-            <p class="mb-4" data-lang-key="social_follow">Siga-nos nas redes sociais</p>
-            <div class="flex justify-center space-x-6">
-                <a href="https://www.youtube.com/@astranetam" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.instagram.com/astranetam/" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.linkedin.com/company/astra-net/" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.tiktok.com/@astranetam" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-tiktok"></i></a>
-            </div>
-            <p class="mt-6 text-sm">&copy; 2025 YAKAMI TECH. Todos os direitos reservados.</p>
-        </div>
-    </div>
-
 
     <script>
         const translations = {
@@ -124,18 +201,39 @@
                 'nav_company': 'Company',
                 'nav_team': 'Team',
                 'nav_contact': 'Contact',
-                'hero_title': 'Connectivity and Smart Logistics for the Amazon',
+                'hero_title': 'Smart Connectivity and Logistics for the Amazon',
                 'hero_subtitle': 'Satellite tracking, communication for riverine communities, and optimization of river transport.',
                 'stats_vessels': 'Connected Vessels',
                 'stats_communities': 'Communities Served',
                 'stats_area': 'Monitored Area',
                 'stats_support': 'Support & Operation',
+                'challenge_title': 'The Amazon Connectivity Challenge',
+                'challenge_desc': 'Navigating and living in the Amazon means facing vast distances and limited connectivity. Navigation safety, logistics efficiency, and community communication are daily challenges. YAKAMI TECH was born to transform this reality with space technology.',
+                'platform_tag': 'Our Platform',
+                'platform_title': 'ASTRA-Net: Orbital Intelligence for the Rivers',
+                'platform_desc': 'The heart of our operation. ASTRA-Net is a monitoring platform that integrates data from NASA\'s Low Earth Orbit (LEO) satellites with local sensors, providing a complete, real-time view of river operations and environmental conditions.',
+                'platform_cta': 'Explore the Platform',
+                'transport_title': 'Safe and Efficient River Transport',
+                'transport_desc': 'We offer 24/7 tracking for vessels of all sizes. Know the exact location, receive maintenance and weather alerts, and provide more safety for your passengers and peace of mind for your operation.',
+                'transport_feat1': 'Real-time satellite tracking',
+                'transport_feat2': 'Safety and weather alerts',
+                'transport_feat3': 'Route and fuel consumption optimization',
+                'logistics_title': 'Smart Logistics for the Amazon',
+                'logistics_desc': 'For cooperatives and companies, YAKAMI TECH optimizes cargo and parcel transport. Monitor your fleet, manage deliveries, and reduce operational costs with accurate data, even on the most isolated routes.',
+                'logistics_feat1': 'River fleet management',
+                'logistics_feat2': 'Cargo and parcel tracking',
+                'logistics_feat3': 'Direct communication with the vessel',
+                'communities_title': 'Connecting Communities, Empowering People',
+                'communities_desc': 'Our greatest purpose is to bring connectivity to floating homes and riverine communities. We offer satellite internet access points and emergency alert systems, promoting digital inclusion, safety, and new opportunities.',
+                'communities_feat1': 'Satellite internet for remote areas',
+                'communities_feat2': 'Community alert system',
+                'communities_feat3': 'Local environmental monitoring',
+                'social_follow': 'Follow us on social media',
                 'footer_logistics': 'Logistics',
                 'footer_transport': 'River Transport',
                 'footer_platform': 'Platform',
                 'footer_communities': 'Communities',
                 'footer_careers': 'Careers',
-                'social_follow': 'Follow us on social media',
             },
             'pt': {
                 'nav_services': 'Serviços',
@@ -148,19 +246,42 @@
                 'stats_communities': 'Comunidades Atendidas',
                 'stats_area': 'Área Monitorada',
                 'stats_support': 'Suporte e Operação',
+                'challenge_title': 'O Desafio da Conexão na Amazônia',
+                'challenge_desc': 'Navegar e viver na Amazônia significa enfrentar vastas distâncias e conectividade limitada. A segurança da navegação, a eficiência da logística e a comunicação das comunidades são desafios diários. A YAKAMI TECH nasceu para transformar essa realidade com tecnologia espacial.',
+                'platform_tag': 'Nossa Plataforma',
+                'platform_title': 'ASTRA-Net: Inteligência Orbital para os Rios',
+                'platform_desc': 'O coração da nossa operação. A ASTRA-Net é uma plataforma de monitoramento que integra dados de satélites de baixa órbita (LEO) da NASA com sensores locais, fornecendo uma visão completa e em tempo real das operações fluviais e condições ambientais.',
+                'platform_cta': 'Explorar a Plataforma',
+                'transport_title': 'Transporte Fluvial Seguro e Eficiente',
+                'transport_desc': 'Oferecemos rastreamento 24/7 para embarcações de todos os portes. Saiba a localização exata, receba alertas de manutenção e condições climáticas, e ofereça mais segurança para seus passageiros e tranquilidade para sua operação.',
+                'transport_feat1': 'Rastreamento em tempo real via satélite',
+                'transport_feat2': 'Alertas de segurança e meteorológicos',
+                'transport_feat3': 'Otimização de rotas e consumo de combustível',
+                'logistics_title': 'Logística Inteligente para a Amazônia',
+                'logistics_desc': 'Para cooperativas e empresas, a YAKAMI TECH otimiza o transporte de cargas e encomendas. Monitore sua frota, gerencie entregas e reduza custos operacionais com dados precisos, mesmo nas rotas mais isoladas.',
+                'logistics_feat1': 'Gestão de frota fluvial',
+                'logistics_feat2': 'Rastreamento de carga e encomendas',
+                'logistics_feat3': 'Comunicação direta com a embarcação',
+                'communities_title': 'Conectando Comunidades, Empoderando Pessoas',
+                'communities_desc': 'Nosso maior propósito é levar conectividade a flutuantes e comunidades ribeirinhas. Oferecemos pontos de acesso à internet via satélite e sistemas de alerta para emergências, promovendo inclusão digital, segurança e novas oportunidades.',
+                'communities_feat1': 'Internet via satélite para áreas remotas',
+                'communities_feat2': 'Sistema de alerta comunitário',
+                'communities_feat3': 'Monitoramento ambiental local',
+                'social_follow': 'Siga-nos nas redes sociais',
                 'footer_logistics': 'Logística',
                 'footer_transport': 'Transporte Fluvial',
                 'footer_platform': 'Plataforma',
                 'footer_communities': 'Comunidades',
                 'footer_careers': 'Carreiras',
-                'social_follow': 'Siga-nos nas redes sociais',
             }
         };
 
         function changeLanguage(lang) {
             document.querySelectorAll('[data-lang-key]').forEach(elem => {
                 const key = elem.getAttribute('data-lang-key');
-                elem.innerText = translations[lang][key];
+                if (translations[lang] && translations[lang][key]) {
+                    elem.innerText = translations[lang][key];
+                }
             });
             document.getElementById('lang-pt').classList.toggle('active', lang === 'pt');
             document.getElementById('lang-en').classList.toggle('active', lang === 'en');
