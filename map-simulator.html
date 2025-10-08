@@ -88,10 +88,11 @@
 
     // --- Dados do Ecossistema ---
     const embarcacoes = [
-        { id: 1, nome: "Expresso Juruá", type: 'balsa', icon: 'fa-truck-moving', path: path1, pathIndex: 0, top: 10, left: 45, bateria: 95, sinal: -85, velocidade: 12, sosActive: false, alertedLowBattery: false },
-        { id: 2, nome: "Ligeirinho Ajato", type: 'lancha', icon: 'fa-bolt', path: path2, pathIndex: 0, top: 90, left: 58, bateria: 78, sinal: -92, velocidade: 15, sosActive: false, alertedLowBattery: false },
-        { id: 3, nome: "Comunidade Unida", type: 'recreio', icon: 'fa-ship', path: path3, pathIndex: 0, top: 62, left: 30, bateria: 85, sinal: -101, velocidade: 9, sosActive: false, alertedLowBattery: false },
-        { id: 4, nome: "Carga Pesada II", type: 'balsa', icon: 'fa-truck-moving', path: path1, pathIndex: 4, top: 55, left: 52, bateria: 25, sinal: -115, velocidade: 10, sosActive: false, alertedLowBattery: false },
+        // CORREÇÃO: left e top iniciais correspondem ao primeiro ponto da rota [left, top]
+        { id: 1, nome: "Expresso Juruá", type: 'balsa', icon: 'fa-truck-moving', path: path1, pathIndex: 0, left: 10, top: 45, bateria: 95, sinal: -85, velocidade: 12, sosActive: false, alertedLowBattery: false },
+        { id: 2, nome: "Ligeirinho Ajato", type: 'lancha', icon: 'fa-bolt', path: path2, pathIndex: 0, left: 90, top: 58, bateria: 78, sinal: -92, velocidade: 15, sosActive: false, alertedLowBattery: false },
+        { id: 3, nome: "Comunidade Unida", type: 'recreio', icon: 'fa-ship', path: path3, pathIndex: 0, left: 62, top: 30, bateria: 85, sinal: -101, velocidade: 9, sosActive: false, alertedLowBattery: false },
+        { id: 4, nome: "Carga Pesada II", type: 'balsa', icon: 'fa-truck-moving', path: path1, pathIndex: 4, left: 55, top: 52, bateria: 25, sinal: -115, velocidade: 10, sosActive: false, alertedLowBattery: false },
     ];
     const portos = [ { nome: "Porto de Manaus", top: 51, left: 61 } ];
     const comunidades = [ { nome: "Vila do Lago", top: 30, left: 40 }, { nome: "Comunidade do Rio", top: 68, left: 25 } ];
@@ -195,6 +196,8 @@
         selectedVesselId = id;
         const vessel = embarcacoes.find(e => e.id === id);
         updateTelemetryPanel(vessel);
+        // CORREÇÃO: Renderiza o mapa imediatamente para mostrar a seleção
+        renderDynamicMapElements(); 
     }
 
     function activateSOS() {
@@ -225,9 +228,13 @@
     function updateVesselPositions() {
         embarcacoes.forEach(emb => {
             const target = emb.path[emb.pathIndex];
-            const dx = target[0] - emb.left;
-            const dy = target[1] - emb.top;
+            const targetLeft = target[0];
+            const targetTop = target[1];
+
+            const dx = targetLeft - emb.left;
+            const dy = targetTop - emb.top;
             const distance = Math.sqrt(dx * dx + dy * dy);
+
             if (distance < 1) {
                 emb.pathIndex = (emb.pathIndex + 1) % emb.path.length;
             } else {
