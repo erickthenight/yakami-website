@@ -6,27 +6,29 @@
   <title>ASTRA-Net Platform | YAKAMI TECH</title>
   <meta name="description" content="Sistema de monitoramento e rastreamento por satélite para a Amazônia - Tecnologia de Órbita Baixa (LEO)" />
   
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS (corrigido) -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Leaflet (Mapa) -->
+  <!-- Leaflet (Mapa) (corrigido) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <!-- Font Awesome -->
+  <!-- Font Awesome (corrigido) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
   <style>
     body { font-family: 'IBM Plex Mono', monospace; }
-    .leaflet-container { background: #0f172a; }
+    /* Fundo claro para o mapa */
+    .leaflet-container { background: #f8f9fa; }
     .vessel-marker { 
-      border: 2px solid #1e293b; 
       border-radius: 50%; 
       display: flex; 
       align-items: center; 
       justify-content: center; 
       font-size: 10px;
       color: black;
+      transition: all 0.3s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
     .vessel-balsa { background-color: #f97316; }
     .vessel-lancha { background-color: #facc15; }
@@ -37,6 +39,12 @@
     @keyframes pulse-sos {
       0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
       50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+    }
+    .port-marker i {
+        text-shadow: 0 0 8px rgba(0, 100, 150, 0.8);
+    }
+    .port-marker-organizado i {
+        text-shadow: 0 0 12px rgba(217, 119, 6, 0.9); /* Âncora dourada para Porto Organizado */
     }
   </style>
 </head>
@@ -81,30 +89,52 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- Mapa -->
       <div class="lg:col-span-2">
-        <div id="map" class="w-full h-[500px] rounded-xl border border-gray-700"></div>
+        <div id="map" class="w-full h-[500px] rounded-xl border border-gray-700 shadow-lg"></div>
       </div>
 
       <!-- Painéis Laterais -->
-      <div class="space-y-6">
-        <div id="telemetry-panel" class="bg-gray-800 p-4 rounded-lg border border-gray-700 h-1/3"></div>
-        <div id="orbital-panel" class="bg-gray-800 p-4 rounded-lg border border-gray-700 h-1/3"></div>
-        <div id="alerts-panel" class="bg-gray-800 p-4 rounded-lg border border-gray-700 h-1/3"></div>
+      <div class="flex flex-col space-y-6 h-[500px]">
+        <div id="telemetry-panel" class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex-grow"></div>
+        <div id="orbital-panel" class="bg-gray-800 p-4 rounded-lg border border-gray-700"></div>
+        <div id="alerts-panel" class="bg-gray-800 p-4 rounded-lg border border-gray-700"></div>
       </div>
     </div>
 
     <!-- Seção: Monitoramento em Tempo Real -->
-    <section class="mt-12 bg-blue-900/20 p-6 rounded-xl">
-      <h2 class="text-2xl font-bold mb-4">Monitoramento por Satélite em Tempo Real</h2>
-      <p class="text-gray-300 mb-4">
-        O ASTRA-Net utiliza tecnologia de satélites em órbitas baixas (LEO) para fornecer dados precisos sobre condições fluviais, localização de embarcações e monitoramento ambiental na região amazônica, mesmo nas áreas mais remotas.
-      </p>
-      <ul class="list-disc pl-5 text-gray-300 space-y-1">
-        <li>Dados de satélite atualizados a cada 2 horas</li>
-        <li>Rastreamento preciso de embarcações em tempo real</li>
-        <li>Monitoramento de condições fluviais e meteorológicas de portos regionais</li>
-        <li>Alertas de desmatamento e queimadas no trajeto de navegação</li>
-        <li>Sistema de monitoramento ambiental para comunidades</li>
-      </ul>
+    <section class="mt-12">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl font-bold">Monitoramento por Satélite em Tempo Real</h2>
+        <p class="text-gray-400 mt-2 max-w-3xl mx-auto">
+          O ASTRA-Net utiliza tecnologia de satélites LEO para fornecer dados precisos sobre condições fluviais, localização e monitoramento ambiental na Amazônia, mesmo nas áreas mais remotas.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 text-center">
+        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col items-center justify-center">
+          <i class="fas fa-sync-alt text-blue-400 text-2xl mb-2"></i>
+          <p class="text-sm font-semibold">Dados Atualizados</p>
+          <p class="text-xs text-gray-400">Satélites LEO a cada 2h</p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col items-center justify-center">
+          <i class="fas fa-ship text-blue-400 text-2xl mb-2"></i>
+          <p class="text-sm font-semibold">Rastreamento Preciso</p>
+          <p class="text-xs text-gray-400">Em tempo real</p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col items-center justify-center">
+          <i class="fas fa-water text-blue-400 text-2xl mb-2"></i>
+          <p class="text-sm font-semibold">Condições Fluviais</p>
+          <p class="text-xs text-gray-400">Nível e clima dos portos</p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col items-center justify-center">
+          <i class="fas fa-fire text-orange-500 text-2xl mb-2"></i>
+          <p class="text-sm font-semibold">Alertas de Rota</p>
+          <p class="text-xs text-gray-400">Queimadas e fumaça</p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col items-center justify-center">
+          <i class="fas fa-users text-green-400 text-2xl mb-2"></i>
+          <p class="text-sm font-semibold">Apoio a Comunidades</p>
+          <p class="text-xs text-gray-400">Monitoramento ambiental</p>
+        </div>
+      </div>
     </section>
 
     <!-- Seção: Tecnologia Espacial -->
@@ -135,60 +165,121 @@
   </main>
 
   <script>
-    // --- DADOS ---
-    const map = L.map('map').setView([-3.1190, -60.0217], 7);
+    // --- INICIALIZAÇÃO DO MAPA ---
+    const map = L.map('map').setView([-3.1190, -60.0217], 8);
     
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    // Usando o mapa base do CARTO (mais limpo e profissional)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 18
     }).addTo(map);
 
-    // Camada de fumaça/queimadas da NASA (VIIRS)
+    // --- CAMADAS DE DADOS (NASA E RIOS) ---
     const today = new Date().toISOString().split('T')[0];
     const nasaLayer = L.tileLayer(
       `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_Thermal_Anomalies_375m_Day/default/${today}/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg`,
       { opacity: 0.7 }
     );
 
-    // Rios da Amazônia (via Overpass API)
+    // Desenha os rios da Amazônia (bbox expandida para cobrir mais área)
     fetch('https://overpass-api.de/api/interpreter?data=[out:json];way["waterway"="river"](bbox:-10,-70,5,-2);out geom;')
       .then(r => r.json())
       .then(data => {
         data.elements.forEach(way => {
-          const coords = way.geometry.map(p => [p.lat, p.lon]);
-          L.polyline(coords, { color: '#0ea5e9', weight: 2, opacity: 0.8 }).addTo(map);
+          if(way.geometry) {
+            const coords = way.geometry.map(p => [p.lat, p.lon]);
+            L.polyline(coords, { color: '#3b82f6', weight: 2, opacity: 0.8 }).addTo(map);
+          }
         });
       });
 
-    // Embarcações com coordenadas reais
-    const vessels = [
-      { id: 1, nome: "YKM-01", lat: -3.1190, lng: -60.0217, type: "balsa", rio: "Rio Negro" },
-      { id: 2, nome: "YKM-02", lat: -3.4500, lng: -59.8000, type: "lancha", rio: "Rio Solimões" },
-      { id: 3, nome: "YKM-03", lat: -2.8000, lng: -60.2000, type: "recreio", rio: "Rio Negro" }
+    // --- DADOS DO ECOSSISTEMA (PORTOS COM COORDENADAS REAIS DA ANTAQ) ---
+    const ports = [
+      { nome: "Porto de Manaus (P. Organizado)", lat: -3.1067, lng: -60.0250, type: 'organizado' },
+      { nome: "Porto Chibatão (TUP)", lat: -3.0900, lng: -60.0100, type: 'tup' },
+      { nome: "TUP Moss", lat: -3.1150, lng: -60.0350, type: 'tup' },
+      { nome: "Super Terminais (Itacoatiara)", lat: -2.8800, lng: -58.4500, type: 'tup' },
+      { nome: "Porto Juarez Prates (Iranduba)", lat: -3.2720, lng: -60.2050, type: 'tup' }
     ];
+
+    const vessels = [];
+    const vesselMarkers = {};
+    const totalVessels = 25;
+
+    const riverLevels = {};
+    ports.forEach(p => {
+        riverLevels[p.nome] = { level: 15 + Math.random() * 10, status: 'Normal' };
+    });
 
     let selectedVessel = null;
     let alerts = [];
     let passSchedule = [];
 
-    // --- Renderização de Embarcações ---
+    // --- FUNÇÕES DE GERAÇÃO E RENDERIZAÇÃO ---
+    function generateFleet() {
+        const types = ['balsa', 'lancha', 'recreio'];
+        const centerPoints = [ 
+          { lat: -3.1190, lng: -60.0217 }, // Rio Negro
+          { lat: -3.4500, lng: -59.8000 }, // Rio Solimões
+          { lat: -2.8000, lng: -60.2000 }  // Rio Negro (norte)
+        ];
+        for(let i=1; i<= totalVessels; i++) {
+            const center = centerPoints[i % centerPoints.length];
+            vessels.push({
+                id: i, 
+                nome: `YKM-${String(i).padStart(2, '0')}`,
+                lat: center.lat + (Math.random() - 0.5) * 0.8, 
+                lng: center.lng + (Math.random() - 0.5) * 0.8,
+                type: types[i % types.length], 
+                bateria: 70 + Math.random() * 30, 
+                sinal: -90 + Math.random() * 20,
+                velocidade: 8 + Math.random() * 10, 
+                rpm: 1500 + Math.random() * 1000,
+            });
+        }
+    }
+
+    function renderPorts() {
+        ports.forEach(p => {
+            const iconClass = p.type === 'organizado' ? 'port-marker-organizado text-amber-500' : 'text-sky-500';
+            const icon = L.divIcon({ 
+              className: `port-marker ${iconClass} text-2xl`, 
+              html: '<i class="fas fa-anchor"></i>', 
+              iconSize: [24, 24],
+              iconAnchor: [12, 24]
+            });
+            L.marker([p.lat, p.lng], { icon: icon })
+              .addTo(map)
+              .bindPopup(`<strong>${p.nome}</strong>`);
+        });
+    }
+
     function renderVessels() {
       vessels.forEach(v => {
         const el = L.divIcon({
-          className: `vessel-marker vessel-${v.type} ${selectedVessel?.id === v.id ? 'border-yellow-400 scale-125' : ''} ${v.sosActive ? 'animate-pulse-sos' : ''}`,
+          className: `vessel-marker vessel-${v.type} border-2 ${selectedVessel?.id === v.id ? 'border-blue-500 scale-125' : 'border-gray-400'} ${v.sosActive ? 'animate-pulse-sos' : ''}`,
           html: `<i class="fas fa-${v.type === 'balsa' ? 'truck-moving' : v.type === 'lancha' ? 'bolt' : 'ship'}"></i>`,
-          iconSize: [24, 24]
+          iconSize: [24, 24],
+          iconAnchor: [12, 12]
         });
-        const marker = L.marker([v.lat, v.lng], { icon: el })
-          .addTo(map)
-          .bindPopup(`${v.nome}<br>Rio: ${v.rio}`)
-          .on('click', () => selectVessel(v));
+        if (vesselMarkers[v.id]) {
+            vesselMarkers[v.id].setLatLng([v.lat, v.lng]);
+            vesselMarkers[v.id].setIcon(el);
+        } else {
+            const marker = L.marker([v.lat, v.lng], { icon: el })
+              .addTo(map)
+              .bindPopup(v.nome)
+              .on('click', () => selectVessel(v));
+            vesselMarkers[v.id] = marker;
+        }
       });
     }
 
+    // --- FUNÇÕES DE LÓGICA E INTERAÇÃO ---
     function selectVessel(v) {
       selectedVessel = v;
       updateTelemetryPanel(v);
-      renderVessels();
     }
 
     function activateSOS() {
@@ -197,75 +288,140 @@
       addAlert('SOS', `Sinal de SOS recebido de ${selectedVessel.nome}!`);
       renderVessels();
     }
+    
+    // --- FUNÇÕES DE SIMULAÇÃO ---
+    function simulateMovement() {
+        vessels.forEach(v => {
+            v.lat += (Math.random() - 0.5) * 0.005;
+            v.lng += (Math.random() - 0.5) * 0.005;
+            v.velocidade += (Math.random() - 0.5) * 0.5;
+            if(v.velocidade < 5) v.velocidade = 5; if(v.velocidade > 20) v.velocidade = 20;
+            v.rpm += (Math.random() - 0.5) * 50;
+            if(v.rpm < 1200) v.rpm = 1200; if(v.rpm > 2800) v.rpm = 2800;
+        });
+        renderVessels();
+        if(selectedVessel) { updateTelemetryPanel(selectedVessel); }
+    }
 
-    // --- Painéis ---
+    function simulateRiverLevels() {
+        for (const portName in riverLevels) {
+            const data = riverLevels[portName];
+            data.level += (Math.random() - 0.5) * 0.1;
+            if (data.level < 10) data.level = 10; if (data.level > 29) data.level = 29;
+            if (data.level > 25) data.status = 'Cheia'; else if (data.level > 20) data.status = 'Alerta'; else data.status = 'Normal';
+        }
+        updateAlertsPanel();
+    }
+
+    // --- FUNÇÕES DE ATUALIZAÇÃO DOS PAINÉIS ---
     function updateTelemetryPanel(v) {
       const panel = document.getElementById('telemetry-panel');
-      if (!v) {
-        panel.innerHTML = `<h3 class="font-bold border-b border-orange-500 pb-2 mb-2">Telemetria do Ativo</h3><p class="text-gray-500">Selecione uma embarcação.</p>`;
-        return;
+      if (!v) { 
+        panel.innerHTML = `<h3 class="font-bold border-b border-orange-500 pb-1 mb-2 text-sm">Telemetria do Ativo</h3><p class="text-gray-500 text-sm">Selecione uma embarcação.</p>`; 
+        return; 
       }
       panel.innerHTML = `
-        <h3 class="font-bold border-b border-orange-500 pb-2 mb-2">${v.nome}</h3>
-        <p><i class="fas fa-battery-full text-green-500"></i> Bateria: <strong>78%</strong></p>
-        <p><i class="fas fa-signal text-blue-500"></i> Sinal: <strong>-85 dBm</strong></p>
-        <p><i class="fas fa-tachometer-alt text-yellow-500"></i> Velocidade: <strong>12 nós</strong></p>
-        <button onclick="activateSOS()" class="w-full mt-3 bg-red-600 hover:bg-red-500 text-white py-2 rounded text-sm">
-          <i class="fas fa-life-ring mr-1"></i> ATIVAR S.O.S
-        </button>
-      `;
+        <h3 class="font-bold border-b border-orange-500 pb-1 mb-1 text-sm">${v.nome}</h3>
+        <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-sm mt-1">
+          <p class="truncate flex items-center"><i class="fas fa-map-marker-alt fa-fw mr-1 text-red-400"></i> Lat: <strong>${v.lat.toFixed(4)}</strong></p>
+          <p class="truncate flex items-center"><i class="fas fa-map-marker-alt fa-fw mr-1 text-red-400"></i> Lng: <strong>${v.lng.toFixed(4)}</strong></p>
+          <p class="truncate flex items-center"><i class="fas fa-tachometer-alt fa-fw mr-1 text-yellow-500"></i> Vel.: <strong>${v.velocidade.toFixed(1)} nós</strong></p>
+          <p class="truncate flex items-center"><i class="fas fa-cogs fa-fw mr-1 text-gray-400"></i> RPM: <strong>${v.rpm.toFixed(0)}</strong></p>
+          <p class="truncate flex items-center"><i class="fas fa-battery-full fa-fw mr-1 text-green-500"></i> Bat.: <strong>${v.bateria.toFixed(0)}%</strong></p>
+          <p class="truncate flex items-center"><i class="fas fa-signal fa-fw mr-1 text-blue-500"></i> Sinal: <strong>${v.sinal.toFixed(0)} dBm</strong></p>
+        </div>
+        <div class="mt-2 grid grid-cols-2 gap-2 text-sm">
+          <button onclick="activateSOS()" class="w-full bg-red-600 hover:bg-red-500 text-white py-1.5 rounded flex items-center justify-center">
+            <i class="fas fa-life-ring mr-1"></i> S.O.S
+          </button>
+          <a href="#" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-1.5 rounded flex items-center justify-center" title="Enviar Mensagem">
+            <i class="fas fa-envelope mr-1"></i> Mensagem
+          </a>
+        </div>`;
     }
 
     function addAlert(type, msg) {
       alerts.unshift({ type, msg, time: new Date().toLocaleTimeString() });
-      if (alerts.length > 5) alerts.pop();
+      if (alerts.length > 3) alerts.pop();
       updateAlertsPanel();
     }
 
     function updateAlertsPanel() {
-      const panel = document.getElementById('alerts-panel');
-      const content = alerts.map(a => 
-        `<div class="text-sm ${a.type === 'SOS' ? 'text-red-400 font-bold' : 'text-gray-300'}">
-          [${a.time}] ${a.msg}
-        </div>`
-      ).join('');
-      panel.innerHTML = `
-        <h3 class="font-bold border-b border-red-500 pb-2 mb-2">Eventos e Alertas</h3>
-        ${content || '<p class="text-gray-500">Nenhum alerta.</p>'}
-      `;
+        const panel = document.getElementById('alerts-panel');
+        let riverLevelContent = Object.keys(riverLevels).map(portName => {
+            const data = riverLevels[portName];
+            let statusColor = 'text-green-400';
+            if (data.status === 'Alerta') statusColor = 'text-yellow-400'; else if (data.status === 'Cheia') statusColor = 'text-red-400';
+            return `<div class="text-xs flex justify-between"><span class="truncate pr-2">${portName.split('(')[0]}</span><span class="${statusColor} font-bold">${data.level.toFixed(2)}m (${data.status})</span></div>`;
+        }).join('');
+        const satelliteAlerts = `<div class="text-xs text-gray-300 mt-2"><i class="fas fa-exclamation-triangle text-yellow-400"></i> [${new Date().toLocaleTimeString()}] Risco de tempestade severa (GPM).</div>`;
+        const sosAlerts = alerts.filter(a => a.type === 'SOS').map(a => `<div class="text-sm text-red-400 font-bold animate-pulse"><i class="fas fa-skull-crossbones"></i> [${a.time}] ${a.msg}</div>`).join('');
+        panel.innerHTML = `
+          <h3 class="font-bold border-b border-blue-400 pb-1 mb-2 text-sm">Alertas e Dados Ambientais</h3>
+          ${sosAlerts}
+          <div class="space-y-1">
+            <h4 class="font-semibold text-xs text-gray-400 mt-1">Níveis dos Rios (Portos)</h4>
+            ${riverLevelContent}
+          </div>
+          <div class="mt-2 pt-2 border-t border-gray-700">
+            <h4 class="font-semibold text-xs text-gray-400">Alertas de Satélite (NASA)</h4>
+            ${satelliteAlerts}
+          </div>`;
     }
 
     function updateOrbitalPanel() {
       const now = new Date();
-      if (passSchedule.length === 0) {
-        const sats = ["TERRA", "AQUA", "ISS"];
-        passSchedule = sats.map((s, i) => ({
-          sat: s,
-          time: new Date(now.getTime() + (i+1)*15*60000),
-          dur: 8 - i
-        }));
+      if (passSchedule.length === 0 || passSchedule[0].time < now) {
+        const sats = ["YAKAMI-SAT-01", "Starlink-G7-5", "TERRA (NASA)", "AQUA (NASA)", "Sentinel-2 (ESA)"];
+        passSchedule = [];
+        for(let i=0; i < 4; i++){ 
+          passSchedule.push({ 
+            sat: sats[Math.floor(Math.random() * sats.length)], 
+            time: new Date(now.getTime() + (i * 10 + Math.random() * 15) * 60000), 
+            dur: 5 + Math.floor(Math.random() * 5) 
+          }); 
+        }
+        passSchedule.sort((a,b) => a.time - b.time);
       }
       const next = passSchedule[0];
-      const diff = Math.max(0, Math.floor((next.time - now) / 1000));
-      const mm = String(Math.floor(diff / 60)).padStart(2, '0');
-      const ss = String(diff % 60).padStart(2, '0');
-      
+      const timeToPass = next.time - now;
+      let statusText, statusColor, countdownText;
+      if (timeToPass < 0 && timeToPass > -next.dur * 60 * 1000) {
+          statusText = "VISÍVEL"; statusColor = "text-green-400";
+          const remainingTime = Math.floor((next.dur * 60 * 1000 + timeToPass) / 1000);
+          const mm = String(Math.floor(remainingTime / 60)).padStart(2, '0');
+          const ss = String(remainingTime % 60).padStart(2, '0');
+          countdownText = `Fim da janela em: <span class="text-green-400 font-bold">${mm}:${ss}</span>`;
+      } else {
+          statusText = "NÃO VISÍVEL"; statusColor = "text-red-500";
+          const diff = Math.max(0, Math.floor(timeToPass / 1000));
+          const mm = String(Math.floor(diff / 60)).padStart(2, '0');
+          const ss = String(diff % 60).padStart(2, '0');
+          countdownText = `Próxima janela: <span class="text-teal-400 font-bold">${mm}:${ss}</span>`;
+      }
+      const passList = passSchedule.map(p => `<div class="text-xs ${p.sat === next.sat ? 'text-teal-300' : ''}">🛰️ ${p.sat} @ ${p.time.toLocaleTimeString()} (${p.dur} min)</div>`).join('');
       document.getElementById('orbital-panel').innerHTML = `
-        <h3 class="font-bold border-b border-teal-500 pb-2 mb-2">Visibilidade Orbital</h3>
-        <p>Status: <span class="text-red-500">NÃO VISÍVEL</span></p>
-        <p>Próxima janela: <span class="text-teal-400 font-bold">${mm}:${ss}</span></p>
-        <p class="text-sm mt-2">🛰️ ${next.sat} @ ${next.time.toLocaleTimeString()} (${next.dur} min)</p>
-      `;
+        <h3 class="font-bold border-b border-teal-500 pb-1 mb-2 text-sm">Visibilidade Orbital</h3>
+        <div class="text-sm space-y-1">
+          <p>Status: <span class="${statusColor} font-bold">${statusText}</span></p>
+          <p>${countdownText}</p>
+          <div class="mt-2 pt-1 border-t border-gray-700">
+            <h4 class="font-semibold mb-1">Próximas Passagens:</h4>
+            <div class="space-y-1">${passList}</div>
+          </div>
+        </div>`;
     }
-
-    // --- Inicialização ---
+  
+    // --- INICIALIZAÇÃO ---
+    generateFleet();
+    renderPorts();
     renderVessels();
     updateTelemetryPanel(null);
     updateAlertsPanel();
     updateOrbitalPanel();
     addAlert('SISTEMA', 'Terminal de operações iniciado.');
 
-    // Camada da NASA (opcional)
+    // Ativa/desativa camada da NASA com tecla 'N'
     document.addEventListener('keydown', (e) => {
       if (e.key === 'n' || e.key === 'N') {
         if (map.hasLayer(nasaLayer)) map.removeLayer(nasaLayer);
@@ -274,6 +430,8 @@
     });
 
     setInterval(updateOrbitalPanel, 1000);
+    setInterval(simulateMovement, 2000);
+    setInterval(simulateRiverLevels, 5000);
   </script>
 </body>
 </html>
