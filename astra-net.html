@@ -32,6 +32,11 @@
     .vessel-balsa { background-color: #f97316; }
     .vessel-lancha { background-color: #facc15; }
     .vessel-recreio { background-color: #e5e7eb; }
+    .vessel-navio-patrulha { background-color: #3b82f6; }
+    .vessel-lancha-patrulha { background-color: #8b5cf6; }
+    .vessel-carga { background-color: #6b7280; }
+    .vessel-hidroceanografico { background-color: #10b981; }
+    .vessel-hospitalar { background-color: #ef4444; }
     .animate-pulse-sos {
       animation: pulse-sos 1.5s infinite;
     }
@@ -216,6 +221,19 @@
         </div>
       </div>
     </section>
+
+    <!-- Seção: Conformidade com a NORMAM-204 -->
+    <section class="mt-10 bg-blue-900/20 p-6 rounded-xl">
+      <h2 class="text-2xl font-bold mb-4">Conformidade com a NORMAM-204 da Marinha do Brasil</h2>
+      <p class="text-gray-300 mb-4">
+        A partir de 1º de janeiro de 2026, todas as embarcações com Arqueação Bruta ≥ 50 estão obrigadas a utilizar um sistema de monitoramento AVL (Automatic Vehicle Location) em tempo real.
+      </p>
+      <ul class="list-disc pl-5 text-gray-300 space-y-1">
+        <li>O ASTRA-Net é um <strong>Provedor de Serviço de Monitoramento</strong> compatível com os requisitos da Marinha.</li>
+        <li>Nossos dispositivos YAKAMI são certificados pela <strong>Anatel</strong> e transmitem dados para o <strong>SISTRAM</strong>.</li>
+        <li>Garantimos <strong>180 dias de armazenamento de dados</strong> para auditoria.</li>
+      </ul>
+    </section>
   </main>
 
   <script>
@@ -240,12 +258,18 @@
         });
       });
 
-    // --- PORTOS FLUVIAIS (ANTAQ) ---
+    // --- PORTOS FLUVIAIS (ANTAQ + ARSEPAM + WWF) ---
     const ports = [
-      { nome: "Porto de Manaus", lat: -3.1067, lng: -60.0250, type: 'organizado' },
-      { nome: "Porto Chibatão", lat: -3.0900, lng: -60.0100, type: 'tup' },
+      { nome: "Manaus", lat: -3.1067, lng: -60.0250, type: 'organizado' },
+      { nome: "Janauari", lat: -3.0200, lng: -60.1500, type: 'comunidade' },
+      { nome: "São Raimundo", lat: -3.1500, lng: -60.0800, type: 'comunidade' },
+      { nome: "Tupé", lat: -3.2200, lng: -60.1200, type: 'comunidade' },
+      { nome: "Novo Airão", lat: -2.6500, lng: -60.7500, type: 'comunidade' },
+      { nome: "Chibatão", lat: -3.0900, lng: -60.0100, type: 'tup' },
       { nome: "TUP Moss", lat: -3.1150, lng: -60.0350, type: 'tup' },
-      { nome: "Super Terminais", lat: -2.8800, lng: -58.4500, type: 'tup' }
+      { nome: "Super Terminais", lat: -2.8800, lng: -58.4500, type: 'tup' },
+      { nome: "Iranduba (Cacau Pirêra)", lat: -3.1350, lng: -60.2100, type: 'comunidade' },
+      { nome: "Parintins", lat: -2.6700, lng: -56.7300, type: 'comunidade' }
     ];
 
     ports.forEach(p => {
@@ -258,22 +282,69 @@
       });
       L.marker([p.lat, p.lng], { icon: icon })
         .addTo(map)
-        .bindPopup(`<strong>${p.nome}</strong>`);
+        .bindPopup(`<strong>Porto de ${p.nome}</strong>`);
     });
 
-    // --- EMBARCAÇÕES ---
+    // --- ROTAS DAS EMBARCAÇÕES ---
+    const routes = [
+      { from: "Manaus", to: "Janauari", color: "#f97316" },
+      { from: "Manaus", to: "São Raimundo", color: "#facc15" },
+      { from: "Manaus", to: "Tupé", color: "#facc15" },
+      { from: "Manaus", to: "Novo Airão", color: "#3b82f6" },
+      { from: "Manaus", to: "Iranduba (Cacau Pirêra)", color: "#8b5cf6" },
+      { from: "Manaus", to: "Parintins", color: "#ef4444" }
+    ];
+
+    routes.forEach(route => {
+      const fromPort = ports.find(p => p.nome === route.from);
+      const toPort = ports.find(p => p.nome === route.to);
+      if (fromPort && toPort) {
+        L.polyline(
+          [[fromPort.lat, fromPort.lng], [toPort.lat, toPort.lng]],
+          { color: route.color, weight: 3, opacity: 0.6, dashArray: "5,5" }
+        ).addTo(map);
+      }
+    });
+
+    // --- FROTA COMPLETA E AUTÊNTICA DA AMAZÔNIA ---
     const vessels = [
-      { id: 1, nome: "YKM-01", lat: -3.1190, lng: -60.0217, type: "balsa", bateria: 85, sinal: -82, velocidade: 12, rpm: 2100 },
-      { id: 2, nome: "YKM-02", lat: -3.4500, lng: -59.8000, type: "lancha", bateria: 72, sinal: -95, velocidade: 18, rpm: 2800 },
-      { id: 3, nome: "YKM-03", lat: -2.8000, lng: -60.2000, type: "recreio", bateria: 91, sinal: -78, velocidade: 8, rpm: 1500 }
+      // TRANSPORTE DE PASSAGEIROS (ARSEPAM / NAVEGAM / WWF)
+      { id: 1, nome: "Balsa Iranduba", empresa: "Barcas Iranduba", tipo: "balsa", capacidade: 300, rota: "Manaus ↔ Iranduba", lat: -3.1350, lng: -60.2100, bateria: 88, sinal: -80, velocidade: 8, rpm: 1500, arqueacao: 120 },
+      { id: 2, nome: "Lancha Janauari", empresa: "COOBARQ", tipo: "lancha", capacidade: 80, rota: "Manaus ↔ Janauari", lat: -3.0600, lng: -60.0900, bateria: 92, sinal: -75, velocidade: 18, rpm: 2800, arqueacao: 45 },
+      { id: 3, nome: "Recreio Parintins", empresa: "Navegam", tipo: "recreio", capacidade: 200, rota: "Manaus ↔ Parintins", lat: -2.9500, lng: -60.3000, bateria: 85, sinal: -90, velocidade: 15, rpm: 2000, arqueacao: 200 },
+
+      // SEGURANÇA FLUVIAL (MARINHA DO BRASIL - DEFESA.NET)
+      { id: 4, nome: "Pedro Teixeira (P-20)", empresa: "Marinha do Brasil", tipo: "navio-patrulha", capacidade: 30, rota: "Patrulha Rio Negro", lat: -3.1100, lng: -60.0100, bateria: 95, sinal: -70, velocidade: 22, rpm: 3000, arqueacao: 350 },
+      { id: 5, nome: "Lancha Policial AM-01", empresa: "SSP-AM", tipo: "lancha-patrulha", capacidade: 12, rota: "Patrulha Zona Norte", lat: -3.0800, lng: -60.0050, bateria: 97, sinal: -65, velocidade: 30, rpm: 3500, arqueacao: 25 },
+
+      // LOGÍSTICA (GRUPO CHIBATÃO / TBL)
+      { id: 6, nome: "Chibatão Logística", empresa: "Grupo Chibatão", tipo: "carga", capacidade: 500, rota: "Porto Chibatão ↔ Manaus", lat: -3.0950, lng: -60.0150, bateria: 82, sinal: -88, velocidade: 10, rpm: 1600, arqueacao: 800 },
+
+      // CIÊNCIA E SAÚDE (MARINHA - DEFESA.NET)
+      { id: 7, nome: "Rio Negro (H-15)", empresa: "Marinha do Brasil", tipo: "hidroceanografico", capacidade: 50, rota: "Levantamento Hidrográfico", lat: -3.2000, lng: -60.1000, bateria: 90, sinal: -85, velocidade: 12, rpm: 1800, arqueacao: 400 },
+      { id: 8, nome: "Oswaldo Cruz (U-18)", empresa: "Marinha do Brasil", tipo: "hospitalar", capacidade: 100, rota: "Atendimento Comunidades", lat: -3.1500, lng: -60.0500, bateria: 89, sinal: -82, velocidade: 14, rpm: 1900, arqueacao: 300 }
     ];
 
     let selectedVessel = null;
 
+    function getVesselIcon(type) {
+      switch(type) {
+        case 'balsa': return 'truck-moving';
+        case 'lancha': return 'bolt';
+        case 'recreio': return 'ship';
+        case 'navio-patrulha': return 'shield';
+        case 'lancha-patrulha': return 'fighter-jet';
+        case 'carga': return 'warehouse';
+        case 'hidroceanografico': return 'chart-line';
+        case 'hospitalar': return 'first-aid';
+        default: return 'ship';
+      }
+    }
+
     vessels.forEach(v => {
       const el = L.divIcon({
-        className: `vessel-marker vessel-${v.type} ${selectedVessel?.id === v.id ? 'border-yellow-300 scale-125' : 'border-gray-900'}`,
-        html: `<i class="fas fa-${v.type === 'balsa' ? 'truck-moving' : v.type === 'lancha' ? 'bolt' : 'ship'} text-black text-xs"></i>`,
+        className: `vessel-marker vessel-${v.tipo} ${selectedVessel?.id === v.id ? 'border-yellow-300 scale-125' : 'border-gray-900'}`,
+        html: `<i class="fas fa-${getVesselIcon(v.tipo)} text-black text-xs"></i>`,
         iconSize: [24, 24],
         iconAnchor: [12, 12]
       });
@@ -307,15 +378,22 @@
       panel.innerHTML = `
         <h3 class="font-bold panel-title">${v.nome}</h3>
         <div class="space-y-2 text-sm">
-          <div><i class="fas fa-microchip text-orange-500 mr-2"></i><strong>Dispositivo YAKAMI</strong></div>
+          <div><i class="fas fa-building text-blue-400 mr-2"></i><strong>Operador:</strong> ${v.empresa}</div>
+          <div><i class="fas fa-ship text-blue-400 mr-2"></i><strong>Tipo:</strong> ${v.tipo.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</div>
+          <div><i class="fas fa-users text-green-400 mr-2"></i><strong>Capacidade:</strong> ${v.capacidade} ${v.tipo === 'carga' ? 'toneladas' : 'passageiros'}</div>
+          <div><i class="fas fa-route text-yellow-500 mr-2"></i><strong>Rota/Missão:</strong> ${v.rota}</div>
+          <div><i class="fas fa-ruler-combined text-purple-400 mr-2"></i><strong>Arqueação Bruta:</strong> ${v.arqueacao} AB</div>
+          
+          <div class="mt-2"><i class="fas fa-microchip text-orange-500 mr-2"></i><strong>Dispositivo YAKAMI</strong></div>
           <div class="pl-4">
             <p><i class="fas fa-battery-full mr-2 text-green-500"></i>Bateria: <strong>${v.bateria}%</strong></p>
             <p><i class="fas fa-signal mr-2 text-blue-500"></i>Sinal: <strong>${v.sinal} dBm</strong></p>
           </div>
-          <div class="mt-2"><i class="fas fa-ship text-blue-400 mr-2"></i><strong>Telemetria da Embarcação</strong></div>
+          
+          <div class="mt-2"><i class="fas fa-tachometer-alt text-yellow-500 mr-2"></i><strong>Telemetria da Embarcação</strong></div>
           <div class="pl-4">
-            <p><i class="fas fa-tachometer-alt mr-2 text-yellow-500"></i>Velocidade: <strong>${v.velocidade} nós</strong></p>
-            <p><i class="fas fa-cogs mr-2 text-gray-400"></i>RPM: <strong>${v.rpm}</strong></p>
+            <p><i class="fas fa-tachometer-alt mr-2"></i>Velocidade: <strong>${v.velocidade} nós</strong></p>
+            <p><i class="fas fa-cogs mr-2"></i>RPM: <strong>${v.rpm}</strong></p>
             <p><i class="fas fa-map-marker-alt mr-2 text-red-400"></i>Lat: <strong>${v.lat.toFixed(4)}</strong></p>
             <p><i class="fas fa-map-marker-alt mr-2 text-red-400"></i>Lng: <strong>${v.lng.toFixed(4)}</strong></p>
           </div>
