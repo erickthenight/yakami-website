@@ -1,84 +1,279 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YAKAMI TECH - ASTRA-Net</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASTRA-Net Platform | YAKAMI TECH</title>
+  <meta name="description" content="Sistema de monitoramento e rastreamento por satélite para a Amazônia - Tecnologia de Órbita Baixa (LEO)" />
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Leaflet (Mapa) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <style>
+    body { font-family: 'IBM Plex Mono', monospace; }
+    .leaflet-container { background: #0f172a; }
+    .vessel-marker { 
+      border: 2px solid #1e293b; 
+      border-radius: 50%; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 10px;
+      color: black;
+    }
+    .vessel-balsa { background-color: #f97316; }
+    .vessel-lancha { background-color: #facc15; }
+    .vessel-recreio { background-color: #e5e7eb; }
+    .animate-pulse-sos {
+      animation: pulse-sos 1.5s infinite;
+    }
+    @keyframes pulse-sos {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+    }
+  </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="bg-gray-900 text-gray-200">
 
-    <!-- Header -->
-    <header class="fixed w-full z-30 transition duration-300 ease-in-out bg-black bg-opacity-80 backdrop-blur-sm">
-        <div class="max-w-6xl mx-auto px-5 sm:px-6">
-            <div class="flex items-center justify-between h-16 md:h-20">
-                <div class="flex-shrink-0 mr-4"><a href="index.html" class="block"><span class="text-2xl font-bold text-orange-500">YAKAMI</span></a></div>
-                <nav class="flex flex-grow justify-end">
-                    <div id="language-switcher" class="flex items-center">
-                        <button onclick="changeLanguage('pt')" class="px-2 font-semibold text-sm text-gray-300 lang-btn" data-lang="pt">PT</button>
-                        <span class="text-gray-500">|</span>
-                        <button onclick="changeLanguage('en')" class="px-2 font-semibold text-sm text-gray-300 lang-btn" data-lang="en">EN</button>
-                    </div>
-                </nav>
-            </div>
+  <!-- Cabeçalho -->
+  <header class="bg-white/10 backdrop-blur-sm border-b border-gray-800 py-4">
+    <div class="container mx-auto px-4 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-satellite text-orange-500 text-xl"></i>
+        <span class="font-bold text-lg">YAKAMI TECH</span>
+      </div>
+      <div class="text-sm bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full">
+        NASA Space Apps Challenge 2025
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-8">
+    <!-- Título -->
+    <div class="text-center mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold mb-2">ASTRA-Net Platform</h1>
+      <p class="text-gray-400 max-w-2xl mx-auto">
+        Sistema de monitoramento e rastreamento por satélite para a Amazônia - Tecnologia de Órbita Baixa (LEO)
+      </p>
+      <div class="mt-4 flex justify-center space-x-4">
+        <a href="https://github.com/astranetam-dev/astra-net-platform" target="_blank" class="text-blue-400 hover:underline flex items-center">
+          <i class="fab fa-github mr-1"></i> GitHub Repository
+        </a>
+        <button class="text-orange-500 font-medium">Ver funcionalidades</button>
+      </div>
+    </div>
+
+    <!-- Seção de Demonstração -->
+    <div class="text-center mb-8">
+      <h2 class="text-xl font-bold mb-2">DEMONSTRAÇÃO INTERATIVA</h2>
+      <h3 class="text-lg text-gray-400 mb-2">Mapa de Monitoramento & Operações Fluviais da Amazônia</h3>
+      <p class="text-gray-500">Explore serviços e visualize camadas de dados da NASA em tempo real sobre a região Amazônica Brasileira.</p>
+    </div>
+
+    <!-- Layout Principal -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Mapa -->
+      <div class="lg:col-span-2">
+        <div id="map" class="w-full h-[500px] rounded-xl border border-gray-700"></div>
+      </div>
+
+      <!-- Painéis Laterais -->
+      <div class="space-y-6">
+        <div id="telemetry-panel" class="bg-gray-800 p-4 rounded-lg border border-gray-700 h-1/3"></div>
+        <div id="orbital-panel" class="bg-gray-800 p-4 rounded-lg border border-gray-700 h-1/3"></div>
+        <div id="alerts-panel" class="bg-gray-800 p-4 rounded-lg border border-gray-700 h-1/3"></div>
+      </div>
+    </div>
+
+    <!-- Seção: Monitoramento em Tempo Real -->
+    <section class="mt-12 bg-blue-900/20 p-6 rounded-xl">
+      <h2 class="text-2xl font-bold mb-4">Monitoramento por Satélite em Tempo Real</h2>
+      <p class="text-gray-300 mb-4">
+        O ASTRA-Net utiliza tecnologia de satélites em órbitas baixas (LEO) para fornecer dados precisos sobre condições fluviais, localização de embarcações e monitoramento ambiental na região amazônica, mesmo nas áreas mais remotas.
+      </p>
+      <ul class="list-disc pl-5 text-gray-300 space-y-1">
+        <li>Dados de satélite atualizados a cada 2 horas</li>
+        <li>Rastreamento preciso de embarcações em tempo real</li>
+        <li>Monitoramento de condições fluviais e meteorológicas de portos regionais</li>
+        <li>Alertas de desmatamento e queimadas no trajeto de navegação</li>
+        <li>Sistema de monitoramento ambiental para comunidades</li>
+      </ul>
+    </section>
+
+    <!-- Seção: Tecnologia Espacial -->
+    <section class="mt-10">
+      <div class="text-center mb-6">
+        <h2 class="text-2xl font-bold">TECNOLOGIA ESPACIAL</h2>
+        <p class="text-gray-400">Funcionalidades da Plataforma</p>
+        <p class="text-gray-500 mt-2">Desenvolvida com tecnologia de ponta para os desafios únicos da Amazônia.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
+          <i class="fas fa-satellite text-orange-500 text-2xl mb-3"></i>
+          <h3 class="font-bold mb-2">Integração com Satélites LEO</h3>
+          <p class="text-sm text-gray-400">Conexão direta com satélites de órbita baixa para coleta de dados em tempo real.</p>
         </div>
-    </header>
+        <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
+          <i class="fas fa-ship text-blue-400 text-2xl mb-3"></i>
+          <h3 class="font-bold mb-2">Rastreamento de Embarcações</h3>
+          <p class="text-sm text-gray-400">Monitoramento preciso da localização, velocidade e rotas de embarcações fluviais.</p>
+        </div>
+        <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
+          <i class="fas fa-tree text-green-500 text-2xl mb-3"></i>
+          <h3 class="font-bold mb-2">Vigilância Ambiental</h3>
+          <p class="text-sm text-gray-400">Detecção de desmatamento, queimadas e mudanças na cobertura vegetal.</p>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <!-- Main Content -->
-    <main class="flex-grow pt-20">
-        <section class="relative text-center py-12 md:py-20">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6">
-                <img src="https://www.spaceappschallenge.org/wp-content/uploads/2024/02/sac-logo-lockup-nasa.png" alt="NASA Space Apps Challenge 2025" class="mx-auto mb-4 h-20">
-                <h1 class="text-4xl md:text-5xl font-extrabold leading-tighter tracking-tighter mb-4 text-orange-500" data-pt="ASTRA-Net Platform" data-en="ASTRA-Net Platform">ASTRA-Net Platform</h1>
-                <div class="max-w-3xl mx-auto">
-                    <p class="text-xl text-gray-300 mb-6" data-pt="Sistema de monitoramento e rastreamento por satélite para a Amazônia - Tecnologia de Órbita Baixa (LEO)" data-en="Satellite monitoring and tracking system for the Amazon - Low Earth Orbit (LEO) Technology">Sistema de monitoramento e rastreamento por satélite para a Amazônia - Tecnologia de Órbita Baixa (LEO)</p>
-                    <div class="flex justify-center space-x-4">
-                        <a href="https://github.com/astranetam-dev/astra-net-platform" target="_blank" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded inline-flex items-center"><i class="fab fa-github mr-2"></i><span data-pt="Ver no GitHub" data-en="View on GitHub">Ver no GitHub</span></a>
-                        <a href="#interactive-demo" class="bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded inline-flex items-center"><i class="fas fa-desktop mr-2"></i><span data-pt="Ver Funcionalidades" data-en="See Features">Ver Funcionalidades</span></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="interactive-demo" class="py-12 md:py-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-                 <p class="text-3xl font-bold mb-2" data-pt="DEMONSTRAÇÃO INTERATIVA" data-en="INTERACTIVE DEMONSTRATION">DEMONSTRAÇÃO INTERATIVA</p>
-                 <p class="text-lg text-gray-400 mb-4" data-pt="Mapa de Monitoramento & Operações Fluviais da Amazônia" data-en="Amazon River Monitoring & Operations Map">Mapa de Monitoramento & Operações Fluviais da Amazônia</p>
-                 <p class="max-w-2xl mx-auto text-gray-400 mb-8" data-pt="Explore serviços e visualize camadas de dados da NASA em tempo real sobre a região Amazônica Brasileira." data-en="Explore services and visualize real-time NASA data layers over the Brazilian Amazon region.">Explore serviços e visualize camadas de dados da NASA em tempo real sobre a região Amazônica Brasileira.</p>
-
-                <!-- Iframe que carrega o simulador -->
-                <div class="w-full h-[80vh] bg-gray-800 rounded-lg shadow-2xl border-2 border-orange-500 overflow-hidden">
-                    <iframe src="map-simulator.html" class="w-full h-full border-0" title="Simulador ASTRA-Net"></iframe>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-black py-8">
-       <div class="max-w-6xl mx-auto px-6 text-center text-gray-400">
-           © 2025 YAKAMI TECH. Todos os direitos reservados.
-       </div>
-    </footer>
+  <script>
+    // --- DADOS ---
+    const map = L.map('map').setView([-3.1190, -60.0217], 7);
     
-    <script>
-        function changeLanguage(lang) {
-            document.querySelectorAll('[data-pt]').forEach(el => {
-                el.innerText = el.dataset[lang] || el.dataset.pt;
-            });
-            document.documentElement.lang = lang;
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('text-orange-500', btn.dataset.lang === lang);
-                btn.classList.toggle('text-gray-300', btn.dataset.lang !== lang);
-            });
-        }
-        changeLanguage('pt');
-    </script>
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    // Camada de fumaça/queimadas da NASA (VIIRS)
+    const today = new Date().toISOString().split('T')[0];
+    const nasaLayer = L.tileLayer(
+      `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_Thermal_Anomalies_375m_Day/default/${today}/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg`,
+      { opacity: 0.7 }
+    );
+
+    // Rios da Amazônia (via Overpass API)
+    fetch('https://overpass-api.de/api/interpreter?data=[out:json];way["waterway"="river"](bbox:-10,-70,5,-2);out geom;')
+      .then(r => r.json())
+      .then(data => {
+        data.elements.forEach(way => {
+          const coords = way.geometry.map(p => [p.lat, p.lon]);
+          L.polyline(coords, { color: '#0ea5e9', weight: 2, opacity: 0.8 }).addTo(map);
+        });
+      });
+
+    // Embarcações com coordenadas reais
+    const vessels = [
+      { id: 1, nome: "YKM-01", lat: -3.1190, lng: -60.0217, type: "balsa", rio: "Rio Negro" },
+      { id: 2, nome: "YKM-02", lat: -3.4500, lng: -59.8000, type: "lancha", rio: "Rio Solimões" },
+      { id: 3, nome: "YKM-03", lat: -2.8000, lng: -60.2000, type: "recreio", rio: "Rio Negro" }
+    ];
+
+    let selectedVessel = null;
+    let alerts = [];
+    let passSchedule = [];
+
+    // --- Renderização de Embarcações ---
+    function renderVessels() {
+      vessels.forEach(v => {
+        const el = L.divIcon({
+          className: `vessel-marker vessel-${v.type} ${selectedVessel?.id === v.id ? 'border-yellow-400 scale-125' : ''} ${v.sosActive ? 'animate-pulse-sos' : ''}`,
+          html: `<i class="fas fa-${v.type === 'balsa' ? 'truck-moving' : v.type === 'lancha' ? 'bolt' : 'ship'}"></i>`,
+          iconSize: [24, 24]
+        });
+        const marker = L.marker([v.lat, v.lng], { icon: el })
+          .addTo(map)
+          .bindPopup(`${v.nome}<br>Rio: ${v.rio}`)
+          .on('click', () => selectVessel(v));
+      });
+    }
+
+    function selectVessel(v) {
+      selectedVessel = v;
+      updateTelemetryPanel(v);
+      renderVessels();
+    }
+
+    function activateSOS() {
+      if (!selectedVessel) return;
+      selectedVessel.sosActive = true;
+      addAlert('SOS', `Sinal de SOS recebido de ${selectedVessel.nome}!`);
+      renderVessels();
+    }
+
+    // --- Painéis ---
+    function updateTelemetryPanel(v) {
+      const panel = document.getElementById('telemetry-panel');
+      if (!v) {
+        panel.innerHTML = `<h3 class="font-bold border-b border-orange-500 pb-2 mb-2">Telemetria do Ativo</h3><p class="text-gray-500">Selecione uma embarcação.</p>`;
+        return;
+      }
+      panel.innerHTML = `
+        <h3 class="font-bold border-b border-orange-500 pb-2 mb-2">${v.nome}</h3>
+        <p><i class="fas fa-battery-full text-green-500"></i> Bateria: <strong>78%</strong></p>
+        <p><i class="fas fa-signal text-blue-500"></i> Sinal: <strong>-85 dBm</strong></p>
+        <p><i class="fas fa-tachometer-alt text-yellow-500"></i> Velocidade: <strong>12 nós</strong></p>
+        <button onclick="activateSOS()" class="w-full mt-3 bg-red-600 hover:bg-red-500 text-white py-2 rounded text-sm">
+          <i class="fas fa-life-ring mr-1"></i> ATIVAR S.O.S
+        </button>
+      `;
+    }
+
+    function addAlert(type, msg) {
+      alerts.unshift({ type, msg, time: new Date().toLocaleTimeString() });
+      if (alerts.length > 5) alerts.pop();
+      updateAlertsPanel();
+    }
+
+    function updateAlertsPanel() {
+      const panel = document.getElementById('alerts-panel');
+      const content = alerts.map(a => 
+        `<div class="text-sm ${a.type === 'SOS' ? 'text-red-400 font-bold' : 'text-gray-300'}">
+          [${a.time}] ${a.msg}
+        </div>`
+      ).join('');
+      panel.innerHTML = `
+        <h3 class="font-bold border-b border-red-500 pb-2 mb-2">Eventos e Alertas</h3>
+        ${content || '<p class="text-gray-500">Nenhum alerta.</p>'}
+      `;
+    }
+
+    function updateOrbitalPanel() {
+      const now = new Date();
+      if (passSchedule.length === 0) {
+        const sats = ["TERRA", "AQUA", "ISS"];
+        passSchedule = sats.map((s, i) => ({
+          sat: s,
+          time: new Date(now.getTime() + (i+1)*15*60000),
+          dur: 8 - i
+        }));
+      }
+      const next = passSchedule[0];
+      const diff = Math.max(0, Math.floor((next.time - now) / 1000));
+      const mm = String(Math.floor(diff / 60)).padStart(2, '0');
+      const ss = String(diff % 60).padStart(2, '0');
+      
+      document.getElementById('orbital-panel').innerHTML = `
+        <h3 class="font-bold border-b border-teal-500 pb-2 mb-2">Visibilidade Orbital</h3>
+        <p>Status: <span class="text-red-500">NÃO VISÍVEL</span></p>
+        <p>Próxima janela: <span class="text-teal-400 font-bold">${mm}:${ss}</span></p>
+        <p class="text-sm mt-2">🛰️ ${next.sat} @ ${next.time.toLocaleTimeString()} (${next.dur} min)</p>
+      `;
+    }
+
+    // --- Inicialização ---
+    renderVessels();
+    updateTelemetryPanel(null);
+    updateAlertsPanel();
+    updateOrbitalPanel();
+    addAlert('SISTEMA', 'Terminal de operações iniciado.');
+
+    // Camada da NASA (opcional)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'n' || e.key === 'N') {
+        if (map.hasLayer(nasaLayer)) map.removeLayer(nasaLayer);
+        else nasaLayer.addTo(map);
+      }
+    });
+
+    setInterval(updateOrbitalPanel, 1000);
+  </script>
 </body>
 </html>
