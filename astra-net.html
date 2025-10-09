@@ -66,11 +66,16 @@
   <header class="bg-white/10 backdrop-blur-sm border-b border-gray-800 py-4">
     <div class="container mx-auto px-4 flex items-center justify-between">
       <div class="flex items-center space-x-2">
-        <i class="fas fa-satellite text-orange-500 text-xl"></i>
-        <span class="font-bold text-lg">YAKAMI TECH</span>
+        <!-- Link funcional para a página principal -->
+        <a href="https://www.yakami.com.br/" class="flex items-center space-x-2">
+          <i class="fas fa-satellite text-orange-500 text-xl"></i>
+          <span class="font-bold text-lg">YAKAMI TECH</span>
+        </a>
       </div>
-      <div class="text-sm bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full">
-        NASA Space Apps Challenge 2025
+      <!-- Ícone da NASA Space Apps Challenge 2025 -->
+      <div class="text-sm bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full flex items-center space-x-1">
+        <img src="https://www.nasa.gov/wp-content/uploads/2021/09/nasa-logo-web-rgb.png?resize=128,128" alt="NASA" class="h-4 w-4">
+        <span>Space Apps Challenge 2025</span>
       </div>
     </div>
   </header>
@@ -101,7 +106,6 @@
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
       <!-- Mapa (70% da largura) -->
       <div class="lg:col-span-3 flex flex-col">
-        <div id="map" class="w-full h-[500px] rounded-xl border border-gray-700 shadow-lg"></div>
         <!-- Botões S.O.S e Mensagem (centralizados abaixo do mapa) -->
         <div class="flex justify-center mt-4 space-x-4">
           <button onclick="activateSOS()" class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg flex items-center">
@@ -111,6 +115,7 @@
             <i class="fas fa-envelope mr-1"></i> Mensagem
           </button>
         </div>
+        <div id="map" class="w-full h-[500px] rounded-xl border border-gray-700 shadow-lg"></div>
       </div>
 
       <!-- Painéis Laterais (30% da largura) -->
@@ -258,71 +263,135 @@
         });
       });
 
-    // --- PORTOS FLUVIAIS (ANTAQ + ARSEPAM + WWF) ---
+    // --- PORTOS E PONTOS DE INTERESSE DA AMAZÔNIA (AJUSTADOS À MARGEM DO RIO) ---
     const ports = [
-      { nome: "Manaus", lat: -3.1067, lng: -60.0250, type: 'organizado' },
+      // PORTOS ORGANIZADOS (ANTAQ)
+      { nome: "Porto de Manaus", lat: -3.1067, lng: -60.0250, type: 'porto-organizado' },
+      { nome: "Porto Chibatão", lat: -3.0900, lng: -60.0100, type: 'porto-container' },
+      { nome: "Super Terminais (Itacoatiara)", lat: -2.8800, lng: -58.4500, type: 'porto-container' },
+
+      // COMUNIDADES E VILAS (ARSEPAM / WWF)
       { nome: "Janauari", lat: -3.0200, lng: -60.1500, type: 'comunidade' },
       { nome: "São Raimundo", lat: -3.1500, lng: -60.0800, type: 'comunidade' },
       { nome: "Tupé", lat: -3.2200, lng: -60.1200, type: 'comunidade' },
       { nome: "Novo Airão", lat: -2.6500, lng: -60.7500, type: 'comunidade' },
-      { nome: "Chibatão", lat: -3.0900, lng: -60.0100, type: 'tup' },
-      { nome: "TUP Moss", lat: -3.1150, lng: -60.0350, type: 'tup' },
-      { nome: "Super Terminais", lat: -2.8800, lng: -58.4500, type: 'tup' },
       { nome: "Iranduba (Cacau Pirêra)", lat: -3.1350, lng: -60.2100, type: 'comunidade' },
-      { nome: "Parintins", lat: -2.6700, lng: -56.7300, type: 'comunidade' }
+      { nome: "Parintins", lat: -2.6700, lng: -56.7300, type: 'comunidade' },
+
+      // BASES DE SEGURANÇA (MARINHA DO BRASIL)
+      { nome: "Pedro Teixeira (P-20)", lat: -3.1100, lng: -60.0100, type: 'marinha' },
+      { nome: "Raposo Tavares (P-21)", lat: -3.1500, lng: -60.0800, type: 'marinha' },
+      { nome: "Roraima (P-30)", lat: -2.8800, lng: -58.4500, type: 'marinha' },
+
+      // TURISMO (Hotéis de Selva, Flutuantes, Pousadas)
+      { nome: "Iberostar Grand Amazon", lat: -3.0750, lng: -60.0080, type: 'hotel' },
+      { nome: "Jungle Tours (Flutuante)", lat: -3.1200, lng: -60.0500, type: 'flutuante' },
+      { nome: "Pousada do Rio Negro", lat: -3.2000, lng: -60.1000, type: 'pousada' }
     ];
 
     ports.forEach(p => {
-      const iconClass = p.type === 'organizado' ? 'port-marker-organizado text-amber-500' : 'text-sky-500';
+      let iconClass, iconType;
+      
+      switch(p.type) {
+        case 'porto-organizado':
+          iconClass = 'port-marker-organizado text-amber-500';
+          iconType = 'ship';
+          break;
+        case 'porto-container':
+          iconClass = 'text-gray-400';
+          iconType = 'warehouse';
+          break;
+        case 'comunidade':
+          iconClass = 'text-sky-500';
+          iconType = 'anchor';
+          break;
+        case 'marinha':
+          iconClass = 'text-blue-600';
+          iconType = 'shield';
+          break;
+        case 'hotel':
+          iconClass = 'text-purple-500';
+          iconType = 'hotel';
+          break;
+        case 'flutuante':
+          iconClass = 'text-green-500';
+          iconType = 'water';
+          break;
+        case 'pousada':
+          iconClass = 'text-yellow-500';
+          iconType = 'home';
+          break;
+        default:
+          iconClass = 'text-sky-500';
+          iconType = 'anchor';
+      }
+
       const icon = L.divIcon({ 
         className: `port-marker ${iconClass} text-2xl`, 
-        html: '<i class="fas fa-anchor"></i>', 
+        html: `<i class="fas fa-${iconType}"></i>`,
         iconSize: [24, 24],
         iconAnchor: [12, 24]
       });
+      
       L.marker([p.lat, p.lng], { icon: icon })
         .addTo(map)
-        .bindPopup(`<strong>Porto de ${p.nome}</strong>`);
+        .bindPopup(`<strong>${p.nome}</strong><br><em>${p.type.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</em>`);
     });
 
-    // --- ROTAS DAS EMBARCAÇÕES ---
+    // --- ROTAS DAS EMBARCAÇÕES (SEGUINDO O FLUXO DO RIO) ---
     const routes = [
-      { from: "Manaus", to: "Janauari", color: "#f97316" },
-      { from: "Manaus", to: "São Raimundo", color: "#facc15" },
-      { from: "Manaus", to: "Tupé", color: "#facc15" },
-      { from: "Manaus", to: "Novo Airão", color: "#3b82f6" },
-      { from: "Manaus", to: "Iranduba (Cacau Pirêra)", color: "#8b5cf6" },
-      { from: "Manaus", to: "Parintins", color: "#ef4444" }
+      { from: "Manaus", to: "Janauari", color: "#f97316", points: [
+        [-3.1067, -60.0250], // Manaus
+        [-3.0900, -60.0100], // Perto de Chibatão
+        [-3.0600, -60.0900], // Curva do rio
+        [-3.0400, -60.1100], // Mais próximo de Janauari
+        [-3.0200, -60.1500]  // Janauari
+      ]},
+      { from: "Manaus", to: "São Raimundo", color: "#facc15", points: [
+        [-3.1067, -60.0250], // Manaus
+        [-3.1200, -60.0500], // Primeira curva
+        [-3.1400, -60.0700], // Segunda curva
+        [-3.1500, -60.0800]  // São Raimundo
+      ]},
+      { from: "Manaus", to: "Tupé", color: "#facc15", points: [
+        [-3.1067, -60.0250], // Manaus
+        [-3.1800, -60.0700], // Curva para Tupé
+        [-3.2000, -60.1000], // Mais próximo
+        [-3.2200, -60.1200]  // Tupé
+      ]},
+      { from: "Manaus", to: "Novo Airão", color: "#3b82f6", points: [
+        [-3.1067, -60.0250], // Manaus
+        [-3.0000, -60.1000], // Descendo o Rio Negro
+        [-2.8000, -60.3000], // Entrando no Rio Madeira
+        [-2.6500, -60.7500]  // Novo Airão
+      ]}
     ];
 
     routes.forEach(route => {
-      const fromPort = ports.find(p => p.nome === route.from);
-      const toPort = ports.find(p => p.nome === route.to);
-      if (fromPort && toPort) {
-        L.polyline(
-          [[fromPort.lat, fromPort.lng], [toPort.lat, toPort.lng]],
-          { color: route.color, weight: 3, opacity: 0.6, dashArray: "5,5" }
-        ).addTo(map);
-      }
+      L.polyline(
+        route.points,
+        { color: route.color, weight: 3, opacity: 0.6, dashArray: "5,5" }
+      ).addTo(map);
     });
 
     // --- FROTA COMPLETA E AUTÊNTICA DA AMAZÔNIA ---
     const vessels = [
-      // TRANSPORTE DE PASSAGEIROS (ARSEPAM / NAVEGAM / WWF)
+      // TRANSPORTE DE PASSAGEIROS (ARSEPAM / NAVEGAM)
       { id: 1, nome: "Balsa Iranduba", empresa: "Barcas Iranduba", tipo: "balsa", capacidade: 300, rota: "Manaus ↔ Iranduba", lat: -3.1350, lng: -60.2100, bateria: 88, sinal: -80, velocidade: 8, rpm: 1500, arqueacao: 120 },
       { id: 2, nome: "Lancha Janauari", empresa: "COOBARQ", tipo: "lancha", capacidade: 80, rota: "Manaus ↔ Janauari", lat: -3.0600, lng: -60.0900, bateria: 92, sinal: -75, velocidade: 18, rpm: 2800, arqueacao: 45 },
       { id: 3, nome: "Recreio Parintins", empresa: "Navegam", tipo: "recreio", capacidade: 200, rota: "Manaus ↔ Parintins", lat: -2.9500, lng: -60.3000, bateria: 85, sinal: -90, velocidade: 15, rpm: 2000, arqueacao: 200 },
 
-      // SEGURANÇA FLUVIAL (MARINHA DO BRASIL - DEFESA.NET)
+      // SEGURANÇA FLUVIAL (MARINHA DO BRASIL)
       { id: 4, nome: "Pedro Teixeira (P-20)", empresa: "Marinha do Brasil", tipo: "navio-patrulha", capacidade: 30, rota: "Patrulha Rio Negro", lat: -3.1100, lng: -60.0100, bateria: 95, sinal: -70, velocidade: 22, rpm: 3000, arqueacao: 350 },
-      { id: 5, nome: "Lancha Policial AM-01", empresa: "SSP-AM", tipo: "lancha-patrulha", capacidade: 12, rota: "Patrulha Zona Norte", lat: -3.0800, lng: -60.0050, bateria: 97, sinal: -65, velocidade: 30, rpm: 3500, arqueacao: 25 },
+      { id: 5, nome: "Raposo Tavares (P-21)", empresa: "Marinha do Brasil", tipo: "navio-patrulha", capacidade: 30, rota: "Patrulha Rio Negro", lat: -3.1500, lng: -60.0800, bateria: 93, sinal: -72, velocidade: 20, rpm: 2900, arqueacao: 340 },
+      { id: 6, nome: "Roraima (P-30)", empresa: "Marinha do Brasil", tipo: "navio-patrulha", capacidade: 35, rota: "Patrulha Rio Amazonas", lat: -2.8800, lng: -58.4500, bateria: 94, sinal: -71, velocidade: 21, rpm: 2950, arqueacao: 360 },
 
       // LOGÍSTICA (GRUPO CHIBATÃO / TBL)
-      { id: 6, nome: "Chibatão Logística", empresa: "Grupo Chibatão", tipo: "carga", capacidade: 500, rota: "Porto Chibatão ↔ Manaus", lat: -3.0950, lng: -60.0150, bateria: 82, sinal: -88, velocidade: 10, rpm: 1600, arqueacao: 800 },
+      { id: 7, nome: "Chibatão Logística", empresa: "Grupo Chibatão", tipo: "carga", capacidade: 500, rota: "Porto Chibatão ↔ Manaus", lat: -3.0950, lng: -60.0150, bateria: 82, sinal: -88, velocidade: 10, rpm: 1600, arqueacao: 800 },
 
-      // CIÊNCIA E SAÚDE (MARINHA - DEFESA.NET)
-      { id: 7, nome: "Rio Negro (H-15)", empresa: "Marinha do Brasil", tipo: "hidroceanografico", capacidade: 50, rota: "Levantamento Hidrográfico", lat: -3.2000, lng: -60.1000, bateria: 90, sinal: -85, velocidade: 12, rpm: 1800, arqueacao: 400 },
-      { id: 8, nome: "Oswaldo Cruz (U-18)", empresa: "Marinha do Brasil", tipo: "hospitalar", capacidade: 100, rota: "Atendimento Comunidades", lat: -3.1500, lng: -60.0500, bateria: 89, sinal: -82, velocidade: 14, rpm: 1900, arqueacao: 300 }
+      // CIÊNCIA E SAÚDE (MARINHA DO BRASIL)
+      { id: 8, nome: "Rio Negro (H-15)", empresa: "Marinha do Brasil", tipo: "hidroceanografico", capacidade: 50, rota: "Levantamento Hidrográfico", lat: -3.2000, lng: -60.1000, bateria: 90, sinal: -85, velocidade: 12, rpm: 1800, arqueacao: 400 },
+      { id: 9, nome: "Oswaldo Cruz (U-18)", empresa: "Marinha do Brasil", tipo: "hospitalar", capacidade: 100, rota: "Atendimento Comunidades", lat: -3.1500, lng: -60.0500, bateria: 89, sinal: -82, velocidade: 14, rpm: 1900, arqueacao: 300 }
     ];
 
     let selectedVessel = null;
@@ -333,7 +402,6 @@
         case 'lancha': return 'bolt';
         case 'recreio': return 'ship';
         case 'navio-patrulha': return 'shield';
-        case 'lancha-patrulha': return 'fighter-jet';
         case 'carga': return 'warehouse';
         case 'hidroceanografico': return 'chart-line';
         case 'hospitalar': return 'first-aid';
