@@ -6,20 +6,19 @@
   <title>ASTRA-Net Platform | YAKAMI TECH</title>
   <meta name="description" content="Sistema de monitoramento e rastreamento por satélite para a Amazônia - Tecnologia de Órbita Baixa (LEO)" />
   
-  <!-- Tailwind CSS (corrigido) -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Leaflet (Mapa) (corrigido) -->
+  <!-- Leaflet (Mapa) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <!-- Font Awesome (corrigido) -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
   <style>
     body { font-family: 'IBM Plex Mono', monospace; }
-    /* Fundo claro para o mapa */
-    .leaflet-container { background: #f8f9fa; }
+    .leaflet-container { background: #1e293b; } /* Fundo escuro para o mapa */
     .vessel-marker { 
       border-radius: 50%; 
       display: flex; 
@@ -44,8 +43,16 @@
         text-shadow: 0 0 8px rgba(0, 100, 150, 0.8);
     }
     .port-marker-organizado i {
-        text-shadow: 0 0 12px rgba(217, 119, 6, 0.9); /* Âncora dourada para Porto Organizado */
+        text-shadow: 0 0 12px rgba(200, 150, 0, 0.9);
     }
+    .panel-bg { background: #1e293b; border: 1px solid #334155; }
+    .panel-title { border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 0.5rem; }
+    .status-visible { color: #10b981; }
+    .status-not-visible { color: #ef4444; }
+    .passage-item { color: #0ea5e9; }
+    .alert-item { color: #f59e0b; }
+    .normal-level { color: #10b981; }
+    .alert-level { color: #ef4444; }
   </style>
 </head>
 <body class="bg-gray-900 text-gray-200">
@@ -89,14 +96,60 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- Mapa -->
       <div class="lg:col-span-2">
+        <!-- Botões S.O.S e Mensagem -->
+        <div class="flex justify-end mb-2 space-x-2">
+          <button class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg flex items-center">
+            <i class="fas fa-exclamation-triangle mr-1"></i> S.O.S
+          </button>
+          <button class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center">
+            <i class="fas fa-envelope mr-1"></i> Mensagem
+          </button>
+        </div>
         <div id="map" class="w-full h-[500px] rounded-xl border border-gray-700 shadow-lg"></div>
       </div>
 
       <!-- Painéis Laterais -->
-      <div class="flex flex-col space-y-6 h-[500px]">
-        <div id="telemetry-panel" class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex-grow"></div>
-        <div id="orbital-panel" class="bg-gray-800 p-4 rounded-lg border border-gray-700"></div>
-        <div id="alerts-panel" class="bg-gray-800 p-4 rounded-lg border border-gray-700"></div>
+      <div class="space-y-6">
+        <!-- Visibilidade Orbital -->
+        <div class="panel-bg p-4 rounded-lg">
+          <h3 class="font-bold panel-title">Visibilidade Orbital</h3>
+          <div class="space-y-2">
+            <p><strong>Status:</strong> <span id="orbital-status" class="status-not-visible">NÃO VISÍVEL</span></p>
+            <p><strong>Próxima janela:</strong> <span id="next-window" class="text-cyan-400">09:02</span></p>
+            <div>
+              <strong>Próximas Passagens:</strong>
+              <div id="passages-list" class="mt-1 space-y-1">
+                <div class="text-xs passage-item"><i class="fas fa-satellite mr-1"></i> YAKAMI-SAT-01 @ 00:57:56 (9 min)</div>
+                <div class="text-xs passage-item"><i class="fas fa-satellite mr-1"></i> YAKAMI-SAT-01 @ 01:00:46 (5 min)</div>
+                <div class="text-xs passage-item"><i class="fas fa-satellite mr-1"></i> AQUA (NASA) @ 01:18:33 (7 min)</div>
+                <div class="text-xs passage-item"><i class="fas fa-satellite mr-1"></i> TERRA (NASA) @ 01:25:22 (5 min)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alertas e Dados Ambientais -->
+        <div class="panel-bg p-4 rounded-lg">
+          <h3 class="font-bold panel-title">Alertas e Dados Ambientais</h3>
+          <div class="space-y-2">
+            <div>
+              <strong>Níveis dos Rios (Portos):</strong>
+              <div id="river-levels" class="mt-1 space-y-1">
+                <div class="text-xs flex justify-between"><span>Porto de Manaus</span><span class="normal-level">16.85m (Normal)</span></div>
+                <div class="text-xs flex justify-between"><span>Porto Chibatão</span><span class="normal-level">15.30m (Normal)</span></div>
+                <div class="text-xs flex justify-between"><span>TUP Moss</span><span class="normal-level">15.82m (Normal)</span></div>
+                <div class="text-xs flex justify-between"><span>Super Terminais</span><span class="alert-level">22.84m (Alerta)</span></div>
+                <div class="text-xs flex justify-between"><span>Porto Juarez Prates</span><span class="alert-level">23.35m (Alerta)</span></div>
+              </div>
+            </div>
+            <div>
+              <strong>Alertas de Satélite (NASA):</strong>
+              <div id="nasa-alerts" class="mt-1 space-y-1">
+                <div class="text-xs alert-item"><i class="fas fa-exclamation-triangle mr-1"></i> [00:48:52] Risco de tempestade severa (GPM).</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -108,7 +161,7 @@
           O ASTRA-Net utiliza tecnologia de satélites LEO para fornecer dados precisos sobre condições fluviais, localização e monitoramento ambiental na Amazônia, mesmo nas áreas mais remotas.
         </p>
       </div>
-      <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 text-center">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4 text-center">
         <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col items-center justify-center">
           <i class="fas fa-sync-alt text-blue-400 text-2xl mb-2"></i>
           <p class="text-sm font-semibold">Dados Atualizados</p>
@@ -168,7 +221,7 @@
     // --- INICIALIZAÇÃO DO MAPA ---
     const map = L.map('map').setView([-3.1190, -60.0217], 8);
     
-    // Usando o mapa base do CARTO (mais limpo e profissional)
+    // Usando o mapa base do CARTO Light (mais limpo e profissional)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
       subdomains: 'abcd',
