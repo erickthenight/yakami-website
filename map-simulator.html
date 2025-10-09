@@ -1,70 +1,60 @@
-<!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASTRA HQ - Terminal de Controlo de Missão</title>
+    <title>ASTRA HQ - Centro de Operações</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .embarcacao { transition: top 0.5s linear, left 0.5s linear; }
         @keyframes pulse-sos {
-            0%, 100% { transform: scale(1.5); box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7); }
-            50% { transform: scale(1.7); box-shadow: 0 0 0 10px rgba(255, 82, 82, 0); }
+            0%, 100% { transform: scale(1.1); box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7); }
+            50% { transform: scale(1.3); box-shadow: 0 0 0 10px rgba(255, 82, 82, 0); }
         }
         .animate-pulse-sos { animation: pulse-sos 1.5s infinite; }
         .map-layer { transition: opacity 0.3s ease-in-out; pointer-events: none; }
-        .map-bg { background-color: #1a3a1a; /* Verde escuro para a terra */ }
-        .map-river { position: absolute; background-color: #2a5298; /* Azul para o rio */ }
-        .map-city { position: absolute; background-color: #4a5568; /* Cinza para cidade */ }
-        .map-community { position: absolute; background-color: #795548; /* Marrom para comunidade */ width: 10px; height: 10px; border-radius: 50%; }
-        .map-port i { text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.7); }
-        .vessel { transition: top 0.1s linear, left 0.1s linear; }
-        .vessel-balsa { background-color: #f97316; } /* Laranja */
-        .vessel-lancha { background-color: #facc15; } /* Amarelo */
-        .vessel-recreio { background-color: #e5e7eb; } /* Branco */
+        
+        /* Estilos do Mapa Geográfico com Imagem da NASA */
+        .map-bg { 
+            background-image: url('https://eoimages.gsfc.nasa.gov/images/imagerecords/7000/7823/amazon_etm_2000216_lrg.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .eco-station i { text-shadow: 0px 0px 6px rgba(0, 255, 255, 0.9); }
+
+        /* Estilos das Embarcações */
+        .vessel-balsa { background-color: #f97316; }
+        .vessel-lancha { background-color: #facc15; }
+        .vessel-recreio { background-color: #e5e7eb; }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-200 font-mono flex h-screen overflow-hidden">
 
     <!-- Coluna do Mapa (Esquerda) -->
-    <div class="w-2/3 h-full p-2">
-        <div id="map-container" class="relative w-full h-full rounded-lg overflow-hidden border-2 border-gray-700 map-bg">
-            <!-- Elementos Estáticos do Mapa (Rios, Cidades) -->
-            <div id="static-map-elements">
-                <div class="map-river" style="top: 40%; left: 0; width: 100%; height: 25%;"></div> <!-- Rio Principal -->
-                <div class="map-river" style="top: 0; left: 58%; width: 15%; height: 40%;"></div> <!-- Afluente Norte -->
-                <div class="map-city" style="top: 45%; left: 55%; width: 12%; height: 10%; border-radius: 10px;"></div>
+    <div class="w-2/3 h-full p-4">
+        <div id="map-container" class="relative w-full h-full bg-gray-800 rounded-lg overflow-hidden border-2 border-gray-700 map-bg">
+            <!-- Camadas de Dados -->
+            <div id="weather-layer" class="map-layer absolute top-1/2 left-1/2 w-[300px] h-[250px] bg-blue-500 bg-opacity-20 rounded-full hidden -translate-x-1/2 -translate-y-1/2"></div>
+            <div id="hotspots-layer" class="map-layer hidden">
+                <div class="absolute text-2xl" style="top: 25%; left: 70%;"><i class="fas fa-fire text-red-500"></i></div>
+                <div class="absolute text-2xl" style="top: 80%; left: 20%;"><i class="fas fa-fire text-red-500"></i></div>
             </div>
             
-            <!-- Elementos Dinâmicos (Portos, Comunidades, Embarcações) -->
-            <div id="dynamic-map-elements"></div>
+            <!-- Elementos Dinâmicos (Estações e Embarcações) -->
+            <div id="dynamic-elements"></div>
 
-            <!-- Camadas de Dados -->
-            <div id="weather-layer" class="map-layer absolute top-1/2 left-1/2 w-[300px] h-[250px] rounded-full hidden opacity-70 transform -translate-x-1/2 -translate-y-1/2" style="background: radial-gradient(circle, rgba(255,255,0,0.4), rgba(0,100,255,0.1));"></div>
-            <div id="hotspots-layer" class="map-layer hidden">
-                <div class="absolute text-2xl" style="top: 25%; left: 50%;"><i class="fas fa-fire text-red-500"></i></div>
-                <div class="absolute text-2xl" style="top: 60%; left: 70%;"><i class="fas fa-fire text-red-500"></i></div>
-            </div>
-
-            <!-- Controles e Legenda -->
-            <div class="absolute top-2 right-2 bg-gray-900 bg-opacity-80 p-3 rounded-lg border border-gray-700 text-sm space-y-3">
-                <div>
-                    <h3 class="font-bold mb-2 border-b border-gray-600 pb-1">Camadas de Dados</h3>
-                    <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" id="toggle-weather" class="form-checkbox bg-gray-700 text-orange-500"><span>Radar Climático</span></label>
-                    <label class="flex items-center space-x-2 mt-1 cursor-pointer"><input type="checkbox" id="toggle-hotspots" class="form-checkbox bg-gray-700 text-orange-500"><span>Focos de Calor</span></label>
-                </div>
-                <div>
-                    <h3 class="font-bold mb-2 border-b border-gray-600 pb-1">Legenda</h3>
-                    <div class="flex items-center space-x-2"><div class="w-4 h-4 rounded-full vessel-balsa flex items-center justify-center"><i class="fas fa-truck-moving text-xs text-black"></i></div><span>Balsa de Carga</span></div>
-                    <div class="flex items-center space-x-2 mt-1"><div class="w-4 h-4 rounded-full vessel-lancha flex items-center justify-center"><i class="fas fa-bolt text-xs text-black"></i></div><span>Lancha Rápida</span></div>
-                    <div class="flex items-center space-x-2 mt-1"><div class="w-4 h-4 rounded-full vessel-recreio flex items-center justify-center"><i class="fas fa-ship text-xs text-black"></i></div><span>Barco Regional</span></div>
-                </div>
+            <!-- Controles das Camadas -->
+            <div class="absolute top-2 right-2 bg-gray-900 bg-opacity-70 p-2 rounded-lg border border-gray-700 text-sm">
+                <h3 class="font-bold mb-1">Camadas</h3>
+                <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" id="toggle-weather" class="form-checkbox bg-gray-700 text-orange-500"><span>Radar Climático</span></label>
+                <label class="flex items-center space-x-2 mt-1 cursor-pointer"><input type="checkbox" id="toggle-hotspots" class="form-checkbox bg-gray-700 text-orange-500"><span>Focos de Calor</span></label>
             </div>
         </div>
     </div>
 
     <!-- Coluna de Dados (Direita) -->
-    <div class="w-1/3 h-full flex flex-col p-2 space-y-2">
+    <div class="w-1/3 h-full flex flex-col p-4 space-y-4">
         <div id="telemetry-panel" class="bg-gray-800 p-4 rounded-lg border-2 border-gray-700 flex-grow basis-1/3 overflow-y-auto"></div>
         <div id="orbital-panel" class="bg-gray-800 p-4 rounded-lg border-2 border-gray-700 flex-grow basis-1/3 overflow-y-auto"></div>
         <div id="alerts-panel" class="bg-gray-800 p-4 rounded-lg border-2 border-gray-700 flex-grow basis-1/3 overflow-y-auto"></div>
@@ -72,7 +62,8 @@
 
 <script>
     // --- Referências do DOM ---
-    const dynamicMapElements = document.getElementById('dynamic-map-elements');
+    const mapContainer = document.getElementById('map-container');
+    const dynamicElementsContainer = document.getElementById('dynamic-elements');
     const telemetryPanel = document.getElementById('telemetry-panel');
     const orbitalPanel = document.getElementById('orbital-panel');
     const alertsPanel = document.getElementById('alerts-panel');
@@ -81,114 +72,61 @@
     const weatherLayer = document.getElementById('weather-layer');
     const hotspotsLayer = document.getElementById('hotspots-layer');
 
-    // --- Definição das Rotas de Navegação ---
-    const path1 = [[10, 45], [20, 48], [30, 46], [40, 50], [55, 52], [70, 48], [85, 50], [95, 45]];
-    const path2 = [[90, 58], [80, 55], [70, 58], [60, 60], [45, 58], [30, 60], [15, 55], [5, 58]];
-    const path3 = [[62, 30], [60, 40], [58, 50], [63, 60], [65, 70]];
-
-    // --- Dados do Ecossistema ---
-    const embarcacoes = [
-        // CORREÇÃO: left e top iniciais correspondem ao primeiro ponto da rota [left, top]
-        { id: 1, nome: "Expresso Juruá", type: 'balsa', icon: 'fa-truck-moving', path: path1, pathIndex: 0, left: 10, top: 45, bateria: 95, sinal: -85, velocidade: 12, sosActive: false, alertedLowBattery: false },
-        { id: 2, nome: "Ligeirinho Ajato", type: 'lancha', icon: 'fa-bolt', path: path2, pathIndex: 0, left: 90, top: 58, bateria: 78, sinal: -92, velocidade: 15, sosActive: false, alertedLowBattery: false },
-        { id: 3, nome: "Comunidade Unida", type: 'recreio', icon: 'fa-ship', path: path3, pathIndex: 0, left: 62, top: 30, bateria: 85, sinal: -101, velocidade: 9, sosActive: false, alertedLowBattery: false },
-        { id: 4, nome: "Carga Pesada II", type: 'balsa', icon: 'fa-truck-moving', path: path1, pathIndex: 4, left: 55, top: 52, bateria: 25, sinal: -115, velocidade: 10, sosActive: false, alertedLowBattery: false },
+    // --- Definições do Ecossistema ---
+    const ecoStations = [
+        { nome: "ECO Station Manaus", top: 45, left: 55 },
+        { nome: "ECO Station Manacapuru", top: 60, left: 15 },
+        { nome: "ECO Station Itacoatiara", top: 60, left: 85 },
+        { nome: "ECO Station Humaitá", top: 90, left: 48 },
     ];
-    const portos = [ { nome: "Porto de Manaus", top: 51, left: 61 } ];
-    const comunidades = [ { nome: "Vila do Lago", top: 30, left: 40 }, { nome: "Comunidade do Rio", top: 68, left: 25 } ];
-    const nasaData = { temperaturaAgua: 28.5, precipitacao: 80.0, velocidadeVento: 15.2 };
+    
+    const pathRioNegro = [[5, 40], [25, 30], [50, 42], [58, 48]];
+    const pathRioSolimoes = [[5, 62], [30, 60], [58, 55], [80, 62], [95, 60]];
+    const pathRioMadeira = [[52, 95], [50, 85], [48, 75], [58, 65]];
+
+    const embarcacoes = [];
+    const totalVessels = 25;
 
     // --- Variáveis de Estado ---
     let selectedVesselId = null;
     let passSchedule = [];
     let alerts = [];
 
-    // --- Funções dos Painéis ---
-    function updateTelemetryPanel(vessel) {
-        if (!vessel) {
-            telemetryPanel.innerHTML = `<h2 class="text-lg font-bold border-b-2 border-orange-500 pb-1 mb-2"><i class="fas fa-satellite-dish text-orange-500"></i> Telemetria do Ativo</h2><div class="text-gray-400">Selecione uma embarcação no mapa.</div>`;
-            return;
-        }
-        telemetryPanel.innerHTML = `
-            <h2 class="text-lg font-bold border-b-2 border-orange-500 pb-1 mb-2"><i class="fas fa-satellite-dish text-orange-500"></i> ${vessel.nome}</h2>
-            <p><i class="fas fa-battery-full w-5 text-green-500"></i> Bateria: <span class="font-bold">${vessel.bateria.toFixed(1)}%</span></p>
-            <p><i class="fas fa-signal w-5 text-blue-500"></i> Sinal GSM: <span class="font-bold">${vessel.sinal} dBm</span></p>
-            <p><i class="fas fa-tachometer-alt w-5 text-yellow-500"></i> Velocidade: <span class="font-bold">${vessel.velocidade} nós</span></p>
-            <h4 class="font-bold mt-4 mb-2 text-gray-300">Dados NASA (Região):</h4>
-            <p><i class="fas fa-thermometer-half w-5 text-red-500"></i> Temp. Água: <span class="font-bold">${nasaData.temperaturaAgua}°C</span></p>
-            <p><i class="fas fa-cloud-rain w-5 text-cyan-500"></i> Precipitação: <span class="font-bold">${nasaData.precipitacao} mm/h</span></p>
-            <p><i class="fas fa-wind w-5 text-gray-400"></i> Vento: <span class="font-bold">${nasaData.velocidadeVento} km/h</span></p>
-            <button onclick="activateSOS()" class="w-full mt-4 bg-red-600 hover:bg-red-500 text-white font-bold py-2 rounded-lg flex items-center justify-center">
-                <i class="fas fa-life-ring mr-2"></i> ATIVAR S.O.S
-            </button>`;
-    }
-    
-    function generatePassSchedule() {
-        passSchedule = [];
-        const now = new Date();
-        const satellites = ["TERRA", "AQUA", "ISS", "LANDSAT-8"];
-        for (let i = 0; i < 4; i++) {
-            const futureTime = new Date(now.getTime() + (i * 30 + Math.random() * 20) * 60000);
-            passSchedule.push({
-                satellite: satellites[Math.floor(Math.random() * satellites.length)],
-                time: futureTime,
-                duration: Math.floor(5 + Math.random() * 5)
+    // --- Geração da Frota ---
+    function generateFleet() {
+        const types = ['balsa', 'lancha', 'recreio'];
+        const icons = {'balsa': 'fa-truck-moving', 'lancha': 'fa-bolt', 'recreio': 'fa-ship'};
+        const paths = [pathRioNegro, pathRioSolimoes, pathRioMadeira];
+
+        for (let i = 1; i <= totalVessels; i++) {
+            const type = types[i % types.length];
+            const path = paths[i % paths.length];
+            const pathIndex = Math.floor(Math.random() * path.length);
+            const startPos = path[pathIndex];
+
+            embarcacoes.push({
+                id: i,
+                nome: `YKM-${String(i).padStart(2, '0')}`,
+                type: type,
+                icon: icons[type],
+                path: path,
+                pathIndex: pathIndex,
+                left: startPos[0] + (Math.random() - 0.5) * 5,
+                top: startPos[1] + (Math.random() - 0.5) * 5,
+                bateria: 50 + Math.random() * 50,
+                sinal: -120 + Math.random() * 40,
+                velocidade: 8 + Math.random() * 8,
+                sosActive: false,
+                alertedLowBattery: false
             });
         }
     }
 
-    function updateOrbitalPanel() {
-        const now = new Date();
-        const upcomingPasses = passSchedule.filter(p => p.time > now);
-
-        if (upcomingPasses.length === 0) {
-            orbitalPanel.innerHTML = `
-                <h2 class="text-lg font-bold border-b-2 border-teal-500 pb-1 mb-2"><i class="fab fa-wpexplorer text-teal-500"></i> Visibilidade Orbital (NASA)</h2>
-                <div class="text-gray-400">Aguardando cálculo de novas passagens...</div>`;
-            generatePassSchedule();
-            return;
-        }
-
-        const nextPass = upcomingPasses[0];
-        const timeToNextPass = Math.floor((nextPass.time - now) / 1000);
-        const minutes = Math.floor(timeToNextPass / 60);
-        const seconds = timeToNextPass % 60;
-
-        let passListHtml = upcomingPasses.slice(0, 4).map(p => `
-            <div class="text-sm p-1 rounded ${p === nextPass ? 'bg-teal-500/20' : ''}">
-                🛰️ ${p.satellite} @ ${p.time.toLocaleTimeString('pt-BR')} (${p.duration} min)
-            </div>
-        `).join('');
-
-        orbitalPanel.innerHTML = `
-            <h2 class="text-lg font-bold border-b-2 border-teal-500 pb-1 mb-2"><i class="fab fa-wpexplorer text-teal-500"></i> Visibilidade Orbital (NASA)</h2>
-            <div>
-                <p>Status Conexão: <span class="text-red-500 font-bold">NÃO VISÍVEL</span></p>
-                <p>Próxima Janela em: <span class="text-teal-400 font-bold">${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}</span></p>
-            </div>
-            <div class="mt-3">
-                <h4 class="font-bold text-gray-300">Próximas Passagens:</h4>
-                <div class="space-y-1 mt-1">${passListHtml}</div>
-            </div>
-        `;
-    }
-
-    function updateAlertsPanel() {
-        let content = alerts.map(alert => {
-            let colorClass = 'text-gray-300', icon = 'fa-info-circle';
-            if (alert.type === 'SOS') { colorClass = 'text-red-400 font-bold'; icon = 'fa-skull-crossbones'; }
-            else if (alert.type === 'SISTEMA') { colorClass = 'text-yellow-400'; icon = 'fa-cogs'; }
-            else if (alert.type === 'CLIMA') { colorClass = 'text-blue-400'; icon = 'fa-cloud-showers-heavy'; }
-            return `<div class="${colorClass}"><i class="fas ${icon} mr-2"></i>[${alert.timestamp}] ${alert.message}</div>`;
-        }).join('');
-        alertsPanel.innerHTML = `<h2 class="text-lg font-bold border-b-2 border-red-500 pb-1 mb-2"><i class="fas fa-triangle-exclamation text-red-500"></i> Registro de Eventos</h2><div class="text-sm space-y-2">${alerts.length > 0 ? content : '<p class="text-gray-500">Nenhum evento registrado.</p>'}</div>`;
-    }
-
-    // --- Funções de Lógica ---
-    function addAlert(type, message, vesselId = null) {
+    // --- Funções de Lógica e Painéis ---
+    function addAlert(type, message) {
         const timestamp = new Date().toLocaleTimeString('pt-BR');
-        alerts.unshift({ timestamp, type, message, vesselId });
-        if (alerts.length > 20) alerts.pop();
+        alerts.unshift({ timestamp, type, message });
+        if (alerts.length > 10) alerts.pop();
         updateAlertsPanel();
     }
 
@@ -196,8 +134,7 @@
         selectedVesselId = id;
         const vessel = embarcacoes.find(e => e.id === id);
         updateTelemetryPanel(vessel);
-        // CORREÇÃO: Renderiza o mapa imediatamente para mostrar a seleção
-        renderDynamicMapElements(); 
+        renderDynamicElements();
     }
 
     function activateSOS() {
@@ -205,75 +142,122 @@
         const vessel = embarcacoes.find(e => e.id === selectedVesselId);
         if (vessel && !vessel.sosActive) {
             vessel.sosActive = true;
-            addAlert('SOS', `Sinal de SOS recebido da embarcação ${vessel.nome}!`, vessel.id);
+            addAlert('SOS', `Sinal de SOS recebido de ${vessel.nome}!`);
+            renderDynamicElements();
         }
     }
 
-    // --- Funções de Renderização do Mapa ---
-    function renderDynamicMapElements() {
-        let html = '';
-        portos.forEach(p => html += `<div class="absolute text-2xl text-white map-port" style="top:${p.top}%; left:${p.left}%;"><i class="fas fa-anchor"></i><span class="text-xs absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap">${p.nome}</span></div>`);
-        comunidades.forEach(c => html += `<div class="map-community" style="top:${c.top}%; left:${c.left}%;"></div>`);
-        embarcacoes.forEach(emb => {
-            let extraClasses = selectedVesselId === emb.id ? 'border-4 border-yellow-300' : '';
-            if (emb.sosActive) extraClasses += ' animate-pulse-sos';
-            html += `<div id="vessel-${emb.id}" class="absolute w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transform -translate-x-1/2 -translate-y-1/2 vessel vessel-${emb.type} ${extraClasses}" style="top:${emb.top}%; left:${emb.left}%;" onclick="selectVessel(${emb.id})">
-                        <i class="fas ${emb.icon} text-black"></i>
-                     </div>`;
-        });
-        dynamicMapElements.innerHTML = html;
+    function updateTelemetryPanel(vessel) {
+        if (!vessel) {
+            telemetryPanel.innerHTML = `<h2 class="text-lg font-bold border-b-2 border-orange-500 pb-1 mb-2"><i class="fas fa-satellite-dish text-orange-500"></i> Telemetria do Ativo</h2><div class="text-gray-400">Selecione uma embarcação.</div>`;
+            return;
+        }
+        telemetryPanel.innerHTML = `
+            <h2 class="text-lg font-bold border-b-2 border-orange-500 pb-1 mb-2"><i class="fas fa-satellite-dish text-orange-500"></i> ${vessel.nome}</h2>
+            <p><i class="fas fa-battery-full w-5 text-green-500"></i> Bateria: <span class="font-bold">${vessel.bateria.toFixed(1)}%</span></p>
+            <p><i class="fas fa-signal w-5 text-blue-500"></i> Sinal GSM: <span class="font-bold">${vessel.sinal.toFixed(0)} dBm</span></p>
+            <p><i class="fas fa-tachometer-alt w-5 text-yellow-500"></i> Velocidade: <span class="font-bold">${vessel.velocidade.toFixed(0)} nós</span></p>
+            <button onclick="activateSOS()" class="w-full mt-4 bg-red-600 hover:bg-red-500 text-white font-bold py-2 rounded-lg flex items-center justify-center">
+                <i class="fas fa-life-ring mr-2"></i> ATIVAR S.O.S
+            </button>`;
     }
 
-    // --- Lógica de Movimento e Simulação ---
+    function generatePassSchedule() {
+        passSchedule = [];
+        const now = new Date();
+        const satellites = ["TERRA", "AQUA", "ISS", "LANDSAT-8"];
+        for (let i = 0; i < 4; i++) {
+            const futureTime = new Date(now.getTime() + (i * 30 + Math.random() * 20) * 60000);
+            passSchedule.push({ satellite: satellites[Math.floor(Math.random() * satellites.length)], time: futureTime, duration: Math.floor(5 + Math.random() * 5) });
+        }
+    }
+
+    function updateOrbitalPanel() {
+        const now = new Date();
+        const upcomingPasses = passSchedule.filter(p => p.time > now);
+        if (upcomingPasses.length === 0) { generatePassSchedule(); return; }
+        const nextPass = upcomingPasses[0];
+        const timeToNextPass = Math.floor((nextPass.time - now) / 1000);
+        const minutes = Math.floor(timeToNextPass / 60);
+        const seconds = timeToNextPass % 60;
+        let passListHtml = upcomingPasses.slice(0, 4).map(p => `<div class="text-sm p-1 rounded ${p === nextPass ? 'bg-teal-500/20' : ''}">🛰️ ${p.satellite} @ ${p.time.toLocaleTimeString('pt-BR')} (${p.duration} min)</div>`).join('');
+        orbitalPanel.innerHTML = `<h2 class="text-lg font-bold border-b-2 border-teal-500 pb-1 mb-2"><i class="fab fa-wpexplorer text-teal-500"></i> Visibilidade Orbital</h2><p>Status: <span class="text-red-500 font-bold">NÃO VISÍVEL</span></p><p>Próxima Janela: <span class="text-teal-400 font-bold">${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}</span></p><div class="mt-3"><h4 class="font-bold text-gray-300">Próximas Passagens:</h4><div class="space-y-1 mt-1">${passListHtml}</div></div>`;
+    }
+
+    function updateAlertsPanel() {
+        let content = alerts.map(alert => {
+            let colorClass = 'text-gray-300';
+            let icon = 'fa-info-circle';
+            if (alert.type === 'SOS') { colorClass = 'text-red-400 font-bold'; icon = 'fa-skull-crossbones'; }
+            else if (alert.type === 'SISTEMA') { colorClass = 'text-yellow-400'; icon = 'fa-cogs'; }
+            return `<div class="${colorClass}"><i class="fas ${icon} mr-2"></i>[${alert.timestamp}] ${alert.message}</div>`;
+        }).join('');
+        alertsPanel.innerHTML = `<h2 class="text-lg font-bold border-b-2 border-red-500 pb-1 mb-2"><i class="fas fa-triangle-exclamation text-red-500"></i> Eventos e Alertas</h2><div class="text-sm space-y-2">${alerts.length > 0 ? content : '<p class="text-gray-500">Nenhum evento registrado.</p>'}</div>`;
+    }
+
+    // --- Função de Renderização Principal ---
+    function renderDynamicElements() {
+        let html = '';
+        ecoStations.forEach(station => {
+            html += `<div class="absolute text-xl text-cyan-300 eco-station" style="top:${station.top}%; left:${station.left}%;"><i class="fas fa-charging-station"></i><span class="text-xs absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap">${station.nome}</span></div>`;
+        });
+        embarcacoes.forEach(emb => {
+            const extraClasses = `vessel-${emb.type} ${selectedVesselId === emb.id ? 'border-yellow-300 scale-125' : 'border-gray-900'} ${emb.sosActive ? 'animate-pulse-sos' : ''}`;
+            html += `<div class="embarcacao absolute w-6 h-6 rounded-full flex items-center justify-center cursor-pointer transform -translate-x-1/2 -translate-y-1/2 border-2 ${extraClasses}" style="top:${emb.top}%; left:${emb.left}%;" onclick="selectVessel(${emb.id})">
+                        <i class="fas ${emb.icon} text-black text-xs"></i>
+                     </div>`;
+        });
+        dynamicElementsContainer.innerHTML = html;
+    }
+
+    // --- Lógica de Movimento ---
     function updateVesselPositions() {
         embarcacoes.forEach(emb => {
             const target = emb.path[emb.pathIndex];
-            const targetLeft = target[0];
-            const targetTop = target[1];
-
-            const dx = targetLeft - emb.left;
-            const dy = targetTop - emb.top;
+            const dx = target[0] - emb.left;
+            const dy = target[1] - emb.top;
             const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < 1) {
+            if (distance < 1.5) {
                 emb.pathIndex = (emb.pathIndex + 1) % emb.path.length;
             } else {
-                const speed = 0.1 * (emb.type === 'lancha' ? 1.5 : 1); // Lancha mais rápida
+                const speed = 0.05 * (emb.type === 'lancha' ? 1.8 : 1);
                 emb.left += (dx / distance) * speed;
                 emb.top += (dy / distance) * speed;
             }
         });
     }
 
-    // --- Loop Principal ---
+    // --- Loop Principal e Inicialização ---
     function gameLoop() {
         updateVesselPositions();
         embarcacoes.forEach(emb => {
             emb.bateria -= 0.005;
             if (emb.bateria < 30 && !emb.alertedLowBattery) {
-                addAlert('SISTEMA', `Bateria baixa (${emb.bateria.toFixed(0)}%) na embarcação ${emb.nome}.`, emb.id);
+                addAlert('SISTEMA', `Bateria baixa (${emb.bateria.toFixed(0)}%) em ${emb.nome}.`);
                 emb.alertedLowBattery = true;
             }
+            if (emb.bateria <= 0) emb.bateria = 100;
         });
+        renderDynamicElements();
         if (selectedVesselId) {
-            updateTelemetryPanel(embarcacoes.find(e => e.id === selectedVesselId));
+            const vessel = embarcacoes.find(e => e.id === selectedVesselId);
+            updateTelemetryPanel(vessel);
         }
-        renderDynamicMapElements();
     }
-    
-    // --- Inicialização ---
+
     toggleWeather.addEventListener('change', () => weatherLayer.classList.toggle('hidden', !toggleWeather.checked));
     toggleHotspots.addEventListener('change', () => hotspotsLayer.classList.toggle('hidden', !toggleHotspots.checked));
     
+    generateFleet();
     updateTelemetryPanel(null);
     updateAlertsPanel();
-    addAlert('SISTEMA', 'Terminal ASTRA HQ iniciado.');
+    updateOrbitalPanel();
+    addAlert('SISTEMA', 'Terminal de Operações iniciado.');
     generatePassSchedule();
-    renderDynamicMapElements();
+    renderDynamicElements();
     
     setInterval(gameLoop, 100);
     setInterval(updateOrbitalPanel, 1000);
 </script>
-
 </body>
 </html>
