@@ -64,6 +64,10 @@
       font-weight: 600;
     }
     
+<<<<<<< HEAD
+=======
+    /* Estilo para a área metropolitana de Manaus */
+>>>>>>> dev-melhorias
     .manaus-area {
       fill: rgba(59, 130, 246, 0.15);
       stroke: rgba(59, 130, 246, 0.8);
@@ -71,6 +75,10 @@
       stroke-dasharray: 5, 5;
     }
 
+<<<<<<< HEAD
+=======
+    /* Correção para garantir que o mapa ocupe todo o espaço */
+>>>>>>> dev-melhorias
     #map {
       width: 100%;
       height: 100%;
@@ -83,6 +91,10 @@
       flex-direction: column;
     }
 
+<<<<<<< HEAD
+=======
+    /* Estilo para a logo NASA */
+>>>>>>> dev-melhorias
     .nasa-badge {
       background: linear-gradient(135deg, #1a237e, #283593);
       border: 1px solid #3949ab;
@@ -110,6 +122,10 @@
   </header>
 
   <main class="flex-1 container mx-auto px-4 py-6">
+<<<<<<< HEAD
+=======
+    <!-- Cabeçalho Principal -->
+>>>>>>> dev-melhorias
     <div class="text-center mb-8">
       <h1 class="text-4xl font-bold mb-3 bg-gradient-to-r from-orange-500 to-blue-500 bg-clip-text text-transparent">
         ASTRA-Net Platform
@@ -120,17 +136,33 @@
       </p>
     </div>
 
+<<<<<<< HEAD
+=======
+    <!-- Subtítulo -->
+>>>>>>> dev-melhorias
     <div class="text-center mb-8">
       <h2 class="text-2xl font-bold mb-2">DEMONSTRAÇÃO INTERATIVA</h2>
       <h3 class="text-xl text-gray-300">Mapa de Monitoramento & Operações Fluviais da Amazônia</h3>
     </div>
 
+<<<<<<< HEAD
     <div class="grid grid-cols-1 xl:grid-cols-4 gap-6 mb-8">
+=======
+    <!-- Layout Principal: Mapa + Painéis -->
+    <div class="grid grid-cols-1 xl:grid-cols-4 gap-6 mb-8">
+      <!-- Mapa - Ocupa 3 colunas -->
+>>>>>>> dev-melhorias
       <div class="xl:col-span-3 h-[600px]">
         <div id="map" class="w-full h-full rounded-xl border-2 border-gray-600 shadow-2xl"></div>
       </div>
 
+<<<<<<< HEAD
       <div class="xl:col-span-1 space-y-4">
+=======
+      <!-- Painéis Laterais - Ocupa 1 coluna -->
+      <div class="xl:col-span-1 space-y-4">
+        <!-- Telemetria -->
+>>>>>>> dev-melhorias
         <div id="telemetry-panel" class="panel-bg p-5">
           <h3 class="panel-title">Telemetria do Ativo</h3>
           <div class="text-gray-400 text-sm">
@@ -138,6 +170,10 @@
           </div>
         </div>
 
+<<<<<<< HEAD
+=======
+        <!-- Orbital -->
+>>>>>>> dev-melhorias
         <div id="orbital-panel" class="panel-bg p-5">
           <h3 class="panel-title">Visibilidade Orbital</h3>
           <div class="space-y-3">
@@ -146,11 +182,16 @@
               <span id="orbital-status" class="font-bold text-red-400">NÃO VISÍVEL</span>
             </div>
             <div class="text-sm text-gray-400">
+<<<<<<< HEAD
               Próxima passagem em: <span id="next-pass" class="font-mono text-cyan-300">09:02</span>
+=======
+              Próxima passagem em: <span id="next-pass" class="font-mono text-cyan-300">11:29</span>
+>>>>>>> dev-melhorias
             </div>
           </div>
         </div>
 
+<<<<<<< HEAD
         <div id="alerts-panel" class="panel-bg p-5">
           <h3 class="panel-title">Alertas e Dados Ambientais</h3>
           <div class="text-sm space-y-2 text-gray-300">
@@ -159,6 +200,17 @@
           </div>
         </div>
 
+=======
+        <!-- Alertas -->
+        <div id="alerts-panel" class="panel-bg p-5">
+          <h3 class="panel-title">Co-Piloto e Alertas</h3>
+          <div id="alerts-content" class="text-gray-400 text-sm">
+            Sistema inicializado. Aguardando dados...
+          </div>
+        </div>
+
+        <!-- Botões de Ação -->
+>>>>>>> dev-melhorias
         <div class="grid grid-cols-2 gap-4">
           <button onclick="activateSOS()" class="bg-red-600 hover:bg-red-500 text-white px-4 py-3 rounded-lg flex items-center justify-center transition-all duration-200 font-semibold shadow-lg">
             <i class="fas fa-exclamation-triangle mr-2"></i> S.O.S
@@ -170,6 +222,10 @@
       </div>
     </div>
     
+<<<<<<< HEAD
+=======
+    <!-- Seção NASA - Agora em linha única -->
+>>>>>>> dev-melhorias
     <section class="mb-12">
         <div class="text-center mb-8">
             <h2 class="text-3xl font-bold mb-4">Integração com Dados da NASA</h2>
@@ -201,6 +257,10 @@
         </div>
     </section>
 
+<<<<<<< HEAD
+=======
+    <!-- Seção NORMAM-204 -->
+>>>>>>> dev-melhorias
     <section class="bg-blue-900/20 p-8 rounded-2xl border border-blue-700/30">
         <h2 class="text-2xl font-bold mb-6 text-center">Conformidade com a NORMAM-204 da Marinha do Brasil</h2>
         <p class="text-gray-300 mb-6 text-lg leading-relaxed text-center">
@@ -227,11 +287,16 @@
     // --- INICIALIZAÇÃO DO MAPA ---
     const map = L.map('map').setView([-3.1190, -60.0217], 11);
     
+<<<<<<< HEAD
+=======
+    // Tile layer com fallback
+>>>>>>> dev-melhorias
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; OpenStreetMap & CARTO',
       maxZoom: 18
     }).addTo(map);
 
+<<<<<<< HEAD
     // --- RIOS PRINCIPAIS ---
     const rios = [
       { nome: "Rio Negro", coords: [[-2.8, -60.5], [-3.0, -60.3], [-3.1, -60.1], [-3.2, -60.0], [-3.3, -59.9], [-3.4, -59.8]] },
@@ -264,6 +329,174 @@
       { id: 1, nome: "Balsa Iranduba", empresa: "Barcas Iranduba", tipo: "balsa", rota: "Manaus ↔ Iranduba", riverIndex: 0, progress: 0.2, bateria: 88, sinal: -80, velocidade: 8.2, rpm: 1500 },
       { id: 2, nome: "Lancha Janauari", empresa: "COOBARQ", tipo: "lancha", rota: "Manaus ↔ Janauari", riverIndex: 0, progress: 0.7, bateria: 92, sinal: -75, velocidade: 18.5, rpm: 2800 },
       { id: 9, nome: "NAsH Oswaldo Cruz", empresa: "Marinha do Brasil", tipo: "hospitalar", rota: "Atendimento Comunidades", riverIndex: 1, progress: 0.4, bateria: 89, sinal: -82, velocidade: 14.2, rpm: 1900 }
+=======
+    // Adicionar camada de fallback caso a principal falhe
+    const fallbackLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      opacity: 0.7,
+      zIndex: 999
+    });
+
+    // --- DESTAQUE DA ÁREA METROPOLITANA DE MANAUS ---
+    const manausMetroArea = [
+      [-3.00, -60.15], [-3.00, -59.85], 
+      [-3.30, -59.85], [-3.30, -60.15]
+    ];
+    
+    L.polygon(manausMetroArea, {
+      color: '#3b82f6',
+      fillColor: '#3b82f6',
+      fillOpacity: 0.1,
+      weight: 3,
+      dashArray: '5, 5',
+      className: 'manaus-area'
+    }).addTo(map).bindPopup('<strong>Área Metropolitana de Manaus</strong><br>Centro de operações ASTRA-Net');
+
+    // --- RIOS PRINCIPAIS ---
+    const rios = [
+      {
+        nome: "Rio Negro",
+        coords: [
+          [-2.8, -60.5], [-3.0, -60.3], [-3.1, -60.1], 
+          [-3.2, -60.0], [-3.3, -59.9], [-3.4, -59.8]
+        ]
+      },
+      {
+        nome: "Rio Solimões",
+        coords: [
+          [-3.1, -60.0], [-3.2, -59.8], [-3.3, -59.6], [-3.4, -59.4]
+        ]
+      },
+      {
+        nome: "Encontro das Águas",
+        coords: [
+          [-3.15, -59.95], [-3.17, -59.92], [-3.19, -59.90]
+        ]
+      }
+    ];
+    
+    rios.forEach(rio => {
+      L.polyline(rio.coords, {
+        color: '#3b82f6',
+        weight: 5,
+        opacity: 0.8
+      }).addTo(map).bindPopup(`<strong>${rio.nome}</strong>`);
+    });
+
+    // Estruturas auxiliares para simulação nos rios
+    const riverPaths = rios.map(rio => ({
+      name: rio.nome,
+      points: rio.coords.map(pt => L.latLng(pt[0], pt[1])),
+      totalLength: 0,
+      segments: []
+    }));
+
+    // Pré-calcula segmentos e comprimentos para interpolação suave
+    riverPaths.forEach(path => {
+      let length = 0;
+      for (let i = 0; i < path.points.length - 1; i++) {
+        const segLength = path.points[i].distanceTo(path.points[i + 1]);
+        path.segments.push({ start: path.points[i], end: path.points[i + 1], length: segLength });
+        length += segLength;
+      }
+      path.totalLength = length;
+    });
+
+    // --- PONTOS DE INTERESSE ---
+    const pointsOfInterest = [
+        { nome: "Porto de Manaus", lat: -3.134, lng: -59.992, type: 'porto-organizado' },
+        { nome: "Porto Chibatão", lat: -3.145, lng: -60.025, type: 'porto-container' },
+        { nome: "Base da Marinha (9º DN)", lat: -3.1100, lng: -60.0100, type: 'marinha' },
+        { nome: "Comunidade Janauari", lat: -3.22, lng: -60.15, type: 'comunidade' },
+        { nome: "Comunidade do Tupé", lat: -3.05, lng: -60.25, type: 'comunidade' },
+        { nome: "Aeroporto de Manaus", lat: -3.0386, lng: -60.0497, type: 'aeroporto' },
+        { nome: "Centro de Manaus", lat: -3.1190, lng: -60.0217, type: 'centro' }
+    ];
+
+    pointsOfInterest.forEach(p => {
+        let iconHtml, iconClass;
+        switch(p.type) {
+            case 'porto-organizado': 
+                iconHtml = '<i class="fas fa-ship"></i>'; 
+                iconClass = 'text-amber-500 bg-amber-500/20 p-2 rounded-full'; 
+                break;
+            case 'porto-container': 
+                iconHtml = '<i class="fas fa-warehouse"></i>'; 
+                iconClass = 'text-gray-400 bg-gray-400/20 p-2 rounded-full'; 
+                break;
+            case 'marinha': 
+                iconHtml = '<i class="fas fa-shield-alt"></i>'; 
+                iconClass = 'text-blue-600 bg-blue-600/20 p-2 rounded-full'; 
+                break;
+            case 'comunidade': 
+                iconHtml = '<i class="fas fa-users"></i>'; 
+                iconClass = 'text-green-400 bg-green-400/20 p-2 rounded-full'; 
+                break;
+            case 'aeroporto': 
+                iconHtml = '<i class="fas fa-plane"></i>'; 
+                iconClass = 'text-red-400 bg-red-400/20 p-2 rounded-full'; 
+                break;
+            case 'centro': 
+                iconHtml = '<i class="fas fa-city"></i>'; 
+                iconClass = 'text-white bg-white/20 p-2 rounded-full'; 
+                break;
+            default: 
+                iconHtml = '<i class="fas fa-map-marker-alt"></i>'; 
+                iconClass = 'text-white bg-white/20 p-2 rounded-full';
+        }
+        const icon = L.divIcon({ 
+            className: `point-marker ${iconClass}`, 
+            html: iconHtml, 
+            iconSize: [40, 40],
+            iconAnchor: [20, 20]
+        });
+        L.marker([p.lat, p.lng], { icon: icon })
+          .addTo(map)
+          .bindPopup(`<strong>${p.nome}</strong><br><small>${p.type.toUpperCase()}</small>`);
+    });
+
+    // --- FROTA DE EMBARCAÇÕES ---
+    const vessels = [
+      { 
+        id: 1, 
+        nome: "Balsa Iranduba", 
+        empresa: "Barcas Iranduba", 
+        tipo: "balsa", 
+        rota: "Manaus ↔ Iranduba", 
+        riverIndex: 0, // Rio Negro
+        progress: 0.3,
+        bateria: 88, 
+        sinal: -80, 
+        velocidade: 8.2, 
+        rpm: 1500 
+      },
+      { 
+        id: 2, 
+        nome: "Lancha Janauari", 
+        empresa: "COOBARQ", 
+        tipo: "lancha", 
+        rota: "Manaus ↔ Janauari", 
+        riverIndex: 0, // Rio Negro
+        progress: 0.6,
+        bateria: 92, 
+        sinal: -75, 
+        velocidade: 18.5, 
+        rpm: 2800 
+      },
+      { 
+        id: 9, 
+        nome: "NAsH Oswaldo Cruz", 
+        empresa: "Marinha do Brasil", 
+        tipo: "hospitalar", 
+        rota: "Atendimento Comunidades", 
+        riverIndex: 1, // Rio Solimões
+        progress: 0.45,
+        bateria: 89, 
+        sinal: -82, 
+        velocidade: 14.2, 
+        rpm: 1900 
+      }
+>>>>>>> dev-melhorias
     ];
 
     const vesselMarkers = {};
@@ -271,6 +504,7 @@
     let alerts = [];
     let passSchedule = [];
 
+<<<<<<< HEAD
     // --- FUNÇÕES ---
     function getVesselIcon(type) {
       const icons = { balsa: 'ship', lancha: 'bolt', hospitalar: 'hospital', carga: 'box', hidrooceanografico: 'water', 'navio-patrulha': 'shield-alt', recreio: 'ship' };
@@ -292,6 +526,40 @@
         current += seg.length;
       }
       return river.points[river.points.length - 1];
+=======
+    // --- FUNÇÕES PRINCIPAIS ---
+    function getVesselIcon(type) {
+        const icons = { 
+            balsa: 'ship', 
+            lancha: 'bolt', 
+            recreio: 'ship', 
+            'navio-patrulha': 'shield-alt', 
+            carga: 'box', 
+            hidrooceanografico: 'water', 
+            hospitalar: 'hospital' 
+        };
+        return icons[type] || 'ship';
+>>>>>>> dev-melhorias
+    }
+
+    // Calcula posição ao longo do rio com base na progressão
+    function getPointOnRiver(riverPath, progress) {
+      if (progress <= 0) return riverPath.points[0];
+      if (progress >= 1) return riverPath.points[riverPath.points.length - 1];
+      
+      const targetDist = progress * riverPath.totalLength;
+      let currentDist = 0;
+      
+      for (const seg of riverPath.segments) {
+        if (currentDist + seg.length >= targetDist) {
+          const segProgress = (targetDist - currentDist) / seg.length;
+          const lat = seg.start.lat + segProgress * (seg.end.lat - seg.start.lat);
+          const lng = seg.start.lng + segProgress * (seg.end.lng - seg.start.lng);
+          return L.latLng(lat, lng);
+        }
+        currentDist += seg.length;
+      }
+      return riverPath.points[riverPath.points.length - 1];
     }
 
     function renderVessels() {
@@ -301,20 +569,39 @@
         v.lat = pos.lat;
         v.lng = pos.lng;
 
+<<<<<<< HEAD
         const icon = L.divIcon({
+=======
+        const el = L.divIcon({
+>>>>>>> dev-melhorias
           className: `vessel-marker vessel-${v.tipo} ${selectedVessel?.id === v.id ? 'border-yellow-400 scale-125 ring-2 ring-yellow-400' : 'border-white'} ${v.sosActive ? 'animate-pulse-sos' : ''}`,
           html: `<i class="fas fa-${getVesselIcon(v.tipo)} text-xs"></i>`,
           iconSize: [28, 28],
           iconAnchor: [14, 14]
         });
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> dev-melhorias
         if (vesselMarkers[v.id]) {
           vesselMarkers[v.id].setLatLng([v.lat, v.lng]).setIcon(icon);
         } else {
+<<<<<<< HEAD
           vesselMarkers[v.id] = L.marker([v.lat, v.lng], { icon })
             .addTo(map)
             .bindPopup(`<div class="font-semibold">${v.nome}</div><div class="text-sm text-gray-600">${v.empresa}</div><div class="text-xs text-blue-600">${v.rota}</div>`)
             .on('click', () => selectVessel(v));
+=======
+            vesselMarkers[v.id] = L.marker([v.lat, v.lng], { icon: el })
+                .addTo(map)
+                .bindPopup(`
+                  <div class="font-semibold">${v.nome}</div>
+                  <div class="text-sm text-gray-600">${v.empresa}</div>
+                  <div class="text-xs text-blue-600">${v.rota}</div>
+                `)
+                .on('click', () => selectVessel(v));
+>>>>>>> dev-melhorias
         }
       });
     }
@@ -322,6 +609,11 @@
     function selectVessel(v) {
       selectedVessel = v;
       updateTelemetryPanel();
+<<<<<<< HEAD
+=======
+      updateAlertsPanel();
+      renderVessels();
+>>>>>>> dev-melhorias
       map.setView([v.lat, v.lng], 13);
     }
 
@@ -331,6 +623,7 @@
         return;
       }
       selectedVessel.sosActive = true;
+<<<<<<< HEAD
       setTimeout(() => {
         if (selectedVessel) selectedVessel.sosActive = false;
         renderVessels();
@@ -391,6 +684,182 @@
         document.getElementById('next-pass').textContent = `FIM: ${String(Math.floor(remaining/60)).padStart(2, '0')}:${String(remaining%60).padStart(2, '0')}`;
       }
     }
+=======
+      addAlert('SOS', `🚨 Sinal de SOS ativado para ${selectedVessel.nome}!`);
+      renderVessels();
+      
+      // Auto-reset após 10 segundos
+      setTimeout(() => {
+        if (selectedVessel) {
+          selectedVessel.sosActive = false;
+          renderVessels();
+        }
+      }, 10000);
+    }
+
+    function updateTelemetryPanel() {
+        const panel = document.getElementById('telemetry-panel');
+        if (!selectedVessel) {
+            panel.innerHTML = `
+                <h3 class="panel-title">Telemetria do Ativo</h3>
+                <div class="text-gray-400 text-sm">
+                    <i class="fas fa-mouse-pointer mr-2"></i>Clique em uma embarcação no mapa
+                </div>
+            `;
+            return;
+        }
+        
+        const v = selectedVessel;
+        panel.innerHTML = `
+            <h3 class="panel-title">${v.nome}</h3>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-400">Empresa:</span>
+                    <span class="font-semibold">${v.empresa}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-400">Rota:</span>
+                    <span class="text-blue-400 font-semibold">${v.rota}</span>
+                </div>
+                <div class="border-t border-gray-700 pt-3 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Posição:</span>
+                        <span class="font-mono text-sm">${v.lat.toFixed(4)}, ${v.lng.toFixed(4)}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Velocidade:</span>
+                        <span class="text-yellow-400 font-semibold">${v.velocidade.toFixed(1)} nós</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">RPM:</span>
+                        <span class="font-semibold">${v.rpm.toFixed(0)}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Bateria:</span>
+                        <span class="text-green-400 font-semibold">${v.bateria.toFixed(0)}%</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function addAlert(type, msg) {
+        alerts.unshift({ 
+            type, 
+            msg, 
+            time: new Date().toLocaleTimeString('pt-BR', { hour12: false }) 
+        });
+        if (alerts.length > 5) alerts.pop();
+        updateAlertsPanel();
+    }
+
+    function updateAlertsPanel() {
+        const panel = document.getElementById('alerts-panel');
+        let alertsContent = '';
+        
+        if (alerts.length > 0) {
+            alertsContent = alerts.map(alert => 
+                `<div class="text-sm mb-2 p-2 rounded ${alert.type === 'SOS' ? 'bg-red-500/20 text-red-300 border border-red-500/30' : 'bg-blue-500/20 text-blue-300'}">
+                    <span class="font-mono text-xs">[${alert.time}]</span> ${alert.msg}
+                </div>`
+            ).join('');
+        } else {
+            alertsContent = '<div class="text-gray-400 text-sm">Nenhum alerta no momento</div>';
+        }
+        
+        panel.innerHTML = `
+            <h3 class="panel-title">Co-Piloto e Alertas</h3>
+            <div class="space-y-2 max-h-40 overflow-y-auto">
+                ${alertsContent}
+            </div>
+        `;
+    }
+
+    function updateOrbitalPanel() {
+        const now = new Date();
+        
+        // Gerar passagens se necessário
+        if (!passSchedule.length || passSchedule[0].time < now) {
+            const sats = ["YAKAMI-SAT-01", "Starlink", "TERRA (NASA)", "AQUA (NASA)"];
+            passSchedule = [];
+            for (let i = 0; i < 3; i++) {
+                passSchedule.push({ 
+                    sat: sats[Math.floor(Math.random() * sats.length)], 
+                    time: new Date(now.getTime() + (i * 10 + Math.random() * 15) * 60000), 
+                    dur: 5 + Math.floor(Math.random() * 5) 
+                });
+            }
+            passSchedule.sort((a,b) => a.time - b.time);
+        }
+        
+        const next = passSchedule[0];
+        const timeToPass = next.time - now;
+        
+        let statusText = "NÃO VISÍVEL", statusColor = "text-red-400", countdownText = "";
+        
+        if (timeToPass < 0 && timeToPass > -next.dur * 60000) {
+            statusText = "VISÍVEL"; 
+            statusColor = "text-green-400";
+            const remaining = Math.floor((next.dur * 60000 + timeToPass) / 1000);
+            countdownText = `Fim em: <span class="font-mono font-bold">${String(Math.floor(remaining/60)).padStart(2,'0')}:${String(remaining%60).padStart(2,'0')}</span>`;
+        } else {
+            const diff = Math.max(0, Math.floor(timeToPass / 1000));
+            countdownText = `Próxima em: <span class="font-mono font-bold">${String(Math.floor(diff/60)).padStart(2,'0')}:${String(diff%60).padStart(2,'0')}</span>`;
+        }
+        
+        // Atualizar elementos da UI
+        document.getElementById('orbital-status').textContent = statusText;
+        document.getElementById('orbital-status').className = `font-bold ${statusColor}`;
+        document.getElementById('next-pass').innerHTML = countdownText.split(": ")[1];
+    }
+
+    // --- SIMULAÇÃO EM TEMPO REAL ---
+    function simulateMovement() {
+        vessels.forEach(v => {
+            // Movimento suave ao longo do rio
+            v.progress += (Math.random() - 0.5) * 0.01;
+            if (v.progress < 0) v.progress = 0;
+            if (v.progress > 1) v.progress = 1;
+
+            v.velocidade += (Math.random() - 0.5) * 0.1;
+            v.velocidade = Math.max(5, Math.min(25, v.velocidade));
+            v.rpm += (Math.random() - 0.5) * 10;
+            v.bateria -= 0.02;
+            if (v.bateria < 15) v.bateria = 100;
+        });
+        renderVessels();
+        if (selectedVessel) updateTelemetryPanel();
+    }
+
+    // --- INICIALIZAÇÃO ---
+    document.addEventListener('DOMContentLoaded', function() {
+        renderVessels();
+        updateTelemetryPanel();
+        updateAlertsPanel();
+        updateOrbitalPanel();
+        
+        // Alerta de sistema inicializado
+        setTimeout(() => {
+            addAlert('SISTEMA', 'Sistema ASTRA-Net inicializado com sucesso');
+        }, 1000);
+        
+        // Configurar intervalos
+        setInterval(updateOrbitalPanel, 1000);
+        setInterval(simulateMovement, 3000);
+        
+        // Forçar redimensionamento do mapa após carregamento
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 100);
+
+        // Adicionar fallback layer apenas se necessário
+        map.on('tileerror', function() {
+            if (!map.hasLayer(fallbackLayer)) {
+                fallbackLayer.addTo(map);
+            }
+        });
+    });
+>>>>>>> dev-melhorias
 
     function simulateMovement() {
       vessels.forEach(v => {
