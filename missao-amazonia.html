@@ -12,9 +12,10 @@
         body { font-family: 'Inter', sans-serif; }
         .hero-bg-mission {
             /* Imagem de satélite da Amazônia, focando nos rios */
-            background-image: url('https://images.unsplash.com/photo-1542181961-9590c139f9e2?q=80&w=2070&auto=format&fit=crop');
+            background-image: url('https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center 30%;
+            background-attachment: fixed;
         }
         .lang-btn {
             cursor: pointer;
@@ -26,19 +27,29 @@
             border-color: #F97316;
             background-color: rgba(249, 115, 22, 0.1);
         }
+        .message-counter {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .form-input:focus {
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
 
-    <header class="sticky top-0 z-20 p-4 bg-gray-900 bg-opacity-70 backdrop-blur-sm">
+    <header class="sticky top-0 z-20 p-4 bg-gray-900 bg-opacity-90 backdrop-blur-sm border-b border-gray-800">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="text-3xl font-bold">YAKAMI<span class="text-orange-500">.</span>TECH</a>
             <nav class="hidden md:flex items-center space-x-6 text-lg">
-                <a href="index.html#services" class="hover:text-orange-500" data-lang-key="nav_services">Serviços</a>
-                <a href="empresa.html" class="hover:text-orange-500" data-lang-key="nav_company">Empresa</a>
-                <a href="equipe.html" class="hover:text-orange-500" data-lang-key="nav_team">Equipe</a>
+                <a href="index.html#services" class="hover:text-orange-500 transition-colors duration-200" data-lang-key="nav_services">Serviços</a>
+                <a href="empresa.html" class="hover:text-orange-500 transition-colors duration-200" data-lang-key="nav_company">Empresa</a>
+                <a href="equipe.html" class="hover:text-orange-500 transition-colors duration-200" data-lang-key="nav_team">Equipe</a>
                 <a href="missao-amazonia.html" class="text-orange-500 font-semibold" data-lang-key="nav_mission">Missão</a>
-                <a href="contato.html" class="hover:text-orange-500" data-lang-key="nav_contact">Contato</a>
+                <a href="contato.html" class="hover:text-orange-500 transition-colors duration-200" data-lang-key="nav_contact">Contato</a>
             </nav>
             <div class="flex items-center space-x-2">
                 <span id="lang-pt" class="lang-btn active" onclick="changeLanguage('pt')">🇧🇷 PT</span>
@@ -48,46 +59,72 @@
         </div>
     </header>
 
-    <main class="relative hero-bg-mission min-h-[60vh] flex items-center justify-center text-center">
-        <div class="absolute inset-0 bg-black opacity-60"></div>
-        <div class="relative z-10 p-4">
-            <h1 class="text-4xl md:text-6xl font-black mb-4" data-lang-key="mission_hero_title">Vozes da Amazônia: Do Rio à Órbita</h1>
-            <p class="text-lg md:text-xl max-w-3xl mx-auto" data-lang-key="mission_hero_subtitle">Embarque a sua mensagem no CARATAÍ-1, o primeiro nanosatélite guardião da Amazônia.</p>
+    <main class="relative hero-bg-mission min-h-[70vh] flex items-center justify-center text-center">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 to-black/50"></div>
+        <div class="relative z-10 p-4 max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight" data-lang-key="mission_hero_title">Vozes da Amazônia: Do Rio à Órbita</h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 leading-relaxed" data-lang-key="mission_hero_subtitle">Embarque a sua mensagem no CARATAÍ-1, o primeiro nanosatélite guardião da Amazônia.</p>
+            <a href="#join-mission" class="bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 px-8 rounded-lg inline-flex items-center transition-all duration-300 transform hover:scale-105">
+                <i class="fas fa-rocket mr-2"></i>
+                <span data-lang-key="cta_button">Participar da Missão</span>
+            </a>
         </div>
     </main>
 
-    <section class="py-20 px-4 bg-gray-800">
-        <div class="container mx-auto max-w-4xl">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
+    <section id="join-mission" class="py-20 px-4 bg-gray-800">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
                 
-                <div class="bg-gray-900 p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-bold mb-2" data-lang-key="form_title">Junte-se à Missão.</h3>
-                    <p class="text-gray-400 mb-6" data-lang-key="form_desc">Escreva a sua mensagem de apoio ou o seu compromisso com a Amazônia. A sua voz será armazenada e levada ao espaço a bordo do CARATAÍ-1.</p>
-                    <form action="#" method="POST">
-                        <div class="mb-4">
-                            <label for="name" class="block text-sm font-medium text-gray-300" data-lang-key="form_name">Nome</label>
-                            <input type="text" id="name" placeholder="Seu nome" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md p-2 text-white">
+                <div class="bg-gray-900 p-8 rounded-xl shadow-2xl border border-gray-700">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-satellite text-2xl text-orange-500 mr-3"></i>
+                        <h3 class="text-2xl font-bold" data-lang-key="form_title">Junte-se à Missão</h3>
+                    </div>
+                    <p class="text-gray-400 mb-6 leading-relaxed" data-lang-key="form_desc">Escreva a sua mensagem de apoio ou o seu compromisso com a Amazônia. A sua voz será armazenada e levada ao espaço a bordo do CARATAÍ-1.</p>
+                    <form id="mission-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2" data-lang-key="form_name">Nome</label>
+                            <input type="text" id="name" placeholder="Seu nome" class="form-input w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:outline-none transition-colors duration-200">
                         </div>
-                        <div class="mb-4">
-                            <label for="location" class="block text-sm font-medium text-gray-300" data-lang-key="form_location">Cidade / Estado</label>
-                            <input type="text" id="location" placeholder="Ex: Manaus, AM" class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md p-2 text-white">
+                        <div>
+                            <label for="location" class="block text-sm font-medium text-gray-300 mb-2" data-lang-key="form_location">Cidade / Estado</label>
+                            <input type="text" id="location" placeholder="Ex: Manaus, AM" class="form-input w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:outline-none transition-colors duration-200">
                         </div>
-                        <div class="mb-4">
-                            <label for="message" class="block text-sm font-medium text-gray-300" data-lang-key="form_message">Sua Mensagem (280 caracteres)</label>
-                            <textarea id="message" rows="4" maxlength="280" placeholder="Eu apoio a Amazônia porque..." class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md p-2 text-white"></textarea>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-2" data-lang-key="form_message">Sua Mensagem <span class="text-gray-500">(280 caracteres)</span></label>
+                            <textarea id="message" rows="4" maxlength="280" placeholder="Eu apoio a Amazônia porque..." class="form-input w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:outline-none transition-colors duration-200 resize-none"></textarea>
+                            <div class="text-right text-sm text-gray-500 mt-1">
+                                <span id="char-count">0</span>/280
+                            </div>
                         </div>
-                        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 px-4 rounded-lg" data-lang-key="form_submit">Embarcar minha Mensagem</button>
+                        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            <span data-lang-key="form_submit">Embarcar minha Mensagem</span>
+                        </button>
                     </form>
                 </div>
                 
-                <div class="pr-8">
-                    <i class="fas fa-satellite-dish text-6xl text-orange-500 mb-6"></i>
-                    <h2 class="text-3xl font-bold" data-lang-key="story_title">O Primeiro Guardião Digital da Floresta</h2>
-                    <p class="text-gray-300 mt-4 text-lg" data-lang-key="story_desc">O CARATAÍ-1 não é apenas um satélite. É um símbolo. Além de fornecer conectividade para a ASTRA-Net, ele levará consigo um chip de memória com milhares de mensagens de apoio de todo o mundo - incluindo a sua.</p>
-                    <p class="text-gray-300 mt-4 text-lg" data-lang-key="story_schools">Em parceria com escolas ribeirinhas, os melhores desenhos e frases das crianças da floresta também serão gravados a laser na sua estrutura, levando os sonhos da Amazônia para a órbita.</p>
-                    <div class="mt-6">
-                        <div class="text-3xl font-bold text-orange-500">1,258</div>
-                        <div class="text-lg text-gray-400" data-lang-key="story_counter">Guardiões já embarcaram suas mensagens.</div>
+                <div class="space-y-8">
+                    <div class="text-center lg:text-left">
+                        <i class="fas fa-satellite-dish text-5xl text-orange-500 mb-6"></i>
+                        <h2 class="text-3xl font-bold mb-4" data-lang-key="story_title">O Primeiro Guardião Digital da Floresta</h2>
+                        <p class="text-gray-300 mb-4 text-lg leading-relaxed" data-lang-key="story_desc">O CARATAÍ-1 não é apenas um satélite. É um símbolo. Além de fornecer conectividade para a ASTRA-Net, ele levará consigo um chip de memória com milhares de mensagens de apoio de todo o mundo - incluindo a sua.</p>
+                        <p class="text-gray-300 mb-6 text-lg leading-relaxed" data-lang-key="story_schools">Em parceria com escolas ribeirinhas, os melhores desenhos e frases das crianças da floresta também serão gravados a laser na sua estrutura, levando os sonhos da Amazônia para a órbita.</p>
+                        
+                        <div class="bg-gray-900 p-6 rounded-xl border border-gray-700">
+                            <div class="text-4xl font-bold message-counter mb-2" id="counter">1,347</div>
+                            <div class="text-lg text-gray-400" data-lang-key="story_counter">Guardiões já embarcaram suas mensagens</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-orange-600/20 to-orange-500/10 p-6 rounded-xl border border-orange-500/30">
+                        <div class="flex items-start">
+                            <i class="fas fa-info-circle text-orange-400 text-xl mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-orange-300 mb-2" data-lang-key="info_title">Sobre o CARATAÍ-1</h4>
+                                <p class="text-gray-300 text-sm" data-lang-key="info_desc">Nanosatélite classe CubeSat 3U desenvolvido pela YAKAMI TECH. Será lançado em 2026 com capacidade de comunicação IoT e coleta de dados ambientais.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -95,8 +132,45 @@
         </div>
     </section>
 
-    <footer class="bg-gray-800 py-6 text-center text-gray-400">
-        <p>&copy; 2025 YAKAMI TECH. Todos os direitos reservados.</p>
+    <!-- Seção de Impacto -->
+    <section class="py-16 px-4 bg-gray-900">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-3xl font-bold mb-12" data-lang-key="impact_title">Nosso Impacto na Amazônia</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                    <i class="fas fa-satellite text-3xl text-orange-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2" data-lang-key="impact1_title">Monitoramento em Tempo Real</h3>
+                    <p class="text-gray-400" data-lang-key="impact1_desc">Sistema ASTRA-Net fornecendo dados contínuos de embarcações e condições ambientais</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                    <i class="fas fa-tree text-3xl text-green-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2" data-lang-key="impact2_title">Proteção Florestal</h3>
+                    <p class="text-gray-400" data-lang-key="impact2_desc">Tecnologia de ponta para combater desmatamento e queimadas ilegais</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                    <i class="fas fa-users text-3xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2" data-lang-key="impact3_title">Comunidades Conectadas</h3>
+                    <p class="text-gray-400" data-lang-key="impact3_desc">Levando conectividade e serviços essenciais para populações ribeirinhas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 py-8 text-center border-t border-gray-700">
+        <div class="container mx-auto">
+            <p class="text-gray-400">&copy; 2025 YAKAMI TECH. <span data-lang-key="footer_rights">Todos os direitos reservados.</span></p>
+            <div class="mt-4 flex justify-center space-x-6">
+                <a href="https://www.linkedin.com/company/yakami-tech" target="_blank" class="text-gray-400 hover:text-orange-500 transition-colors duration-200">
+                    <i class="fab fa-linkedin text-xl"></i>
+                </a>
+                <a href="mailto:contato@yakami.com.br" class="text-gray-400 hover:text-orange-500 transition-colors duration-200">
+                    <i class="fas fa-envelope text-xl"></i>
+                </a>
+                <a href="https://github.com/yakami-tech" target="_blank" class="text-gray-400 hover:text-orange-500 transition-colors duration-200">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+            </div>
+        </div>
     </footer>
 
     <script>
@@ -109,16 +183,27 @@
                 'nav_contact': 'Contact',
                 'mission_hero_title': 'Voices of the Amazon: From River to Orbit',
                 'mission_hero_subtitle': 'Embed your message on CARATAÍ-1, the first nanosatellite guardian of the Amazon.',
-                'form_title': 'Join the Mission.',
+                'cta_button': 'Join the Mission',
+                'form_title': 'Join the Mission',
                 'form_desc': 'Write your message of support or your commitment to the Amazon. Your voice will be stored and carried into space aboard the CARATAÍ-1.',
                 'form_name': 'Name',
                 'form_location': 'City / State',
-                'form_message': 'Your Message (280 characters)',
+                'form_message': 'Your Message',
                 'form_submit': 'Embed My Message',
                 'story_title': 'The First Digital Guardian of the Forest',
                 'story_desc': 'CARATAÍ-1 is not just a satellite. It is a symbol. In addition to providing connectivity for ASTRA-Net, it will carry a memory chip with thousands of messages of support from around the world - including yours.',
                 'story_schools': 'In partnership with riverside schools, the best drawings and phrases from the children of the forest will also be laser-engraved onto its structure, carrying the dreams of the Amazon into orbit.',
-                'story_counter': 'Guardians have already embedded their messages.'
+                'story_counter': 'Guardians have already embedded their messages',
+                'info_title': 'About CARATAÍ-1',
+                'info_desc': '3U CubeSat class nanosatellite developed by YAKAMI TECH. To be launched in 2026 with IoT communication capability and environmental data collection.',
+                'impact_title': 'Our Impact in the Amazon',
+                'impact1_title': 'Real-time Monitoring',
+                'impact1_desc': 'ASTRA-Net system providing continuous data on vessels and environmental conditions',
+                'impact2_title': 'Forest Protection',
+                'impact2_desc': 'Cutting-edge technology to combat illegal deforestation and fires',
+                'impact3_title': 'Connected Communities',
+                'impact3_desc': 'Bringing connectivity and essential services to riverside populations',
+                'footer_rights': 'All rights reserved.'
             },
             'pt': {
                 'nav_services': 'Serviços',
@@ -128,16 +213,27 @@
                 'nav_contact': 'Contato',
                 'mission_hero_title': 'Vozes da Amazônia: Do Rio à Órbita',
                 'mission_hero_subtitle': 'Embarque a sua mensagem no CARATAÍ-1, o primeiro nanosatélite guardião da Amazônia.',
-                'form_title': 'Junte-se à Missão.',
+                'cta_button': 'Participar da Missão',
+                'form_title': 'Junte-se à Missão',
                 'form_desc': 'Escreva a sua mensagem de apoio ou o seu compromisso com a Amazônia. A sua voz será armazenada e levada ao espaço a bordo do CARATAÍ-1.',
                 'form_name': 'Nome',
                 'form_location': 'Cidade / Estado',
-                'form_message': 'Sua Mensagem (280 caracteres)',
+                'form_message': 'Sua Mensagem',
                 'form_submit': 'Embarcar minha Mensagem',
                 'story_title': 'O Primeiro Guardião Digital da Floresta',
                 'story_desc': 'O CARATAÍ-1 não é apenas um satélite. É um símbolo. Além de fornecer conectividade para a ASTRA-Net, ele levará consigo um chip de memória com milhares de mensagens de apoio de todo o mundo - incluindo a sua.',
                 'story_schools': 'Em parceria com escolas ribeirinhas, os melhores desenhos e frases das crianças da floresta também serão gravados a laser na sua estrutura, levando os sonhos da Amazônia para a órbita.',
-                'story_counter': 'Guardiões já embarcaram suas mensagens.'
+                'story_counter': 'Guardiões já embarcaram suas mensagens',
+                'info_title': 'Sobre o CARATAÍ-1',
+                'info_desc': 'Nanosatélite classe CubeSat 3U desenvolvido pela YAKAMI TECH. Será lançado em 2026 com capacidade de comunicação IoT e coleta de dados ambientais.',
+                'impact_title': 'Nosso Impacto na Amazônia',
+                'impact1_title': 'Monitoramento em Tempo Real',
+                'impact1_desc': 'Sistema ASTRA-Net fornecendo dados contínuos de embarcações e condições ambientais',
+                'impact2_title': 'Proteção Florestal',
+                'impact2_desc': 'Tecnologia de ponta para combater desmatamento e queimadas ilegais',
+                'impact3_title': 'Comunidades Conectadas',
+                'impact3_desc': 'Levando conectividade e serviços essenciais para populações ribeirinhas',
+                'footer_rights': 'Todos os direitos reservados.'
             }
         };
 
@@ -152,8 +248,61 @@
             document.getElementById('lang-en').classList.toggle('active', lang === 'en');
         }
 
-        // Set initial language
-        changeLanguage('pt');
+        // Contador de caracteres
+        document.getElementById('message').addEventListener('input', function() {
+            const count = this.value.length;
+            document.getElementById('char-count').textContent = count;
+        });
+
+        // Simulação de envio do formulário
+        document.getElementById('mission-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const location = document.getElementById('location').value;
+            const message = document.getElementById('message').value;
+            
+            if (!name || !location || !message) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+            
+            // Simular envio bem-sucedido
+            const currentCount = parseInt(document.getElementById('counter').textContent.replace(',', ''));
+            document.getElementById('counter').textContent = (currentCount + 1).toLocaleString();
+            
+            // Resetar formulário
+            this.reset();
+            document.getElementById('char-count').textContent = '0';
+            
+            // Mensagem de sucesso
+            alert('Mensagem embarcada com sucesso! Obrigado por fazer parte da missão CARATAÍ-1.');
+        });
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            changeLanguage('pt');
+            
+            // Animação suave do contador
+            let count = 1258;
+            const counter = document.getElementById('counter');
+            const target = 1347;
+            const duration = 2000;
+            const increment = (target - count) / (duration / 16);
+            
+            const updateCounter = () => {
+                count += increment;
+                if (count >= target) {
+                    count = target;
+                    counter.textContent = count.toLocaleString();
+                } else {
+                    counter.textContent = Math.floor(count).toLocaleString();
+                    setTimeout(updateCounter, 16);
+                }
+            };
+            
+            setTimeout(updateCounter, 1000);
+        });
     </script>
 </body>
 </html>
