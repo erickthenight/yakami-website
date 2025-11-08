@@ -32,11 +32,10 @@
     .vessel-balsa { background-color: #f97316; }
     .vessel-lancha { background-color: #facc15; }
     .vessel-recreio { background-color: #e5e7eb; }
-    .vessel-navio-patrulha { background-color: #3b82f6; }
-    .vessel-lancha-patrulha { background-color: #8b5cf6; }
-    .vessel-carga { background-color: #6b7280; }
-    .vessel-hidroceanografico { background-color: #10b981; }
-    .vessel-hospitalar { background-color: #ef4444; }
+    .vessel-navio-patrulha { background-color: #3b82f6; color: white;}
+    .vessel-carga { background-color: #6b7280; color: white;}
+    .vessel-hidrooceanografico { background-color: #10b981; }
+    .vessel-hospitalar { background-color: #ef4444; color: white;}
     .animate-pulse-sos {
       animation: pulse-sos 1.5s infinite;
     }
@@ -44,20 +43,8 @@
       0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
       50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
     }
-    .port-marker i {
-        text-shadow: 0 0 8px rgba(0, 100, 150, 0.8);
-    }
-    .port-marker-organizado i {
-        text-shadow: 0 0 12px rgba(200, 150, 0, 0.9);
-    }
     .panel-bg { background: #1e293b; border: 1px solid #334155; }
     .panel-title { border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 0.5rem; }
-    .status-visible { color: #10b981; }
-    .status-not-visible { color: #ef4444; }
-    .passage-item { color: #0ea5e9; }
-    .alert-item { color: #f59e0b; }
-    .normal-level { color: #10b981; }
-    .alert-level { color: #ef4444; }
   </style>
 </head>
 <body class="bg-gray-900 text-gray-200">
@@ -65,16 +52,13 @@
   <!-- Cabeçalho -->
   <header class="bg-white/10 backdrop-blur-sm border-b border-gray-800 py-4">
     <div class="container mx-auto px-4 flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <!-- Link funcional para a página principal -->
-        <a href="https://www.yakami.com.br/" class="flex items-center space-x-2">
-          <i class="fas fa-satellite text-orange-500 text-xl"></i>
-          <span class="font-bold text-lg">YAKAMI TECH</span>
-        </a>
-      </div>
-      <!-- Ícone da NASA Space Apps Challenge 2025 -->
+      <a href="https://www.yakami.com.br/" class="flex items-center space-x-2">
+        <i class="fas fa-satellite text-orange-500 text-xl"></i>
+        <span class="font-bold text-lg">YAKAMI TECH</span>
+      </a>
       <div class="text-sm bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full flex items-center space-x-1">
-        <img src="https://www.nasa.gov/wp-content/uploads/2021/09/nasa-logo-web-rgb.png?resize=128,128" alt="NASA" class="h-4 w-4">
+        <!-- CORREÇÃO: Link do logo oficial do Space Apps -->
+        <img src="https://www.spaceappschallenge.org/wp-content/uploads/2024/02/sac-logo-lockup-nasa.png" alt="NASA Space Apps" class="h-4">
         <span>Space Apps Challenge 2025</span>
       </div>
     </div>
@@ -87,389 +71,321 @@
       <p class="text-gray-400 max-w-2xl mx-auto">
         Sistema de monitoramento e rastreamento por satélite para a Amazônia - Tecnologia de Órbita Baixa (LEO)
       </p>
-      <div class="mt-4 flex justify-center space-x-4">
-        <a href="https://github.com/astranetam-dev/astra-net-platform" target="_blank" class="text-blue-400 hover:underline flex items-center">
-          <i class="fab fa-github mr-1"></i> GitHub Repository
-        </a>
-        <button class="text-orange-500 font-medium">Ver funcionalidades</button>
-      </div>
     </div>
 
     <!-- Seção de Demonstração -->
     <div class="text-center mb-8">
       <h2 class="text-xl font-bold mb-2">DEMONSTRAÇÃO INTERATIVA</h2>
       <h3 class="text-lg text-gray-400 mb-2">Mapa de Monitoramento & Operações Fluviais da Amazônia</h3>
-      <p class="text-gray-500">Explore serviços e visualize camadas de dados da NASA em tempo real sobre a região Amazônica Brasileira.</p>
     </div>
 
     <!-- Layout Principal -->
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-      <!-- Mapa (70% da largura) -->
-      <div class="lg:col-span-3 flex flex-col">
-        <!-- Botões S.O.S e Mensagem (centralizados abaixo do mapa) -->
-        <div class="flex justify-center mt-4 space-x-4">
-          <button onclick="activateSOS()" class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg flex items-center">
-            <i class="fas fa-exclamation-triangle mr-1"></i> S.O.S
-          </button>
-          <button class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center">
-            <i class="fas fa-envelope mr-1"></i> Mensagem
-          </button>
-        </div>
-        <div id="map" class="w-full h-[500px] rounded-xl border border-gray-700 shadow-lg"></div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Mapa -->
+      <div class="lg:col-span-2">
+        <div id="map" class="w-full h-[500px] lg:h-full rounded-xl border border-gray-700 shadow-lg"></div>
       </div>
 
-      <!-- Painéis Laterais (30% da largura) -->
-      <div class="lg:col-span-1 flex flex-col space-y-6 h-[500px]">
-        <!-- Telemetria -->
-        <div id="telemetry-panel" class="panel-bg p-4 rounded-lg flex-grow">
-          <h3 class="font-bold panel-title">Telemetria do Ativo</h3>
-          <p class="text-gray-500 text-sm">Selecione uma embarcação.</p>
-        </div>
-
-        <!-- Visibilidade Orbital -->
-        <div class="panel-bg p-4 rounded-lg">
-          <h3 class="font-bold panel-title">Visibilidade Orbital</h3>
-          <div class="space-y-2">
-            <p><strong>Status:</strong> <span id="orbital-status" class="status-not-visible">NÃO VISÍVEL</span></p>
-            <p><strong>Próxima janela:</strong> <span id="next-window" class="text-cyan-400">09:02</span></p>
-            <div>
-              <strong>Próximas Passagens:</strong>
-              <div id="passages-list" class="mt-1 space-y-1 text-xs">
-                <div class="passage-item"><i class="fas fa-satellite mr-1"></i> YAKAMI-SAT-01 @ 00:57:56 (9 min)</div>
-                <div class="passage-item"><i class="fas fa-satellite mr-1"></i> AQUA (NASA) @ 01:18:33 (7 min)</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Alertas e Dados Ambientais -->
-        <div class="panel-bg p-4 rounded-lg">
-          <h3 class="font-bold panel-title">Alertas e Dados Ambientais</h3>
-          <div class="space-y-2">
-            <div>
-              <strong>Níveis dos Rios (Portos):</strong>
-              <div id="river-levels" class="mt-1 space-y-1 text-xs">
-                <div class="flex justify-between"><span>Porto de Manaus</span><span class="normal-level">16.85m (Normal)</span></div>
-                <div class="flex justify-between"><span>Super Terminais</span><span class="alert-level">22.84m (Alerta)</span></div>
-              </div>
-            </div>
-            <div>
-              <strong>Alertas de Satélite (NASA):</strong>
-              <div id="nasa-alerts" class="mt-1 space-y-1 text-xs">
-                <div class="alert-item"><i class="fas fa-exclamation-triangle mr-1"></i> [00:48:52] Risco de tempestade severa (GPM).</div>
-              </div>
-            </div>
-          </div>
+      <!-- Painéis Laterais -->
+      <!-- CORREÇÃO: Removido 'h-[500px]' e 'lg:h-auto' para permitir altura natural -->
+      <div class="lg:col-span-1 flex flex-col space-y-4">
+        <div id="telemetry-panel" class="panel-bg p-4 rounded-lg flex-grow"></div>
+        <div id="orbital-panel" class="panel-bg p-4 rounded-lg flex-grow"></div>
+        <div id="alerts-panel" class="panel-bg p-4 rounded-lg flex-grow"></div>
+        <div class="grid grid-cols-2 gap-4">
+          <button onclick="activateSOS()" class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg flex items-center justify-center">
+            <i class="fas fa-exclamation-triangle mr-2"></i> S.O.S
+          </button>
+          <button class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center justify-center">
+            <i class="fas fa-envelope mr-2"></i> Mensagem
+          </button>
         </div>
       </div>
     </div>
-
-    <!-- Seção: Monitoramento em Tempo Real -->
+    
+    <!-- Seção: Integração NASA -->
     <section class="mt-12">
-      <div class="text-center mb-8">
-        <h2 class="text-2xl font-bold">Monitoramento por Satélite em Tempo Real</h2>
-        <p class="text-gray-400 mt-2 max-w-3xl mx-auto">
-          O ASTRA-Net utiliza tecnologia de satélites LEO para fornecer dados precisos sobre condições fluviais, localização e monitoramento ambiental na Amazônia, mesmo nas áreas mais remotas.
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-bold">Integração com Dados da NASA</h2>
+            <p class="text-gray-400 mt-2 max-w-3xl mx-auto">Utilizando o ecossistema de dados da NASA para uma operação mais inteligente e segura na Amazônia.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
+                <i class="fas fa-globe-americas text-blue-400 text-2xl mb-3"></i>
+                <h3 class="font-bold mb-2">NASA Earthdata Search</h3>
+                <p class="text-sm text-gray-400">Monitoramento ambiental, análise de desmatamento e qualidade da água dos rios.</p>
+            </div>
+            <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
+                <i class="fas fa-solar-panel text-yellow-400 text-2xl mb-3"></i>
+                <h3 class="font-bold mb-2">NASA POWER</h3>
+                <p class="text-sm text-gray-400">Previsão de irradiação solar para otimizar a geração de energia das YAKAMI Eco Stations.</p>
+            </div>
+            <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
+                <i class="fas fa-user-astronaut text-gray-300 text-2xl mb-3"></i>
+                <h3 class="font-bold mb-2">Orbital Debris Program</h3>
+                <p class="text-sm text-gray-400">Planejamento de órbita e mitigação de riscos para a futura constelação YAKAMI-SAT.</p>
+            </div>
+            <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
+                <i class="fas fa-broadcast-tower text-green-400 text-2xl mb-3"></i>
+                <h3 class="font-bold mb-2">Satellite Situation Report</h3>
+                <p class="text-sm text-gray-400">Otimização das janelas de comunicação com satélites ativos para garantir a conectividade.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: Conformidade NORMAM-204 -->
+    <section class="mt-12 bg-blue-900/20 p-6 rounded-xl">
+        <h2 class="text-2xl font-bold mb-4">Conformidade com a NORMAM-204 da Marinha do Brasil</h2>
+        <p class="text-gray-300 mb-4">
+            A partir de 1º de janeiro de 2026, todas as embarcações com Arqueação Bruta ≥ 50 estão obrigadas a utilizar um sistema de monitoramento AVL (Automatic Vehicle Location) em tempo real.
         </p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-5 gap-4 text-center">
-        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col items-center justify-center">
-          <i class="fas fa-sync-alt text-blue-400 text-2xl mb-2"></i>
-          <p class="text-sm font-semibold">Dados Atualizados</p>
-          <p class="text-xs text-gray-400">Satélites LEO a cada 2h</p>
-        </div>
-        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col items-center justify-center">
-          <i class="fas fa-ship text-blue-400 text-2xl mb-2"></i>
-          <p class="text-sm font-semibold">Rastreamento Preciso</p>
-          <p class="text-xs text-gray-400">Em tempo real</p>
-        </div>
-        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col items-center justify-center">
-          <i class="fas fa-water text-blue-400 text-2xl mb-2"></i>
-          <p class="text-sm font-semibold">Condições Fluviais</p>
-          <p class="text-xs text-gray-400">Nível e clima dos portos</p>
-        </div>
-        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col items-center justify-center">
-          <i class="fas fa-fire text-orange-500 text-2xl mb-2"></i>
-          <p class="text-sm font-semibold">Alertas de Rota</p>
-          <p class="text-xs text-gray-400">Queimadas e fumaça</p>
-        </div>
-        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col items-center justify-center">
-          <i class="fas fa-users text-green-400 text-2xl mb-2"></i>
-          <p class="text-sm font-semibold">Apoio a Comunidades</p>
-          <p class="text-xs text-gray-400">Monitoramento ambiental</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Seção: Tecnologia Espacial -->
-    <section class="mt-10">
-      <div class="text-center mb-6">
-        <h2 class="text-2xl font-bold">TECNOLOGIA ESPACIAL</h2>
-        <p class="text-gray-400">Funcionalidades da Plataforma</p>
-        <p class="text-gray-500 mt-2">Desenvolvida com tecnologia de ponta para os desafios únicos da Amazônia.</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
-          <i class="fas fa-satellite text-orange-500 text-2xl mb-3"></i>
-          <h3 class="font-bold mb-2">Integração com Satélites LEO</h3>
-          <p class="text-sm text-gray-400">Conexão direta com satélites de órbita baixa para coleta de dados em tempo real.</p>
-        </div>
-        <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
-          <i class="fas fa-ship text-blue-400 text-2xl mb-3"></i>
-          <h3 class="font-bold mb-2">Rastreamento de Embarcações</h3>
-          <p class="text-sm text-gray-400">Monitoramento preciso da localização, velocidade e rotas de embarcações fluviais.</p>
-        </div>
-        <div class="bg-gray-800 p-5 rounded-lg border border-gray-700">
-          <i class="fas fa-tree text-green-500 text-2xl mb-3"></i>
-          <h3 class="font-bold mb-2">Vigilância Ambiental</h3>
-          <p class="text-sm text-gray-400">Detecção de desmatamento, queimadas e mudanças na cobertura vegetal.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Seção: Conformidade com a NORMAM-204 -->
-    <section class="mt-10 bg-blue-900/20 p-6 rounded-xl">
-      <h2 class="text-2xl font-bold mb-4">Conformidade com a NORMAM-204 da Marinha do Brasil</h2>
-      <p class="text-gray-300 mb-4">
-        A partir de 1º de janeiro de 2026, todas as embarcações com Arqueação Bruta ≥ 50 estão obrigadas a utilizar um sistema de monitoramento AVL (Automatic Vehicle Location) em tempo real.
-      </p>
-      <ul class="list-disc pl-5 text-gray-300 space-y-1">
-        <li>O ASTRA-Net é um <strong>Provedor de Serviço de Monitoramento</strong> compatível com os requisitos da Marinha.</li>
-        <li>Nossos dispositivos YAKAMI são certificados pela <strong>Anatel</strong> e transmitem dados para o <strong>SISTRAM</strong>.</li>
-        <li>Garantimos <strong>180 dias de armazenamento de dados</strong> para auditoria.</li>
-      </ul>
+        <ul class="list-disc pl-5 text-gray-300 space-y-1">
+            <li>O ASTRA-Net é um <strong>Provedor de Serviço de Monitoramento</strong> compatível com os requisitos da Marinha.</li>
+            <li>Nossos dispositivos YAKAMI são certificados pela <strong>Anatel</strong> e transmitem dados para o <strong>SISTRAM</strong>.</li>
+            <li>Garantimos <strong>180 dias de armazenamento de dados</strong> para auditoria.</li>
+        </ul>
     </section>
   </main>
 
   <script>
     // --- INICIALIZAÇÃO DO MAPA ---
-    const map = L.map('map').setView([-3.1190, -60.0217], 8);
+    const map = L.map('map').setView([-3.4, -60.5], 7);
     
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: 'abcd',
       maxZoom: 18
     }).addTo(map);
 
     // --- RIOS DA AMAZÔNIA ---
-    fetch('https://overpass-api.de/api/interpreter?data=[out:json];way["waterway"="river"](bbox:-10,-70,5,-2);out geom;')
+    fetch('https://overpass-api.de/api/interpreter?data=[out:json];way["waterway"="river"](bbox:-4.5,-62,-2.5,-58);out geom;')
       .then(r => r.json())
       .then(data => {
         data.elements.forEach(way => {
           if(way.geometry) {
             const coords = way.geometry.map(p => [p.lat, p.lon]);
-            L.polyline(coords, { color: '#3b82f6', weight: 2, opacity: 0.8 }).addTo(map);
+            L.polyline(coords, { color: '#3b82f6', weight: 3, opacity: 0.7 }).addTo(map);
           }
         });
       });
 
-    // --- PORTOS E PONTOS DE INTERESSE DA AMAZÔNIA (AJUSTADOS À MARGEM DO RIO) ---
-    const ports = [
-      // PORTOS ORGANIZADOS (ANTAQ)
-      { nome: "Porto de Manaus", lat: -3.1067, lng: -60.0250, type: 'porto-organizado' },
-      { nome: "Porto Chibatão", lat: -3.0900, lng: -60.0100, type: 'porto-container' },
-      { nome: "Super Terminais (Itacoatiara)", lat: -2.8800, lng: -58.4500, type: 'porto-container' },
-
-      // COMUNIDADES E VILAS (ARSEPAM / WWF)
-      { nome: "Janauari", lat: -3.0200, lng: -60.1500, type: 'comunidade' },
-      { nome: "São Raimundo", lat: -3.1500, lng: -60.0800, type: 'comunidade' },
-      { nome: "Tupé", lat: -3.2200, lng: -60.1200, type: 'comunidade' },
-      { nome: "Novo Airão", lat: -2.6500, lng: -60.7500, type: 'comunidade' },
-      { nome: "Iranduba (Cacau Pirêra)", lat: -3.1350, lng: -60.2100, type: 'comunidade' },
-      { nome: "Parintins", lat: -2.6700, lng: -56.7300, type: 'comunidade' },
-
-      // BASES DE SEGURANÇA (MARINHA DO BRASIL)
-      { nome: "Pedro Teixeira (P-20)", lat: -3.1100, lng: -60.0100, type: 'marinha' },
-      { nome: "Raposo Tavares (P-21)", lat: -3.1500, lng: -60.0800, type: 'marinha' },
-      { nome: "Roraima (P-30)", lat: -2.8800, lng: -58.4500, type: 'marinha' },
-
-      // TURISMO (Hotéis de Selva, Flutuantes, Pousadas)
-      { nome: "Iberostar Grand Amazon", lat: -3.0750, lng: -60.0080, type: 'hotel' },
-      { nome: "Jungle Tours (Flutuante)", lat: -3.1200, lng: -60.0500, type: 'flutuante' },
-      { nome: "Pousada do Rio Negro", lat: -3.2000, lng: -60.1000, type: 'pousada' }
+    // --- PONTOS DE INTERESSE EXPANDIDOS ---
+    const pointsOfInterest = [
+        { nome: "Porto de Manaus", lat: -3.134, lng: -59.992, type: 'porto-organizado' },
+        { nome: "Porto Chibatão", lat: -3.145, lng: -60.025, type: 'porto-container' },
+        { nome: "Super Terminais (Itacoatiara)", lat: -3.143, lng: -58.444, type: 'porto-container' },
+        { nome: "Porto de Manacapuru", lat: -3.30, lng: -60.62, type: 'porto-organizado' },
+        { nome: "Porto de Novo Airão", lat: -2.62, lng: -60.94, type: 'porto-organizado' },
+        { nome: "Comunidade Janauari", lat: -3.22, lng: -60.15, type: 'comunidade' },
+        { nome: "Comunidade do Tupé", lat: -3.05, lng: -60.25, type: 'comunidade' },
+        { nome: "Base da Marinha (9º DN)", lat: -3.1100, lng: -60.0100, type: 'marinha' },
+        { nome: "Escola Flutuante", lat: -3.15, lng: -60.05, type: 'escola' },
+        { nome: "Base de Pesquisa INPA", lat: -2.65, lng: -60.21, type: 'pesquisa' }
     ];
 
-    ports.forEach(p => {
-      let iconClass, iconType;
-      
-      switch(p.type) {
-        case 'porto-organizado':
-          iconClass = 'port-marker-organizado text-amber-500';
-          iconType = 'ship';
-          break;
-        case 'porto-container':
-          iconClass = 'text-gray-400';
-          iconType = 'warehouse';
-          break;
-        case 'comunidade':
-          iconClass = 'text-sky-500';
-          iconType = 'anchor';
-          break;
-        case 'marinha':
-          iconClass = 'text-blue-600';
-          iconType = 'shield';
-          break;
-        case 'hotel':
-          iconClass = 'text-purple-500';
-          iconType = 'hotel';
-          break;
-        case 'flutuante':
-          iconClass = 'text-green-500';
-          iconType = 'water';
-          break;
-        case 'pousada':
-          iconClass = 'text-yellow-500';
-          iconType = 'home';
-          break;
-        default:
-          iconClass = 'text-sky-500';
-          iconType = 'anchor';
-      }
-
-      const icon = L.divIcon({ 
-        className: `port-marker ${iconClass} text-2xl`, 
-        html: `<i class="fas fa-${iconType}"></i>`,
-        iconSize: [24, 24],
-        iconAnchor: [12, 24]
-      });
-      
-      L.marker([p.lat, p.lng], { icon: icon })
-        .addTo(map)
-        .bindPopup(`<strong>${p.nome}</strong><br><em>${p.type.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</em>`);
+    pointsOfInterest.forEach(p => {
+        let iconHtml, iconClass;
+        switch(p.type) {
+            case 'porto-organizado': iconHtml = '<i class="fas fa-ship"></i>'; iconClass = 'text-amber-500'; break;
+            case 'porto-container': iconHtml = '<i class="fas fa-warehouse"></i>'; iconClass = 'text-gray-400'; break;
+            case 'comunidade': iconHtml = '<i class="fas fa-users"></i>'; iconClass = 'text-sky-500'; break;
+            case 'marinha': iconHtml = '<i class="fas fa-shield-alt"></i>'; iconClass = 'text-blue-600'; break;
+            case 'escola': iconHtml = '<i class="fas fa-school"></i>'; iconClass = 'text-green-500'; break;
+            case 'pesquisa': iconHtml = '<i class="fas fa-flask"></i>'; iconClass = 'text-purple-500'; break;
+            default: iconHtml = '<i class="fas fa-map-marker-alt"></i>'; iconClass = 'text-white';
+        }
+        const icon = L.divIcon({ className: `point-marker ${iconClass} text-2xl`, html: iconHtml, iconSize: [24, 24] });
+        L.marker([p.lat, p.lng], { icon: icon }).addTo(map).bindPopup(`<strong>${p.nome}</strong>`);
+    });
+    
+    // --- DADOS DO ECOSSISTEMA ---
+    const riverLevels = {};
+    pointsOfInterest.filter(p => p.type.includes('porto')).forEach(p => {
+        riverLevels[p.nome] = { level: 15 + Math.random() * 10, status: 'Normal' };
     });
 
-    // --- ROTAS DAS EMBARCAÇÕES (SEGUINDO O FLUXO DO RIO) ---
-    const routes = [
-      { from: "Manaus", to: "Janauari", color: "#f97316", points: [
-        [-3.1067, -60.0250], // Manaus
-        [-3.0900, -60.0100], // Perto de Chibatão
-        [-3.0600, -60.0900], // Curva do rio
-        [-3.0400, -60.1100], // Mais próximo de Janauari
-        [-3.0200, -60.1500]  // Janauari
-      ]},
-      { from: "Manaus", to: "São Raimundo", color: "#facc15", points: [
-        [-3.1067, -60.0250], // Manaus
-        [-3.1200, -60.0500], // Primeira curva
-        [-3.1400, -60.0700], // Segunda curva
-        [-3.1500, -60.0800]  // São Raimundo
-      ]},
-      { from: "Manaus", to: "Tupé", color: "#facc15", points: [
-        [-3.1067, -60.0250], // Manaus
-        [-3.1800, -60.0700], // Curva para Tupé
-        [-3.2000, -60.1000], // Mais próximo
-        [-3.2200, -60.1200]  // Tupé
-      ]},
-      { from: "Manaus", to: "Novo Airão", color: "#3b82f6", points: [
-        [-3.1067, -60.0250], // Manaus
-        [-3.0000, -60.1000], // Descendo o Rio Negro
-        [-2.8000, -60.3000], // Entrando no Rio Madeira
-        [-2.6500, -60.7500]  // Novo Airão
-      ]}
-    ];
-
-    routes.forEach(route => {
-      L.polyline(
-        route.points,
-        { color: route.color, weight: 3, opacity: 0.6, dashArray: "5,5" }
-      ).addTo(map);
-    });
-
-    // --- FROTA COMPLETA E AUTÊNTICA DA AMAZÔNIA ---
+    // --- FROTA AUTÊNTICA ---
     const vessels = [
-      // TRANSPORTE DE PASSAGEIROS (ARSEPAM / NAVEGAM)
-      { id: 1, nome: "Balsa Iranduba", empresa: "Barcas Iranduba", tipo: "balsa", capacidade: 300, rota: "Manaus ↔ Iranduba", lat: -3.1350, lng: -60.2100, bateria: 88, sinal: -80, velocidade: 8, rpm: 1500, arqueacao: 120 },
-      { id: 2, nome: "Lancha Janauari", empresa: "COOBARQ", tipo: "lancha", capacidade: 80, rota: "Manaus ↔ Janauari", lat: -3.0600, lng: -60.0900, bateria: 92, sinal: -75, velocidade: 18, rpm: 2800, arqueacao: 45 },
-      { id: 3, nome: "Recreio Parintins", empresa: "Navegam", tipo: "recreio", capacidade: 200, rota: "Manaus ↔ Parintins", lat: -2.9500, lng: -60.3000, bateria: 85, sinal: -90, velocidade: 15, rpm: 2000, arqueacao: 200 },
-
-      // SEGURANÇA FLUVIAL (MARINHA DO BRASIL)
-      { id: 4, nome: "Pedro Teixeira (P-20)", empresa: "Marinha do Brasil", tipo: "navio-patrulha", capacidade: 30, rota: "Patrulha Rio Negro", lat: -3.1100, lng: -60.0100, bateria: 95, sinal: -70, velocidade: 22, rpm: 3000, arqueacao: 350 },
-      { id: 5, nome: "Raposo Tavares (P-21)", empresa: "Marinha do Brasil", tipo: "navio-patrulha", capacidade: 30, rota: "Patrulha Rio Negro", lat: -3.1500, lng: -60.0800, bateria: 93, sinal: -72, velocidade: 20, rpm: 2900, arqueacao: 340 },
-      { id: 6, nome: "Roraima (P-30)", empresa: "Marinha do Brasil", tipo: "navio-patrulha", capacidade: 35, rota: "Patrulha Rio Amazonas", lat: -2.8800, lng: -58.4500, bateria: 94, sinal: -71, velocidade: 21, rpm: 2950, arqueacao: 360 },
-
-      // LOGÍSTICA (GRUPO CHIBATÃO / TBL)
-      { id: 7, nome: "Chibatão Logística", empresa: "Grupo Chibatão", tipo: "carga", capacidade: 500, rota: "Porto Chibatão ↔ Manaus", lat: -3.0950, lng: -60.0150, bateria: 82, sinal: -88, velocidade: 10, rpm: 1600, arqueacao: 800 },
-
-      // CIÊNCIA E SAÚDE (MARINHA DO BRASIL)
-      { id: 8, nome: "Rio Negro (H-15)", empresa: "Marinha do Brasil", tipo: "hidroceanografico", capacidade: 50, rota: "Levantamento Hidrográfico", lat: -3.2000, lng: -60.1000, bateria: 90, sinal: -85, velocidade: 12, rpm: 1800, arqueacao: 400 },
-      { id: 9, nome: "Oswaldo Cruz (U-18)", empresa: "Marinha do Brasil", tipo: "hospitalar", capacidade: 100, rota: "Atendimento Comunidades", lat: -3.1500, lng: -60.0500, bateria: 89, sinal: -82, velocidade: 14, rpm: 1900, arqueacao: 300 }
+      { id: 1, nome: "Balsa Iranduba", empresa: "Barcas Iranduba", tipo: "balsa", rota: "Manaus ↔ Iranduba", lat: -3.1350, lng: -60.2100, bateria: 88, sinal: -80, velocidade: 8, rpm: 1500 },
+      { id: 2, nome: "Lancha Janauari", empresa: "COOBARQ", tipo: "lancha", rota: "Manaus ↔ Janauari", lat: -3.0600, lng: -60.0900, bateria: 92, sinal: -75, velocidade: 18, rpm: 2800 },
+      { id: 3, nome: "Recreio Parintins", empresa: "Navegam", tipo: "recreio", rota: "Manaus ↔ Parintins", lat: -2.9500, lng: -60.3000, bateria: 85, sinal: -90, velocidade: 15, rpm: 2000 },
+      { id: 4, nome: "NPa Pedro Teixeira", empresa: "Marinha do Brasil", tipo: "navio-patrulha", rota: "Patrulha Rio Negro", lat: -3.1100, lng: -60.0100, bateria: 95, sinal: -70, velocidade: 22, rpm: 3000 },
+      { id: 7, nome: "Chibatão Log", empresa: "Grupo Chibatão", tipo: "carga", rota: "Porto Chibatão ↔ Manaus", lat: -3.0950, lng: -60.0150, bateria: 82, sinal: -88, velocidade: 10, rpm: 1600 },
+      { id: 8, nome: "NHo Rio Negro", empresa: "Marinha do Brasil", tipo: "hidrooceanografico", rota: "Levantamento Hidrográfico", lat: -3.2000, lng: -60.1000, bateria: 90, sinal: -85, velocidade: 12, rpm: 1800 },
+      { id: 9, nome: "NAsH Oswaldo Cruz", empresa: "Marinha do Brasil", tipo: "hospitalar", rota: "Atendimento Comunidades", lat: -3.1500, lng: -60.0500, bateria: 89, sinal: -82, velocidade: 14, rpm: 1900 }
     ];
-
+    
+    const vesselMarkers = {};
     let selectedVessel = null;
+    let alerts = [];
+    let passSchedule = [];
 
+    // --- FUNÇÕES DE RENDERIZAÇÃO ---
     function getVesselIcon(type) {
-      switch(type) {
-        case 'balsa': return 'truck-moving';
-        case 'lancha': return 'bolt';
-        case 'recreio': return 'ship';
-        case 'navio-patrulha': return 'shield';
-        case 'carga': return 'warehouse';
-        case 'hidroceanografico': return 'chart-line';
-        case 'hospitalar': return 'first-aid';
-        default: return 'ship';
-      }
+        const icons = { balsa: 'truck-moving', lancha: 'bolt', recreio: 'ship', 'navio-patrulha': 'shield-alt', carga: 'box-open', hidrooceanografico: 'water', hospitalar: 'hospital-alt' };
+        return icons[type] || 'ship';
     }
 
-    vessels.forEach(v => {
-      const el = L.divIcon({
-        className: `vessel-marker vessel-${v.tipo} ${selectedVessel?.id === v.id ? 'border-yellow-300 scale-125' : 'border-gray-900'}`,
-        html: `<i class="fas fa-${getVesselIcon(v.tipo)} text-black text-xs"></i>`,
-        iconSize: [24, 24],
-        iconAnchor: [12, 12]
+    function renderVessels() {
+      vessels.forEach(v => {
+        const el = L.divIcon({
+          className: `vessel-marker vessel-${v.tipo} border-2 ${selectedVessel?.id === v.id ? 'border-yellow-300 scale-125' : 'border-gray-900'} ${v.sosActive ? 'animate-pulse-sos' : ''}`,
+          html: `<i class="fas fa-${getVesselIcon(v.tipo)}"></i>`,
+          iconSize: [24, 24]
+        });
+        if (vesselMarkers[v.id]) {
+            vesselMarkers[v.id].setLatLng([v.lat, v.lng]).setIcon(el);
+        } else {
+            vesselMarkers[v.id] = L.marker([v.lat, v.lng], { icon: el }).addTo(map).bindPopup(v.nome).on('click', () => selectVessel(v));
+        }
       });
-      L.marker([v.lat, v.lng], { icon: el })
-        .addTo(map)
-        .bindPopup(v.nome)
-        .on('click', () => selectVessel(v));
-    });
+    }
 
-    // --- FUNÇÕES ---
+    // --- FUNÇÕES DE LÓGICA E INTERAÇÃO ---
     function selectVessel(v) {
       selectedVessel = v;
-      updateTelemetryPanel(v);
+      updateTelemetryPanel();
+      updateAlertsPanel();
+      renderVessels();
     }
 
     function activateSOS() {
-      if (!selectedVessel) {
-        alert('Selecione uma embarcação primeiro.');
-        return;
-      }
+      if (!selectedVessel) return;
       selectedVessel.sosActive = true;
-      alert(`S.O.S ativado para ${selectedVessel.nome}!`);
+      addAlert('SOS', `Sinal de SOS recebido de ${selectedVessel.nome}!`);
+      renderVessels();
+    }
+    
+    // --- FUNÇÕES DE SIMULAÇÃO ---
+    function simulateMovement() {
+        vessels.forEach(v => {
+            v.lat += (Math.random() - 0.5) * 0.01;
+            v.lng += (Math.random() - 0.5) * 0.01;
+            v.velocidade += (Math.random() - 0.5) * 0.2;
+            v.rpm += (Math.random() - 0.5) * 20;
+            v.bateria -= 0.01;
+            if (v.bateria < 10) v.bateria = 100;
+        });
+        renderVessels();
+        if (selectedVessel) { updateTelemetryPanel(); }
+    }
+    
+    function simulateRiverLevels() {
+        for (const portName in riverLevels) {
+            const data = riverLevels[portName];
+            data.level += (Math.random() - 0.5) * 0.1;
+            if (data.level < 10) data.level = 10;
+            if (data.level > 29) data.level = 29;
+            if (data.level > 25) data.status = 'Cheia'; else if (data.level > 20) data.status = 'Alerta'; else data.status = 'Normal';
+        }
+        if (selectedVessel) { updateAlertsPanel(); }
     }
 
-    function updateTelemetryPanel(v) {
-      const panel = document.getElementById('telemetry-panel');
-      if (!v) {
-        panel.innerHTML = `<h3 class="font-bold panel-title">Telemetria do Ativo</h3><p class="text-gray-500 text-sm">Selecione uma embarcação.</p>`;
-        return;
-      }
-      panel.innerHTML = `
-        <h3 class="font-bold panel-title">${v.nome}</h3>
-        <div class="space-y-2 text-sm">
-          <div><i class="fas fa-building text-blue-400 mr-2"></i><strong>Operador:</strong> ${v.empresa}</div>
-          <div><i class="fas fa-ship text-blue-400 mr-2"></i><strong>Tipo:</strong> ${v.tipo.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</div>
-          <div><i class="fas fa-users text-green-400 mr-2"></i><strong>Capacidade:</strong> ${v.capacidade} ${v.tipo === 'carga' ? 'toneladas' : 'passageiros'}</div>
-          <div><i class="fas fa-route text-yellow-500 mr-2"></i><strong>Rota/Missão:</strong> ${v.rota}</div>
-          <div><i class="fas fa-ruler-combined text-purple-400 mr-2"></i><strong>Arqueação Bruta:</strong> ${v.arqueacao} AB</div>
-          
-          <div class="mt-2"><i class="fas fa-microchip text-orange-500 mr-2"></i><strong>Dispositivo YAKAMI</strong></div>
-          <div class="pl-4">
-            <p><i class="fas fa-battery-full mr-2 text-green-500"></i>Bateria: <strong>${v.bateria}%</strong></p>
-            <p><i class="fas fa-signal mr-2 text-blue-500"></i>Sinal: <strong>${v.sinal} dBm</strong></p>
-          </div>
-          
-          <div class="mt-2"><i class="fas fa-tachometer-alt text-yellow-500 mr-2"></i><strong>Telemetria da Embarcação</strong></div>
-          <div class="pl-4">
-            <p><i class="fas fa-tachometer-alt mr-2"></i>Velocidade: <strong>${v.velocidade} nós</strong></p>
-            <p><i class="fas fa-cogs mr-2"></i>RPM: <strong>${v.rpm}</strong></p>
-            <p><i class="fas fa-map-marker-alt mr-2 text-red-400"></i>Lat: <strong>${v.lat.toFixed(4)}</strong></p>
-            <p><i class="fas fa-map-marker-alt mr-2 text-red-400"></i>Lng: <strong>${v.lng.toFixed(4)}</strong></p>
-          </div>
-        </div>`;
+    // --- FUNÇÕES DE ATUALIZAÇÃO DOS PAINÉIS ---
+    function updateTelemetryPanel() {
+        const panel = document.getElementById('telemetry-panel');
+        if (!selectedVessel) {
+            panel.innerHTML = `<h3 class="font-bold panel-title">Telemetria do Ativo</h3><p class="text-gray-500 text-sm">Selecione uma embarcação.</p>`;
+            return;
+        }
+        const v = selectedVessel;
+        panel.innerHTML = `
+            <h3 class="font-bold panel-title">${v.nome}</h3>
+            <div class="space-y-1 text-sm">
+                <p><i class="fas fa-building fa-fw mr-2 text-gray-400"></i>${v.empresa}</p>
+                <p><i class="fas fa-route fa-fw mr-2 text-yellow-500"></i>${v.rota}</p>
+                <div class="mt-2 pt-2 border-t border-gray-700 space-y-1">
+                    <p><i class="fas fa-map-marker-alt fa-fw mr-2 text-red-400"></i>${v.lat.toFixed(4)}, ${v.lng.toFixed(4)}</p>
+                    <p><i class="fas fa-tachometer-alt fa-fw mr-2 text-yellow-500"></i>${v.velocidade.toFixed(1)} nós</p>
+                    <p><i class="fas fa-cogs fa-fw mr-2 text-gray-400"></i>${v.rpm.toFixed(0)} RPM</p>
+                    <p><i class="fas fa-battery-full fa-fw mr-2 text-green-500"></i>${v.bateria.toFixed(0)}% Bateria</p>
+                </div>
+            </div>`;
     }
 
-    // Inicialização
+    function addAlert(type, msg) {
+        alerts.unshift({ type, msg, time: new Date().toLocaleTimeString() });
+        if (alerts.length > 5) alerts.pop();
+        updateAlertsPanel();
+    }
+
+    function updateAlertsPanel() {
+        const panel = document.getElementById('alerts-panel');
+        const sosAlerts = alerts.filter(a => a.type === 'SOS').map(a => `<div class="text-sm text-red-400 font-bold animate-pulse"><i class="fas fa-exclamation-triangle mr-2"></i>[${a.time}] ${a.msg}</div>`).join('');
+        
+        let coPilotContent = `<p class="text-gray-500 text-sm">Selecione uma embarcação com rota para ver dados de co-piloto.</p>`;
+        
+        if (selectedVessel && selectedVessel.rota.includes('↔')) {
+            const [origem, destino] = selectedVessel.rota.split(' ↔ ');
+            const origemPOI = pointsOfInterest.find(p => p.nome.toLowerCase().includes(origem.toLowerCase().trim()));
+            const destinoPOI = pointsOfInterest.find(p => p.nome.toLowerCase().includes(destino.toLowerCase().trim()));
+            
+            let infoOrigem = '', infoDestino = '';
+            if (origemPOI && riverLevels[origemPOI.nome]) {
+                const data = riverLevels[origemPOI.nome];
+                let statusColor = data.status === 'Cheia' ? 'text-red-400' : data.status === 'Alerta' ? 'text-yellow-400' : 'text-green-400';
+                infoOrigem = `<p class="text-xs">ORIGEM (${origemPOI.nome.split('(')[0]}): <span class="${statusColor} font-bold">${data.level.toFixed(2)}m</span></p>`;
+            } else if (origemPOI) {
+                 infoOrigem = `<p class="text-xs">ORIGEM (${origemPOI.nome.split('(')[0]}): <span class="text-gray-500">N/A</span></p>`;
+            }
+            if (destinoPOI && riverLevels[destinoPOI.nome]) {
+                const data = riverLevels[destinoPOI.nome];
+                let statusColor = data.status === 'Cheia' ? 'text-red-400' : data.status === 'Alerta' ? 'text-yellow-400' : 'text-green-400';
+                infoDestino = `<p class="text-xs">DESTINO (${destinoPOI.nome.split('(')[0]}): <span class="${statusColor} font-bold">${data.level.toFixed(2)}m</span></p>`;
+            } else if (destinoPOI) {
+                 infoDestino = `<p class="text-xs">DESTINO (${destinoPOI.nome.split('(')[0]}): <span class="text-gray-500">N/A</span></p>`;
+            }
+            coPilotContent = `<div class="space-y-1">${infoOrigem}${infoDestino}</div>`;
+        }
+        
+        const systemStartAlert = alerts.find(a => a.type === 'SISTEMA');
+        panel.innerHTML = `<h3 class="font-bold panel-title">Co-Piloto e Alertas</h3>
+            ${sosAlerts || (systemStartAlert ? `<div class="text-sm text-gray-400">[${systemStartAlert.time}] ${systemStartAlert.msg}</div>` : '')}
+            <div class="mt-2 pt-2 border-t border-gray-700">
+                ${coPilotContent}
+            </div>
+        `;
+    }
+
+    function updateOrbitalPanel() {
+        const panel = document.getElementById('orbital-panel');
+        const now = new Date();
+        if (!passSchedule.length || passSchedule[0].time < now) {
+            const sats = ["YAKAMI-SAT-01", "Starlink", "TERRA (NASA)", "AQUA (NASA)", "Sentinel-2"];
+            passSchedule = [];
+            for (let i = 0; i < 3; i++) {
+                passSchedule.push({ sat: sats[Math.floor(Math.random() * sats.length)], time: new Date(now.getTime() + (i * 10 + Math.random() * 15) * 60000), dur: 5 + Math.floor(Math.random() * 5) });
+            }
+            passSchedule.sort((a,b) => a.time - b.time);
+        }
+        
+        const next = passSchedule[0];
+        const timeToPass = next.time - now;
+        let statusText = "NÃO VISÍVEL", statusColor = "text-red-500", countdownText = "";
+        
+        if (timeToPass < 0 && timeToPass > -next.dur * 60000) {
+            statusText = "VISÍVEL"; statusColor = "text-green-400";
+            const remaining = Math.floor((next.dur * 60000 + timeToPass) / 1000);
+            countdownText = `Fim em: <span class="font-bold">${String(Math.floor(remaining/60)).padStart(2,'0')}:${String(remaining%60).padStart(2,'0')}</span>`;
+        } else {
+            const diff = Math.max(0, Math.floor(timeToPass / 1000));
+            countdownText = `Próxima em: <span class="font-bold">${String(Math.floor(diff/60)).padStart(2,'0')}:${String(diff%60).padStart(2,'0')}</span>`;
+        }
+        
+        const passList = passSchedule.map(p => `<div class="text-xs ${p === next ? 'text-cyan-300' : ''}">🛰️ ${p.sat} @ ${p.time.toLocaleTimeString()}</div>`).join('');
+        panel.innerHTML = `<h3 class="font-bold panel-title">Visibilidade Orbital</h3><div class="text-sm space-y-1"><p>Status: <span class="${statusColor} font-bold">${statusText}</span></p><p>${countdownText}</p></div><div class="mt-2 pt-2 border-t border-gray-700"><h4 class="font-semibold text-sm mb-1">Passagens:</h4>${passList}</div>`;
+    }
+  
+    // --- INICIALIZAÇÃO ---
+    renderVessels();
     updateTelemetryPanel(null);
+    updateAlertsPanel();
+    updateOrbitalPanel();
+    addAlert('SISTEMA', 'Terminal de operações iniciado.');
+    
+    setInterval(updateOrbitalPanel, 1000);
+    setInterval(simulateMovement, 2500);
+    setInterval(simulateRiverLevels, 7000);
+
   </script>
 </body>
 </html>
