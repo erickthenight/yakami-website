@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -92,7 +92,8 @@
                         <p class="text-orange-400 font-semibold" data-lang-key="member5_role">Líder Jurídica & Compliance</p>
                         <p class="text-gray-400 text-sm mt-2" data-lang-key="member5_desc">Advogada (OAB/AM) especializada em contratos e tecnologia. Cuida da estruturação legal, LGPD e propriedade intelectual da startup.</p>
                         <div class="mt-4 flex justify-center space-x-4">
-                            <a href="https.www.linkedin.com/in/helen-ara%C3%BAjo-b9686411b/" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <!-- LINK CORRIGIDO: removido o "https." duplicado -->
+                            <a href="https://www.linkedin.com/in/helen-ara%C3%BAjo-b9686411b/" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                             <a href="mailto:helenaraujoadv@gmail.com" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
@@ -117,7 +118,7 @@
                         <p class="text-gray-400 text-sm mt-2" data-lang-key="member4_desc">Multitécnico (Eletrônica, Mecatrônica) e Eng. Mecânico. Comanda o desenvolvimento do hardware e a integração de sensores IoT.</p>
                         <div class="mt-4 flex justify-center space-x-4">
                             <a href="https://www.linkedin.com/in/francisco-walterson/" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
+                            <a href="mailto:contato@yakami.com.br" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
 
@@ -135,7 +136,7 @@
                         <p class="text-gray-400 text-sm mt-2" data-lang-key="member6_desc">Jovem talento da Fundação Matias Machline, premiado em olimpíadas de conhecimento. Atua no suporte ao desenvolvimento, testes e documentação.</p>
                         <div class="mt-4 flex justify-center space-x-4">
                             <a href="#" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
+                            <a href="mailto:contato@yakami.com.br" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
                 </div>
@@ -208,3 +209,18 @@
                     elem.innerText = translations[lang][key];
                 }
             });
+
+            // Atualizar botões de idioma ativos
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`lang-${lang}`).classList.add('active');
+        }
+
+        // Inicializar com português
+        document.addEventListener('DOMContentLoaded', function() {
+            changeLanguage('pt');
+        });
+    </script>
+</body>
+</html>
