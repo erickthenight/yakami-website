@@ -6,18 +6,40 @@
     <title>Nossa Equipe - YAKAMI TECH</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
+        html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; }
+        .lang-btn {
+            cursor: pointer;
+            padding: 2px 5px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+        }
+        .lang-btn.active {
+            border-color: #F97316;
+            background-color: rgba(249, 115, 22, 0.1);
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
 
-    <!-- Header -->
-    <header class="bg-gray-800 shadow-md p-4 sticky top-0 z-10">
+    <!-- Header Consistente -->
+    <header class="sticky top-0 z-20 p-4 bg-gray-900 bg-opacity-70 backdrop-blur-sm">
         <div class="container mx-auto flex justify-between items-center">
-             <a href="index.html" class="text-3xl font-bold">YAKAMI<span class="text-orange-500">.</span>TECH</a>
-             <a href="index.html" class="text-gray-300 hover:text-orange-500">&larr; Voltar</a>
+            <a href="index.html" class="text-3xl font-bold">YAKAMI<span class="text-orange-500">.</span>TECH</a>
+            <nav class="hidden md:flex items-center space-x-6 text-lg">
+                <a href="index.html#services" class="hover:text-orange-500" data-lang-key="nav_services">Serviços</a>
+                <a href="empresa.html" class="hover:text-orange-500" data-lang-key="nav_company">Empresa</a>
+                <a href="equipe.html" class="text-orange-500 font-semibold" data-lang-key="nav_team">Equipe</a>
+                <a href="missao-amazonia.html" class="hover:text-orange-500" data-lang-key="nav_mission">Missão</a>
+                <a href="contato.html" class="hover:text-orange-500" data-lang-key="nav_contact">Contato</a>
+            </nav>
+            <div class="flex items-center space-x-2">
+                <span id="lang-pt" class="lang-btn active" onclick="changeLanguage('pt')">🇧🇷 PT</span>
+                <span>|</span>
+                <span id="lang-en" class="lang-btn" onclick="changeLanguage('en')">🇺🇸 EN</span>
+            </div>
         </div>
     </header>
 
@@ -25,52 +47,54 @@
     <section class="py-16 px-4">
         <div class="container mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold">Conheça Nossos Inovadores</h2>
-                <p class="text-lg text-gray-400 mt-2">A força motriz por trás da YAKAMI TECH.</p>
+                <h2 class="text-4xl font-bold" data-lang-key="team_title">Conheça Nossos Inovadores</h2>
+                <p class="text-lg text-gray-400 mt-2" data-lang-key="team_subtitle">A força motriz por trás da YAKAMI TECH.</p>
             </div>
 
-            <!-- Nível 1: Liderança Estratégica & Técnica -->
+            <!-- Nível 1: Liderança e Desenvolvimento Técnico – ASTRA-Net -->
             <div class="mb-16">
-                <h3 class="text-3xl font-bold text-center text-orange-500 border-b-2 border-orange-500/30 pb-4 mb-10">Liderança Estratégica & Técnica</h3>
+                <h3 class="text-3xl font-bold text-center text-orange-500 border-b-2 border-orange-500/30 pb-4 mb-10" data-lang-key="level1_title">Liderança e Desenvolvimento Técnico – ASTRA-Net</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                     <!-- Erick Mattos -->
                     <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
-                        <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-500" src="https://placehold.co/200x200/1F2937/F97316?text=EM" alt="Foto de Prof. Erick Mattos">
+                        <!-- CORREÇÃO: Sigla atualizada para EAM -->
+                        <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-500" src="https://placehold.co/200x200/1F2937/F97316?text=EAM" alt="Foto de Prof. Erick Mattos">
                         <h4 class="text-2xl font-bold">Prof. Erick Mattos</h4>
-                        <p class="text-orange-400 font-semibold">Diretor Técnico & Orientador</p>
-                        <p class="text-gray-400 text-sm mt-2">Com 25 anos em inovação e logística, mentor de equipes premiadas. Responsável pela supervisão técnica e validação da arquitetura do projeto.</p>
+                        <p class="text-orange-400 font-semibold" data-lang-key="member1_role">Diretor Técnico & Orientador</p>
+                        <p class="text-gray-400 text-sm mt-2" data-lang-key="member1_desc">Com 25 anos em inovação e logística, mentor de equipes premiadas. Responsável pela supervisão técnica e validação da arquitetura do projeto.</p>
                         <div class="mt-4 flex justify-center space-x-4">
-                            <a href="#" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
+                            <a href="https://www.linkedin.com/in/erick-de-ara%C3%BAjo-mattos-51817814/" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="mailto:erickmattos31@gmail.com" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
                     <!-- José Wilson -->
                     <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
                         <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-500" src="https://placehold.co/200x200/1F2937/F97316?text=JWA" alt="Foto de José Wilson Aguiar Júnior">
                         <h4 class="text-2xl font-bold">José Wilson Aguiar Jr.</h4>
-                        <p class="text-orange-400 font-semibold">Líder de Telecom & Embedded</p>
-                        <p class="text-gray-400 text-sm mt-2">Eng. de Telecomunicações especialista em redes (GPON, HFC) e sistemas embarcados. Garante a conectividade e comunicação do projeto.</p>
+                        <p class="text-orange-400 font-semibold" data-lang-key="member2_role">Líder de Telecom & Embedded</p>
+                        <p class="text-gray-400 text-sm mt-2" data-lang-key="member2_desc">Eng. de Telecomunicações especialista em redes (GPON, HFC) e sistemas embarcados. Garante a conectividade e comunicação do projeto.</p>
                         <div class="mt-4 flex justify-center space-x-4">
-                            <a href="#" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
+                            <a href="https://www.linkedin.com/in/jwajr/" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="mailto:jwajrr@gmail.com" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Nível 2: Equipe Técnica Especializada -->
+            <!-- Nível 2: Equipe Técnica Especializada YAKAMI TECH -->
             <div class="mb-16">
-                <h3 class="text-3xl font-bold text-center text-orange-500 border-b-2 border-orange-500/30 pb-4 mb-10">Equipe Técnica Especializada</h3>
+                <!-- CORREÇÃO: Título atualizado -->
+                <h3 class="text-3xl font-bold text-center text-orange-500 border-b-2 border-orange-500/30 pb-4 mb-10" data-lang-key="level2_title">Equipe Técnica Especializada YAKAMI TECH</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Carlos Eduardo -->
                     <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
                         <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-600" src="https://placehold.co/200x200/1F2937/FFFFFF?text=CSA" alt="Foto de Carlos Eduardo Silva de Araújo">
                         <h4 class="text-xl font-bold">Carlos Eduardo S. de Araújo</h4>
-                        <p class="text-orange-400 font-semibold">Líder de Engenharia Elétrica</p>
-                        <p class="text-gray-400 text-sm mt-2">Eng. Eletricista com 15+ anos de experiência, incluindo projetos para embarcações e usinas. Lidera o projeto de sistemas elétricos e integração.</p>
+                        <p class="text-orange-400 font-semibold" data-lang-key="member3_role">Líder de Engenharia Elétrica</p>
+                        <p class="text-gray-400 text-sm mt-2" data-lang-key="member3_desc">Eng. Eletricista com 15+ anos de experiência, incluindo projetos para embarcações e usinas. Lidera o projeto de sistemas elétricos e integração.</p>
                         <div class="mt-4 flex justify-center space-x-4">
-                            <a href="#" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
+                            <a href="https://www.linkedin.com/in/carlos-eduardo-ara%C3%BAjo-2aa46a398/" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="mailto:carlos.yakamitech@gmail.com" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
 
@@ -78,10 +102,10 @@
                     <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
                         <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-600" src="https://placehold.co/200x200/1F2937/FFFFFF?text=FSA" alt="Foto de Francisco Walterson Silva de Araújo">
                         <h4 class="text-xl font-bold">Francisco W. S. de Araújo</h4>
-                        <p class="text-orange-400 font-semibold">Líder de Hardware & IoT</p>
-                        <p class="text-gray-400 text-sm mt-2">Multitécnico (Eletrônica, Mecatrônica) e Eng. Mecânico. Comanda o desenvolvimento do hardware e a integração de sensores IoT.</p>
+                        <p class="text-orange-400 font-semibold" data-lang-key="member4_role">Líder de Hardware & IoT</p>
+                        <p class="text-gray-400 text-sm mt-2" data-lang-key="member4_desc">Multitécnico (Eletrônica, Mecatrônica) e Eng. Mecânico. Comanda o desenvolvimento do hardware e a integração de sensores IoT.</p>
                         <div class="mt-4 flex justify-center space-x-4">
-                            <a href="#" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://www.linkedin.com/in/francisco-walterson/" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                             <a href="#" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
@@ -90,11 +114,11 @@
                     <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
                         <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-600" src="https://placehold.co/200x200/1F2937/FFFFFF?text=HSA" alt="Foto de Helen Luciane Silva de Araújo">
                         <h4 class="text-xl font-bold">Helen Luciane S. de Araújo</h4>
-                        <p class="text-orange-400 font-semibold">Líder Jurídica & Compliance</p>
-                        <p class="text-gray-400 text-sm mt-2">Advogada (OAB/AM) especializada em contratos e tecnologia. Cuida da estruturação legal, LGPD e propriedade intelectual da startup.</p>
+                        <p class="text-orange-400 font-semibold" data-lang-key="member5_role">Líder Jurídica & Compliance</p>
+                        <p class="text-gray-400 text-sm mt-2" data-lang-key="member5_desc">Advogada (OAB/AM) especializada em contratos e tecnologia. Cuida da estruturação legal, LGPD e propriedade intelectual da startup.</p>
                         <div class="mt-4 flex justify-center space-x-4">
-                            <a href="#" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
+                            <a href="httpsfs://www.linkedin.com/in/helen-ara%C3%BAjo-b9686411b/" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="mailto:helenaraujoadv@gmail.com" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
                 </div>
@@ -102,13 +126,13 @@
 
              <!-- Nível 3: Novos Talentos -->
             <div>
-                <h3 class="text-3xl font-bold text-center text-orange-500 border-b-2 border-orange-500/30 pb-4 mb-10">Novos Talentos em Desenvolvimento</h3>
+                <h3 class="text-3xl font-bold text-center text-orange-500 border-b-2 border-orange-500/30 pb-4 mb-10" data-lang-key="level3_title">Novos Talentos em Desenvolvimento</h3>
                 <div class="flex justify-center">
                     <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300 max-w-sm">
                         <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-600" src="https://placehold.co/200x200/1F2937/FFFFFF?text=GAD" alt="Foto de Gabriel Araujo Dias">
                         <h4 class="text-xl font-bold">Gabriel Araujo Dias</h4>
-                        <p class="text-orange-400 font-semibold">Desenvolvedor Jr. & Suporte</p>
-                        <p class="text-gray-400 text-sm mt-2">Jovem talento da Fundação Matias Machline, premiado em olimpíadas de conhecimento. Atua no suporte ao desenvolvimento, testes e documentação.</p>
+                        <p class="text-orange-400 font-semibold" data-lang-key="member6_role">Desenvolvedor Jr. & Suporte</p>
+                        <p class="text-gray-400 text-sm mt-2" data-lang-key="member6_desc">Jovem talento da Fundação Matias Machline, premiado em olimpíadas de conhecimento. Atua no suporte ao desenvolvimento, testes e documentação.</p>
                         <div class="mt-4 flex justify-center space-x-4">
                             <a href="#" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                             <a href="#" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
@@ -120,5 +144,76 @@
         </div>
     </section>
 
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-6 text-center text-gray-400">
+        <p>&copy; 2025 YAKAMI TECH. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        const translations = {
+            'en': {
+                'nav_services': 'Services',
+                'nav_company': 'Company',
+                'nav_team': 'Team',
+                'nav_mission': 'Mission',
+                'nav_contact': 'Contact',
+                'team_title': 'Meet Our Innovators',
+                'team_subtitle': 'The driving force behind YAKAMI TECH.',
+                'level1_title': 'ASTRA-Net Technical Leadership & Development',
+                'member1_role': 'Technical Director & Advisor',
+                'member1_desc': 'With 25 years in innovation and logistics, mentor to award-winning teams. Responsible for technical supervision and project architecture validation.',
+                'member2_role': 'Telecom & Embedded Lead',
+                'member2_desc': 'Telecommunications Eng. specialist in networks (GPON, HFC) and embedded systems. Ensures the project\'s connectivity and communication.',
+                'level2_title': 'YAKAMI TECH Specialized Technical Team', // CORREÇÃO AQUI
+                'member3_role': 'Electrical Engineering Lead',
+                'member3_desc': 'Electrical Eng. with 15+ years of experience, including projects for vessels and power plants. Leads the electrical systems and integration design.',
+                'member4_role': 'Hardware & IoT Lead',
+                'member4_desc': 'Multi-certified technician (Electronics, Mechatronics) and Mech. Eng. Commands hardware development and IoT sensor integration.',
+                'member5_role': 'Legal & Compliance Lead',
+                'member5_desc': 'Lawyer (OAB/AM) specialized in contracts and technology. Manages the startup\'s legal structuring, LGPD, and intellectual property.',
+                'level3_title': 'New Talents in Development',
+                'member6_role': 'Jr. Developer & Support',
+                'member6_desc': 'Young talent from Fundação Matias Machline, awarded in knowledge olympiads. Provides support in development, testing, and documentation.'
+            },
+            'pt': {
+                'nav_services': 'Serviços',
+                'nav_company': 'Empresa',
+                'nav_team': 'Equipe',
+                'nav_mission': 'Missão',
+                'nav_contact': 'Contato',
+                'team_title': 'Conheça Nossos Inovadores',
+                'team_subtitle': 'A força motriz por trás da YAKAMI TECH.',
+                'level1_title': 'Liderança e Desenvolvimento Técnico – ASTRA-Net',
+                'member1_role': 'Diretor Técnico & Orientador',
+                'member1_desc': 'Com 25 anos em inovação e logística, mentor de equipes premiadas. Responsável pela supervisão técnica e validação da arquitetura do projeto.',
+                'member2_role': 'Líder de Telecom & Embedded',
+                'member2_desc': 'Eng. de Telecomunicações especialista em redes (GPON, HFC) e sistemas embarcados. Garante a conectividade e comunicação do projeto.',
+                'level2_title': 'Equipe Técnica Especializada YAKAMI TECH', // CORREÇÃO AQUI
+                'member3_role': 'Líder de Engenharia Elétrica',
+                'member3_desc': 'Eng. Eletricista com 15+ anos de experiência, incluindo projetos para embarcações e usinas. Lidera o projeto de sistemas elétricos e integração.',
+                'member4_role': 'Líder de Hardware & IoT',
+                'member4_desc': 'Multitécnico (Eletrônica, Mecatrônica) e Eng. Mecânico. Comanda o desenvolvimento do hardware e a integração de sensores IoT.',
+                'member5_role': 'Líder Jurídica & Compliance',
+                'member5_desc': 'Advogada (OAB/AM) especializada em contratos e tecnologia. Cuida da estruturação legal, LGPD e propriedade intelectual da startup.',
+                'level3_title': 'Novos Talentos em Desenvolvimento',
+                'member6_role': 'Desenvolvedor Jr. & Suporte',
+                'member6_desc': 'Jovem talento da Fundação Matias Machline, premiado em olimpíadas de conhecimento. Atua no suporte ao desenvolvimento, testes e documentação.'
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-lang-key]').forEach(elem => {
+                const key = elem.getAttribute('data-lang-key');
+                if (translations[lang] && translations[lang][key]) {
+                    elem.innerText = translations[lang][key];
+                }
+            });
+            document.getElementById('lang-pt').classList.toggle('active', lang === 'pt');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+        }
+
+        // Set initial language
+        changeLanguage('pt');
+    </script>
 </body>
 </html>
