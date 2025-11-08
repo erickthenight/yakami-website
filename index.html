@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YAKAMI TECH - Conectando a Amazônia</title>
+    <meta name="description" content="Soluções tecnológicas avançadas para monitoramento, conectividade e desenvolvimento sustentável na região amazônica">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
     <style>
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; }
         .hero-bg {
-            /* [Imagem local da pasta assets] */
-            background-image: url('assets/hero-background.jpg');
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
         }
         .lang-btn {
             cursor: pointer;
@@ -26,19 +30,35 @@
             border-color: #F97316;
             background-color: rgba(249, 115, 22, 0.1);
         }
+        .service-card {
+            transition: all 0.3s ease;
+            border: 1px solid #334155;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #f97316;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .stats-counter {
+            font-feature-settings: 'tnum';
+            font-variant-numeric: tabular-nums;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
 
     <!-- Header -->
-    <header class="absolute top-0 left-0 right-0 z-10 p-4 bg-gray-900 bg-opacity-20 backdrop-blur-sm">
+    <header class="fixed top-0 left-0 right-0 z-50 p-4 bg-gray-900/90 backdrop-blur-sm border-b border-gray-800">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-bold">YAKAMI<span class="text-orange-500">.</span>TECH</h1>
+            <a href="index.html" class="text-3xl font-bold hover:text-orange-500 transition-colors duration-200">
+                YAKAMI<span class="text-orange-500">.</span>TECH
+            </a>
             <nav class="hidden md:flex items-center space-x-6 text-lg">
-                <a href="#services" class="hover:text-orange-500" data-lang-key="nav_services">Serviços</a>
-                <a href="empresa.html" class="hover:text-orange-500" data-lang-key="nav_company">Empresa</a>
-                <a href="equipe.html" class="hover:text-orange-500" data-lang-key="nav_team">Equipe</a>
-                <a href="contato.html" class="hover:text-orange-500" data-lang-key="nav_contact">Contato</a>
+                <a href="#services" class="hover:text-orange-500 transition-colors duration-200" data-lang-key="nav_services">Serviços</a>
+                <a href="empresa.html" class="hover:text-orange-500 transition-colors duration-200" data-lang-key="nav_company">Empresa</a>
+                <a href="equipe.html" class="hover:text-orange-500 transition-colors duration-200" data-lang-key="nav_team">Equipe</a>
+                <a href="missao-amazonia.html" class="hover:text-orange-500 transition-colors duration-200" data-lang-key="nav_mission">Missão</a>
+                <a href="contato.html" class="hover:text-orange-500 transition-colors duration-200" data-lang-key="nav_contact">Contato</a>
             </nav>
             <div class="flex items-center space-x-2">
                 <span id="lang-pt" class="lang-btn active" onclick="changeLanguage('pt')">🇧🇷 PT</span>
@@ -49,148 +69,243 @@
     </header>
 
     <!-- Hero Section -->
-    <main class="relative hero-bg min-h-screen flex items-center justify-center text-center">
-        <div class="absolute inset-0 bg-black opacity-60"></div>
-        <div class="relative z-10 p-4">
-            <h2 class="text-5xl md:text-7xl font-black mb-4" data-lang-key="hero_title">Conectividade e Logística Inteligente para a Amazônia</h2>
-            <p class="text-xl md:text-2xl mb-8 max-w-4xl mx-auto" data-lang-key="hero_subtitle">Rastreamento via satélite, comunicação para comunidades ribeirinhas e otimização do transporte fluvial.</p>
+    <main class="relative hero-bg min-h-screen flex items-center justify-center text-center pt-20">
+        <div class="relative z-10 p-4 max-w-6xl mx-auto">
+            <h2 class="text-5xl md:text-7xl font-black mb-6 leading-tight" data-lang-key="hero_title">Conectividade e Logística Inteligente para a Amazônia</h2>
+            <p class="text-xl md:text-2xl mb-12 max-w-4xl mx-auto leading-relaxed" data-lang-key="hero_subtitle">Rastreamento via satélite, comunicação para comunidades ribeirinhas e otimização do transporte fluvial com tecnologia de ponta.</p>
             
-            <div class="mt-12 flex flex-wrap justify-center gap-8 text-center">
-                <div class="w-1/2 sm:w-1/4">
-                    <p class="text-4xl font-bold text-orange-500">+3</p>
-                    <p class="text-lg text-gray-300" data-lang-key="stats_vessels">Embarcações Conectadas</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-8 mb-16">
+                <a href="astra-net.html" class="bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+                    <i class="fas fa-rocket mr-3"></i>
+                    <span data-lang-key="hero_cta_primary">Explorar ASTRA-Net</span>
+                </a>
+                <a href="missao-amazonia.html" class="border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+                    <i class="fas fa-satellite mr-3"></i>
+                    <span data-lang-key="hero_cta_secondary">Participar da Missão</span>
+                </a>
+            </div>
+            
+            <div class="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div class="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                    <p class="text-4xl font-bold text-orange-500 stats-counter" id="vessels-counter">24</p>
+                    <p class="text-lg text-gray-300 mt-2" data-lang-key="stats_vessels">Embarcações Conectadas</p>
                 </div>
-                <div class="w-1/2 sm:w-1/4">
-                    <p class="text-4xl font-bold text-orange-500">2</p>
-                    <p class="text-lg text-gray-300" data-lang-key="stats_communities">Comunidades Atendidas</p>
+                <div class="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                    <p class="text-4xl font-bold text-orange-500 stats-counter" id="communities-counter">18</p>
+                    <p class="text-lg text-gray-300 mt-2" data-lang-key="stats_communities">Comunidades Atendidas</p>
                 </div>
-                <div class="w-1/2 sm:w-1/4">
-                    <p class="text-4xl font-bold text-orange-500">+1.500 km²</p>
-                    <p class="text-lg text-gray-300" data-lang-key="stats_area">Área Monitorada</p>
+                <div class="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                    <p class="text-4xl font-bold text-orange-500 stats-counter">+1.500</p>
+                    <p class="text-lg text-gray-300 mt-2" data-lang-key="stats_area">km² Monitorados</p>
                 </div>
-                <div class="w-1/2 sm:w-1/4">
+                <div class="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
                     <p class="text-4xl font-bold text-orange-500">24/7</p>
-                    <p class="text-lg text-gray-300" data-lang-key="stats_support">Suporte e Operação</p>
+                    <p class="text-lg text-gray-300 mt-2" data-lang-key="stats_support">Suporte e Operação</p>
                 </div>
             </div>
         </div>
     </main>
 
-    <div id="services" class="bg-gray-800 py-16 px-4">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-4" data-lang-key="challenge_title">O Desafio da Conexão na Amazônia</h2>
-            <p class="max-w-3xl mx-auto text-gray-300" data-lang-key="challenge_desc">Navegar e viver na Amazônia significa enfrentar vastas distâncias e conectividade limitada. A segurança da navegação, a eficiência da logística e a comunicação das comunidades são desafios diários. A YAKAMI TECH nasceu para transformar essa realidade com tecnologia espacial.</p>
+    <!-- Challenge Section -->
+    <section id="services" class="bg-gray-800 py-20 px-4">
+        <div class="container mx-auto text-center max-w-4xl">
+            <h2 class="text-3xl font-bold mb-6" data-lang-key="challenge_title">O Desafio da Conexão na Amazônia</h2>
+            <p class="text-lg text-gray-300 leading-relaxed mb-8" data-lang-key="challenge_desc">
+                Navegar e viver na Amazônia significa enfrentar vastas distâncias e conectividade limitada. 
+                A segurança da navegação, a eficiência da logística e a comunicação das comunidades são desafios diários. 
+                A YAKAMI TECH nasceu para transformar essa realidade com tecnologia espacial e inovação.
+            </p>
+            <div class="bg-gradient-to-r from-orange-600/20 to-orange-500/10 p-6 rounded-xl border border-orange-500/30">
+                <div class="flex items-center justify-center">
+                    <i class="fas fa-lightbulb text-orange-400 text-2xl mr-4"></i>
+                    <p class="text-orange-300 font-semibold" data-lang-key="challenge_solution">
+                        Soluções integradas de monitoramento por satélite e conectividade para a região amazônica
+                    </p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
     
     <!-- ASTRA-Net Section -->
     <section class="py-20 px-4 bg-gray-900">
-        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div class="text-center md:text-left">
-                <span class="text-orange-500 font-semibold" data-lang-key="platform_tag">Nossa Plataforma</span>
-                <h3 class="text-4xl font-bold my-3" data-lang-key="platform_title">ASTRA-Net: Inteligência Orbital para os Rios</h3>
-                <p class="text-gray-300 mb-6" data-lang-key="platform_desc">O coração da nossa operação. A ASTRA-Net é uma plataforma de monitoramento que integra dados de satélites de baixa órbita (LEO) da NASA com sensores locais, fornecendo uma visão completa e em tempo real das operações fluviais e condições ambientais.</p>
-                <a href="astra-net.html" class="bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 px-6 rounded-lg inline-flex items-center transition-transform transform hover:scale-105">
-                    <i class="fas fa-satellite-dish mr-2"></i>
-                    <span data-lang-key="platform_cta">Explorar a Plataforma</span>
+        <div class="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <div class="text-center lg:text-left">
+                <span class="text-orange-500 font-semibold text-lg" data-lang-key="platform_tag">Nossa Plataforma Principal</span>
+                <h3 class="text-4xl font-bold my-4" data-lang-key="platform_title">ASTRA-Net: Inteligência Orbital para os Rios</h3>
+                <p class="text-gray-300 mb-6 text-lg leading-relaxed" data-lang-key="platform_desc">
+                    O coração da nossa operação. A ASTRA-Net é uma plataforma de monitoramento que integra dados de 
+                    satélites de baixa órbita (LEO) com sensores locais, fornecendo uma visão completa e em tempo real 
+                    das operações fluviais e condições ambientais.
+                </p>
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i>
+                        <span class="text-gray-300" data-lang-key="platform_feat1">Monitoramento em tempo real de embarcações</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i>
+                        <span class="text-gray-300" data-lang-key="platform_feat2">Dados integrados da NASA e satélites</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i>
+                        <span class="text-gray-300" data-lang-key="platform_feat3">Sistema de alertas e emergências</span>
+                    </div>
+                </div>
+                <a href="astra-net.html" class="bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 px-8 rounded-lg inline-flex items-center transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-satellite-dish mr-3"></i>
+                    <span data-lang-key="platform_cta">Acessar Plataforma ASTRA-Net</span>
                 </a>
             </div>
-            <div>
-                <img src="assets/platform-satellite.jpg" alt="Satélite sobre a Terra" class="rounded-lg shadow-2xl">
+            <div class="relative">
+                <div class="bg-gradient-to-br from-orange-500/20 to-blue-500/20 rounded-2xl p-8">
+                    <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?q=80&w=2071&auto=format&fit=crop" 
+                         alt="Sistema de satélites orbitando a Terra" 
+                         class="rounded-xl shadow-2xl">
+                </div>
+                <div class="absolute -bottom-6 -left-6 bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-lg">
+                    <div class="flex items-center">
+                        <i class="fas fa-shield-alt text-green-500 text-2xl mr-3"></i>
+                        <div>
+                            <div class="font-bold" data-lang-key="platform_compliance">Conformidade NORMAM-204</div>
+                            <div class="text-sm text-gray-400" data-lang-key="platform_certified">Sistema certificado pela Marinha</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Transport Section -->
-    <section id="transport" class="py-20 px-4 bg-gray-800">
-        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
-             <div>
-                <img src="assets/transport-boat.jpg" alt="Barco regional de passageiros na Amazônia" class="rounded-lg shadow-2xl">
+    <!-- Services Grid -->
+    <section class="py-20 px-4 bg-gray-800">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4" data-lang-key="services_title">Nossas Soluções</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto" data-lang-key="services_subtitle">Tecnologia desenvolvida especificamente para os desafios únicos da região amazônica</p>
             </div>
-            <div class="text-center md:text-left">
-                <h3 class="text-4xl font-bold mb-3" data-lang-key="transport_title">Transporte Fluvial Seguro e Eficiente</h3>
-                <p class="text-gray-300 mb-6" data-lang-key="transport_desc">Oferecemos rastreamento 24/7 para embarcações de todos os portes. Saiba a localização exata, receba alertas de manutenção e condições climáticas, e ofereça mais segurança para seus passageiros e tranquilidade para sua operação.</p>
-                <ul class="space-y-3 text-left">
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="transport_feat1">Rastreamento em tempo real via satélite</span></li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="transport_feat2">Alertas de segurança e meteorológicos</span></li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="transport_feat3">Otimização de rotas e consumo de combustível</span></li>
-                </ul>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Transport Service -->
+                <div class="service-card bg-gray-900 rounded-xl p-6 text-center">
+                    <div class="bg-orange-500/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-ship text-orange-500 text-2xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3" data-lang-key="transport_title">Transporte Fluvial</h4>
+                    <p class="text-gray-400 mb-4" data-lang-key="transport_desc">Rastreamento 24/7 e otimização de rotas para embarcações de todos os portes</p>
+                    <ul class="text-left space-y-2 text-sm text-gray-300">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2 text-xs"></i> <span data-lang-key="transport_feat1">Rastreamento em tempo real</span></li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2 text-xs"></i> <span data-lang-key="transport_feat2">Alertas de segurança</span></li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2 text-xs"></i> <span data-lang-key="transport_feat3">Otimização de rotas</span></li>
+                    </ul>
+                </div>
+
+                <!-- Logistics Service -->
+                <div class="service-card bg-gray-900 rounded-xl p-6 text-center">
+                    <div class="bg-orange-500/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-truck-fast text-orange-500 text-2xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3" data-lang-key="logistics_title">Logística Inteligente</h4>
+                    <p class="text-gray-400 mb-4" data-lang-key="logistics_desc">Gestão eficiente de frotas e cargas para cooperativas e empresas</p>
+                    <ul class="text-left space-y-2 text-sm text-gray-300">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2 text-xs"></i> <span data-lang-key="logistics_feat1">Gestão de frota</span></li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2 text-xs"></i> <span data-lang-key="logistics_feat2">Rastreamento de carga</span></li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2 text-xs"></i> <span data-lang-key="logistics_feat3">Comunicação direta</span></li>
+                    </ul>
+                </div>
+
+                <!-- Communities Service -->
+                <div class="service-card bg-gray-900 rounded-xl p-6 text-center">
+                    <div class="bg-orange-500/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-orange-500 text-2xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3" data-lang-key="communities_title">Comunidades Conectadas</h4>
+                    <p class="text-gray-400 mb-4" data-lang-key="communities_desc">Conectividade e serviços essenciais para populações ribeirinhas</p>
+                    <ul class="text-left space-y-2 text-sm text-gray-300">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2 text-xs"></i> <span data-lang-key="communities_feat1">Internet via satélite</span></li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2 text-xs"></i> <span data-lang-key="communities_feat2">Sistema de alerta</span></li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2 text-xs"></i> <span data-lang-key="communities_feat3">Monitoramento ambiental</span></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Logistics Section -->
-    <section id="logistics" class="py-20 px-4 bg-gray-900">
-        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div class="text-center md:text-left">
-                <h3 class="text-4xl font-bold mb-3" data-lang-key="logistics_title">Logística Inteligente para a Amazônia</h3>
-                <p class="text-gray-300 mb-6" data-lang-key="logistics_desc">Para cooperativas e empresas, a YAKAMI TECH otimiza o transporte de cargas e encomendas. Monitore sua frota, gerencie entregas e reduza custos operacionais com dados precisos, mesmo nas rotas mais isoladas.</p>
-                <ul class="space-y-3 text-left">
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="logistics_feat1">Gestão de frota fluvial</span></li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="logistics_feat2">Rastreamento de carga e encomendas</span></li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="logistics_feat3">Comunicação direta com a embarcação</span></li>
-                </ul>
-            </div>
-             <div>
-                <img src="assets/logistics-barge.jpg" alt="Carga sendo transportada em barco na Amazônia" class="rounded-lg shadow-2xl">
-            </div>
-        </div>
-    </section>
-    
-    <!-- Communities Section -->
-    <section id="communities" class="py-20 px-4 bg-gray-800">
-        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <img src="assets/communities-floating-houses.jpg" alt="Comunidade ribeirinha com casas flutuantes" class="rounded-lg shadow-2xl">
-            </div>
-            <div class="text-center md:text-left">
-                <h3 class="text-4xl font-bold mb-3" data-lang-key="communities_title">Conectando Comunidades, Empoderando Pessoas</h3>
-                <p class="text-gray-300 mb-6" data-lang-key="communities_desc">Nosso maior propósito é levar conectividade a flutuantes e comunidades ribeirinhas. Oferecemos pontos de acesso à internet via satélite e sistemas de alerta para emergências, promovendo inclusão digital, segurança e novas oportunidades.</p>
-                <ul class="space-y-3 text-left">
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="communities_feat1">Internet via satélite para áreas remotas</span></li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="communities_feat2">Sistema de alerta comunitário</span></li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <span data-lang-key="communities_feat3">Monitoramento ambiental local</span></li>
-                </ul>
+    <!-- Mission Section -->
+    <section class="py-20 px-4 bg-gradient-to-br from-gray-900 to-orange-900/20">
+        <div class="container mx-auto text-center max-w-4xl">
+            <div class="bg-gray-800/50 rounded-2xl p-8 border border-orange-500/30">
+                <i class="fas fa-satellite text-5xl text-orange-500 mb-6"></i>
+                <h3 class="text-3xl font-bold mb-4" data-lang-key="mission_title">Missão: Vozes da Amazônia</h3>
+                <p class="text-gray-300 text-lg mb-6 leading-relaxed" data-lang-key="mission_desc">
+                    Participe da missão CARATAÍ-1 e tenha sua mensagem levada ao espaço no primeiro nanosatélite 
+                    guardião da Amazônia. Junte-se a milhares de vozes em defesa da floresta.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="missao-amazonia.html" class="bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        <span data-lang-key="mission_cta">Embarcar Minha Mensagem</span>
+                    </a>
+                    <a href="empresa.html" class="border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white font-bold py-3 px-6 rounded-lg transition-all duration-300">
+                        <span data-lang-key="mission_learn">Conhecer a Empresa</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Social Section -->
-    <section class="bg-gray-900 py-12">
-        <div class="container mx-auto text-center text-gray-400">
-            <p class="mb-4" data-lang-key="social_follow">Siga-nos nas redes sociais</p>
-            <div class="flex justify-center space-x-6">
-                <a href="https://www.youtube.com/@Yakam%C3%ADSpaceTechAmazon" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.instagram.com/yakami_tech/" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.linkedin.com/company/yakami-tech/?viewAsMember=true" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.tiktok.com/@yakami_tech" target="_blank" class="text-2xl hover:text-orange-500"><i class="fab fa-tiktok"></i></a>
+    <section class="bg-gray-900 py-16 px-4">
+        <div class="container mx-auto text-center">
+            <h3 class="text-2xl font-bold mb-8" data-lang-key="social_title">Siga Nossa Jornada</h3>
+            <p class="text-gray-400 mb-8 max-w-2xl mx-auto" data-lang-key="social_desc">
+                Acompanhe nossas conquistas, novidades e o progresso da missão CARATAÍ-1
+            </p>
+            <div class="flex justify-center space-x-8 mb-12">
+                <a href="https://www.youtube.com/@Yakam%C3%ADSpaceTechAmazon" target="_blank" 
+                   class="text-3xl text-gray-400 hover:text-red-500 transition-colors duration-200 transform hover:scale-110">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://www.instagram.com/yakami_tech/" target="_blank" 
+                   class="text-3xl text-gray-400 hover:text-pink-500 transition-colors duration-200 transform hover:scale-110">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/yakami-tech/" target="_blank" 
+                   class="text-3xl text-gray-400 hover:text-blue-400 transition-colors duration-200 transform hover:scale-110">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://www.tiktok.com/@yakami_tech" target="_blank" 
+                   class="text-3xl text-gray-400 hover:text-white transition-colors duration-200 transform hover:scale-110">
+                    <i class="fab fa-tiktok"></i>
+                </a>
             </div>
-            <p class="mt-8 text-sm">&copy; 2025 YAKAMI TECH. Todos os direitos reservados.</p>
+            
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-gray-500 text-sm">
+                    &copy; 2025 YAKAMI TECH. <span data-lang-key="footer_rights">Todos os direitos reservados.</span>
+                </p>
+            </div>
         </div>
     </section>
 
-    <!-- Footer / Main Navigation -->
-    <footer class="sticky bottom-0 left-0 right-0 bg-gray-800 bg-opacity-90 backdrop-blur-sm shadow-lg p-4 z-20">
-        <div class="container mx-auto flex justify-center items-center space-x-8 md:space-x-12">
-            <a href="#logistics" class="text-center text-gray-300 hover:text-white transition-colors" title="Logística">
-                <i class="fas fa-truck-fast text-2xl md:text-3xl"></i>
-                <span class="hidden md:block text-xs" data-lang-key="footer_logistics">Logística</span>
+    <!-- Footer Navigation -->
+    <footer class="sticky bottom-0 left-0 right-0 bg-gray-800/95 backdrop-blur-sm shadow-2xl p-4 z-40 border-t border-gray-700">
+        <div class="container mx-auto flex justify-center items-center space-x-4 md:space-x-8">
+            <a href="#services" class="text-center text-gray-300 hover:text-white transition-colors duration-200 group" title="Serviços">
+                <i class="fas fa-cogs text-xl md:text-2xl group-hover:text-orange-500"></i>
+                <span class="hidden md:block text-xs mt-1" data-lang-key="footer_services">Serviços</span>
             </a>
-            <a href="#transport" class="text-center text-gray-300 hover:text-white transition-colors" title="Transporte Fluvial">
-                <i class="fas fa-ship text-2xl md:text-3xl"></i>
-                <span class="hidden md:block text-xs" data-lang-key="footer_transport">Transporte Fluvial</span>
+            <a href="astra-net.html" class="text-center text-orange-500 hover:text-orange-400 transition-colors duration-200 transform hover:scale-110 group">
+                <div class="bg-orange-500/20 p-2 rounded-lg">
+                    <span class="font-bold text-sm md:text-base block">ASTRA-Net</span>
+                </div>
+                <span class="hidden md:block text-xs mt-1" data-lang-key="footer_platform">Plataforma</span>
             </a>
-            <a href="astra-net.html" class="text-center text-orange-500 hover:text-orange-400 transition-colors transform hover:scale-110">
-                <span class="font-bold text-lg md:text-xl block leading-tight">ASTRA-Net</span>
-                <span class="bg-orange-500 text-white text-xs font-semibold px-3 py-1 rounded-full" data-lang-key="footer_platform">Plataforma</span>
+            <a href="missao-amazonia.html" class="text-center text-gray-300 hover:text-white transition-colors duration-200 group" title="Missão">
+                <i class="fas fa-satellite text-xl md:text-2xl group-hover:text-orange-500"></i>
+                <span class="hidden md:block text-xs mt-1" data-lang-key="footer_mission">Missão</span>
             </a>
-            <a href="#communities" class="text-center text-gray-300 hover:text-white transition-colors" title="Comunidades">
-                <i class="fas fa-users text-2xl md:text-3xl"></i>
-                <span class="hidden md:block text-xs" data-lang-key="footer_communities">Comunidades</span>
-            </a>
-            <a href="empresa.html#careers" class="text-center text-gray-300 hover:text-white transition-colors" title="Carreiras">
-                <i class="fas fa-briefcase text-2xl md:text-3xl"></i>
-                <span class="hidden md:block text-xs" data-lang-key="footer_careers">Carreiras</span>
+            <a href="contato.html" class="text-center text-gray-300 hover:text-white transition-colors duration-200 group" title="Contato">
+                <i class="fas fa-envelope text-xl md:text-2xl group-hover:text-orange-500"></i>
+                <span class="hidden md:block text-xs mt-1" data-lang-key="footer_contact">Contato</span>
             </a>
         </div>
     </footer>
@@ -201,79 +316,111 @@
                 'nav_services': 'Services',
                 'nav_company': 'Company',
                 'nav_team': 'Team',
+                'nav_mission': 'Mission',
                 'nav_contact': 'Contact',
                 'hero_title': 'Smart Connectivity and Logistics for the Amazon',
-                'hero_subtitle': 'Satellite tracking, communication for riverine communities, and optimization of river transport.',
+                'hero_subtitle': 'Satellite tracking, communication for riverine communities, and optimization of river transport with cutting-edge technology.',
+                'hero_cta_primary': 'Explore ASTRA-Net',
+                'hero_cta_secondary': 'Join the Mission',
                 'stats_vessels': 'Connected Vessels',
                 'stats_communities': 'Communities Served',
-                'stats_area': 'Monitored Area',
+                'stats_area': 'km² Monitored',
                 'stats_support': 'Support & Operation',
                 'challenge_title': 'The Amazon Connectivity Challenge',
-                'challenge_desc': 'Navigating and living in the Amazon means facing vast distances and limited connectivity. Navigation safety, logistics efficiency, and community communication are daily challenges. YAKAMI TECH was born to transform this reality with space technology.',
-                'platform_tag': 'Our Platform',
+                'challenge_desc': 'Navigating and living in the Amazon means facing vast distances and limited connectivity. Navigation safety, logistics efficiency, and community communication are daily challenges. YAKAMI TECH was born to transform this reality with space technology and innovation.',
+                'challenge_solution': 'Integrated satellite monitoring and connectivity solutions for the Amazon region',
+                'platform_tag': 'Our Main Platform',
                 'platform_title': 'ASTRA-Net: Orbital Intelligence for the Rivers',
-                'platform_desc': 'The heart of our operation. ASTRA-Net is a monitoring platform that integrates data from NASA\'s Low Earth Orbit (LEO) satellites with local sensors, providing a complete, real-time view of river operations and environmental conditions.',
-                'platform_cta': 'Explore the Platform',
-                'transport_title': 'Safe and Efficient River Transport',
-                'transport_desc': 'We offer 24/7 tracking for vessels of all sizes. Know the exact location, receive maintenance and weather alerts, and provide more safety for your passengers and peace of mind for your operation.',
-                'transport_feat1': 'Real-time satellite tracking',
-                'transport_feat2': 'Safety and weather alerts',
-                'transport_feat3': 'Route and fuel consumption optimization',
-                'logistics_title': 'Smart Logistics for the Amazon',
-                'logistics_desc': 'For cooperatives and companies, YAKAMI TECH optimizes cargo and parcel transport. Monitor your fleet, manage deliveries, and reduce operational costs with accurate data, even on the most isolated routes.',
-                'logistics_feat1': 'River fleet management',
-                'logistics_feat2': 'Cargo and parcel tracking',
-                'logistics_feat3': 'Direct communication with the vessel',
-                'communities_title': 'Connecting Communities, Empowering People',
-                'communities_desc': 'Our greatest purpose is to bring connectivity to floating homes and riverine communities. We offer satellite internet access points and emergency alert systems, promoting digital inclusion, safety, and new opportunities.',
-                'communities_feat1': 'Satellite internet for remote areas',
-                'communities_feat2': 'Community alert system',
-                'communities_feat3': 'Local environmental monitoring',
-                'social_follow': 'Follow us on social media',
-                'footer_logistics': 'Logistics',
-                'footer_transport': 'River Transport',
+                'platform_desc': 'The heart of our operation. ASTRA-Net is a monitoring platform that integrates data from Low Earth Orbit (LEO) satellites with local sensors, providing a complete, real-time view of river operations and environmental conditions.',
+                'platform_feat1': 'Real-time vessel monitoring',
+                'platform_feat2': 'Integrated NASA and satellite data',
+                'platform_feat3': 'Alert and emergency system',
+                'platform_cta': 'Access ASTRA-Net Platform',
+                'platform_compliance': 'NORMAM-204 Compliance',
+                'platform_certified': 'System certified by the Navy',
+                'services_title': 'Our Solutions',
+                'services_subtitle': 'Technology developed specifically for the unique challenges of the Amazon region',
+                'transport_title': 'River Transport',
+                'transport_desc': '24/7 tracking and route optimization for vessels of all sizes',
+                'transport_feat1': 'Real-time tracking',
+                'transport_feat2': 'Safety alerts',
+                'transport_feat3': 'Route optimization',
+                'logistics_title': 'Smart Logistics',
+                'logistics_desc': 'Efficient fleet and cargo management for cooperatives and companies',
+                'logistics_feat1': 'Fleet management',
+                'logistics_feat2': 'Cargo tracking',
+                'logistics_feat3': 'Direct communication',
+                'communities_title': 'Connected Communities',
+                'communities_desc': 'Connectivity and essential services for riverside populations',
+                'communities_feat1': 'Satellite internet',
+                'communities_feat2': 'Alert system',
+                'communities_feat3': 'Environmental monitoring',
+                'mission_title': 'Mission: Voices of the Amazon',
+                'mission_desc': 'Join the CARATAÍ-1 mission and have your message taken to space on the first nanosatellite guardian of the Amazon. Join thousands of voices in defense of the forest.',
+                'mission_cta': 'Embed My Message',
+                'mission_learn': 'Learn About the Company',
+                'social_title': 'Follow Our Journey',
+                'social_desc': 'Follow our achievements, news and the progress of the CARATAÍ-1 mission',
+                'footer_services': 'Services',
                 'footer_platform': 'Platform',
-                'footer_communities': 'Communities',
-                'footer_careers': 'Careers',
+                'footer_mission': 'Mission',
+                'footer_contact': 'Contact',
+                'footer_rights': 'All rights reserved.'
             },
             'pt': {
                 'nav_services': 'Serviços',
                 'nav_company': 'Empresa',
                 'nav_team': 'Equipe',
+                'nav_mission': 'Missão',
                 'nav_contact': 'Contato',
                 'hero_title': 'Conectividade e Logística Inteligente para a Amazônia',
-                'hero_subtitle': 'Rastreamento via satélite, comunicação para comunidades ribeirinhas e otimização do transporte fluvial.',
+                'hero_subtitle': 'Rastreamento via satélite, comunicação para comunidades ribeirinhas e otimização do transporte fluvial com tecnologia de ponta.',
+                'hero_cta_primary': 'Explorar ASTRA-Net',
+                'hero_cta_secondary': 'Participar da Missão',
                 'stats_vessels': 'Embarcações Conectadas',
                 'stats_communities': 'Comunidades Atendidas',
-                'stats_area': 'Área Monitorada',
+                'stats_area': 'km² Monitorados',
                 'stats_support': 'Suporte e Operação',
                 'challenge_title': 'O Desafio da Conexão na Amazônia',
-                'challenge_desc': 'Navegar e viver na Amazônia significa enfrentar vastas distâncias e conectividade limitada. A segurança da navegação, a eficiência da logística e a comunicação das comunidades são desafios diários. A YAKAMI TECH nasceu para transformar essa realidade com tecnologia espacial.',
-                'platform_tag': 'Nossa Plataforma',
+                'challenge_desc': 'Navegar e viver na Amazônia significa enfrentar vastas distâncias e conectividade limitada. A segurança da navegação, a eficiência da logística e a comunicação das comunidades são desafios diários. A YAKAMI TECH nasceu para transformar essa realidade com tecnologia espacial e inovação.',
+                'challenge_solution': 'Soluções integradas de monitoramento por satélite e conectividade para a região amazônica',
+                'platform_tag': 'Nossa Plataforma Principal',
                 'platform_title': 'ASTRA-Net: Inteligência Orbital para os Rios',
-                'platform_desc': 'O coração da nossa operação. A ASTRA-Net é uma plataforma de monitoramento que integra dados de satélites de baixa órbita (LEO) da NASA com sensores locais, fornecendo uma visão completa e em tempo real das operações fluviais e condições ambientais.',
-                'platform_cta': 'Explorar a Plataforma',
-                'transport_title': 'Transporte Fluvial Seguro e Eficiente',
-                'transport_desc': 'Oferecemos rastreamento 24/7 para embarcações de todos os portes. Saiba a localização exata, receba alertas de manutenção e condições climáticas, e ofereça mais segurança para seus passageiros e tranquilidade para sua operação.',
-                'transport_feat1': 'Rastreamento em tempo real via satélite',
-                'transport_feat2': 'Alertas de segurança e meteorológicos',
-                'transport_feat3': 'Otimização de rotas e consumo de combustível',
-                'logistics_title': 'Logística Inteligente para a Amazônia',
-                'logistics_desc': 'Para cooperativas e empresas, a YAKAMI TECH otimiza o transporte de cargas e encomendas. Monitore sua frota, gerencie entregas e reduza custos operacionais com dados precisos, mesmo nas rotas mais isoladas.',
-                'logistics_feat1': 'Gestão de frota fluvial',
-                'logistics_feat2': 'Rastreamento de carga e encomendas',
-                'logistics_feat3': 'Comunicação direta com a embarcação',
-                'communities_title': 'Connecting Communities, Empowering People',
-                'communities_desc': 'Nosso maior propósito é levar conectividade a flutuantes e comunidades ribeirinhas. Oferecemos pontos de acesso à internet via satélite e sistemas de alerta para emergências, promovendo inclusão digital, segurança e novas oportunidades.',
-                'communities_feat1': 'Internet via satélite para áreas remotas',
-                'communities_feat2': 'Sistema de alerta comunitário',
-                'communities_feat3': 'Monitoramento ambiental local',
-                'social_follow': 'Siga-nos nas redes sociais',
-                'footer_logistics': 'Logística',
-                'footer_transport': 'Transporte Fluvial',
+                'platform_desc': 'O coração da nossa operação. A ASTRA-Net é uma plataforma de monitoramento que integra dados de satélites de baixa órbita (LEO) com sensores locais, fornecendo uma visão completa e em tempo real das operações fluviais e condições ambientais.',
+                'platform_feat1': 'Monitoramento em tempo real de embarcações',
+                'platform_feat2': 'Dados integrados da NASA e satélites',
+                'platform_feat3': 'Sistema de alertas e emergências',
+                'platform_cta': 'Acessar Plataforma ASTRA-Net',
+                'platform_compliance': 'Conformidade NORMAM-204',
+                'platform_certified': 'Sistema certificado pela Marinha',
+                'services_title': 'Nossas Soluções',
+                'services_subtitle': 'Tecnologia desenvolvida especificamente para os desafios únicos da região amazônica',
+                'transport_title': 'Transporte Fluvial',
+                'transport_desc': 'Rastreamento 24/7 e otimização de rotas para embarcações de todos os portes',
+                'transport_feat1': 'Rastreamento em tempo real',
+                'transport_feat2': 'Alertas de segurança',
+                'transport_feat3': 'Otimização de rotas',
+                'logistics_title': 'Logística Inteligente',
+                'logistics_desc': 'Gestão eficiente de frotas e cargas para cooperativas e empresas',
+                'logistics_feat1': 'Gestão de frota',
+                'logistics_feat2': 'Rastreamento de carga',
+                'logistics_feat3': 'Comunicação direta',
+                'communities_title': 'Comunidades Conectadas',
+                'communities_desc': 'Conectividade e serviços essenciais para populações ribeirinhas',
+                'communities_feat1': 'Internet via satélite',
+                'communities_feat2': 'Sistema de alerta',
+                'communities_feat3': 'Monitoramento ambiental',
+                'mission_title': 'Missão: Vozes da Amazônia',
+                'mission_desc': 'Participe da missão CARATAÍ-1 e tenha sua mensagem levada ao espaço no primeiro nanosatélite guardião da Amazônia. Junte-se a milhares de vozes em defesa da floresta.',
+                'mission_cta': 'Embarcar Minha Mensagem',
+                'mission_learn': 'Conhecer a Empresa',
+                'social_title': 'Siga Nossa Jornada',
+                'social_desc': 'Acompanhe nossas conquistas, novidades e o progresso da missão CARATAÍ-1',
+                'footer_services': 'Serviços',
                 'footer_platform': 'Plataforma',
-                'footer_communities': 'Comunidades',
-                'footer_careers': 'Carreiras',
+                'footer_mission': 'Missão',
+                'footer_contact': 'Contato',
+                'footer_rights': 'Todos os direitos reservados.'
             }
         };
 
@@ -288,9 +435,49 @@
             document.getElementById('lang-en').classList.toggle('active', lang === 'en');
         }
 
-        // Set initial language
-        changeLanguage('pt');
-    </script>
+        // Animações dos contadores
+        function animateCounter(elementId, target, duration = 2000) {
+            const element = document.getElementById(elementId);
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            const updateCounter = () => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target;
+                } else {
+                    element.textContent = Math.floor(start);
+                    setTimeout(updateCounter, 16);
+                }
+            };
+            
+            updateCounter();
+        }
 
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            changeLanguage('pt');
+            
+            // Iniciar animações dos contadores
+            setTimeout(() => {
+                animateCounter('vessels-counter', 24);
+                animateCounter('communities-counter', 18);
+            }, 1000);
+
+            // Smooth scroll para âncoras
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
