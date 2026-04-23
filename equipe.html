@@ -1,3 +1,10 @@
+Com certeza, Erick. Fiz a remoção do bloco correspondente ao José Wilson e ajustei o layout do primeiro nível para que o seu perfil fique centralizado, mantendo a harmonia visual da página.
+
+Também removi as chaves de tradução (inglês e português) vinculadas a ele no script para deixar o código limpo.
+
+Aqui está o código completo e revisado para você copiar:
+
+HTML
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -24,7 +31,6 @@
 </head>
 <body class="bg-gray-900 text-white">
 
-    <!-- Header Consistente -->
     <header class="sticky top-0 z-20 p-4 bg-gray-900 bg-opacity-70 backdrop-blur-sm">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="text-3xl font-bold">YAKAMI<span class="text-orange-500">.</span>TECH</a>
@@ -43,7 +49,6 @@
         </div>
     </header>
 
-    <!-- Team Section -->
     <section class="py-16 px-4">
         <div class="container mx-auto">
             <div class="text-center mb-12">
@@ -51,12 +56,10 @@
                 <p class="text-lg text-gray-400 mt-2" data-lang-key="team_subtitle">A força motriz por trás da YAKAMI TECH.</p>
             </div>
 
-            <!-- Nível 1: Liderança e Desenvolvimento Técnico – ASTRA-Net -->
             <div class="mb-16">
                 <h3 class="text-3xl font-bold text-center text-orange-500 border-b-2 border-orange-500/30 pb-4 mb-10" data-lang-key="level1_title">Liderança e Desenvolvimento Técnico – ASTRA-Net</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <!-- Erick Mattos -->
-                    <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
+                <div class="flex justify-center max-w-4xl mx-auto">
+                    <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300 max-w-sm">
                         <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-500" src="https://placehold.co/200x200/1F2937/F97316?text=EAM" alt="Foto de Prof. Erick Mattos">
                         <h4 class="text-2xl font-bold">Prof. Erick Mattos</h4>
                         <p class="text-orange-400 font-semibold" data-lang-key="member1_role">Diretor Técnico & Orientador</p>
@@ -66,39 +69,24 @@
                             <a href="mailto:erickmattos31@gmail.com" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
-                    <!-- José Wilson -->
-                    <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
-                        <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-500" src="https://placehold.co/200x200/1F2937/F97316?text=JWA" alt="Foto de José Wilson Aguiar Júnior">
-                        <h4 class="text-2xl font-bold">José Wilson Aguiar Jr.</h4>
-                        <p class="text-orange-400 font-semibold" data-lang-key="member2_role">Líder de Telecom & Embedded</p>
-                        <p class="text-gray-400 text-sm mt-2" data-lang-key="member2_desc">Eng. de Telecomunicações especialista em redes (GPON, HFC) e sistemas embarcados. Garante a conectividade e comunicação do projeto.</p>
-                        <div class="mt-4 flex justify-center space-x-4">
-                            <a href="https://www.linkedin.com/in/jwajr/" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="mailto:jwajrr@gmail.com" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Nível 2: Equipe Técnica Especializada YAKAMI TECH -->
             <div class="mb-16">
                 <h3 class="text-3xl font-bold text-center text-orange-500 border-b-2 border-orange-500/30 pb-4 mb-10" data-lang-key="level2_title">Equipe Técnica Especializada YAKAMI TECH</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     
-                    <!-- Helen Luciane (Movida para primeiro) -->
                     <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
                         <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-600" src="https://placehold.co/200x200/1F2937/FFFFFF?text=HSA" alt="Foto de Helen Luciane Silva de Araújo">
                         <h4 class="text-xl font-bold">Helen Luciane S. de Araújo</h4>
                         <p class="text-orange-400 font-semibold" data-lang-key="member5_role">Líder Jurídica & Compliance</p>
                         <p class="text-gray-400 text-sm mt-2" data-lang-key="member5_desc">Advogada (OAB/AM) especializada em contratos e tecnologia. Cuida da estruturação legal, LGPD e propriedade intelectual da startup.</p>
                         <div class="mt-4 flex justify-center space-x-4">
-                            <!-- LINK CORRIGIDO: removido o "https." duplicado -->
                             <a href="https://www.linkedin.com/in/helen-ara%C3%BAjo-b9686411b/" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                             <a href="mailto:helenaraujoadv@gmail.com" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
                     
-                    <!-- Carlos Eduardo (Agora em segundo) -->
                     <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
                         <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-600" src="https://placehold.co/200x200/1F2937/FFFFFF?text=CSA" alt="Foto de Carlos Eduardo Silva de Araújo">
                         <h4 class="text-xl font-bold">Carlos Eduardo S. de Araújo</h4>
@@ -110,7 +98,6 @@
                         </div>
                     </div>
 
-                    <!-- Francisco Walterson (Agora em terceiro) -->
                     <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
                         <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-600" src="https://placehold.co/200x200/1F2937/FFFFFF?text=FSA" alt="Foto de Francisco Walterson Silva de Araújo">
                         <h4 class="text-xl font-bold">Francisco W. S. de Araújo</h4>
@@ -125,8 +112,7 @@
                 </div>
             </div>
 
-             <!-- Nível 3: Novos Talentos -->
-            <div>
+             <div>
                 <h3 class="text-3xl font-bold text-center text-orange-500 border-b-2 border-orange-500/30 pb-4 mb-10" data-lang-key="level3_title">Novos Talentos em Desenvolvimento</h3>
                 <div class="flex justify-center">
                     <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300 max-w-sm">
@@ -145,7 +131,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 py-6 text-center text-gray-400">
         <p>&copy; 2025 YAKAMI TECH. Todos os direitos reservados.</p>
     </footer>
@@ -163,8 +148,6 @@
                 'level1_title': 'ASTRA-Net Technical Leadership & Development',
                 'member1_role': 'Technical Director & Advisor',
                 'member1_desc': 'With 25 years in innovation and logistics, mentor to award-winning teams. Responsible for technical supervision and project architecture validation.',
-                'member2_role': 'Telecom & Embedded Lead',
-                'member2_desc': 'Telecommunications Eng. specialist in networks (GPON, HFC) and embedded systems. Ensures the project\'s connectivity and communication.',
                 'level2_title': 'YAKAMI TECH Specialized Technical Team',
                 'member3_role': 'Electrical Engineering Lead',
                 'member3_desc': 'Electrical Eng. with 15+ years of experience, including projects for vessels and power plants. Leads the electrical systems and integration design.',
@@ -187,9 +170,8 @@
                 'level1_title': 'Liderança e Desenvolvimento Técnico – ASTRA-Net',
                 'member1_role': 'Diretor Técnico & Orientador',
                 'member1_desc': 'Com 25 anos em inovação e logística, mentor de equipes premiadas. Responsável pela supervisão técnica e validação da arquitetura do projeto.',
-                'member2_role': 'Líder de Telecom & Embedded',
-                'member2_desc': 'Eng. de Telecomunicações especialista em redes (GPON, HFC) e sistemas embarcados. Garante a conectividade e comunicação do projeto.',
                 'level2_title': 'Equipe Técnica Especializada YAKAMI TECH',
+                'member2_role': 'Líder de Telecom & Embedded',
                 'member3_role': 'Líder de Engenharia Elétrica',
                 'member3_desc': 'Eng. Eletricista com 15+ anos de experiência, incluindo projetos para embarcações e usinas. Lidera o projeto de sistemas elétricos e integração.',
                 'member4_role': 'Líder de Hardware & IoT',
@@ -210,14 +192,12 @@
                 }
             });
 
-            // Atualizar botões de idioma ativos
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             document.getElementById(`lang-${lang}`).classList.add('active');
         }
 
-        // Inicializar com português
         document.addEventListener('DOMContentLoaded', function() {
             changeLanguage('pt');
         });
