@@ -3,197 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nossa Equipe - YAKAMI TECH</title>
+    <title>Equipe | YAKAMI TECH - Engenharia de Elite</title>
+    
+    <!-- SEO -->
+    <meta name="description" content="Equipe YAKAMI TECH: especialistas em hardware, segurança jurídica e infraestrutura ciberfísica dedicados à Amazônia.">
+    <meta name="keywords" content="YAKAMI TECH, equipe, engenharia, hardware, blockchain, compliance, deep tech, Amazônia">
+    <meta name="author" content="YAKAMI TECH">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yakami.tech/equipe">
+    <meta property="og:title" content="Equipe YAKAMI TECH - Engenharia de Elite">
+    <meta property="og:description" content="Conheça os especialistas por trás da primeira Deep Tech espacial da Amazônia.">
+    <meta property="og:image" content="https://yakami.tech/assets/og-yakami-equipe.jpg">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; }
-        .lang-btn {
-            cursor: pointer;
-            padding: 2px 5px;
-            border: 1px solid transparent;
-            border-radius: 5px;
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; }
+        
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            transition: all 0.3s ease;
         }
-        .lang-btn.active {
-            border-color: #F97316;
-            background-color: rgba(249, 115, 22, 0.1);
+        .glass-panel:hover {
+            border-color: #f97316;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.1);
+        }
+        .profile-img {
+            filter: grayscale(100%);
+            transition: all 0.4s ease;
+            border: 3px solid rgba(249, 115, 22, 0.3);
+        }
+        .glass-panel:hover .profile-img {
+            filter: grayscale(0%);
+            border-color: #f97316;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="text-white antialiased">
 
-    <header class="sticky top-0 z-20 p-4 bg-gray-900 bg-opacity-70 backdrop-blur-sm">
+    <header class="fixed top-0 w-full z-50 p-4 bg-gray-900/90 backdrop-blur-md border-b border-gray-800">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-3xl font-bold">YAKAMI<span class="text-orange-500">.</span>TECH</a>
-            <nav class="hidden md:flex items-center space-x-6 text-lg">
-                <a href="index.html#services" class="hover:text-orange-500" data-lang-key="nav_services">Serviços</a>
-                <a href="empresa.html" class="hover:text-orange-500" data-lang-key="nav_company">Empresa</a>
-                <a href="equipe.html" class="text-orange-500 font-semibold" data-lang-key="nav_team">Equipe</a>
-                <a href="missao-amazonia.html" class="hover:text-orange-500" data-lang-key="nav_mission">Missão</a>
-                <a href="contato.html" class="hover:text-orange-500" data-lang-key="nav_contact">Contato</a>
+            <a href="index.html" class="text-2xl font-black tracking-tighter text-orange-500">YAKAMI<span class="text-white">.TECH</span></a>
+            <nav class="hidden md:flex space-x-8 font-semibold text-sm uppercase tracking-widest">
+                <a href="index.html" class="hover:text-cyan-400 transition-colors">Home</a>
+                <a href="empresa.html" class="hover:text-cyan-400 transition-colors">Empresa</a>
+                <a href="equipe.html" class="text-cyan-400">Equipe</a>
+                <a href="prosame.html" class="hover:text-cyan-400 transition-colors">ProSAME</a>
+                <a href="contato.html" class="bg-orange-600 px-4 py-2 rounded text-white">Contato</a>
             </nav>
-            <div class="flex items-center space-x-2">
-                <span id="lang-pt" class="lang-btn active" onclick="changeLanguage('pt')">🇧🇷 PT</span>
-                <span>|</span>
-                <span id="lang-en" class="lang-btn" onclick="changeLanguage('en')">🇺🇸 EN</span>
-            </div>
         </div>
     </header>
 
-    <section class="py-16 px-4">
+    <main class="pt-32 pb-16 px-6 bg-gray-950">
+        <div class="container mx-auto text-center max-w-4xl">
+            <h1 class="text-5xl md:text-6xl font-black mb-6 uppercase tracking-tighter">O Capital <span class="text-orange-500">Intelectual</span></h1>
+            <p class="text-xl text-gray-400 font-light">Especialistas em hardware, segurança jurídica e infraestrutura ciberfísica dedicados à Amazônia.</p>
+        </div>
+    </main>
+
+    <!-- Direção Estratégica -->
+    <section class="py-12 px-6">
         <div class="container mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold" data-lang-key="team_title">Conheça Nossos Inovadores</h2>
-                <p class="text-lg text-gray-400 mt-2" data-lang-key="team_subtitle">A força motriz por trás da YAKAMI TECH.</p>
-            </div>
-
-            <div class="mb-16">
-                <h3 class="text-3xl font-bold text-center text-orange-500 border-b-2 border-orange-500/30 pb-4 mb-10" data-lang-key="level1_title">Liderança e Desenvolvimento Técnico – ASTRA-Net</h3>
-                <div class="flex justify-center max-w-4xl mx-auto">
-                    <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300 max-w-sm">
-                        <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-500" src="https://placehold.co/200x200/1F2937/F97316?text=EAM" alt="Foto de Prof. Erick Mattos">
-                        <h4 class="text-2xl font-bold">Prof. Erick Mattos</h4>
-                        <p class="text-orange-400 font-semibold" data-lang-key="member1_role">Diretor Técnico & Orientador</p>
-                        <p class="text-gray-400 text-sm mt-2" data-lang-key="member1_desc">Com 25 anos em inovação e logística, mentor de equipes premiadas. Responsável pela supervisão técnica e validação da arquitetura do projeto.</p>
-                        <div class="mt-4 flex justify-center space-x-4">
-                            <a href="https://www.linkedin.com/in/erick-de-ara%C3%BAjo-mattos-51817814/" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="mailto:erickmattos31@gmail.com" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
-                        </div>
+            <h2 class="text-center text-sm font-bold tracking-[0.3em] text-cyan-400 uppercase mb-12">Direção Estratégica</h2>
+            <div class="flex justify-center">
+                <div class="glass-panel p-8 rounded-3xl max-w-md text-center">
+                    <img class="w-32 h-32 rounded-full mx-auto mb-6 profile-img" src="assets/profile-erick.jpg" alt="Prof. Erick Mattos - CEO">
+                    <h3 class="text-2xl font-bold">Prof. Erick Mattos</h3>
+                    <p class="text-orange-400 font-semibold mb-4">CEO & Diretor Técnico</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">25 anos de experiência em inovação e logística. Mentor premiado e arquiteto do ecossistema YAKAMI-SAT.</p>
+                    <div class="mt-6 flex justify-center space-x-4">
+                        <a href="https://www.linkedin.com/in/erick-de-ara%C3%BAjo-mattos-51817814/" target="_blank" class="text-gray-400 hover:text-white" aria-label="LinkedIn de Erick Mattos">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="mailto:erickmattos31@gmail.com" class="text-gray-400 hover:text-white" aria-label="E-mail de Erick Mattos">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </a>
                     </div>
                 </div>
             </div>
-
-            <div class="mb-16">
-                <h3 class="text-3xl font-bold text-center text-orange-500 border-b-2 border-orange-500/30 pb-4 mb-10" data-lang-key="level2_title">Equipe Técnica Especializada YAKAMI TECH</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    
-                    <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
-                        <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-600" src="https://placehold.co/200x200/1F2937/FFFFFF?text=HSA" alt="Foto de Helen Luciane Silva de Araújo">
-                        <h4 class="text-xl font-bold">Helen Luciane S. de Araújo</h4>
-                        <p class="text-orange-400 font-semibold" data-lang-key="member5_role">Líder Jurídica & Compliance</p>
-                        <p class="text-gray-400 text-sm mt-2" data-lang-key="member5_desc">Advogada (OAB/AM) especializada em contratos e tecnologia. Cuida da estruturação legal, LGPD e propriedade intelectual da startup.</p>
-                        <div class="mt-4 flex justify-center space-x-4">
-                            <a href="https://www.linkedin.com/in/helen-ara%C3%BAjo-b9686411b/" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="mailto:helenaraujoadv@gmail.com" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
-                        <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-600" src="https://placehold.co/200x200/1F2937/FFFFFF?text=CSA" alt="Foto de Carlos Eduardo Silva de Araújo">
-                        <h4 class="text-xl font-bold">Carlos Eduardo S. de Araújo</h4>
-                        <p class="text-orange-400 font-semibold" data-lang-key="member3_role">Líder de Engenharia Elétrica</p>
-                        <p class="text-gray-400 text-sm mt-2" data-lang-key="member3_desc">Eng. Eletricista com 15+ anos de experiência, incluindo projetos para embarcações e usinas. Lidera o projeto de sistemas elétricos e integração.</p>
-                        <div class="mt-4 flex justify-center space-x-4">
-                            <a href="https://www.linkedin.com/in/carlos-eduardo-ara%C3%BAjo-2aa46a398/" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="mailto:carlos.yakamitech@gmail.com" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
-                        <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-600" src="https://placehold.co/200x200/1F2937/FFFFFF?text=FSA" alt="Foto de Francisco Walterson Silva de Araújo">
-                        <h4 class="text-xl font-bold">Francisco W. S. de Araújo</h4>
-                        <p class="text-orange-400 font-semibold" data-lang-key="member4_role">Líder de Hardware & IoT</p>
-                        <p class="text-gray-400 text-sm mt-2" data-lang-key="member4_desc">Multitécnico (Eletrônica, Mecatrônica) e Eng. Mecânico. Comanda o desenvolvimento do hardware e a integração de sensores IoT.</p>
-                        <div class="mt-4 flex justify-center space-x-4">
-                            <a href="https://www.linkedin.com/in/francisco-walterson/" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="mailto:contato@yakami.com.br" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-             <div>
-                <h3 class="text-3xl font-bold text-center text-orange-500 border-b-2 border-orange-500/30 pb-4 mb-10" data-lang-key="level3_title">Novos Talentos em Desenvolvimento</h3>
-                <div class="flex justify-center">
-                    <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg transform hover:scale-105 transition-transform duration-300 max-w-sm">
-                        <img class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-600" src="https://placehold.co/200x200/1F2937/FFFFFF?text=GAD" alt="Foto de Gabriel Araujo Dias">
-                        <h4 class="text-xl font-bold">Gabriel Araujo Dias</h4>
-                        <p class="text-orange-400 font-semibold" data-lang-key="member6_role">Desenvolvedor Jr. & Suporte</p>
-                        <p class="text-gray-400 text-sm mt-2" data-lang-key="member6_desc">Jovem talento da Fundação Matias Machline, premiado em olimpíadas de conhecimento. Atua no suporte ao desenvolvimento, testes e documentação.</p>
-                        <div class="mt-4 flex justify-center space-x-4">
-                            <a href="#" target="_blank" class="text-gray-400 hover:text-orange-500 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="mailto:contato@yakami.com.br" class="text-gray-400 hover:text-orange-500 text-2xl" title="E-mail"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <footer class="bg-gray-800 py-6 text-center text-gray-400">
-        <p>&copy; 2025 YAKAMI TECH. Todos os direitos reservados.</p>
+    <!-- Engenharia e Governança -->
+    <section class="py-24 px-6 bg-gray-900/50">
+        <div class="container mx-auto">
+            <h2 class="text-center text-sm font-bold tracking-[0.3em] text-cyan-400 uppercase mb-16">Engenharia e Governança</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <div class="glass-panel p-8 rounded-3xl text-center">
+                    <img class="w-24 h-24 rounded-full mx-auto mb-6 profile-img" src="assets/profile-carlos.jpg" alt="Carlos Eduardo - Engenheiro Elétrico">
+                    <h3 class="text-xl font-bold">Carlos Eduardo Araújo</h3>
+                    <p class="text-orange-400 font-semibold mb-3 text-sm">Líder de Engenharia Elétrica</p>
+                    <p class="text-gray-400 text-xs leading-relaxed">Engenheiro Eletricista (15+ anos). Especialista em sistemas de energia para embarcações e usinas.</p>
+                    <div class="mt-4 flex justify-center space-x-4">
+                        <a href="https://www.linkedin.com/in/carlos-eduardo-ara%C3%BAjo-2aa46a398/" target="_blank" class="text-gray-400 hover:text-white" aria-label="LinkedIn de Carlos Eduardo">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="mailto:carlos.yakamitech@gmail.com" class="text-gray-400 hover:text-white" aria-label="E-mail de Carlos Eduardo">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8 rounded-3xl text-center">
+                    <img class="w-24 h-24 rounded-full mx-auto mb-6 profile-img" src="assets/profile-walter.jpg" alt="Francisco Walterson - Hardware IoT">
+                    <h3 class="text-xl font-bold">Francisco W. Araújo</h3>
+                    <p class="text-orange-400 font-semibold mb-3 text-sm">Líder de Hardware & IoT</p>
+                    <p class="text-gray-400 text-xs leading-relaxed">Especialista em Eletrônica e Mecatrônica. Lidera o desenvolvimento dos CubeSats e sensores.</p>
+                    <div class="mt-4 flex justify-center space-x-4">
+                        <a href="https://www.linkedin.com/in/francisco-walterson/" target="_blank" class="text-gray-400 hover:text-white" aria-label="LinkedIn de Francisco Walterson">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="mailto:contato@yakami.com.br" class="text-gray-400 hover:text-white" aria-label="E-mail de Francisco Walterson">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8 rounded-3xl text-center border-cyan-500/20">
+                    <img class="w-24 h-24 rounded-full mx-auto mb-6 profile-img" src="assets/profile-helen.jpg" alt="Helen Araujo - Jurídica">
+                    <h3 class="text-xl font-bold">Helen Araújo</h3>
+                    <p class="text-orange-400 font-semibold mb-3 text-sm">Líder Jurídica & Compliance</p>
+                    <p class="text-gray-400 text-xs leading-relaxed">Advogada (OAB/AM). Gestão de Propriedade Intelectual (Patentes) e conformidade LGPD.</p>
+                    <div class="mt-4 flex justify-center space-x-4">
+                        <a href="https://www.linkedin.com/in/helen-ara%C3%BAjo-b9686411b/" target="_blank" class="text-gray-400 hover:text-white" aria-label="LinkedIn de Helen Araujo">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="mailto:helenaraujoadv@gmail.com" class="text-gray-400 hover:text-white" aria-label="E-mail de Helen Araujo">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Novos Talentos -->
+    <section class="py-24 px-6">
+        <div class="container mx-auto">
+            <h2 class="text-center text-sm font-bold tracking-[0.3em] text-cyan-400 uppercase mb-16">Novos Talentos</h2>
+            <div class="flex justify-center">
+                <div class="glass-panel p-8 rounded-3xl max-w-sm text-center">
+                    <img class="w-24 h-24 rounded-full mx-auto mb-6 profile-img" src="assets/profile-gabriel.jpg" alt="Gabriel Dias - Desenvolvedor">
+                    <h3 class="text-xl font-bold">Gabriel Araújo Dias</h3>
+                    <p class="text-orange-400 font-semibold mb-3 text-sm">Desenvolvedor Jr. & Suporte</p>
+                    <p class="text-gray-400 text-xs leading-relaxed">Fundação Matias Machline. Premiado em Olimpíadas Científicas. Apoio em testes e firmware.</p>
+                    <div class="mt-4 flex justify-center space-x-4">
+                        <a href="#" target="_blank" class="text-gray-400 hover:text-white" aria-label="LinkedIn de Gabriel Dias">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="mailto:contato@yakami.com.br" class="text-gray-400 hover:text-white" aria-label="E-mail de Gabriel Dias">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 bg-gray-950 border-t border-gray-900 text-center text-gray-600 text-sm">
+        © 2026 YAKAMI TECH. Excelência técnica a serviço da Amazônia.
     </footer>
 
-    <script>
-        const translations = {
-            'en': {
-                'nav_services': 'Services',
-                'nav_company': 'Company',
-                'nav_team': 'Team',
-                'nav_mission': 'Mission',
-                'nav_contact': 'Contact',
-                'team_title': 'Meet Our Innovators',
-                'team_subtitle': 'The driving force behind YAKAMI TECH.',
-                'level1_title': 'ASTRA-Net Technical Leadership & Development',
-                'member1_role': 'Technical Director & Advisor',
-                'member1_desc': 'With 25 years in innovation and logistics, mentor to award-winning teams. Responsible for technical supervision and project architecture validation.',
-                'level2_title': 'YAKAMI TECH Specialized Technical Team',
-                'member3_role': 'Electrical Engineering Lead',
-                'member3_desc': 'Electrical Eng. with 15+ years of experience, including projects for vessels and power plants. Leads the electrical systems and integration design.',
-                'member4_role': 'Hardware & IoT Lead',
-                'member4_desc': 'Multi-certified technician (Electronics, Mechatronics) and Mech. Eng. Commands hardware development and IoT sensor integration.',
-                'member5_role': 'Legal & Compliance Lead',
-                'member5_desc': 'Lawyer (OAB/AM) specialized in contracts and technology. Manages the startup\'s legal structuring, LGPD, and intellectual property.',
-                'level3_title': 'New Talents in Development',
-                'member6_role': 'Jr. Developer & Support',
-                'member6_desc': 'Young talent from Fundação Matias Machline, awarded in knowledge olympiads. Provides support in development, testing, and documentation.'
-            },
-            'pt': {
-                'nav_services': 'Serviços',
-                'nav_company': 'Empresa',
-                'nav_team': 'Equipe',
-                'nav_mission': 'Missão',
-                'nav_contact': 'Contato',
-                'team_title': 'Conheça Nossos Inovadores',
-                'team_subtitle': 'A força motriz por trás da YAKAMI TECH.',
-                'level1_title': 'Liderança e Desenvolvimento Técnico – ASTRA-Net',
-                'member1_role': 'Diretor Técnico & Orientador',
-                'member1_desc': 'Com 25 anos em inovação e logística, mentor de equipes premiadas. Responsável pela supervisão técnica e validação da arquitetura do projeto.',
-                'level2_title': 'Equipe Técnica Especializada YAKAMI TECH',
-                'member2_role': 'Líder de Telecom & Embedded',
-                'member3_role': 'Líder de Engenharia Elétrica',
-                'member3_desc': 'Eng. Eletricista com 15+ anos de experiência, incluindo projetos para embarcações e usinas. Lidera o projeto de sistemas elétricos e integração.',
-                'member4_role': 'Líder de Hardware & IoT',
-                'member4_desc': 'Multitécnico (Eletrônica, Mecatrônica) e Eng. Mecânico. Comanda o desenvolvimento do hardware e a integração de sensores IoT.',
-                'member5_role': 'Líder Jurídica & Compliance',
-                'member5_desc': 'Advogada (OAB/AM) especializada em contratos e tecnologia. Cuida da estruturação legal, LGPD e propriedade intelectual da startup.',
-                'level3_title': 'Novos Talentos em Desenvolvimento',
-                'member6_role': 'Desenvolvedor Jr. & Suporte',
-                'member6_desc': 'Jovem talento da Fundação Matias Machline, premiado em olimpíadas de conhecimento. Atua no suporte ao desenvolvimento, testes e documentação.'
-            }
-        };
-
-        function changeLanguage(lang) {
-            document.querySelectorAll('[data-lang-key]').forEach(elem => {
-                const key = elem.getAttribute('data-lang-key');
-                if (translations[lang] && translations[lang][key]) {
-                    elem.innerText = translations[lang][key];
-                }
-            });
-
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.getElementById(`lang-${lang}`).classList.add('active');
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            changeLanguage('pt');
-        });
-    </script>
 </body>
 </html>
