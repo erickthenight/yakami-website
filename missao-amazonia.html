@@ -13,6 +13,8 @@
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="YAKAMI TECH">
     <meta property="og:url" content="https://yakami.tech/prosame">
     <meta property="og:title" content="YAKAMI-SAT 1 | Missão de Qualificação Espacial">
     <meta property="og:description" content="Nanossatélite 6U soberano para backhaul IoT e monitoramento hiperespectral da Amazônia. Submeta seu interesse ao ProSAME/AEB.">
@@ -25,26 +27,37 @@
     <meta property="twitter:description" content="Candidato à adoção pelo Programa Nacional de Atividades Espaciais. Acesse o dossiê técnico.">
     <meta property="twitter:image" content="https://yakami.tech/assets/og-yakami-sat1.jpg">
     
-    <!-- Schema.org Structured Data -->
+    <!-- Schema.org Structured Data (Atualizado) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "GovernmentService",
-      "name": "YAKAMI-SAT 1 - ProSAME/AEB",
-      "provider": {
+      "@type": "ResearchProject",
+      "name": "YAKAMI-SAT 1",
+      "alternateName": "Proposta ProSAME - Missão de Qualificação Espacial",
+      "description": "Plataforma nanossatélite 6U para backhaul de dados IoT e monitoramento hiperespectral da Amazônia Legal, candidata à adoção pelo Programa Nacional de Atividades Espaciais (PNAE) através do ProSAME.",
+      "funding": {
+        "@type": "GovernmentOrganization",
+        "name": "Agência Espacial Brasileira (AEB)",
+        "url": "https://www.gov.br/aeb"
+      },
+      "funder": {
         "@type": "Organization",
-        "name": "YAKAMI TECH",
+        "name": "YAKAMI ENGENHARIA E INTELIGÊNCIA DE DADOS",
         "url": "https://yakami.tech"
       },
-      "serviceType": "Espacial / Monitoramento Ambiental",
-      "areaServed": "Amazônia Legal, Brasil",
-      "description": "Plataforma nanossatélite 6U para backhaul de dados IoT e monitoramento hiperespectral, candidato à adoção pelo PNAE."
+      "identifier": {
+        "@type": "PropertyValue",
+        "name": "Proposta ProSAME",
+        "value": "Carteira de Qualificação"
+      }
     }
     </script>
     
+    <!-- Google Analytics / Tag Manager (espaço reservado) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> -->
+    
     <!-- Preload de recursos críticos -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" as="style">
-    <link rel="preload" href="assets/map-south-america-night.jpg" as="image">
     
     <!-- Estilos Externos -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -69,20 +82,18 @@
         
         /* Hero Background com fallback */
         .hero-bg-mission {
+            background: linear-gradient(135deg, rgba(10, 15, 26, 0.95) 0%, rgba(10, 15, 26, 0.85) 100%);
+            background-color: #0a0f1a;
+        }
+        /* Fallback se a imagem carregar */
+        .hero-bg-mission.with-image {
             background-image: linear-gradient(135deg, rgba(10, 15, 26, 0.95) 0%, rgba(10, 15, 26, 0.85) 100%), 
                               url('assets/map-south-america-night.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
         }
-        .hero-bg-mission::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, transparent 0%, rgba(10, 15, 26, 0.3) 100%);
-            pointer-events: none;
-        }
-
+        
         /* Glassmorphism Panel */
         .glass-panel {
             background: rgba(30, 41, 59, 0.7);
@@ -203,9 +214,37 @@
             body { background: white; color: black; }
             .glass-panel { background: white; border: 1px solid #ccc; }
         }
+        
+        /* Acessibilidade: skip link */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        .focus\\:not-sr-only:focus {
+            position: static;
+            width: auto;
+            height: auto;
+            padding: 0.5rem 1rem;
+            margin: 0;
+            overflow: visible;
+            clip: auto;
+            white-space: normal;
+        }
     </style>
 </head>
 <body class="text-white antialiased">
+
+    <!-- Skip Link para acessibilidade -->
+    <a href="#letter-of-intent" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:bg-cyan-600 focus:text-white focus:px-4 focus:py-2 focus:rounded focus:z-50">
+        Pular para o formulário
+    </a>
 
     <!-- Header / Navigation -->
     <header class="fixed top-0 w-full z-50 p-4 bg-gray-900/95 backdrop-blur-md border-b border-gray-800" role="banner">
@@ -262,7 +301,7 @@
             </h1>
             
             <!-- Subheadline -->
-            <p class="text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto mb-8 font-light text-gray-300">
+            <p class="text-lg sm:text-xl md:text-xl max-w-3xl mx-auto mb-8 font-light text-gray-300">
                 Nanossatélite 6U soberano. Candidato à adoção pelo <strong>Programa Nacional de Atividades Espaciais (PNAE)</strong>.
             </p>
             
@@ -296,6 +335,18 @@
         </a>
     </main>
 
+    <!-- Script para adicionar classe de imagem se o arquivo existir -->
+    <script>
+        (function() {
+            const hero = document.querySelector('.hero-bg-mission');
+            if (hero) {
+                const img = new Image();
+                img.onload = () => hero.classList.add('with-image');
+                img.src = 'assets/map-south-america-night.jpg';
+            }
+        })();
+    </script>
+
     <!-- Carteira de Admissão Section -->
     <section id="carteira-admissao" class="py-16 px-6 border-b border-gray-800" aria-labelledby="carteira-title">
         <div class="container mx-auto max-w-6xl">
@@ -322,7 +373,7 @@
                 <article class="glass-panel p-6 rounded-2xl text-center" aria-labelledby="sinergia-title">
                     <i class="fas fa-rocket text-4xl text-cyan-400 mb-4" aria-hidden="true"></i>
                     <h3 id="sinergia-title" class="font-bold text-xl mb-2">Sinergia PNAE</h3>
-                    <p class="text-gray-400 text-sm">Alinhado com o Plano de Ação 2022-2031, Programa SABIA-MAR e Estratégia Nacional de Espaço.</p>
+                    <p class="text-gray-400 text-sm">Alinhado com o Plano de Ação 2022-2031, Programa SABIA-MAR e a Portaria PRE/AEB nº 1.738/2025.</p>
                 </article>
             </div>
             
@@ -330,7 +381,7 @@
             <div class="mt-12 text-center">
                 <p class="text-gray-400 text-sm max-w-2xl mx-auto">
                     <i class="fas fa-info-circle text-cyan-400 mr-2" aria-hidden="true"></i>
-                    Esta proposta está em conformidade com a <strong>Portaria AEB nº XX/2026</strong> que institui o Procedimento de Submissão e Avaliação de Missões Espaciais (ProSAME).
+                    Esta proposta está em conformidade com a <strong>Portaria PRE/AEB nº 1.738/2025</strong> que institui o Procedimento de Seleção e Adoção de Missões Espaciais (ProSAME).
                 </p>
             </div>
         </div>
@@ -361,6 +412,11 @@
                     <strong>Ocorreu um erro.</strong> Por favor, verifique os campos e tente novamente.
                 </div>
 
+                <!-- Instrução de integração (visível apenas para administradores) -->
+                <div class="text-xs text-gray-500 text-center mb-4 p-2 bg-gray-800/30 rounded-lg hidden md:block">
+                    ⚙️ Configure o endpoint do formulário no arquivo `prosame.html` (linha ~550) ou utilize uma ferramenta como FormSubmit, Google Forms ou SheetDB.
+                </div>
+
                 <!-- Formulário -->
                 <form id="prosame-contact-form" class="space-y-6" novalidate>
                     <!-- Honeypot (anti-spam) -->
@@ -380,9 +436,7 @@
                                    pattern="^[A-Za-zÀ-ÿ\s\.']+$"
                                    placeholder="Ex: João Silva" 
                                    class="form-input w-full rounded-xl p-4 text-white"
-                                   aria-required="true"
-                                   aria-describedby="nome-error">
-                            <span id="nome-error" class="text-red-400 text-xs mt-1 hidden" role="alert"></span>
+                                   aria-required="true">
                         </div>
                         
                         <!-- Instituição -->
@@ -396,9 +450,7 @@
                                    required
                                    placeholder="Ex: UFAM, INPE, Marinha do Brasil" 
                                    class="form-input w-full rounded-xl p-4 text-white"
-                                   aria-required="true"
-                                   aria-describedby="instituicao-error">
-                            <span id="instituicao-error" class="text-red-400 text-xs mt-1 hidden" role="alert"></span>
+                                   aria-required="true">
                         </div>
                         
                         <!-- E-mail -->
@@ -413,9 +465,7 @@
                                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                                    placeholder="contato@orgao.gov.br" 
                                    class="form-input w-full rounded-xl p-4 text-white"
-                                   aria-required="true"
-                                   aria-describedby="email-error">
-                            <span id="email-error" class="text-red-400 text-xs mt-1 hidden" role="alert"></span>
+                                   aria-required="true">
                         </div>
                         
                         <!-- Telefone -->
@@ -428,10 +478,21 @@
                                    name="telefone"
                                    pattern="^[\d\s\(\)\-\+]+$"
                                    placeholder="(92) 9 9999-9999" 
-                                   class="form-input w-full rounded-xl p-4 text-white"
-                                   aria-describedby="telefone-error">
-                            <span id="telefone-error" class="text-red-400 text-xs mt-1 hidden" role="alert"></span>
+                                   class="form-input w-full rounded-xl p-4 text-white">
                         </div>
+                    </div>
+                    
+                    <!-- Opcional: CPF/CNPJ para qualificação -->
+                    <div>
+                        <label for="doc" class="block text-sm font-medium text-gray-300 mb-2">
+                            CPF / CNPJ (opcional)
+                        </label>
+                        <input type="text" 
+                               id="doc" 
+                               name="doc"
+                               pattern="^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$|^\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2}$"
+                               placeholder="Ex: 12.345.678/0001-90" 
+                               class="form-input w-full rounded-xl p-4 text-white">
                     </div>
                     
                     <!-- Tipo de Interesse -->
@@ -487,7 +548,7 @@
                                class="mt-1 mr-3 h-4 w-4 rounded border-gray-600 text-cyan-500 focus:ring-cyan-400">
                         <label for="consentimento" class="text-gray-400 text-sm">
                             Aceito receber o Dossiê Técnico e autorizo o uso desta manifestação como <strong>Carta de Interesse</strong> para fins de submissão ao ProSAME/AEB. 
-                            Meus dados serão tratados em conformidade com a <a href="#" class="text-cyan-400 hover:underline">Política de Privacidade (LGPD)</a>. <span class="text-orange-500">*</span>
+                            Meus dados serão tratados em conformidade com a LGPD. <span class="text-orange-500">*</span>
                         </label>
                     </div>
 
@@ -500,7 +561,7 @@
                     </button>
                     
                     <p class="text-center text-gray-500 text-xs mt-4">
-                        *Ao enviar, você consente em receber materiais da missão YAKAMI-SAT 1. Seus dados serão tratados com confidencialidade e não serão compartilhados com terceiros sem autorização expressa.
+                        *Ao enviar, você consente em receber materiais da missão YAKAMI-SAT 1. Seus dados serão tratados com confidencialidade.
                     </p>
                 </form>
             </div>
@@ -517,199 +578,127 @@
                 YAKAMI-SAT 1 | Candidato à Adoção pela Agência Espacial Brasileira
             </p>
             <div class="mt-4 flex justify-center gap-4 text-xs text-gray-500">
-                <a href="#" class="hover:text-cyan-400 transition-colors">Política de Privacidade</a>
+                <a href="politica-privacidade.html" class="hover:text-cyan-400 transition-colors">Política de Privacidade</a>
                 <span>•</span>
-                <a href="#" class="hover:text-cyan-400 transition-colors">Termos de Uso</a>
+                <a href="termos-uso.html" class="hover:text-cyan-400 transition-colors">Termos de Uso</a>
                 <span>•</span>
-                <a href="#" class="hover:text-cyan-400 transition-colors">Contato</a>
+                <a href="contato.html" class="hover:text-cyan-400 transition-colors">Contato</a>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript para Funcionalidades -->
+    <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // === Mobile Menu Toggle ===
+            // Mobile Menu Toggle
             const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
             const mobileMenuClose = document.getElementById('mobile-menu-close');
             const mobileMenu = document.getElementById('mobile-menu');
             
             function toggleMobileMenu() {
                 const isActive = mobileMenu.classList.toggle('active');
-                mobileMenuToggle.setAttribute('aria-expanded', isActive);
+                if (mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', isActive);
                 document.body.style.overflow = isActive ? 'hidden' : '';
             }
             
-            mobileMenuToggle?.addEventListener('click', toggleMobileMenu);
-            mobileMenuClose?.addEventListener('click', toggleMobileMenu);
+            if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+            if (mobileMenuClose) mobileMenuClose.addEventListener('click', toggleMobileMenu);
             
-            // Close menu when clicking a link
-            mobileMenu?.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.remove('active');
-                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                    document.body.style.overflow = '';
+            if (mobileMenu) {
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('active');
+                        if (mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                        document.body.style.overflow = '';
+                    });
                 });
-            });
+            }
             
-            // === Form Validation & Submission ===
-            const form = document.getElementById('prosame-contact-form');
-            const submitBtn = document.getElementById('submit-btn');
-            const successMsg = document.getElementById('form-success');
-            const errorMsg = document.getElementById('form-error');
-            const charCount = document.getElementById('char-count');
+            // Character counter
             const descricao = document.getElementById('descricao');
-            
-            // Character counter for textarea
+            const charCount = document.getElementById('char-count');
             if (descricao && charCount) {
                 descricao.addEventListener('input', () => {
                     charCount.textContent = descricao.value.length;
                 });
             }
             
-            // Real-time validation feedback
-            const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
-            inputs.forEach(input => {
-                input.addEventListener('blur', () => validateField(input));
-                input.addEventListener('input', () => {
-                    const errorSpan = document.getElementById(`${input.id}-error`);
-                    if (errorSpan && input.validity.valid) {
-                        errorSpan.classList.add('hidden');
+            // Form submission
+            const form = document.getElementById('prosame-contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const successMsg = document.getElementById('form-success');
+            const errorMsg = document.getElementById('form-error');
+            
+            if (form) {
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    // Honeypot
+                    const honeypot = form.querySelector('input[name="website"]');
+                    if (honeypot && honeypot.value) return;
+                    
+                    // Validação básica do checkbox
+                    const consent = document.getElementById('consentimento');
+                    if (!consent || !consent.checked) {
+                        alert('Você precisa aceitar os termos de consentimento.');
+                        return;
+                    }
+                    
+                    // Loading state
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.classList.add('btn-loading');
+                    }
+                    
+                    if (successMsg) successMsg.style.display = 'none';
+                    if (errorMsg) errorMsg.style.display = 'none';
+                    
+                    // Coleta dos dados
+                    const formData = new FormData(form);
+                    const data = Object.fromEntries(formData.entries());
+                    
+                    try {
+                        // 🔧 IMPORTANTE: Substitua a URL abaixo pelo seu endpoint real
+                        // Opção 1: FormSubmit (gratuito) – https://formsubmit.co/seu-email@dominio.com
+                        // Opção 2: Google Apps Script
+                        // Opção 3: SheetDB
+                        // Opção 4: Seu próprio backend
+                        
+                        // Simulação de envio (remova e adicione seu endpoint)
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                        
+                        // Exemplo real com FormSubmit:
+                        /*
+                        const response = await fetch('https://formsubmit.co/ajax/seu-email@dominio.com', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                        });
+                        if (!response.ok) throw new Error('Erro no envio');
+                        */
+                        
+                        // Sucesso
+                        if (successMsg) {
+                            successMsg.style.display = 'block';
+                            successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                        form.reset();
+                        if (charCount) charCount.textContent = '0';
+                        
+                    } catch (error) {
+                        console.error('Erro:', error);
+                        if (errorMsg) {
+                            errorMsg.style.display = 'block';
+                            errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    } finally {
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.classList.remove('btn-loading');
+                        }
                     }
                 });
-            });
-            
-            function validateField(field) {
-                const errorSpan = document.getElementById(`${field.id}-error`);
-                if (!errorSpan) return;
-                
-                if (!field.validity.valid) {
-                    let message = '';
-                    if (field.validity.valueMissing) {
-                        message = 'Este campo é obrigatório.';
-                    } else if (field.validity.typeMismatch) {
-                        message = 'Formato de e-mail inválido.';
-                    } else if (field.validity.patternMismatch) {
-                        message = 'Formato inválido. Verifique os dados.';
-                    } else if (field.validity.tooShort) {
-                        message = `Mínimo de ${field.minLength} caracteres.`;
-                    }
-                    errorSpan.textContent = message;
-                    errorSpan.classList.remove('hidden');
-                    return false;
-                }
-                errorSpan.classList.add('hidden');
-                return true;
             }
-            
-            // Form submission handler
-            form?.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                // Validate all required fields
-                let isValid = true;
-                inputs.forEach(input => {
-                    if (!validateField(input)) isValid = false;
-                });
-                
-                // Check honeypot (anti-spam)
-                const honeypot = form.querySelector('input[name="website"]');
-                if (honeypot?.value) {
-                    // Bot detected - silently fail
-                    return;
-                }
-                
-                if (!isValid) {
-                    showError('Por favor, corrija os campos destacados.');
-                    return;
-                }
-                
-                // Show loading state
-                submitBtn.disabled = true;
-                submitBtn.classList.add('btn-loading');
-                hideMessages();
-                
-                try {
-                    // Simulate API call (replace with actual endpoint)
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    
-                    // In production, send data to your backend:
-                    /*
-                    const response = await fetch('/api/prosame-interest', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(Object.fromEntries(new FormData(form)))
-                    });
-                    if (!response.ok) throw new Error('Network error');
-                    */
-                    
-                    // Show success
-                    showSuccess();
-                    form.reset();
-                    if (charCount) charCount.textContent = '0';
-                    
-                } catch (error) {
-                    console.error('Submission error:', error);
-                    showError('Não foi possível processar sua solicitação. Tente novamente ou entre em contato diretamente.');
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.classList.remove('btn-loading');
-                }
-            });
-            
-            function showSuccess() {
-                hideMessages();
-                successMsg.style.display = 'block';
-                // Scroll to message
-                successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-            
-            function showError(message) {
-                hideMessages();
-                errorMsg.querySelector('strong').textContent = message || 'Ocorreu um erro.';
-                errorMsg.style.display = 'block';
-                errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-            
-            function hideMessages() {
-                successMsg.style.display = 'none';
-                errorMsg.style.display = 'none';
-            }
-            
-            // === Accessibility Enhancements ===
-            // Skip link for keyboard users
-            const skipLink = document.createElement('a');
-            skipLink.href = '#letter-of-intent';
-            skipLink.className = 'sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:bg-cyan-600 focus:text-white focus:px-4 focus:py-2 focus:rounded focus:z-50';
-            skipLink.textContent = 'Pular para o formulário';
-            document.body.insertBefore(skipLink, document.body.firstChild);
-            
-            // Add CSS for sr-only class if not present
-            const style = document.createElement('style');
-            style.textContent = `
-                .sr-only {
-                    position: absolute;
-                    width: 1px;
-                    height: 1px;
-                    padding: 0;
-                    margin: -1px;
-                    overflow: hidden;
-                    clip: rect(0, 0, 0, 0);
-                    white-space: nowrap;
-                    border: 0;
-                }
-                .focus\\:not-sr-only:focus {
-                    position: static;
-                    width: auto;
-                    height: auto;
-                    padding: 0.5rem 1rem;
-                    margin: 0;
-                    overflow: visible;
-                    clip: auto;
-                    white-space: normal;
-                }
-            `;
-            document.head.appendChild(style);
         });
     </script>
 </body>
