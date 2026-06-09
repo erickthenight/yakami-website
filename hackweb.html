@@ -12,6 +12,7 @@
         body { font-family: 'Open Sans', sans-serif; background-color: #050a05; color: #ffffff; }
         h1, h2 { font-family: 'Montserrat', sans-serif; }
         .hero-bg { 
+            /* ATENÇÃO: Se o fundo não carregar, verifique se o nome do arquivo não tem acentos */
             background: linear-gradient(135deg, rgba(5, 10, 5, 0.95), rgba(5, 10, 5, 0.95)), url('assets/1._Página_Inicial_(Home).png'); 
             background-size: cover; 
             background-position: center; 
@@ -22,7 +23,7 @@
 
     <header class="fixed top-0 w-full z-50 p-4 bg-black/90 backdrop-blur-md border-b border-green-900">
         <div class="container mx-auto flex justify-between items-center">
-            <img src="assets/Logo_YAKAMI_ECO_FLOW_1.png" alt="YAKAMI TECH" class="h-10">
+            <img src="assets/Logo_YAKAMI_ECO_FLOW_1.png" alt="Logo YAKAMI TECH" class="h-10">
             <a href="https://github.com/erickthenight/Yakami-TrustFlow-HackWeb" target="_blank" class="bg-green-800 px-6 py-2 rounded-full text-xs font-bold uppercase hover:bg-green-700 transition-all">Repositório</a>
         </div>
     </header>
@@ -36,18 +37,29 @@
     </main>
 
     <section id="conteudo" class="py-20 container mx-auto px-6 max-w-6xl">
-        <div class="space-y-12">
-            <img src="assets/1._Página_Inicial_(Home).png" class="rounded-2xl shadow-2xl">
-            <img src="assets/2._Tecnologia_e_Hardware_(ECO_Stations).png" class="rounded-2xl shadow-2xl">
-            <img src="assets/3._Tokenomics_(Ecossistema_YKM).png" class="rounded-2xl shadow-2xl">
-            <img src="assets/4._Impacto_Social_(Trilha_do_Aprendiz).png" class="rounded-2xl shadow-2xl">
-            <img src="assets/5._Soluções_e_Uso_Dual_(Logística_e_Defesa).png" class="rounded-2xl shadow-2xl">
-            <img src="assets/6._Dashboard_e_Transparência_(Acesso_ao_Sistema).png" class="rounded-2xl shadow-2xl">
+        <!-- CORREÇÃO: 'flex flex-col items-center' centraliza as imagens no container -->
+        <div class="space-y-12 flex flex-col items-center">
+            
+            <!-- CORREÇÃO: 'w-full' faz a imagem ocupar a largura total do container -->
+            <!-- DICA: Lembre-se de adicionar o 'alt' para acessibilidade -->
+            
+            <img src="assets/1._Página_Inicial_(Home).png" alt="Página Inicial - YAKAMI TrustFlow" class="rounded-2xl shadow-2xl w-full">
+            
+            <img src="assets/2._Tecnologia_e_Hardware_(ECO_Stations).png" alt="Tecnologia e Hardware - ECO Stations" class="rounded-2xl shadow-2xl w-full">
+            
+            <img src="assets/3._Tokenomics_(Ecossistema_YKM).png" alt="Tokenomics - Ecossistema YKM" class="rounded-2xl shadow-2xl w-full">
+            
+            <img src="assets/4._Impacto_Social_(Trilha_do_Aprendiz).png" alt="Impacto Social - Trilha do Aprendiz" class="rounded-2xl shadow-2xl w-full">
+            
+            <!-- ATENÇÃO: Se esta imagem estiver corrompida, renomeie o arquivo na pasta 'assets' para '5._Solucoes_e_Uso_Dual_(Logistica_e_Defesa).png' e mude o src aqui -->
+            <img src="assets/5._Soluções_e_Uso_Dual_(Logística_e_Defesa).png" alt="Soluções e Uso Dual" class="rounded-2xl shadow-2xl w-full">
+            
+            <img src="assets/6._Dashboard_e_Transparência_(Acesso_ao_Sistema).png" alt="Dashboard e Transparência" class="rounded-2xl shadow-2xl w-full">
         </div>
     </section>
 
     <footer class="py-10 border-t border-green-900 text-center text-sm text-gray-500">
-        <img src="assets/Logo_YAKAMI_ECO_FLOW_PRETO_E_BRANCO_2.jpg" class="h-8 mx-auto mb-4 opacity-50">
+        <img src="assets/Logo_YAKAMI_ECO_FLOW_PRETO_E_BRANCO_2.jpg" alt="Logo YAKAMI Preto e Branco" class="h-8 mx-auto mb-4 opacity-50">
         <p>© 2026 YAKAMI TECH – Infraestrutura Ciberfísica Soberana.</p>
     </footer>
 
