@@ -1,170 +1,54 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="YAKAMI ECO FLOW - Entrega Oficial HackWeb Web3 (Desafio 2: TrustCode). Oráculos ciberfísicos e Smart Contracts na Amazônia.">
-    <title>YAKAMI TrustFlow - HackWeb Web3</title>
-    
+    <title>YAKAMI TrustFlow | Infraestrutura Ciberfísica</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
-        html { scroll-behavior: smooth; }
-        body { 
-            font-family: 'Inter', system-ui, -apple-system, sans-serif; 
-            background-color: #0f172a; 
+        body { font-family: 'Open Sans', sans-serif; background-color: #050a05; color: #ffffff; }
+        h1, h2 { font-family: 'Montserrat', sans-serif; }
+        .hero-bg { 
+            background: linear-gradient(135deg, rgba(5, 10, 5, 0.95), rgba(5, 10, 5, 0.95)), url('assets/1._Página_Inicial_(Home).png'); 
+            background-size: cover; 
+            background-position: center; 
         }
-        
-        .hero-bg {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%),
-                        url('assets/slide1.png'); /* Substitua pelo nome exato da imagem 1 */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(34, 211, 238, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .neon-glow:hover {
-            box-shadow: 0 0 25px rgba(34, 211, 238, 0.4);
-            border-color: #22d3ee;
-            transform: translateY(-2px);
-        }
-        
-        .btn-hover { transition: all 0.2s ease; }
-        .btn-hover:hover { transform: scale(1.02); }
     </style>
 </head>
-<body class="text-white antialiased">
+<body class="antialiased">
 
-    <header class="fixed top-0 w-full z-50 p-4 bg-gray-900/90 backdrop-blur-md border-b border-gray-800">
+    <header class="fixed top-0 w-full z-50 p-4 bg-black/90 backdrop-blur-md border-b border-green-900">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-black tracking-tighter text-orange-500">
-                YAKAMI<span class="text-white">.TECH</span>
-            </a>
-            <nav class="hidden md:flex space-x-8 font-semibold text-sm uppercase tracking-widest items-center">
-                <a href="index.html" class="hover:text-cyan-400 transition-colors">Início</a>
-                <a href="#projeto" class="hover:text-cyan-400 transition-colors">O Projeto</a>
-                <a href="#impacto" class="hover:text-cyan-400 transition-colors">Impacto Social</a>
-                <span class="bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 px-3 py-1 rounded-full text-xs">HackWeb 2026</span>
-            </nav>
+            <img src="assets/Logo_YAKAMI_GERAL.png" alt="YAKAMI TECH" class="h-10">
+            <a href="https://github.com/erickthenight/Yakami-TrustFlow-HackWeb" target="_blank" class="bg-green-800 px-6 py-2 rounded-full text-xs font-bold uppercase hover:bg-green-700 transition-all">Repositório</a>
         </div>
     </header>
 
-    <main class="relative hero-bg min-h-screen flex items-center justify-center pt-20">
-        <div class="relative z-10 p-6 max-w-5xl mx-auto text-center">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 mb-6">
-                <i class="fas fa-code text-orange-400 text-sm"></i>
-                <span class="text-orange-400 font-bold text-xs tracking-wider">DESAFIO 2: TRUSTCODE</span>
-            </div>
-            
-            <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
-                YAKAMI <span class="text-cyan-400">TRUSTFLOW</span>
-            </h1>
-            <p class="text-lg md:text-xl lg:text-2xl mb-10 text-gray-300 font-light max-w-3xl mx-auto">
-                A Verdade de Solo da Amazônia em Tempo Real. Substituindo a confiança manual por Smart Contracts e Governança Imutável.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-16">
-                <a href="https://github.com/erickthenight/Yakami-TrustFlow-HackWeb" target="_blank" class="btn-hover bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-black py-4 px-8 rounded-full transition-all">
-                    <i class="fab fa-github mr-2"></i> Ver Repositório Oficial
-                </a>
-                <a href="https://youtu.be/xxCw4utw1m8" target="_blank" class="btn-hover border-2 border-white/30 hover:border-orange-500 py-4 px-8 rounded-full font-bold transition-all">
-                    <i class="fab fa-youtube text-red-500 mr-2"></i> Assistir Vídeo Pitch
-                </a>
-            </div>
-        </div>
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <a href="#projeto"><i class="fas fa-chevron-down text-cyan-400 text-3xl"></i></a>
+    <main class="hero-bg min-h-screen flex items-center justify-center pt-20 text-center px-4">
+        <div>
+            <h1 class="text-5xl md:text-8xl font-black mb-6 uppercase">YAKAMI <span class="text-green-600">TRUSTFLOW</span></h1>
+            <p class="text-xl mb-10 text-gray-300 max-w-2xl mx-auto">A Verdade de Solo da Amazônia. Infraestrutura ciberfísica e Smart Contracts.</p>
+            <a href="#conteudo" class="bg-green-800 hover:bg-green-700 font-black py-4 px-12 rounded-full transition-all">EXPLORAR ARQUITETURA</a>
         </div>
     </main>
 
-    <section id="projeto" class="py-20 bg-gray-950">
-        <div class="container mx-auto px-6 max-w-6xl">
-            
-            <div class="text-center mb-16">
-                <h2 class="text-3xl lg:text-4xl font-black mb-4 uppercase">Arquitetura Ciberfísica</h2>
-                <div class="w-24 h-1 bg-cyan-500 mx-auto"></div>
-            </div>
-
-            <div class="mb-20 glass-panel rounded-3xl overflow-hidden neon-glow">
-                <img src="assets/slide2.png" alt="Tecnologia e Hardware ECO Stations" class="w-full object-cover">
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Oráculos Ciberfísicos na Borda</h3>
-                    <p class="text-gray-400">Hardware proprietário tropicalizado. Coleta de dados com assinatura criptográfica no silício, garantindo a integridade da informação antes mesmo de ser registrada na blockchain.</p>
-                </div>
-            </div>
-
-            <div class="mb-20 glass-panel rounded-3xl overflow-hidden neon-glow">
-                <img src="assets/slide3.png" alt="Tokenomics Ecossistema YKM" class="w-full object-cover">
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold mb-3 text-orange-400">Tokenomics & Automação de Regras</h3>
-                    <p class="text-gray-400">Fluxo financeiro programável com o Token YKM. Mecanismo de Corporate Burn de 2% e liquidação em tempo real sem intermediários logísticos.</p>
-                </div>
-            </div>
-
-            <div class="mb-20 glass-panel rounded-3xl overflow-hidden neon-glow">
-                <img src="assets/slide6.png" alt="Dashboard Mendix e Transparência" class="w-full object-cover">
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold mb-3 text-cyan-400">Gêmeo Digital e Dashboard Industrial</h3>
-                    <p class="text-gray-400">Interface de gatilho para os Smart Contracts. Painéis operacionais em Mendix e imersão VR em Unity que conectam a física da floresta à gestão de compliance Web3.</p>
-                </div>
-            </div>
-
-            <div class="mb-20 glass-panel rounded-3xl overflow-hidden neon-glow">
-                <img src="assets/slide5.png" alt="Uso Dual Logística e Defesa" class="w-full object-cover">
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold mb-3 text-orange-400">Uso Dual: Logística e Defesa Nacional</h3>
-                    <p class="text-gray-400">Proteção do Polo Industrial de Manaus e monitoramento ambiental com validade técnica para o CENSIPAM e Marinha.</p>
-                </div>
-            </div>
-
+    <section id="conteudo" class="py-20 container mx-auto px-6 max-w-6xl">
+        <div class="space-y-12">
+            <img src="assets/1._Página_Inicial_(Home).png" class="rounded-2xl shadow-2xl">
+            <img src="assets/2._Tecnologia_e_Hardware_(ECO_Stations).png" class="rounded-2xl shadow-2xl">
+            <img src="assets/3._Tokenomics_(Ecossistema_YKM).png" class="rounded-2xl shadow-2xl">
+            <img src="assets/4._Impacto_Social_(Trilha_do_Aprendiz).png" class="rounded-2xl shadow-2xl">
+            <img src="assets/5._Soluções_e_Uso_Dual_(Logística_e_Defesa).png" class="rounded-2xl shadow-2xl">
+            <img src="assets/6._Dashboard_e_Transparência_(Acesso_ao_Sistema).png" class="rounded-2xl shadow-2xl">
         </div>
     </section>
 
-    <section id="impacto" class="py-20 bg-gray-900 border-t border-gray-800">
-        <div class="container mx-auto px-6 max-w-6xl">
-            <div class="grid md:grid-cols-2 gap-12">
-                
-                <div class="glass-panel rounded-3xl overflow-hidden neon-glow">
-                    <img src="assets/slide4.png" alt="Trilha do Aprendiz - Impacto Social" class="w-full object-cover">
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold mb-3 text-cyan-400">Trilha do Aprendiz (DePIN Social)</h3>
-                        <p class="text-gray-400">O ecossistema conta com um programa de alto impacto que qualifica jovens periféricos e ribeirinhos diretamente na startup. Atuando como mantenedores descentralizados, recebem as recompensas logísticas em suas carteiras, inserindo a juventude local na economia digital da Web3.</p>
-                    </div>
-                </div>
-
-                <div class="glass-panel rounded-3xl overflow-hidden neon-glow flex flex-col justify-between">
-                    <img src="assets/slide7.png" alt="Equipe e Governança" class="w-full object-cover">
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold mb-3 text-orange-400">Liderança e Governança</h3>
-                        <p class="text-gray-400 mb-4">Experiência executiva em tecnologia embarcada e direito digital.</p>
-                        <ul class="text-sm text-gray-500 space-y-2">
-                            <li><strong class="text-white">Erick Mattos:</strong> CEO & Tech Lead</li>
-                            <li><strong class="text-white">Helen Araújo:</strong> CLO / Chief Legal Officer</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-8 text-center text-gray-500 text-sm border-t border-gray-800 bg-gray-950">
-        <div class="container mx-auto px-6">
-            <p>© 2026 YAKAMI TECH – Infraestrutura Ciberfísica Soberana para a Amazônia</p>
-            <p class="text-xs text-gray-600 mt-1">Projeto desenvolvido para a Residência TIC 29 (Web3)</p>
-        </div>
+    <footer class="py-10 border-t border-green-900 text-center text-sm text-gray-500">
+        <img src="assets/Logo_YAKAMI_ECO_FLOW_PRETO_E_BRANCO_2.jpg" class="h-8 mx-auto mb-4 opacity-50">
+        <p>© 2026 YAKAMI TECH – Infraestrutura Ciberfísica Soberana.</p>
     </footer>
 
 </body>
