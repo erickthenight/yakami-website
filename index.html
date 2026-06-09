@@ -6,13 +6,10 @@
     <meta name="description" content="YAKAMI TECH - Infraestrutura de nanossatélites e IA para soberania de dados na Amazônia. Monitoramento em tempo real, segurança de fronteiras e rastreabilidade imutável.">
     <title>YAKAMI TECH - Soberania e Inteligência Territorial</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     
     <style>
@@ -20,6 +17,7 @@
         body { 
             font-family: 'Inter', system-ui, -apple-system, sans-serif; 
             background-color: #0f172a; 
+            overflow-x: hidden;
         }
         
         /* Hero Section com Imagem de Satélite (fallback) */
@@ -75,143 +73,148 @@
 </head>
 <body class="text-white antialiased">
 
-    <!-- HEADER / NAV (CORRIGIDO) -->
-    <header class="fixed top-0 w-full z-50 p-4 bg-gray-900/90 backdrop-blur-md border-b border-gray-800">
+    <header class="fixed top-0 w-full z-50 p-4 bg-gray-900/95 backdrop-blur-md border-b border-gray-800 shadow-lg">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="text-2xl font-black tracking-tighter text-orange-500">
                 YAKAMI<span class="text-white">.TECH</span>
             </a>
-            <nav class="hidden md:flex space-x-8 font-semibold text-sm uppercase tracking-widest">
+            <nav class="hidden lg:flex space-x-6 items-center font-semibold text-sm uppercase tracking-widest">
                 <a href="#tecnologia" class="hover:text-cyan-400 transition-colors">Tecnologia</a>
                 <a href="#investidores" class="hover:text-cyan-400 transition-colors">Investidores</a>
                 <a href="empresa.html" class="hover:text-cyan-400 transition-colors">Empresa</a>
                 <a href="equipe.html" class="hover:text-cyan-400 transition-colors">Equipe</a>
                 <a href="prosame.html" class="hover:text-cyan-400 transition-colors">ProSAME</a>
-                <a href="contato.html" class="bg-orange-600 hover:bg-orange-500 px-5 py-2 rounded-full text-white transition-all text-sm">Contato</a>
+                
+                <a href="hackweb.html" class="text-cyan-400 font-bold hover:text-cyan-300 transition-colors flex items-center border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 rounded-md">
+                    <i class="fas fa-cube mr-2"></i> HackWeb
+                </a>
+
+                <a href="contato.html" class="bg-orange-600 hover:bg-orange-500 px-5 py-2 rounded-full text-white transition-all shadow-lg shadow-orange-600/20">Contato</a>
             </nav>
-            <!-- Mobile Menu Button -->
-            <button class="md:hidden text-white focus:outline-none" id="mobile-menu-toggle" aria-label="Menu">
-                <i class="fas fa-bars text-xl"></i>
+            <button class="lg:hidden text-white focus:outline-none p-2" id="mobile-menu-toggle" aria-label="Menu">
+                <i class="fas fa-bars text-2xl"></i>
             </button>
         </div>
         
-        <!-- Mobile Menu (simples) -->
-        <div id="mobile-menu" class="hidden md:hidden mt-4 bg-gray-800/95 rounded-lg p-4 space-y-3">
-            <a href="#tecnologia" class="block hover:text-cyan-400 py-2">Tecnologia</a>
-            <a href="#investidores" class="block hover:text-cyan-400 py-2">Investidores</a>
-            <a href="empresa.html" class="block hover:text-cyan-400 py-2">Empresa</a>
-            <a href="equipe.html" class="block hover:text-cyan-400 py-2">Equipe</a>
-            <a href="prosame.html" class="block hover:text-cyan-400 py-2">ProSAME</a>
-            <a href="contato.html" class="inline-block bg-orange-600 px-5 py-2 rounded-full text-white">Contato</a>
+        <div id="mobile-menu" class="hidden lg:hidden mt-4 bg-gray-800 rounded-xl p-5 space-y-4 border border-gray-700 shadow-2xl absolute w-full left-0">
+            <a href="#tecnologia" class="block hover:text-cyan-400 font-medium transition-colors">Tecnologia</a>
+            <a href="#investidores" class="block hover:text-cyan-400 font-medium transition-colors">Investidores</a>
+            <a href="empresa.html" class="block hover:text-cyan-400 font-medium transition-colors">Empresa</a>
+            <a href="equipe.html" class="block hover:text-cyan-400 font-medium transition-colors">Equipe</a>
+            <a href="prosame.html" class="block hover:text-cyan-400 font-medium transition-colors">ProSAME</a>
+            
+            <a href="hackweb.html" class="block text-cyan-400 font-bold bg-cyan-900/30 p-3 rounded-lg border border-cyan-800 transition-colors">
+                <i class="fas fa-cube mr-2"></i> Projeto HackWeb
+            </a>
+            
+            <a href="contato.html" class="block bg-orange-600 hover:bg-orange-500 text-center py-3 rounded-lg text-white font-bold transition-colors mt-2">Contato</a>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <main class="relative hero-bg min-h-screen flex items-center justify-center pt-20">
+    <main class="relative hero-bg min-h-screen flex items-center justify-center pt-24 pb-12">
         <div class="relative z-10 p-6 max-w-5xl mx-auto text-center">
-            <!-- Selo de Soberania -->
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 mb-6">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 mb-6 shadow-lg shadow-cyan-500/10">
                 <i class="fas fa-shield-alt text-cyan-400 text-sm"></i>
                 <span class="text-cyan-400 font-bold text-xs tracking-wider">100% SOBERANIA NACIONAL</span>
             </div>
             
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight drop-shadow-lg">
                 TECNOLOGIA ESPACIAL E <br>
                 <span class="text-cyan-400">SOBERANIA PARA A AMAZÔNIA.</span>
             </h1>
-            <p class="text-lg md:text-xl lg:text-2xl mb-10 text-gray-300 font-light max-w-3xl mx-auto">
+            <p class="text-lg md:text-xl lg:text-2xl mb-10 text-gray-300 font-light max-w-3xl mx-auto drop-shadow-md">
                 Desenvolvemos nanossatélites, redes DePIN e Gêmeos Digitais para monitoramento de infraestrutura crítica, logística e defesa da Amazônia.
             </p>
             
-            <!-- CTA Buttons -->
             <div class="flex flex-col sm:flex-row justify-center gap-4 mb-16">
-                <a href="#tecnologia" class="btn-hover bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-black py-4 px-8 rounded-full transition-all">
+                <a href="#tecnologia" class="btn-hover bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-black py-4 px-8 rounded-full transition-all shadow-xl shadow-cyan-500/20">
                     Acessar o Projeto YAKAMI-SAT1
                 </a>
-                <a href="assets/pitch-deck-china.pdf" target="_blank" class="btn-hover border-2 border-white/30 hover:border-orange-500 py-4 px-8 rounded-full font-bold transition-all">
+                <a href="assets/pitch-deck-china.pdf" target="_blank" class="btn-hover border-2 border-white/30 hover:border-orange-500 hover:bg-orange-500/10 py-4 px-8 rounded-full font-bold transition-all backdrop-blur-sm">
                     <i class="fas fa-download mr-2"></i> Parcerias Estratégicas
                 </a>
             </div>
 
-            <!-- Métricas de Autoridade -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="glass-panel p-5 rounded-2xl">
-                    <p class="text-2xl md:text-3xl font-black stat-number">TRL 4-5</p>
-                    <p class="text-xs uppercase tracking-tighter text-gray-400 mt-1">Maturidade Técnica</p>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <div class="glass-panel p-6 rounded-2xl transform transition hover:-translate-y-1">
+                    <p class="text-3xl md:text-4xl font-black stat-number">TRL 4-5</p>
+                    <p class="text-xs uppercase tracking-tighter text-gray-400 mt-2 font-semibold">Maturidade Técnica</p>
                 </div>
-                <div class="glass-panel p-5 rounded-2xl">
-                    <p class="text-2xl md:text-3xl font-black text-white">21</p>
-                    <p class="text-xs uppercase tracking-tighter text-gray-400 mt-1">Anexos ProSAME</p>
+                <div class="glass-panel p-6 rounded-2xl transform transition hover:-translate-y-1">
+                    <p class="text-3xl md:text-4xl font-black text-white">21</p>
+                    <p class="text-xs uppercase tracking-tighter text-gray-400 mt-2 font-semibold">Anexos ProSAME</p>
                 </div>
-                <div class="glass-panel p-5 rounded-2xl">
-                    <p class="text-2xl md:text-3xl font-black stat-number">55</p>
-                    <p class="text-xs uppercase tracking-tighter text-gray-400 mt-1">Ativos de PI</p>
+                <div class="glass-panel p-6 rounded-2xl transform transition hover:-translate-y-1">
+                    <p class="text-3xl md:text-4xl font-black stat-number">55</p>
+                    <p class="text-xs uppercase tracking-tighter text-gray-400 mt-2 font-semibold">Ativos de PI</p>
                 </div>
-                <div class="glass-panel p-5 rounded-2xl">
-                    <p class="text-2xl md:text-3xl font-black text-white">19,25/20</p>
-                    <p class="text-xs uppercase tracking-tighter text-gray-400 mt-1">Nota ABDI</p>
+                <div class="glass-panel p-6 rounded-2xl transform transition hover:-translate-y-1">
+                    <p class="text-3xl md:text-4xl font-black text-white">19,25<span class="text-xl text-gray-400">/20</span></p>
+                    <p class="text-xs uppercase tracking-tighter text-gray-400 mt-2 font-semibold">Nota ABDI</p>
                 </div>
             </div>
             
-            <!-- Trust Badges -->
-            <div class="mt-8 flex flex-wrap justify-center gap-4 text-xs text-gray-400">
-                <span class="flex items-center"><i class="fas fa-check text-green-400 mr-1"></i> Patent PCT em andamento</span>
-                <span class="flex items-center"><i class="fas fa-check text-green-400 mr-1"></i> Validado pela ABDI</span>
-                <span class="flex items-center"><i class="fas fa-check text-green-400 mr-1"></i> Conformidade AEB</span>
+            <div class="mt-10 flex flex-wrap justify-center gap-6 text-sm text-gray-300 font-medium">
+                <span class="flex items-center bg-gray-800/50 px-3 py-1 rounded-full"><i class="fas fa-check-circle text-green-400 mr-2"></i> Patente PCT em andamento</span>
+                <span class="flex items-center bg-gray-800/50 px-3 py-1 rounded-full"><i class="fas fa-check-circle text-green-400 mr-2"></i> Validado pela ABDI</span>
+                <span class="flex items-center bg-gray-800/50 px-3 py-1 rounded-full"><i class="fas fa-check-circle text-green-400 mr-2"></i> Conformidade AEB</span>
             </div>
         </div>
         
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <i class="fas fa-chevron-down text-gray-400 text-2xl"></i>
+        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#tecnologia" aria-label="Rolar para baixo">
+                <i class="fas fa-chevron-down text-gray-400 hover:text-cyan-400 transition-colors text-2xl"></i>
+            </a>
         </div>
     </main>
 
-    <!-- SEÇÃO TECNOLOGIA -->
-    <section id="tecnologia" class="py-20 lg:py-24 bg-gray-950">
-        <div class="container mx-auto px-6">
+    <section id="tecnologia" class="py-20 lg:py-24 bg-gray-950 relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-cyan-900/20 blur-3xl"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
             <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                <div class="relative">
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-cyan-500 rounded-3xl blur opacity-20 group-hover:opacity-30 transition duration-500"></div>
                     <img 
                         src="assets/tech-cubesat-6u-detail.jpg" 
                         alt="Nanossatélite YAKAMI 6U" 
-                        class="rounded-3xl shadow-2xl border border-white/10 neon-glow w-full"
+                        class="relative rounded-3xl shadow-2xl border border-gray-700 neon-glow w-full object-cover"
                         onerror="this.src='https://via.placeholder.com/600x400/1e293b/94a3b8?text=CubeSat+6U'"
                     >
-                    <div class="absolute -bottom-8 -right-4 lg:-bottom-10 lg:-right-10 hidden lg:block">
+                    <div class="absolute -bottom-8 -right-4 lg:-bottom-10 lg:-right-10 hidden md:block">
                         <img 
                             src="assets/map-impact-points.jpg" 
                             alt="Mapa de impacto"
-                            class="w-48 lg:w-64 rounded-2xl border-2 border-cyan-500/50 shadow-cyan-500/20 shadow-2xl"
+                            class="w-48 lg:w-64 rounded-2xl border-4 border-gray-900 shadow-cyan-500/20 shadow-2xl transform transition hover:scale-105"
                             onerror="this.src='https://via.placeholder.com/256x256/1e293b/94a3b8?text=Mapa'"
                         >
                     </div>
                 </div>
                 
                 <div>
-                    <h2 class="text-3xl lg:text-4xl font-black mb-6 lg:mb-8 leading-tight">
+                    <h2 class="text-3xl lg:text-5xl font-black mb-6 lg:mb-8 leading-tight">
                         INFRAESTRUTURA ORBITAL <br>
-                        <span class="text-cyan-400 text-lg lg:text-xl uppercase tracking-widest font-light">
-                            YAKAMI-SAT 1
+                        <span class="text-cyan-400 text-lg lg:text-2xl uppercase tracking-widest font-semibold mt-2 block">
+                            Missão YAKAMI-SAT 1
                         </span>
                     </h2>
-                    <div class="space-y-6 lg:space-y-8">
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0 w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center border border-cyan-500/30">
-                                <i class="fas fa-satellite text-cyan-400 text-xl"></i>
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-5 group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-cyan-900/30 rounded-2xl flex items-center justify-center border border-cyan-500/30 group-hover:bg-cyan-500/20 transition-colors">
+                                <i class="fas fa-satellite text-cyan-400 text-2xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-lg lg:text-xl">Nanossatélites 6U</h4>
-                                <p class="text-gray-400 text-sm mt-1">Monitoramento hiperespectral projetado para penetrar a densa cobertura de nuvens tropicais.</p>
+                                <h4 class="font-bold text-xl text-white">Nanossatélites 6U</h4>
+                                <p class="text-gray-400 text-base mt-2 leading-relaxed">Monitoramento hiperespectral projetado especificamente para penetrar a densa cobertura de nuvens tropicais amazônicas, operando onde satélites ópticos tradicionais falham.</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0 w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center border border-orange-500/30">
-                                <i class="fas fa-microchip text-orange-400 text-xl"></i>
+                        <div class="flex items-start space-x-5 group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-900/30 rounded-2xl flex items-center justify-center border border-orange-500/30 group-hover:bg-orange-500/20 transition-colors">
+                                <i class="fas fa-microchip text-orange-400 text-2xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-lg lg:text-xl">Chip PUF Nacional</h4>
-                                <p class="text-gray-400 text-sm mt-1">Criptografia de hardware baseada em Funções Físicas Não Clonáveis para segurança de fronteiras.</p>
+                                <h4 class="font-bold text-xl text-white">Chip PUF Nacional</h4>
+                                <p class="text-gray-400 text-base mt-2 leading-relaxed">Criptografia de hardware de nível militar baseada em Funções Físicas Não Clonáveis (PUF), garantindo a soberania dos dados de fronteira e a impossibilidade de interceptação.</p>
                             </div>
                         </div>
                     </div>
@@ -220,79 +223,113 @@
         </div>
     </section>
 
-    <!-- SEÇÃO PARA INVESTIDORES -->
-    <section id="investidores" class="py-20 lg:py-24 bg-gray-900/50 border-y border-gray-800">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-4">PARA INVESTIDORES ESTRATÉGICOS</h2>
-            <p class="text-gray-300 text-base lg:text-lg mb-10 lg:mb-12 max-w-3xl mx-auto">
-                Participe da primeira infraestrutura de dados soberana da Amazônia, protegida por patentes PCT e validada por órgãos de defesa.
+    <section id="investidores" class="py-20 lg:py-24 bg-gray-900 border-y border-gray-800 relative">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-6">PARA INVESTIDORES ESTRATÉGICOS</h2>
+            <p class="text-gray-300 text-lg mb-12 max-w-3xl mx-auto leading-relaxed">
+                Participe da construção da primeira infraestrutura de dados soberana da Amazônia, protegida por depósitos de patentes PCT e chancelada por instituições reguladoras de Defesa.
             </p>
             
             <div class="grid md:grid-cols-3 gap-6 lg:gap-8 text-left">
-                <div class="glass-panel p-6 rounded-2xl neon-glow">
-                    <div class="text-cyan-400 text-3xl lg:text-4xl mb-4"><i class="fas fa-chart-line"></i></div>
-                    <h3 class="text-lg lg:text-xl font-bold mb-2">8x MENOR CUSTO</h3>
-                    <p class="text-gray-400 text-sm">Custo operacional 8 vezes menor que soluções estrangeiras equivalentes.</p>
+                <div class="glass-panel p-8 rounded-2xl neon-glow bg-gray-800/40">
+                    <div class="text-cyan-400 text-4xl mb-6"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="text-xl font-bold mb-3 text-white">8x MENOR CUSTO</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Arquitetura otimizada que entrega custo operacional 8 vezes menor em comparação com soluções estrangeiras de monitoramento orbital e terrestre equivalentes.</p>
                 </div>
-                <div class="glass-panel p-6 rounded-2xl neon-glow">
-                    <div class="text-cyan-400 text-3xl lg:text-4xl mb-4"><i class="fas fa-file-contract"></i></div>
-                    <h3 class="text-lg lg:text-xl font-bold mb-2">PATENTE PCT</h3>
-                    <p class="text-gray-400 text-sm">Proteção internacional em 153 países. Tecnologia 100% nacional.</p>
+                <div class="glass-panel p-8 rounded-2xl neon-glow bg-gray-800/40">
+                    <div class="text-orange-400 text-4xl mb-6"><i class="fas fa-file-contract"></i></div>
+                    <h3 class="text-xl font-bold mb-3 text-white">PATENTE PCT</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Reserva de mercado e proteção internacional da propriedade intelectual em 153 países, consolidando a YAKAMI como detentora de tecnologia 100% nacional.</p>
                 </div>
-                <div class="glass-panel p-6 rounded-2xl neon-glow">
-                    <div class="text-cyan-400 text-3xl lg:text-4xl mb-4"><i class="fas fa-handshake"></i></div>
-                    <h3 class="text-lg lg:text-xl font-bold mb-2">COOPERAÇÃO TÉCNICA</h3>
-                    <p class="text-gray-400 text-sm">Parceiros OEM/ODM para escala industrial dos componentes 6U.</p>
+                <div class="glass-panel p-8 rounded-2xl neon-glow bg-gray-800/40">
+                    <div class="text-cyan-400 text-4xl mb-6"><i class="fas fa-handshake"></i></div>
+                    <h3 class="text-xl font-bold mb-3 text-white">COOPERAÇÃO TÉCNICA</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Cadeia de suprimentos estruturada com parceiros OEM/ODM internacionais para garantir a escala industrial rápida dos componentes do barramento 6U.</p>
                 </div>
             </div>
 
-            <div class="mt-12">
-                <a href="assets/proposta-cooperacao-china.pdf" target="_blank" class="btn-hover inline-block bg-orange-600 hover:bg-orange-500 px-8 py-4 rounded-full font-bold transition-all">
-                    📄 BAIXAR PROPOSTA DE COOPERAÇÃO (PDF)
+            <div class="mt-16">
+                <a href="assets/proposta-cooperacao-china.pdf" target="_blank" class="btn-hover inline-flex items-center justify-center bg-orange-600 hover:bg-orange-500 text-white px-8 py-4 rounded-full font-bold transition-all shadow-lg shadow-orange-600/30">
+                    <i class="fas fa-file-pdf text-xl mr-3"></i> BAIXAR PROPOSTA DE COOPERAÇÃO
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="py-8 text-center text-gray-500 text-sm border-t border-gray-800">
+    <footer class="py-10 text-center border-t border-gray-800 bg-gray-950">
         <div class="container mx-auto px-6">
-            <p>© 2026 YAKAMI TECH – Infraestrutura Ciberfísica Soberana para a Amazônia</p>
-            <p class="text-xs text-gray-600 mt-1">Manaus • Amazonas • Brasil • CNPJ: 65.775.011/0001-99</p>
-            <div class="mt-3 flex justify-center gap-4 text-xs text-gray-600">
-                <a href="empresa.html" class="hover:text-cyan-400">Empresa</a>
-                <span>•</span>
-                <a href="equipe.html" class="hover:text-cyan-400">Equipe</a>
-                <span>•</span>
-                <a href="prosame.html" class="hover:text-cyan-400">ProSAME</a>
-                <span>•</span>
-                <a href="contato.html" class="hover:text-cyan-400">Contato</a>
+            <div class="mb-6">
+                <a href="index.html" class="text-2xl font-black tracking-tighter text-gray-500 hover:text-gray-400 transition-colors">
+                    YAKAMI<span class="text-gray-600">.TECH</span>
+                </a>
+            </div>
+            <p class="text-gray-400 font-medium">© 2026 YAKAMI TECH – Infraestrutura Ciberfísica Soberana para a Amazônia</p>
+            <p class="text-sm text-gray-500 mt-2">Manaus • Amazonas • Brasil • CNPJ: 65.775.011/0001-99</p>
+            
+            <div class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-500 font-medium">
+                <a href="empresa.html" class="hover:text-cyan-400 transition-colors">Empresa</a>
+                <a href="equipe.html" class="hover:text-cyan-400 transition-colors">Equipe</a>
+                <a href="prosame.html" class="hover:text-cyan-400 transition-colors">ProSAME</a>
+                <a href="hackweb.html" class="text-cyan-500 hover:text-cyan-400 transition-colors font-bold">Projeto HackWeb</a>
+                <a href="contato.html" class="hover:text-cyan-400 transition-colors">Contato</a>
             </div>
         </div>
     </footer>
 
     <script>
-        // Toggle mobile menu
+        // Lógica do Menu Mobile aprimorada
         const toggleBtn = document.getElementById('mobile-menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
+        
         if (toggleBtn && mobileMenu) {
             toggleBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
+                const icon = toggleBtn.querySelector('i');
+                
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                }
             });
         }
         
-        // Fallback para imagens
+        // Fechar menu mobile ao clicar em um link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                const icon = toggleBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+        
+        // Fallback de imagens robusto
         document.querySelectorAll('img').forEach(img => {
             img.onerror = function() {
-                this.src = 'https://via.placeholder.com/600x400/1e293b/94a3b8?text=YAKAMI+TECH';
+                const fallbackUrl = 'https://via.placeholder.com/600x400/1e293b/94a3b8?text=YAKAMI+TECH';
+                if(this.src !== fallbackUrl) {
+                    this.src = fallbackUrl;
+                }
             };
         });
         
-        // Verificar se a imagem do hero existe e aplicar classe
-        const hero = document.querySelector('.hero-bg');
-        const testImg = new Image();
-        testImg.onload = () => hero.classList.add('with-image');
-        testImg.src = 'assets/hero-amazon-satellite.jpg';
+        // Carregamento dinâmico do background do Hero
+        document.addEventListener('DOMContentLoaded', () => {
+            const hero = document.querySelector('.hero-bg');
+            if(hero) {
+                const testImg = new Image();
+                testImg.onload = () => {
+                    hero.classList.add('with-image');
+                };
+                testImg.src = 'assets/hero-amazon-satellite.jpg';
+            }
+        });
     </script>
 </body>
 </html>
