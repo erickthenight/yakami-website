@@ -27,7 +27,7 @@
     <meta property="twitter:description" content="Candidato à adoção pelo Programa Nacional de Atividades Espaciais. Acesse o dossiê técnico.">
     <meta property="twitter:image" content="https://yakami.tech/assets/og-yakami-sat1.jpg">
     
-    <!-- Schema.org Structured Data (Atualizado) -->
+    <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -52,9 +52,6 @@
       }
     }
     </script>
-    
-    <!-- Google Analytics / Tag Manager (espaço reservado) -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> -->
     
     <!-- Preload de recursos críticos -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" as="style">
@@ -85,10 +82,9 @@
             background: linear-gradient(135deg, rgba(10, 15, 26, 0.95) 0%, rgba(10, 15, 26, 0.85) 100%);
             background-color: #0a0f1a;
         }
-        /* Fallback se a imagem carregar */
         .hero-bg-mission.with-image {
             background-image: linear-gradient(135deg, rgba(10, 15, 26, 0.95) 0%, rgba(10, 15, 26, 0.85) 100%), 
-                              url('assets/map-south-america-night.jpg');
+                            url('assets/map-south-america-night.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -105,18 +101,6 @@
         .glass-panel:hover {
             border-color: rgba(34, 211, 238, 0.4);
             box-shadow: 0 8px 32px rgba(34, 211, 238, 0.1);
-        }
-        
-        /* Document Card */
-        .doc-card {
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(249, 115, 22, 0.15);
-            transition: all 0.3s ease;
-        }
-        .doc-card:hover {
-            border-color: #f97316;
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(249, 115, 22, 0.15);
         }
         
         /* Form Input Styles */
@@ -192,14 +176,14 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Honeypot (anti-spam) - hidden from users */
+        /* Honeypot (anti-spam) */
         .hp-field {
             position: absolute;
             left: -9999px;
             opacity: 0;
         }
         
-        /* Mobile Menu Toggle */
+        /* Mobile Menu */
         .mobile-menu {
             transform: translateX(-100%);
             transition: transform 0.3s ease;
@@ -208,14 +192,6 @@
             transform: translateX(0);
         }
         
-        /* Print Styles */
-        @media print {
-            .no-print { display: none !important; }
-            body { background: white; color: black; }
-            .glass-panel { background: white; border: 1px solid #ccc; }
-        }
-        
-        /* Acessibilidade: skip link */
         .sr-only {
             position: absolute;
             width: 1px;
@@ -227,7 +203,7 @@
             white-space: nowrap;
             border: 0;
         }
-        .focus\\:not-sr-only:focus {
+        .focus\:not-sr-only:focus {
             position: static;
             width: auto;
             height: auto;
@@ -241,7 +217,7 @@
 </head>
 <body class="text-white antialiased">
 
-    <!-- Skip Link para acessibilidade -->
+    <!-- Skip Link -->
     <a href="#letter-of-intent" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:bg-cyan-600 focus:text-white focus:px-4 focus:py-2 focus:rounded focus:z-50">
         Pular para o formulário
     </a>
@@ -253,7 +229,6 @@
                 <span class="text-orange-500">YAKAMI</span><span class="text-white">.TECH</span>
             </a>
             
-            <!-- Desktop Navigation -->
             <nav class="hidden md:flex items-center space-x-8 font-semibold text-sm uppercase tracking-widest" role="navigation" aria-label="Principal">
                 <a href="index.html" class="hover:text-cyan-400 transition-colors focus:outline-none focus:text-cyan-400">Home</a>
                 <a href="index.html#tecnologia" class="hover:text-cyan-400 transition-colors focus:outline-none focus:text-cyan-400">Tecnologia</a>
@@ -261,7 +236,6 @@
                 <a href="contato.html" class="bg-orange-600 hover:bg-orange-500 px-5 py-2 rounded-full text-white transition-all text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">Contato</a>
             </nav>
             
-            <!-- Mobile Menu Button -->
             <button class="md:hidden text-white p-2 focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded" 
                     aria-label="Abrir menu" 
                     aria-expanded="false"
@@ -271,7 +245,6 @@
             </button>
         </div>
         
-        <!-- Mobile Menu (hidden by default) -->
         <div id="mobile-menu" class="mobile-menu fixed inset-0 z-40 bg-gray-900/98 pt-20 px-6 md:hidden" role="dialog" aria-modal="true">
             <nav class="flex flex-col space-y-4 text-center" aria-label="Mobile">
                 <a href="index.html" class="text-lg hover:text-cyan-400 py-2">Home</a>
@@ -288,31 +261,26 @@
     <!-- Hero Section -->
     <main class="relative hero-bg-mission min-h-[60vh] flex items-center justify-center text-center pt-20" role="main">
         <div class="relative z-10 p-6 max-w-5xl mx-auto">
-            <!-- Badge -->
             <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 mb-6" role="status">
                 <i class="fas fa-satellite-dish text-cyan-400 mr-2 text-sm" aria-hidden="true"></i>
                 <span class="text-cyan-400 font-bold text-sm tracking-wider">PROCEDIMENTO PROSAME - AEB</span>
             </div>
             
-            <!-- Headline -->
             <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
                 YAKAMI-SAT 1<br>
                 <span class="text-orange-500">MISSÃO DE QUALIFICAÇÃO</span>
             </h1>
             
-            <!-- Subheadline -->
             <p class="text-lg sm:text-xl md:text-xl max-w-3xl mx-auto mb-8 font-light text-gray-300">
                 Nanossatélite 6U soberano. Candidato à adoção pelo <strong>Programa Nacional de Atividades Espaciais (PNAE)</strong>.
             </p>
             
-            <!-- Primary CTA -->
             <div class="flex flex-wrap justify-center gap-4">
                 <a href="#letter-of-intent" class="btn-primary bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 px-8 rounded-full transition-all shadow-lg shadow-orange-600/20 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:ring-offset-gray-900">
                     <i class="fas fa-file-signature mr-2" aria-hidden="true"></i> REGISTRAR INTERESSE
                 </a>
             </div>
             
-            <!-- Trust Indicators -->
             <div class="mt-12 flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <div class="flex items-center">
                     <i class="fas fa-shield-alt text-cyan-400 mr-2" aria-hidden="true"></i>
@@ -329,13 +297,11 @@
             </div>
         </div>
         
-        <!-- Scroll Indicator -->
         <a href="#carteira-admissao" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-400 hover:text-cyan-400 transition-colors focus:outline-none focus:text-cyan-400" aria-label="Rolar para conteúdo">
             <i class="fas fa-chevron-down text-2xl"></i>
         </a>
     </main>
 
-    <!-- Script para adicionar classe de imagem se o arquivo existir -->
     <script>
         (function() {
             const hero = document.querySelector('.hero-bg-mission');
@@ -355,21 +321,18 @@
             </h2>
             
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                <!-- Card 1: Conceito -->
                 <article class="glass-panel p-6 rounded-2xl text-center" aria-labelledby="conceito-title">
                     <i class="fas fa-satellite text-4xl text-cyan-400 mb-4" aria-hidden="true"></i>
                     <h3 id="conceito-title" class="font-bold text-xl mb-2">Conceito da Missão</h3>
                     <p class="text-gray-400 text-sm">Plataforma 6U para backhaul de dados IoT e monitoramento hiperespectral da Amazônia Legal.</p>
                 </article>
                 
-                <!-- Card 2: Entregáveis -->
                 <article class="glass-panel p-6 rounded-2xl text-center" aria-labelledby="entregaveis-title">
                     <i class="fas fa-chart-line text-4xl text-orange-500 mb-4" aria-hidden="true"></i>
                     <h3 id="entregaveis-title" class="font-bold text-xl mb-2">Entregáveis</h3>
                     <p class="text-gray-400 text-sm">Constelação de satélites + Estação Terrena Manaus + Rede DePIN + Smart Contracts de auditoria.</p>
                 </article>
                 
-                <!-- Card 3: Sinergia PNAE -->
                 <article class="glass-panel p-6 rounded-2xl text-center" aria-labelledby="sinergia-title">
                     <i class="fas fa-rocket text-4xl text-cyan-400 mb-4" aria-hidden="true"></i>
                     <h3 id="sinergia-title" class="font-bold text-xl mb-2">Sinergia PNAE</h3>
@@ -377,7 +340,6 @@
                 </article>
             </div>
             
-            <!-- Additional Info -->
             <div class="mt-12 text-center">
                 <p class="text-gray-400 text-sm max-w-2xl mx-auto">
                     <i class="fas fa-info-circle text-cyan-400 mr-2" aria-hidden="true"></i>
@@ -391,7 +353,6 @@
     <section id="letter-of-intent" class="py-20 px-6" aria-labelledby="form-title">
         <div class="container mx-auto max-w-5xl">
             <div class="glass-panel p-6 sm:p-8 md:p-12 rounded-3xl shadow-2xl">
-                <!-- Header do Formulário -->
                 <div class="text-center mb-8">
                     <i class="fas fa-handshake text-5xl text-orange-500 mb-4" aria-hidden="true"></i>
                     <h2 id="form-title" class="text-2xl sm:text-3xl md:text-4xl font-black mb-4">Solicitação de Dossiê Técnico</h2>
@@ -402,7 +363,6 @@
                     </p>
                 </div>
 
-                <!-- Mensagens de Feedback -->
                 <div id="form-success" class="form-message success" role="alert" aria-live="polite">
                     <i class="fas fa-check-circle mr-2" aria-hidden="true"></i>
                     <strong>Interesse registrado com sucesso!</strong> Em breve você receberá o dossiê técnico no e-mail informado.
@@ -412,18 +372,10 @@
                     <strong>Ocorreu um erro.</strong> Por favor, verifique os campos e tente novamente.
                 </div>
 
-                <!-- Instrução de integração (visível apenas para administradores) -->
-                <div class="text-xs text-gray-500 text-center mb-4 p-2 bg-gray-800/30 rounded-lg hidden md:block">
-                    ⚙️ Configure o endpoint do formulário no arquivo `prosame.html` (linha ~550) ou utilize uma ferramenta como FormSubmit, Google Forms ou SheetDB.
-                </div>
-
-                <!-- Formulário -->
                 <form id="prosame-contact-form" class="space-y-6" novalidate>
-                    <!-- Honeypot (anti-spam) -->
                     <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off">
                     
                     <div class="grid sm:grid-cols-2 gap-6">
-                        <!-- Nome -->
                         <div>
                             <label for="nome" class="block text-sm font-medium text-gray-300 mb-2">
                                 Nome Completo <span class="text-orange-500">*</span>
@@ -433,13 +385,11 @@
                                    name="nome" 
                                    required 
                                    minlength="3"
-                                   pattern="^[A-Za-zÀ-ÿ\s\.']+$"
                                    placeholder="Ex: João Silva" 
                                    class="form-input w-full rounded-xl p-4 text-white"
                                    aria-required="true">
                         </div>
                         
-                        <!-- Instituição -->
                         <div>
                             <label for="instituicao" class="block text-sm font-medium text-gray-300 mb-2">
                                 Instituição / Empresa <span class="text-orange-500">*</span>
@@ -453,7 +403,6 @@
                                    aria-required="true">
                         </div>
                         
-                        <!-- E-mail -->
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-300 mb-2">
                                 E-mail Institucional <span class="text-orange-500">*</span>
@@ -462,13 +411,11 @@
                                    id="email" 
                                    name="email" 
                                    required
-                                   pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                                    placeholder="contato@orgao.gov.br" 
                                    class="form-input w-full rounded-xl p-4 text-white"
                                    aria-required="true">
                         </div>
                         
-                        <!-- Telefone -->
                         <div>
                             <label for="telefone" class="block text-sm font-medium text-gray-300 mb-2">
                                 Telefone / Contato
@@ -476,13 +423,11 @@
                             <input type="tel" 
                                    id="telefone" 
                                    name="telefone"
-                                   pattern="^[\d\s\(\)\-\+]+$"
                                    placeholder="(92) 9 9999-9999" 
                                    class="form-input w-full rounded-xl p-4 text-white">
                         </div>
                     </div>
                     
-                    <!-- Opcional: CPF/CNPJ para qualificação -->
                     <div>
                         <label for="doc" class="block text-sm font-medium text-gray-300 mb-2">
                             CPF / CNPJ (opcional)
@@ -490,12 +435,10 @@
                         <input type="text" 
                                id="doc" 
                                name="doc"
-                               pattern="^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$|^\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2}$"
                                placeholder="Ex: 12.345.678/0001-90" 
                                class="form-input w-full rounded-xl p-4 text-white">
                     </div>
                     
-                    <!-- Tipo de Interesse -->
                     <div>
                         <label for="interesse" class="block text-sm font-medium text-gray-300 mb-2">
                             Tipo de Interesse <span class="text-orange-500">*</span>
@@ -503,7 +446,7 @@
                         <select id="interesse" 
                                 name="interesse" 
                                 required
-                                class="form-input w-full rounded-xl p-4 text-white"
+                                class="form-input w-full rounded-xl p-4 text-white bg-gray-900"
                                 aria-required="true">
                             <option value="">Selecione...</option>
                             <option value="tecnico">Parceiro Técnico (Desenvolvimento de Hardware/Firmware)</option>
@@ -513,7 +456,6 @@
                         </select>
                     </div>
 
-                    <!-- Origem -->
                     <div>
                         <label for="origem" class="block text-sm font-medium text-gray-300 mb-2">
                             Como conheceu a missão YAKAMI-SAT 1?
@@ -525,7 +467,6 @@
                                class="form-input w-full rounded-xl p-4 text-white">
                     </div>
 
-                    <!-- Descrição -->
                     <div>
                         <label for="descricao" class="block text-sm font-medium text-gray-300 mb-2">
                             Por favor, descreva brevemente o potencial de parceria ou interesse:
@@ -539,7 +480,6 @@
                         <p class="text-gray-500 text-xs mt-1 text-right"><span id="char-count">0</span>/500</p>
                     </div>
 
-                    <!-- Consentimento LGPD -->
                     <div class="flex items-start">
                         <input type="checkbox" 
                                id="consentimento" 
@@ -552,7 +492,6 @@
                         </label>
                     </div>
 
-                    <!-- Submit Button -->
                     <button type="submit" 
                             class="btn-primary w-full bg-cyan-600 hover:bg-cyan-500 text-white font-black py-4 rounded-xl transition-all flex items-center justify-center gap-2 text-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
                             id="submit-btn">
@@ -587,7 +526,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- JavaScript Completo -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Mobile Menu Toggle
@@ -623,80 +562,48 @@
                 });
             }
             
-            // Form submission
+            // Form submission logic
             const form = document.getElementById('prosame-contact-form');
             const submitBtn = document.getElementById('submit-btn');
-            const successMsg = document.getElementById('form-success');
-            const errorMsg = document.getElementById('form-error');
-            
+            const formSuccess = document.getElementById('form-success');
+            const formError = document.getElementById('form-error');
+
             if (form) {
-                form.addEventListener('submit', async function(e) {
+                form.addEventListener('submit', function(e) {
                     e.preventDefault();
                     
-                    // Honeypot
-                    const honeypot = form.querySelector('input[name="website"]');
-                    if (honeypot && honeypot.value) return;
-                    
-                    // Validação básica do checkbox
-                    const consent = document.getElementById('consentimento');
-                    if (!consent || !consent.checked) {
-                        alert('Você precisa aceitar os termos de consentimento.');
+                    // Reset messages
+                    if (formSuccess) formSuccess.style.display = 'none';
+                    if (formError) formError.style.display = 'none';
+
+                    // Check honeypot
+                    const hp = form.querySelector('input[name="website"]');
+                    if (hp && hp.value) {
+                        return; // Bot detected silently
+                    }
+
+                    // HTML5 Validation check
+                    if (!form.checkValidity()) {
+                        form.reportValidity();
+                        if (formError) formError.style.display = 'block';
                         return;
                     }
-                    
-                    // Loading state
-                    if (submitBtn) {
-                        submitBtn.disabled = true;
-                        submitBtn.classList.add('btn-loading');
-                    }
-                    
-                    if (successMsg) successMsg.style.display = 'none';
-                    if (errorMsg) errorMsg.style.display = 'none';
-                    
-                    // Coleta dos dados
-                    const formData = new FormData(form);
-                    const data = Object.fromEntries(formData.entries());
-                    
-                    try {
-                        // 🔧 IMPORTANTE: Substitua a URL abaixo pelo seu endpoint real
-                        // Opção 1: FormSubmit (gratuito) – https://formsubmit.co/seu-email@dominio.com
-                        // Opção 2: Google Apps Script
-                        // Opção 3: SheetDB
-                        // Opção 4: Seu próprio backend
-                        
-                        // Simulação de envio (remova e adicione seu endpoint)
-                        await new Promise(resolve => setTimeout(resolve, 1000));
-                        
-                        // Exemplo real com FormSubmit:
-                        /*
-                        const response = await fetch('https://formsubmit.co/ajax/seu-email@dominio.com', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(data)
-                        });
-                        if (!response.ok) throw new Error('Erro no envio');
-                        */
-                        
-                        // Sucesso
-                        if (successMsg) {
-                            successMsg.style.display = 'block';
-                            successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    // Add loading state
+                    submitBtn.classList.add('btn-loading');
+                    submitBtn.disabled = true;
+
+                    // Simulate server response (ready for backend endpoint integration)
+                    setTimeout(() => {
+                        submitBtn.classList.remove('btn-loading');
+                        submitBtn.disabled = false;
+                        if (formSuccess) {
+                            formSuccess.style.display = 'block';
+                            formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         }
                         form.reset();
                         if (charCount) charCount.textContent = '0';
-                        
-                    } catch (error) {
-                        console.error('Erro:', error);
-                        if (errorMsg) {
-                            errorMsg.style.display = 'block';
-                            errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }
-                    } finally {
-                        if (submitBtn) {
-                            submitBtn.disabled = false;
-                            submitBtn.classList.remove('btn-loading');
-                        }
-                    }
+                    }, 1200);
                 });
             }
         });
