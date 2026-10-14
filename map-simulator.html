@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YAKAMI TECH - Centro de Operações ASTRA-Net GIS (Logística & Meio Ambiente)</title>
+    <title>YAKAMI TECH - Centro de Operações ASTRA-Net GIS (Portos Oficiais & Logística)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Leaflet CSS -->
@@ -28,7 +28,7 @@
     <header class="bg-gray-900 border-b border-gray-800 px-6 py-3 flex justify-between items-center z-20 shadow-xl">
         <div class="flex items-center space-x-4">
             <a href="index.html" class="text-orange-500 font-black text-xl tracking-tighter">YAKAMI<span class="text-white">.TECH</span></a>
-            <span class="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-wider">🛰️ ASTRA-Net | Logística Fluvial & RDS Guardian</span>
+            <span class="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-wider">🛰️ ASTRA-Net | Recintos Portuários Fluviais (Região Norte)</span>
         </div>
         <div class="flex items-center space-x-4 text-sm">
             <div class="flex items-center space-x-2 bg-gray-800/80 px-3 py-1.5 rounded-lg border border-gray-700">
@@ -52,15 +52,15 @@
             
             <!-- Painel de Filtros e Camadas -->
             <div class="glass-panel p-3 rounded-xl flex justify-between items-center text-xs">
-                <span class="text-gray-300 font-bold">Ativos Exibidos:</span>
-                <span class="text-cyan-400 font-mono">3 Operadores / 3 Portos</span>
+                <span class="text-gray-300 font-bold">Base Integrada:</span>
+                <span class="text-cyan-400 font-mono">Portos Oficiais & Frotas</span>
             </div>
 
-            <!-- Painel de Telemetria da Embarcação / Porto Selecionado -->
+            <!-- Painel de Telemetria do Ativo Selecionado -->
             <div id="telemetry-panel" class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-orange-500">
-                <h2 class="text-xs font-black uppercase tracking-wider text-orange-400 flex items-center"><i class="fas fa-ship mr-2"></i> Telemetria & Compliance (Norma 204)</h2>
+                <h2 class="text-xs font-black uppercase tracking-wider text-orange-400 flex items-center"><i class="fas fa-anchor mr-2"></i> Inspeção de Recinto e Frotas</h2>
                 <div id="telemetry-content" class="text-xs text-gray-300 space-y-1.5 pt-1">
-                    <p class="text-gray-400 italic">Clique em uma embarcação ou terminal portuário no mapa para inspecionar os dados operacionais e ambientais.</p>
+                    <p class="text-gray-400 italic">Clique em um porto oficial ou embarcação no mapa para inspecionar os dados cadastrais e ambientais.</p>
                 </div>
             </div>
 
@@ -87,7 +87,7 @@
     <script>
         const map = L.map('map', {
             zoomControl: false
-        }).setView([-3.1190, -59.5000], 8); // Visão ampla Manaus -> Itacoatiara -> Parintins
+        }).setView([-3.1190, -55.0000], 5); // Visão pan-amazônica (AM, PA, AP, RO)
 
         L.control.zoom({ position: 'topleft' }).addTo(map);
 
@@ -96,45 +96,78 @@
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // Dados Reais de Operadores Fluviais e Portos na Rota Amazônica
+        // Base de Dados unindo Frotas e os Portos Oficiais da Região Norte (Documento RFB / Portos)
         const ativosLogisticos = [
-            // Embarcações em Movimento
+            // --- EMBARCAÇÕES EM ROTA ---
             { 
                 id: 'v1', type: 'vessel', name: 'Comboio Hermasa IV (Cargill)', 
                 lat: -3.100, lng: -59.300, speed: '9.2 nós', status: 'Conforme Norma 204', 
-                cargo: 'Soja / Grãos (Exportação)', operador: 'Hermasa Navegação da Amazônia',
-                destino: 'Terminal Itacoatiara / Parintins', pufHash: '0x8f3c...b21a' 
+                cargo: 'Soja / Grãos (Exportação)', operador: 'Hermasa Navegação da Amazônia S/A',
+                destino: 'Terminal Itacoatiara / Santarém', pufHash: '0x8f3c...b21a' 
             },
             { 
                 id: 'v2', type: 'vessel', name: 'Balsa Atem IV (Combustíveis)', 
                 lat: -3.150, lng: -60.010, speed: '7.8 nós', status: 'Monitorado por Satélite', 
-                cargo: 'Derivados de Petróleo (Diesel/Gasolina)', operador: 'Atem Distribuidora de Petróleo',
+                cargo: 'Derivados de Petróleo (Diesel)', operador: 'Atem Distribuidora',
                 destino: 'Parintins / Interior', pufHash: '0x4d2e...99c4' 
             },
-            { 
-                id: 'v3', type: 'vessel', name: 'Ferry Boat Comandante Souza (Ro-Ro)', 
-                lat: -3.020, lng: -58.800, speed: '11.5 nós', status: 'Conforme Norma 204', 
-                cargo: 'Carretas, Veículos e Passageiros', operador: 'Logística Regional Norte',
-                destino: 'Manaus ➔ Parintins', pufHash: '0x1a9f...e58b' 
+
+            // --- INSTALAÇÕES PORTUÁRIAS FLUVIAIS (REGIÃO NORTE) ---
+            {
+                id: 'p1', type: 'port', name: 'Porto de Manaus (SNPH / Estação Hidroviária)',
+                lat: -3.139, lng: -60.021, jurisdicao: 'ALF/Porto de Manaus', codigo: '2.93.15.02-6',
+                administrador: 'SNPH / Estação Hidroviária do Amazonas S/A', tipoUso: 'Uso Público[cite: 11]',
+                endereco: 'Rua Quintino Bocaiúva / Rua Marques de Santa Cruz, Manaus - AM[cite: 11]',
+                agua: { ph: '6.8', turbidez: '45 NTU', oxigenio: '6.2 mg/L', statusAmbiental: 'Normal' }
             },
-            // Portos Estratégicos com Sensor Ambiental (RDS Guardian)
-            { 
-                id: 'p1', type: 'port', name: 'Porto de Manaus (Chibatão / DM)', 
-                lat: -3.140, lng: -60.020, status: 'Operacional', 
-                agua: { ph: '6.8', turbidez: '45 NTU', oxigenio: '6.2 mg/L', statusAmbiental: 'Normal' },
-                cargaMovimentada: 'Contêineres e Carga Geral'
+            {
+                id: 'p2', type: 'port', name: 'Super Terminais Com. e Ind. Ltda',
+                lat: -3.155, lng: -59.980, jurisdicao: 'ALF/Porto de Manaus', codigo: '2.93.16.01-4',
+                administrador: 'Super Terminais Com. e Ind. Ltda', tipoUso: 'Uso Privativo Misto[cite: 13]',
+                endereco: 'Rua Ponta Grossa, nº 256, Colônia Oliveira Machado, Manaus - AM[cite: 13]',
+                agua: { ph: '6.7', turbidez: '48 NTU', oxigenio: '6.1 mg/L', statusAmbiental: 'Monitorado' }
             },
-            { 
-                id: 'p2', type: 'port', name: 'Terminal Portuário Hermasa (Itacoatiara)', 
-                lat: -3.130, lng: -58.435, status: 'Operacional / Escoamento', 
-                agua: { ph: '6.9', turbidez: '42 NTU', oxigenio: '6.5 mg/L', statusAmbiental: 'Monitorado 24h' },
-                cargaMovimentada: 'Granéis Sólidos (Soja/Milho)'
+            {
+                id: 'p3', type: 'port', name: 'Terminal Hermasa Navegação da Amazônia',
+                lat: -3.130, lng: -58.435, jurisdicao: 'ALF/Porto de Manaus', codigo: '2.93.16.03-0',
+                administrador: 'Hermasa Navegação da Amazônia S/A', tipoUso: 'Uso Privativo Misto[cite: 13]',
+                endereco: 'Estrada das Indústrias, km 7,5, Itacoatiara - AM[cite: 13]',
+                agua: { ph: '6.9', turbidez: '42 NTU', oxigenio: '6.5 mg/L', statusAmbiental: 'Excelente' }
             },
-            { 
-                id: 'p3', type: 'port', name: 'Porto Fluvial de Parintins', 
-                lat: -2.628, lng: -56.738, status: 'Ativo / Abastecimento', 
-                agua: { ph: '7.1', turbidez: '38 NTU', oxigenio: '6.8 mg/L', statusAmbiental: 'Excelente' },
-                cargaMovimentada: 'Carga mista e Insumos Regionais'
+            {
+                id: 'p4', type: 'port', name: 'Chibatão Navegação e Comércio',
+                lat: -3.158, lng: -59.985, jurisdicao: 'ALF/Porto de Manaus', codigo: '2.93.16.05-7',
+                administrador: 'Chibatão Navegação e Comércio Ltda.', tipoUso: 'Uso Privativo Misto[cite: 13]',
+                endereco: 'Rua Zebu, nº 201, Colônia Oliveira Machado, Manaus - AM[cite: 13]',
+                agua: { ph: '6.8', turbidez: '46 NTU', oxigenio: '6.0 mg/L', statusAmbiental: 'Normal' }
+            },
+            {
+                id: 'p5', type: 'port', name: 'Porto de Santarém (Cargill / CDP)',
+                lat: -2.443, lng: -54.708, jurisdicao: 'DRF/Santarém', codigo: '2.10.15.01-5 / 2.10.16.02-0',
+                administrador: 'Cia. Docas do Pará / Cargill Agrícola S/A', tipoUso: 'Público / Privativo Misto[cite: 11, 13]',
+                endereco: 'Av. Cuiabá s/n, Lote 04-CDP, Santarém - PA[cite: 11, 13]',
+                agua: { ph: '7.0', turbidez: '35 NTU', oxigenio: '7.0 mg/L', statusAmbiental: 'Ideal' }
+            },
+            {
+                id: 'p6', type: 'port', name: 'Porto de Belém (Val de Cans / Transpetro)',
+                lat: -1.455, lng: -48.490, jurisdicao: 'ALF/Porto de Belém', codigo: '2.91.15.01-9',
+                administrador: 'Cia. Docas do Estado do Pará / Transpetro[cite: 11, 13]', tipoUso: 'Público / Privativo Misto[cite: 11, 13]',
+                endereco: 'Av. Marechal Hermes s/n, Belém - PA[cite: 11]',
+                agua: { ph: '6.5', turbidez: '60 NTU', oxigenio: '5.5 mg/L', statusAmbiental: 'Atencioso' }
+            },
+            {
+                id: 'p7', type: 'port', name: 'Porto de Santana (Cia. Docas de Santana)',
+                lat: -0.058, lng: -51.178, jurisdicao: 'DRF/Macapá', codigo: '2.40.15.02-4',
+                administrador: 'Cia. Docas de Santana (Amapá)', tipoUso: 'Uso Público[cite: 11]',
+                endereco: 'Rua Cláudio Monteiro, nº 1.380, Santana - AP[cite: 11]',
+                agua: { ph: '6.9', turbidez: '55 NTU', oxigenio: '6.3 mg/L', statusAmbiental: 'Normal' }
+            },
+            {
+                id: 'p8', type: 'port', name: 'Porto de Porto Velho (Rondônia)',
+                lat: -8.761, lng: -63.903, jurisdicao: 'DRF/Porto Velho', codigo: '2.50.15.01-0',
+                administrador: 'Sociedade Portos e Hidrovias de Rondônia', tipoUso: 'Uso Público[cite: 11]',
+                endereco: 'Rua Terminal dos Milagres n° 400, Porto Velho - RO[cite: 11]',
+                agua: { ph: '7.2', turbidez: '40 NTU', oxigenio: '6.6 mg/L', statusAmbiental: 'Normal' }
             }
         ];
 
@@ -160,8 +193,8 @@
             const ativo = ativosLogisticos.find(e => e.id === id);
             if (ativo) {
                 updateTelemetryPanel(ativo);
-                addAlert('TELEMETRIA', `Inspecionando: ${ativo.name}`);
-                map.setView([ativo.lat, ativo.lng], 11, { animate: true });
+                addAlert('GIS', `Inspecionando: ${ativo.name}`);
+                map.setView([ativo.lat, ativo.lng], 12, { animate: true });
             }
         }
 
@@ -183,16 +216,19 @@
                         <p><b>Norma 204:</b> <span class="text-green-400 font-bold">${ativo.status}</span></p>
                         <p><b>Hash PUF (Hardware):</b> <span class="font-mono text-xs text-gray-400">${ativo.pufHash}</span></p>
                     </div>
-                    <button onclick="alert('Alerta enviado via YAKAMI-SAT 1 para a Capitania dos Portos e Operador.')" class="mt-2 w-full bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-bold py-2 px-3 rounded-lg text-xs uppercase tracking-wider transition-all shadow-lg shadow-red-900/40 flex items-center justify-center space-x-2">
+                    <button onclick="alert('Alerta enviado via YAKAMI-SAT 1 para a Capitania dos Portos.')" class="mt-2 w-full bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-bold py-2 px-3 rounded-lg text-xs uppercase tracking-wider transition-all shadow-lg shadow-red-900/40 flex items-center justify-center space-x-2">
                         <i class="fas fa-satellite-dish"></i> <span>Emitir Alerta / SOS Fluvial</span>
                     </button>
                 `;
             } else {
                 content.innerHTML = `
                     <div class="bg-gray-950/70 p-3 rounded-lg border border-gray-800 space-y-1.5">
-                        <p><b>Terminal Portuário:</b> <span class="text-white font-bold">${ativo.name}</span></p>
-                        <p><b>Movimentação:</b> <span class="text-gray-300">${ativo.cargaMovimentada}</span></p>
-                        <p class="text-cyan-400 font-semibold pt-1 border-t border-gray-800">📊 Parâmetros RDS Guardian (Água):</p>
+                        <p><b>Instalação Portuária:</b> <span class="text-white font-bold">${ativo.name}</span></p>
+                        <p><b>Administrador:</b> <span class="text-cyan-300">${ativo.administrador}</span></p>
+                        <p><b>Regime:</b> <span class="text-orange-300">${ativo.tipoUso}</span></p>
+                        <p><b>Jurisdição RFB:</b> <span class="text-gray-300">${ativo.jurisdicao} (Código: ${ativo.codigo})</span></p>
+                        <p><b>Endereço:</b> <span class="text-gray-400 text-[11px]">${ativo.endereco}</span></p>
+                        <p class="text-cyan-400 font-semibold pt-1 border-t border-gray-800">📊 RDS Guardian (Qualidade Hídrica):</p>
                         <div class="grid grid-cols-2 gap-1 text-[11px] pt-1">
                             <div class="bg-gray-900 p-1.5 rounded">pH: <b class="text-white">${ativo.agua.ph}</b></div>
                             <div class="bg-gray-900 p-1.5 rounded">Turbidez: <b class="text-white">${ativo.agua.turbidez}</b></div>
@@ -200,8 +236,8 @@
                             <div class="bg-gray-900 p-1.5 rounded">Status: <b class="text-green-400">${ativo.agua.statusAmbiental}</b></div>
                         </div>
                     </div>
-                    <button onclick="alert('Relatório de Conformidade Ambiental gerado e enviado para a SUFRAMA / ANA.')" class="mt-2 w-full bg-cyan-600 hover:bg-cyan-500 text-gray-950 font-bold py-2 px-3 rounded-lg text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center space-x-2">
-                        <i class="fas fa-file-invoice"></i> <span>Baixar Laudo Ambiental (PDF)</span>
+                    <button onclick="alert('Relatório de Conformidade Portuária gerado e transmitido para órgãos reguladores.')" class="mt-2 w-full bg-cyan-600 hover:bg-cyan-500 text-gray-950 font-bold py-2 px-3 rounded-lg text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center space-x-2">
+                        <i class="fas fa-file-invoice"></i> <span>Baixar Laudo Oficial (PDF)</span>
                     </button>
                 `;
             }
@@ -211,39 +247,39 @@
             ativosLogisticos.forEach(item => {
                 let htmlIcon = '';
                 if (item.type === 'vessel') {
-                    htmlIcon = `<div style="background-color: #0891b2; border: 2px solid #22d3ee; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(34,211,238,0.8);"><i class="fas fa-ship text-white text-xs"></i></div>`;
+                    htmlIcon = `<div style="background-color: #0891b2; border: 2px solid #22d3ee; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(34,211,238,0.7);"><i class="fas fa-ship text-white text-xs"></i></div>`;
                 } else {
-                    htmlIcon = `<div class="pulse-port" style="background-color: #ea580c; border: 2px solid #fdba74; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(249,115,22,0.9);"><i class="fas fa-anchor text-white text-xs"></i></div>`;
+                    htmlIcon = `<div class="pulse-port" style="background-color: #ea580c; border: 2px solid #fdba74; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(249,115,22,0.8);"><i class="fas fa-anchor text-white text-xs"></i></div>`;
                 }
 
                 const customIcon = L.divIcon({
                     className: 'custom-div-icon',
                     html: htmlIcon,
-                    iconSize: [32, 32],
-                    iconAnchor: [16, 16]
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 15]
                 });
 
                 if (!markers[item.id]) {
                     markers[item.id] = L.marker([item.lat, item.lng], { icon: customIcon }).addTo(map);
                     markers[item.id].on('click', () => selectAtivo(item.id));
-                    markers[item.id].bindTooltip(`<b>${item.name}</b>`, { direction: 'top', offset: [0, -12] });
+                    markers[item.id].bindTooltip(`<b>${item.name}</b>`, { direction: 'top', offset: [0, -10] });
                 } else {
                     markers[item.id].setLatLng([item.lat, item.lng]);
                 }
             });
         }
 
-        // Simulação de deslocamento fluido das embarcações na rota fluvial
+        // Simulação de movimento das embarcações
         setInterval(() => {
             ativosLogisticos.filter(i => i.type === 'vessel').forEach(v => {
-                v.lng += (Math.random() - 0.4) * 0.003;
+                v.lng += (Math.random() - 0.4) * 0.002;
                 v.lat += (Math.random() - 0.5) * 0.001;
             });
             renderMarkers();
         }, 4000);
 
         renderMarkers();
-        addAlert('SISTEMA', 'ASTRA-Net GIS inicializado com rotas Hermasa, Atem e RDS Guardian.');
+        addAlert('SISTEMA', 'Base de portos oficiais (AM, PA, AP, RO) e frotas carregada com sucesso.');
     </script>
 </body>
 </html>
