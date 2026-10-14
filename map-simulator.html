@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YAKAMI TECH - Centro de Operações ASTRA-Net GIS (Auditoria DePIN 3 Camadas)</title>
+    <title>YAKAMI TECH - Centro de Operações ASTRA-Net GIS (Manifesto & Auditoria DePIN)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Leaflet CSS -->
@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #070b14; color: #fff; overflow: hidden; }
-        .glass-panel { background: rgba(15, 23, 42, 0.92); backdrop-filter: blur(12px); border: 1px solid rgba(34, 211, 238, 0.3); box-shadow: 0 0 20px rgba(34, 211, 238, 0.08); }
+        .glass-panel { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(12px); border: 1px solid rgba(34, 211, 238, 0.3); box-shadow: 0 0 20px rgba(34, 211, 238, 0.08); }
         #map { width: 100%; height: 100%; background: #070b14; }
         .leaflet-tile-pane { filter: invert(100%) hue-rotate(180deg) brightness(90%) contrast(95%); }
         .pulse-port { animation: pulse-ring 2s infinite; }
@@ -34,12 +34,12 @@
     <header class="bg-gray-900 border-b border-gray-800 px-6 py-3 flex justify-between items-center z-20 shadow-xl">
         <div class="flex items-center space-x-4">
             <a href="index.html" class="text-orange-500 font-black text-xl tracking-tighter">YAKAMI<span class="text-white">.TECH</span></a>
-            <span class="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-wider">🛰️ ASTRA-Net | Auditoria DePIN 3 Camadas & Crédito de Carbono</span>
+            <span class="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-wider">🛰️ ASTRA-Net | Manifesto de Carga, Passageiros & DePIN</span>
         </div>
         <div class="flex items-center space-x-4 text-sm">
             <div class="flex items-center space-x-2 bg-gray-800/80 px-3 py-1.5 rounded-lg border border-gray-700">
                 <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                <span class="text-xs text-gray-300 font-semibold">Arquitetura DePIN: 100% Sincronizada</span>
+                <span class="text-xs text-gray-300 font-semibold">Rastreabilidade Imutável Ativa</span>
             </div>
             <a href="index.html" class="bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 px-4 py-2 rounded-lg text-xs font-bold text-gray-950 transition-all shadow-lg shadow-cyan-500/20">Voltar ao Início</a>
         </div>
@@ -54,42 +54,42 @@
         </div>
 
         <!-- Sidebar de Telemetria e Governança -->
-        <aside class="w-[430px] bg-gray-900 border-l border-gray-800 flex flex-col p-5 space-y-4 z-20 shadow-2xl overflow-y-auto">
+        <aside class="w-[450px] bg-gray-900 border-l border-gray-800 flex flex-col p-5 space-y-4 z-20 shadow-2xl overflow-y-auto">
             
-            <!-- Painel de Destaque -->
+            <!-- Painel Geral -->
             <div class="glass-panel p-3 rounded-xl flex justify-between items-center text-xs">
-                <span class="text-gray-300 font-bold">Modo de Inspeção:</span>
-                <span class="text-green-400 font-mono">Processo de Auditoria Ativo</span>
+                <span class="text-gray-300 font-bold">Painel de Gestão:</span>
+                <span class="text-cyan-400 font-mono">Norma 204 & Manifesto Digital</span>
             </div>
 
-            <!-- Painel de Telemetria e Auditoria em 3 Camadas -->
+            <!-- Painel de Telemetria, Carga e Passageiros -->
             <div id="telemetry-panel" class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-orange-500">
-                <h2 class="text-xs font-black uppercase tracking-wider text-orange-400 flex items-center"><i class="fas fa-microchip mr-2"></i> Inspeção de Ativos & Processo DePIN</h2>
+                <h2 class="text-xs font-black uppercase tracking-wider text-orange-400 flex items-center"><i class="fas fa-file-invoice mr-2"></i> Manifesto & Rastreabilidade de Ativos</h2>
                 <div id="telemetry-content" class="text-xs text-gray-300 space-y-2 pt-1">
-                    <p class="text-gray-400 italic">Clique em qualquer ativo no mapa (Embarcação, Porto ou Estação Eco Flow) para ver o fluxo detalhado das 3 camadas (Satélite ➔ Gateway ➔ Sistema Blockchain).</p>
+                    <p class="text-gray-400 italic">Selecione uma embarcação no mapa para inspecionar o manifesto de carga, lista de passageiros e o selo de conformidade ambiental.</p>
                 </div>
             </div>
 
             <!-- Resumo de Carbono Regional -->
             <div class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-green-500">
-                <h2 class="text-xs font-black uppercase tracking-wider text-green-400 flex items-center"><i class="fas fa-chart-line mr-2"></i> Sumário Regional (Norte)</h2>
+                <h2 class="text-xs font-black uppercase tracking-wider text-green-400 flex items-center"><i class="fas fa-leaf mr-2"></i> Créditos & Impacto Sustentável</h2>
                 <div class="grid grid-cols-2 gap-2 text-xs pt-1">
                     <div class="bg-gray-950/70 p-2 rounded border border-gray-800">
-                        <span class="text-gray-400 text-[10px] block">Sequestro Verificado:</span>
-                        <b class="text-green-400 text-sm font-mono">142.850 tCO2e</b>
+                        <span class="text-gray-400 text-[10px] block">Compensação Frota:</span>
+                        <b class="text-green-400 text-sm font-mono">1.420 tCO2e</b>
                     </div>
                     <div class="bg-gray-950/70 p-2 rounded border border-gray-800">
-                        <span class="text-gray-400 text-[10px] block">Ativos Conectados:</span>
-                        <b class="text-cyan-400 text-sm font-mono">11 Terminais / Frotas</b>
+                        <span class="text-gray-400 text-[10px] block">Selo Verde Ativo:</span>
+                        <b class="text-cyan-400 text-sm font-mono">100% Auditado</b>
                     </div>
                 </div>
             </div>
 
-            <!-- Painel de Alertas / Transações DePIN -->
+            <!-- Painel de Alertas -->
             <div id="alerts-panel" class="glass-panel p-4 rounded-xl flex-1 flex flex-col border-l-4 border-l-cyan-600">
                 <h2 class="text-xs font-black uppercase tracking-wider text-cyan-400 mb-2 flex items-center justify-between">
-                    <span><i class="fas fa-bell mr-2"></i> Log de Transações DePIN</span>
-                    <span class="text-[10px] text-gray-500 font-normal">Sepolia Testnet</span>
+                    <span><i class="fas fa-bell mr-2"></i> Log de Auditoria DePIN</span>
+                    <span class="text-[10px] text-gray-500 font-normal">Tempo Real</span>
                 </h2>
                 <div id="alerts-list" class="flex-1 overflow-y-auto space-y-1.5 text-[11px] font-mono text-gray-300 pr-1 max-h-36"></div>
             </div>
@@ -110,71 +110,49 @@
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // Base unificada com dados detalhados para a auditoria em 3 camadas
+        // Base com dados detalhados incluindo Manifesto de Carga e Lista de Passageiros
         const ativosLogisticos = [
-            // --- EMBARCAÇÕES ---
             { 
                 id: 'v1', type: 'vessel', name: 'Comboio Hermasa IV (Cargill)', 
                 lat: -3.100, lng: -59.300, speed: '9.2 nós', status: 'Conforme Norma 204', 
-                cargo: 'Soja / Grãos (Exportação)', operador: 'Hermasa Navegação da Amazônia S/A', destino: 'Itacoatiara / Santarém',
-                camada1: 'YAKAMI-SAT 1 (Rastreio AIS & Radar Banda S)',
-                camada2: 'Gateway IoT Portuário Itacoatiara (LoRaWAN 915MHz + Chip PUF)',
-                camada3: 'Smart Contract TrustFlow (Registro Imutável de Rota Fluvial)'
+                operador: 'Hermasa Navegação da Amazônia S/A', destino: 'Itacoatiara / Santarém',
+                manifestoCarga: {
+                    tipo: 'Granéis Sólidos (Soja a Granel)',
+                    volume: '3.500 Toneladas',
+                    loteRastreio: 'LOTE-SOJA-AM-2026-089',
+                    pegadaCarbono: 'Baixo Impacto (Selo Verde YAKAMI)'
+                },
+                passageiros: [
+                    { nome: 'Carlos Eduardo Silva (Comandante)', documento: '***.452.782-**', funcao: 'Tripulação' },
+                    { nome: 'Marcos Vinicius Souza', documento: '***.119.834-**', funcao: 'Oficial de Convés' },
+                    { nome: 'Ana Paula Mendonça', documento: '***.908.221-**', funcao: 'Técnica Ambiental (RDS)' }
+                ]
             },
             { 
                 id: 'v2', type: 'vessel', name: 'Balsa Atem IV (Combustíveis)', 
                 lat: -3.150, lng: -60.010, speed: '7.8 nós', status: 'Monitorado por Satélite', 
-                cargo: 'Derivados de Petróleo', operador: 'Atem Distribuidora', destino: 'Parintins',
-                camada1: 'YAKAMI-SAT 1 (Telemetria de Carga e Alerta de Rota)',
-                camada2: 'Gateway Móvel DePIN (Autenticação Criptográfica de Hardware)',
-                camada3: 'Smart Contract de Compliance Fluvial (Marinha - Norma 204)'
+                operador: 'Atem Distribuidora', destino: 'Parintins',
+                manifestoCarga: {
+                    tipo: 'Derivados de Petróleo (Diesel S-10)',
+                    volume: '1.800.000 Litros',
+                    loteRastreio: 'LOTE-COMBUSTIVEL-2026-412',
+                    pegadaCarbono: 'Compensação Ativa via Crédito YKM'
+                },
+                passageiros: [
+                    { nome: 'Roberto Almeida (Mestre Fluvial)', documento: '***.331.290-**', funcao: 'Tripulação' },
+                    { nome: 'Julio Cesar Ramos', documento: '***.554.112-**', funcao: 'Operador de Bombas' }
+                ]
             },
-
-            // --- INSTALAÇÕES PORTUÁRIAS OFICIAIS ---
             {
                 id: 'p1', type: 'port', name: 'Porto de Manaus (SNPH / Estação Hidroviária)',
                 lat: -3.139, lng: -60.021, jurisdicao: 'ALF/Porto de Manaus', codigo: '2.93.15.02-6',
                 administrador: 'SNPH / Estação Hidroviária do Amazonas S/A', tipoUso: 'Uso Público',
-                agua: { ph: '6.8', turbidez: '45 NTU', oxigenio: '6.2 mg/L', statusAmbiental: 'Normal' },
-                camada1: 'Varredura Hiperespectral LEO (Cobertura de VANTs e Satélite)',
-                camada2: 'Estação Gateway LoRaWAN Central Manaus (Sensores Hídricos RDS Guardian)',
-                camada3: 'Oracle de Dados Ambientais conectado à API SUFRAMA / ANA'
+                agua: { ph: '6.8', turbidez: '45 NTU', oxigenio: '6.2 mg/L', statusAmbiental: 'Normal' }
             },
-            {
-                id: 'p2', type: 'port', name: 'Terminal Hermasa (Itacoatiara)',
-                lat: -3.130, lng: -58.435, jurisdicao: 'ALF/Porto de Manaus', codigo: '2.93.16.03-0',
-                administrador: 'Hermasa Navegação da Amazônia S/A', tipoUso: 'Uso Privativo Misto',
-                agua: { ph: '6.9', turbidez: '42 NTU', oxigenio: '6.5 mg/L', statusAmbiental: 'Excelente' },
-                camada1: 'Monitoramento de Escoamento de Grãos via Satélite 6U',
-                camada2: 'Node Gateway DePIN no Terminal (Leitura de Calado e Peso)',
-                camada3: 'Tokenização Logística e Certificado de Origem Sustentável'
-            },
-            {
-                id: 'p3', type: 'port', name: 'Porto de Santarém (Cargill / CDP)',
-                lat: -2.443, lng: -54.708, jurisdicao: 'DRF/Santarém', codigo: '2.10.15.01-5',
-                administrador: 'Cia. Docas do Pará / Cargill Agrícola S/A', tipoUso: 'Público / Privativo Misto',
-                agua: { ph: '7.0', turbidez: '35 NTU', oxigenio: '7.0 mg/L', statusAmbiental: 'Ideal' },
-                camada1: 'Sensoriamento de Eclusas e Canais de Navegação Pará/Amazonas',
-                camada2: 'Gateway Portuário Santarém (Protocolo MQTT + Chip PUF)',
-                camada3: 'Smart Contract de Auditoria de Carga Granel'
-            },
-
-            // --- ESTAÇÕES YAKAMI ECO FLOW (CARBONO) ---
             {
                 id: 'eco1', type: 'ecoflow', name: 'ECO Station - RDS Purus',
                 lat: -3.700, lng: -61.500, status: 'Ativo / DePIN Node',
-                carbonoSequestrado: '34.200 tCO2e / ano', biomassa: '1.250 t/ha', sensorBiotico: 'Estável (IoT LoRaWAN)',
-                camada1: 'YAKAMI-SAT 1 (Análise Multiespectral de Índice de Vegetação NDVI)',
-                camada2: 'Sensores de Solo e Fluxo de CO2 nas Torres IoT Eco Flow (LoRaWAN)',
-                camada3: 'Minting de Créditos de Carbono Verificados na Sepolia Testnet'
-            },
-            {
-                id: 'eco2', type: 'ecoflow', name: 'ECO Station - RDS Rio Negro',
-                lat: -2.600, lng: -60.800, status: 'Ativo / DePIN Node',
-                carbonoSequestrado: '58.100 tCO2e / ano', biomassa: '1.890 t/ha', sensorBiotico: 'Excelente',
-                camada1: 'Mapeamento de Cobertura Florestal e Alagados via Satélite',
-                camada2: 'Estação de Solo Eco Flow com Criptografia de Hardware PUF',
-                camada3: 'Contrato Inteligente YAKAMI TrustFlow (Validação de Crédito Imutável)'
+                carbonoSequestrado: '34.200 tCO2e / ano', biomassa: '1.250 t/ha', sensorBiotico: 'Estável (IoT LoRaWAN)'
             }
         ];
 
@@ -200,8 +178,8 @@
             const ativo = ativosLogisticos.find(e => e.id === id);
             if (ativo) {
                 updateTelemetryPanel(ativo);
-                addAlert('DePIN', `Auditoria iniciada: ${ativo.name}`);
-                map.setView([ativo.lat, ativo.lng], 10, { animate: true });
+                addAlert('GESTÃO', `Manifesto carregado: ${ativo.name}`);
+                map.setView([ativo.lat, ativo.lng], 11, { animate: true });
             }
         }
 
@@ -212,56 +190,68 @@
                 return;
             }
 
-            let badgeColor = ativo.type === 'vessel' ? 'text-cyan-400' : (ativo.type === 'port' ? 'text-orange-400' : 'text-green-400');
-            let tipoLabel = ativo.type === 'vessel' ? 'Embarcação Fluvial' : (ativo.type === 'port' ? 'Instalação Portuária' : 'Estação Eco Flow (Carbono)');
-
-            let extraInfo = '';
-            if (ativo.type === 'port') {
-                extraInfo = `
-                    <p><b>Administrador:</b> ${ativo.administrador}</p>
-                    <p><b>Jurisdição RFB:</b> ${ativo.jurisdicao} (Cód: ${ativo.codigo})</p>
-                    <div class="grid grid-cols-2 gap-1 text-[11px] pt-1 bg-gray-950 p-2 rounded border border-gray-800 mt-1">
-                        <div>pH Água: <b class="text-white">${ativo.agua.ph}</b></div>
-                        <div>Oxigênio: <b class="text-white">${ativo.agua.oxigenio}</b></div>
+            if (ativo.type === 'vessel') {
+                let passageirosHtml = ativo.passageiros.map(p => `
+                    <div class="bg-gray-900 p-1.5 rounded flex justify-between items-center text-[11px]">
+                        <div><span class="text-white font-bold">${p.nome}</span> <span class="text-gray-400">(${p.funcao})</span></div>
+                        <span class="font-mono text-cyan-300 text-[10px]">${p.documento}</span>
                     </div>
-                `;
-            } else if (ativo.type === 'ecoflow') {
-                extraInfo = `
-                    <p><b>Sequestro Verificado:</b> <span class="text-green-400 font-bold">${ativo.carbonoSequestrado}</span></p>
-                    <p><b>Biomassa Local:</b> <span class="text-white">${ativo.biomassa}</span></p>
-                    <p><b>Sensor Biótico:</b> <span class="text-cyan-400">${ativo.sensorBiotico}</span></p>
-                `;
-            } else {
-                extraInfo = `
-                    <p><b>Operador:</b> ${ativo.operador}</p>
-                    <p><b>Carga:</b> ${ativo.cargo}</p>
-                    <p><b>Destino:</b> ${ativo.destino}</p>
-                    <p><b>Norma 204:</b> <span class="text-green-400 font-bold">${ativo.status}</span></p>
-                `;
-            }
+                `).join('');
 
-            content.innerHTML = `
-                <div class="bg-gray-950/80 p-3 rounded-lg border border-gray-800 space-y-2">
-                    <div class="flex justify-between items-center border-b border-gray-800 pb-1">
-                        <span class="text-[10px] uppercase font-bold ${badgeColor}">${tipoLabel}</span>
-                        <span class="text-[10px] text-green-400 font-mono">● Online</span>
-                    </div>
-                    <p class="font-bold text-white text-sm">${ativo.name}</p>
-                    ${extraInfo}
-                    
-                    <div class="pt-2 border-t border-gray-800 space-y-1.5">
-                        <p class="text-[11px] font-bold text-cyan-300"><i class="fas fa-layer-group mr-1"></i> Fluxo de Auditoria em 3 Camadas:</p>
-                        <div class="space-y-1 text-[11px] bg-gray-900 p-2 rounded border border-gray-800">
-                            <p class="text-gray-300"><b>1. 🛰️ Satélite:</b> ${ativo.camada1}</p>
-                            <p class="text-gray-300"><b>2. 📡 Gateway DePIN:</b> ${ativo.camada2}</p>
-                            <p class="text-cyan-300"><b>3. 🔗 Sistema/Chain:</b> ${ativo.camada3}</p>
+                content.innerHTML = `
+                    <div class="bg-gray-950/80 p-3 rounded-lg border border-gray-800 space-y-2">
+                        <div class="flex justify-between items-center border-b border-gray-800 pb-1">
+                            <span class="text-[10px] uppercase font-bold text-cyan-400">Embarcação Fluvial</span>
+                            <span class="text-[10px] text-green-400 font-mono">● ${ativo.status}</span>
+                        </div>
+                        <p class="font-bold text-white text-sm">${ativo.name}</p>
+                        <p><b>Operador:</b> ${ativo.operador}</p>
+                        <p><b>Destino:</b> <span class="text-orange-300">${ativo.destino}</span></p>
+                        
+                        <!-- MANIFESTO DE CARGA -->
+                        <div class="pt-1 border-t border-gray-800">
+                            <p class="text-[11px] font-bold text-orange-400 mb-1"><i class="fas fa-boxes mr-1"></i> Manifesto de Carga (Rastreio Ambiental):</p>
+                            <div class="bg-gray-900 p-2 rounded border border-gray-800 space-y-1 text-[11px]">
+                                <p><b>Tipo:</b> ${ativo.manifestoCarga.tipo}</p>
+                                <p><b>Volume:</b> <span class="text-white">${ativo.manifestoCarga.volume}</span></p>
+                                <p><b>Lote:</b> <span class="font-mono text-cyan-300">${ativo.manifestoCarga.loteRastreio}</span></p>
+                                <p><b>Selo Verde:</b> <span class="text-green-400">${ativo.manifestoCarga.pegadaCarbono}</span></p>
+                            </div>
+                        </div>
+
+                        <!-- LISTA DE PASSAGEIROS -->
+                        <div class="pt-1 border-t border-gray-800">
+                            <p class="text-[11px] font-bold text-cyan-300 mb-1"><i class="fas fa-users mr-1"></i> Lista de Tripulantes / Passageiros (${ativo.passageiros.length}):</p>
+                            <div class="space-y-1 max-h-28 overflow-y-auto pr-1">
+                                ${passageirosHtml}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <button onclick="alert('Auditoria Criptográfica concluída com sucesso! Prova de zk-SNARK gerada e validada na rede Sepolia.')" class="mt-2 w-full bg-gradient-to-r from-cyan-600 to-green-600 hover:from-cyan-500 hover:to-green-500 text-gray-950 font-bold py-2 px-3 rounded-lg text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center space-x-2">
-                    <i class="fas fa-shield-alt"></i> <span>Executar Prova de Auditoria Web3</span>
-                </button>
-            `;
+                    <button onclick="alert('Manifesto oficial assinado digitalmente e transmitido via DePIN para a Capitania dos Portos e SUFRAMA.')" class="mt-2 w-full bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-gray-950 font-bold py-2 px-3 rounded-lg text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center space-x-2">
+                        <i class="fas fa-certificate"></i> <span>Exportar Manifesto Verificado (PDF)</span>
+                    </button>
+                `;
+            } else if (ativo.type === 'port') {
+                content.innerHTML = `
+                    <div class="bg-gray-950/80 p-3 rounded-lg border border-gray-800 space-y-2">
+                        <p class="font-bold text-orange-400 text-sm">${ativo.name}</p>
+                        <p><b>Administrador:</b> ${ativo.administrador}</p>
+                        <p><b>Jurisdição RFB:</b> ${ativo.jurisdicao} (Cód: ${ativo.codigo})</p>
+                        <div class="grid grid-cols-2 gap-1 text-[11px] pt-1 bg-gray-900 p-2 rounded border border-gray-800">
+                            <div>pH Água: <b class="text-white">${ativo.agua.ph}</b></div>
+                            <div>Oxigênio: <b class="text-white">${ativo.agua.oxigenio}</b></div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div class="bg-gray-950/80 p-3 rounded-lg border border-gray-800 space-y-2">
+                        <p class="font-bold text-green-400 text-sm">${ativo.name}</p>
+                        <p><b>Status DePIN:</b> ${ativo.status}</p>
+                        <p><b>Sequestro Verificado:</b> <span class="text-green-400 font-bold">${ativo.carbonoSequestrado}</span></p>
+                    </div>
+                `;
+            }
         }
 
         function renderMarkers() {
@@ -271,7 +261,7 @@
                     htmlIcon = `<div style="background-color: #0891b2; border: 2px solid #22d3ee; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-ship text-white text-[10px]"></i></div>`;
                 } else if (item.type === 'port') {
                     htmlIcon = `<div class="pulse-port" style="background-color: #ea580c; border: 2px solid #fdba74; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-anchor text-white text-[10px]"></i></div>`;
-                } else if (item.type === 'ecoflow') {
+                } else {
                     htmlIcon = `<div class="pulse-eco" style="background-color: #16a34a; border: 2px solid #86efac; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-leaf text-white text-xs"></i></div>`;
                 }
 
@@ -301,7 +291,7 @@
         }, 4000);
 
         renderMarkers();
-        addAlert('SISTEMA', 'Painel de Auditoria DePIN 3 Camadas inicializado com sucesso.');
+        addAlert('SISTEMA', 'Módulo de Manifesto Digital e Rastreabilidade de Ativos carregado.');
     </script>
 </body>
 </html>
