@@ -1,154 +1,297 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equipe | Yakamí Tech - Deep Tech Amazônica</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Equipe | YAKAMI TECH - Engenharia de Fronteira e Soberania</title>
+    
+    <!-- SEO -->
+    <meta name="description" content="Engenharia de Fronteira e Soberania a partir da Amazônia: conheça os fundadores e mentes técnicas da YAKAMI TECH.">
+    <meta name="keywords" content="YAKAMI TECH, equipe, Erick Mattos, Helen Araújo, Carlos Eduardo Araújo, Walterson Filho, Gabriel Araujo, deep tech, Amazônia, soberania nacional">
+    <meta name="author" content="YAKAMI TECH">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yakami.tech/equipe">
+    <meta property="og:title" content="Equipe YAKAMI TECH - Engenharia de Fronteira e Soberania">
+    <meta property="og:description" content="Mentes técnicas que combinam ciência de dados, microeletrônica, direito espacial e sistemas ciberfísicos para a Amazônia.">
+    <meta property="og:image" content="https://yakami.tech/assets/og-yakami-equipe.jpg">
+    
+    <!-- Estilos Externos -->
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-slate-950">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; line-height: 1.6; }
+        
+        /* Foco Acessível */
+        :focus-visible {
+            outline: 2px solid #22d3ee;
+            outline-offset: 2px;
+        }
 
-    <!-- Cabeçalho / Navegação -->
-    <header class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <span class="text-xl font-black tracking-wider text-white">YAKAMÍ<span class="text-emerald-400">TECH</span></span>
-            </div>
-            <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
-                <a href="index.html" class="hover:text-emerald-400 transition-colors">Início</a>
-                <a href="sobre.html" class="hover:text-emerald-400 transition-colors">Sobre</a>
-                <a href="equipe.html" class="text-emerald-400 font-semibold">Equipe</a>
-                <a href="contato.html" class="hover:text-emerald-400 transition-colors">Contato</a>
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            transition: all 0.3s ease;
+        }
+        .glass-panel:hover {
+            border-color: #f97316;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.15);
+        }
+        .profile-img {
+            transition: all 0.4s ease;
+            border: 3px solid rgba(249, 115, 22, 0.4);
+            object-fit: cover;
+        }
+        .glass-panel:hover .profile-img {
+            border-color: #22d3ee;
+            transform: scale(1.03);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="text-white antialiased">
+
+    <!-- Header / Navegação -->
+    <header class="fixed top-0 w-full z-50 p-4 bg-gray-900/90 backdrop-blur-md border-b border-gray-800" role="banner">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-black tracking-tighter text-orange-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded">
+                YAKAMI<span class="text-white">.TECH</span>
+            </a>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex space-x-8 font-semibold text-sm uppercase tracking-widest" aria-label="Principal">
+                <a href="index.html" class="hover:text-cyan-400 transition-colors">Home</a>
+                <a href="empresa.html" class="hover:text-cyan-400 transition-colors">Empresa</a>
+                <a href="equipe.html" class="text-cyan-400 border-b-2 border-cyan-400 pb-1" aria-current="page">Equipe</a>
+                <a href="prosame.html" class="hover:text-cyan-400 transition-colors">ProSAME</a>
+                <a href="contato.html" class="bg-orange-600 hover:bg-orange-500 px-5 py-2 rounded-full text-white transition-all text-sm">Contato</a>
             </nav>
-            <div>
-                <a href="contato.html" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-sm rounded-lg transition-all shadow-lg shadow-emerald-500/20">
-                    Fale Conosco
-                </a>
-            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-white p-2 focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded" 
+                    aria-label="Abrir menu" 
+                    id="mobile-menu-toggle">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="mobile-menu fixed inset-0 z-40 bg-gray-900/98 pt-20 px-6 md:hidden">
+            <nav class="flex flex-col space-y-4 text-center">
+                <a href="index.html" class="text-lg hover:text-cyan-400 py-2">Home</a>
+                <a href="empresa.html" class="text-lg hover:text-cyan-400 py-2">Empresa</a>
+                <a href="equipe.html" class="text-lg text-cyan-400 py-2">Equipe</a>
+                <a href="prosame.html" class="text-lg hover:text-cyan-400 py-2">ProSAME</a>
+                <a href="contato.html" class="bg-orange-600 px-6 py-3 rounded-full inline-block mt-4">Contato</a>
+                <button id="mobile-menu-close" class="absolute top-6 right-6 text-gray-400 hover:text-white p-2" aria-label="Fechar menu">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </nav>
         </div>
     </header>
 
-    <!-- Conteúdo Principal: Seção da Equipe -->
-    <main>
-        <section id="equipe" class="py-20 bg-slate-950 text-slate-100">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header Principal / Manifesto da Equipe -->
+    <main class="pt-32 pb-16 px-6 bg-gray-950 border-b border-gray-800/80">
+        <div class="container mx-auto text-center max-w-4xl">
+            <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 mb-6">
+                <i class="fas fa-microchip text-cyan-400 mr-2 text-sm"></i>
+                <span class="text-cyan-400 font-bold text-xs tracking-wider uppercase">Liderança Multidisciplinar</span>
+            </div>
             
-            <!-- Cabeçalho da Seção -->
-            <div class="text-center max-w-3xl mx-auto mb-16">
-              <span class="text-emerald-400 font-semibold tracking-wider uppercase text-sm">Governança & Engenharia de Fronteira</span>
-              <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-white mt-2 mb-4">
-                Engenharia de Fronteira e Soberania a partir da Amazônia
-              </h1>
-              <p class="text-slate-400 text-lg">
+            <!-- Título Atualizado -->
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-6 uppercase tracking-tighter leading-tight">
+                Engenharia de Fronteira e <span class="text-orange-500">Soberania a partir da Amazônia</span>
+            </h1>
+            
+            <!-- Subtítulo Atualizado -->
+            <p class="text-base sm:text-lg md:text-xl text-gray-300 font-light max-w-3xl mx-auto leading-relaxed">
                 Conheça os fundadores e mentes técnicas que combinam ciência de dados, microeletrônica, direito espacial e sistemas ciberfísicos para resolver os maiores desafios de monitoramento e defesa da Amazônia.
-              </p>
-            </div>
-
-            <!-- Grid de Membros -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-              <!-- Erick Mattos -->
-              <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-emerald-500/50 transition-all duration-300 shadow-xl">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-medium rounded-full">Executiva & Estratégia</span>
-                    <span class="text-xs text-slate-500">Co-founder</span>
-                  </div>
-                  <h3 class="text-xl font-bold text-white mb-1">Erick Mattos</h3>
-                  <p class="text-emerald-400 font-medium text-sm mb-4">CEO & Co-fundador</p>
-                  <p class="text-slate-300 text-sm mb-4 leading-relaxed">
-                    <strong class="text-white">Foco de Atuação:</strong> Estratégia de Negócios, Ecossistemas Deep Tech, Articulação Aeroespacial e Defesa.
-                  </p>
-                  <p class="text-slate-400 text-xs leading-relaxed border-t border-slate-800 pt-3">
-                    Embaixador do BNDES Garagem no Amazonas, líder do GAS Norte (ENIMPACTO) e com formação internacional em aviação civil, pilotagem e normativas (FAA/Embry-Riddle/OACI).
-                  </p>
-                </div>
-              </div>
-
-              <!-- Helen Araújo -->
-              <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-emerald-500/50 transition-all duration-300 shadow-xl">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-medium rounded-full">Jurídico & Compliance</span>
-                    <span class="text-xs text-slate-500">Co-founder</span>
-                  </div>
-                  <h3 class="text-xl font-bold text-white mb-1">Helen Araújo</h3>
-                  <p class="text-blue-400 font-medium text-sm mb-4">CLO & Co-fundadora</p>
-                  <p class="text-slate-300 text-sm mb-4 leading-relaxed">
-                    <strong class="text-white">Foco de Atuação:</strong> Direito Espacial, Propriedade Intelectual, Compliance e Governança Regulatória.
-                  </p>
-                  <p class="text-slate-400 text-xs leading-relaxed border-t border-slate-800 pt-3">
-                    Mestranda no PROFNIT (UEA), especialista na arquitetura de rastreabilidade regulatória de dados (RRDA) e blindagem institucional de ativos tecnológicos.
-                  </p>
-                </div>
-              </div>
-
-              <!-- Carlos Eduardo Silva de Araújo -->
-              <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-emerald-500/50 transition-all duration-300 shadow-xl">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-medium rounded-full">Hardware & Energia</span>
-                    <span class="text-xs text-slate-500">Engenharia</span>
-                  </div>
-                  <h3 class="text-xl font-bold text-white mb-1">Carlos Eduardo Silva de Araújo</h3>
-                  <p class="text-purple-400 font-medium text-sm mb-4">CPO & Engenheiro de Hardware</p>
-                  <p class="text-slate-300 text-sm mb-4 leading-relaxed">
-                    <strong class="text-white">Foco de Atuação:</strong> Sistemas de Energia, Eletrônica de Borda, Microeletrônica e Integração de Hardwares.
-                  </p>
-                  <p class="text-slate-400 text-xs leading-relaxed border-t border-slate-800 pt-3">
-                    Engenheiro Eletricista (CREA-AM) com certificação avançada de 320h em Microeletrônica pelo CI Amazônia (iRede/Softex/MCTI).
-                  </p>
-                </div>
-              </div>
-
-              <!-- Walterson Filho -->
-              <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-emerald-500/50 transition-all duration-300 shadow-xl">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-medium rounded-full">Software & Edge</span>
-                    <span class="text-xs text-slate-500">Tecnologia</span>
-                  </div>
-                  <h3 class="text-xl font-bold text-white mb-1">Walterson Filho</h3>
-                  <p class="text-amber-400 font-medium text-sm mb-4">CTO & Arquiteto de Sistemas e Software</p>
-                  <p class="text-slate-300 text-sm mb-4 leading-relaxed">
-                    <strong class="text-white">Foco de Atuação:</strong> Software Embarcado, Cibersegurança, Arquitetura de Dados em Borda (Edge Computing) e IoT.
-                  </p>
-                  <p class="text-slate-400 text-xs leading-relaxed border-t border-slate-800 pt-3">
-                    Especialista em firmware, protocolos de comunicação de longo alcance (LoRaWAN/MQTT) e arquitetura de dados descentralizados.
-                  </p>
-                </div>
-              </div>
-
-              <!-- Gabriel Araujo -->
-              <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-emerald-500/50 transition-all duration-300 shadow-xl md:col-span-2 lg:col-span-1">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-medium rounded-full">P&D & Prototipagem</span>
-                    <span class="text-xs text-slate-500">Engenharia</span>
-                  </div>
-                  <h3 class="text-xl font-bold text-white mb-1">Gabriel Araujo</h3>
-                  <p class="text-cyan-400 font-medium text-sm mb-4">Técnico de Sistemas / Estágio em Pesquisa e Desenvolvimento (P&D)</p>
-                  <p class="text-slate-300 text-sm mb-4 leading-relaxed">
-                    <strong class="text-white">Foco de Atuação:</strong> Prototipagem, Integração de Sensores e Suporte a Missões Técnicas das estações meteorológicas.
-                  </p>
-                  <p class="text-slate-400 text-xs leading-relaxed border-t border-slate-800 pt-3">
-                    Atuação direta na validação de campo, montagem de circuitos e testes práticos dos hardwares de monitoramento ambiental.
-                  </p>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
+            </p>
+        </div>
     </main>
 
+    <!-- Direção Estratégica & Executiva -->
+    <section class="py-16 px-6">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-center text-sm font-bold tracking-[0.3em] text-cyan-400 uppercase mb-12">Direção Estratégica & Executiva</h2>
+            <div class="grid md:grid-cols-2 gap-8 justify-center">
+                
+                <!-- Erick Mattos -->
+                <div class="glass-panel p-8 rounded-3xl text-center w-full flex flex-col justify-between">
+                    <div>
+                        <img class="w-32 h-32 rounded-full mx-auto mb-6 profile-img bg-gray-800" 
+                             src="assets/profile-erick.jpg" 
+                             alt="Erick Mattos"
+                             onerror="this.src='https://ui-avatars.com/api/?name=Erick+Mattos&background=0f172a&color=f97316&size=128&bold=true'">
+                        <h3 class="text-2xl font-bold">Erick Mattos</h3>
+                        <p class="text-orange-400 font-semibold mb-4">CEO & Co-fundador</p>
+                        <p class="text-xs uppercase font-bold text-cyan-400 tracking-wider mb-2">Foco de Atuação</p>
+                        <p class="text-gray-300 text-sm leading-relaxed">Estratégia de Negócios, Ecossistemas Deep Tech, Articulação Aeroespacial e Defesa.</p>
+                    </div>
+                    <div class="mt-6 flex justify-center space-x-4">
+                        <a href="https://www.linkedin.com/in/erick-de-ara%C3%BAjo-mattos-51817814/" target="_blank" rel="noopener" class="text-gray-400 hover:text-cyan-400 text-xl" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:erickmattos31@gmail.com" class="text-gray-400 hover:text-orange-400 text-xl" aria-label="E-mail">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Helen Araújo -->
+                <div class="glass-panel p-8 rounded-3xl text-center w-full flex flex-col justify-between">
+                    <div>
+                        <img class="w-32 h-32 rounded-full mx-auto mb-6 profile-img bg-gray-800" 
+                             src="assets/profile-helen.jpg" 
+                             alt="Helen Araújo"
+                             onerror="this.src='https://ui-avatars.com/api/?name=Helen+Araujo&background=0f172a&color=22d3ee&size=128&bold=true'">
+                        <h3 class="text-2xl font-bold">Helen Araújo</h3>
+                        <p class="text-orange-400 font-semibold mb-4">CLO & Co-fundadora</p>
+                        <p class="text-xs uppercase font-bold text-cyan-400 tracking-wider mb-2">Foco de Atuação</p>
+                        <p class="text-gray-300 text-sm leading-relaxed">Direito Espacial, Propriedade Intelectual, Compliance e Governança Regulatória.</p>
+                    </div>
+                    <div class="mt-6 flex justify-center space-x-4">
+                        <a href="https://www.linkedin.com/in/helen-ara%C3%BAjo-b9686411b/" target="_blank" rel="noopener" class="text-gray-400 hover:text-cyan-400 text-xl" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:helenaraujoadv@gmail.com" class="text-gray-400 hover:text-orange-400 text-xl" aria-label="E-mail">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Corpo Técnico & Engenharia -->
+    <section class="py-16 px-6 bg-gray-900/50 border-y border-gray-800/60">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-center text-sm font-bold tracking-[0.3em] text-cyan-400 uppercase mb-12">Corpo Técnico & Engenharia</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Carlos Eduardo Silva de Araújo -->
+                <div class="glass-panel p-8 rounded-3xl text-center flex flex-col justify-between">
+                    <div>
+                        <img class="w-24 h-24 rounded-full mx-auto mb-6 profile-img bg-gray-800" 
+                             src="assets/profile-carlos.jpg" 
+                             alt="Carlos Eduardo Silva de Araújo"
+                             onerror="this.src='https://ui-avatars.com/api/?name=Carlos+Eduardo&background=0f172a&color=22d3ee&size=96&bold=true'">
+                        <h3 class="text-xl font-bold">Carlos Eduardo S. de Araújo</h3>
+                        <p class="text-orange-400 font-semibold mb-3 text-sm">CPO & Engenheiro de Hardware</p>
+                        <p class="text-xs uppercase font-bold text-cyan-400 tracking-wider mb-2">Foco de Atuação</p>
+                        <p class="text-gray-400 text-xs leading-relaxed">Sistemas de Energia, Eletrônica de Borda, Microeletrônica e Integração de Hardwares.</p>
+                    </div>
+                    <div class="mt-6 flex justify-center space-x-4">
+                        <a href="https://www.linkedin.com/in/carlos-eduardo-ara%C3%BAjo-2aa46a398/" target="_blank" rel="noopener" class="text-gray-400 hover:text-cyan-400 text-xl" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:carlos.yakamitech@gmail.com" class="text-gray-400 hover:text-orange-400 text-xl" aria-label="E-mail">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Walterson Filho -->
+                <div class="glass-panel p-8 rounded-3xl text-center flex flex-col justify-between">
+                    <div>
+                        <img class="w-24 h-24 rounded-full mx-auto mb-6 profile-img bg-gray-800" 
+                             src="assets/profile-walter.jpg" 
+                             alt="Walterson Filho"
+                             onerror="this.src='https://ui-avatars.com/api/?name=Walterson+Filho&background=0f172a&color=f97316&size=96&bold=true'">
+                        <h3 class="text-xl font-bold">Walterson Filho</h3>
+                        <p class="text-orange-400 font-semibold mb-3 text-sm">CTO & Arquiteto de Sistemas e Software</p>
+                        <p class="text-xs uppercase font-bold text-cyan-400 tracking-wider mb-2">Foco de Atuação</p>
+                        <p class="text-gray-400 text-xs leading-relaxed">Software Embarcado, Cibersegurança, Arquitetura de Dados em Borda (Edge Computing) e IoT.</p>
+                    </div>
+                    <div class="mt-6 flex justify-center space-x-4">
+                        <a href="https://www.linkedin.com/in/francisco-walterson/" target="_blank" rel="noopener" class="text-gray-400 hover:text-cyan-400 text-xl" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:contato@yakami.com.br" class="text-gray-400 hover:text-orange-400 text-xl" aria-label="E-mail">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Gabriel Araujo -->
+                <div class="glass-panel p-8 rounded-3xl text-center flex flex-col justify-between md:col-span-2 lg:col-span-1">
+                    <div>
+                        <img class="w-24 h-24 rounded-full mx-auto mb-6 profile-img bg-gray-800" 
+                             src="assets/profile-gabriel.jpg" 
+                             alt="Gabriel Araujo"
+                             onerror="this.src='https://ui-avatars.com/api/?name=Gabriel+Araujo&background=0f172a&color=22d3ee&size=96&bold=true'">
+                        <h3 class="text-xl font-bold">Gabriel Araujo</h3>
+                        <p class="text-orange-400 font-semibold mb-3 text-sm">Técnico de Sistemas / Estágio em P&D</p>
+                        <p class="text-xs uppercase font-bold text-cyan-400 tracking-wider mb-2">Foco de Atuação</p>
+                        <p class="text-gray-400 text-xs leading-relaxed">Prototipagem, Integração de Sensores e Suporte a Missões Técnicas das estações meteorológicas.</p>
+                    </div>
+                    <div class="mt-6 flex justify-center space-x-4">
+                        <a href="#" target="_blank" rel="noopener" class="text-gray-400 hover:text-cyan-400 text-xl" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:contato@yakami.com.br" class="text-gray-400 hover:text-orange-400 text-xl" aria-label="E-mail">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- Rodapé -->
-    <footer class="bg-slate-950 border-t border-slate-900 py-12 text-center text-slate-500 text-sm">
-        <div class="max-w-7xl mx-auto px-4">
-            <p>&copy; 2026 Yakamí Tech. Todos os direitos reservados. Feito a partir da Amazônia.</p>
+    <footer class="py-12 bg-gray-950 border-t border-gray-900 text-center text-gray-500 text-sm">
+        <div class="container mx-auto px-6">
+            <p>© 2026 YAKAMI TECH. Excelência técnica a serviço da Amazônia.</p>
+            <div class="mt-3 flex justify-center gap-4 text-xs text-gray-600">
+                <a href="politica-privacidade.html" class="hover:text-cyan-400">Política de Privacidade</a>
+                <span>•</span>
+                <a href="contato.html" class="hover:text-cyan-400">Contato</a>
+            </div>
         </div>
     </footer>
 
+    <!-- Script de Menu Responsivo -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const close = document.getElementById('mobile-menu-close');
+            const menu = document.getElementById('mobile-menu');
+
+            function toggleMenu() {
+                const isActive = menu.classList.toggle('active');
+                document.body.style.overflow = isActive ? 'hidden' : '';
+            }
+
+            if (toggle) toggle.addEventListener('click', toggleMenu);
+            if (close) close.addEventListener('click', toggleMenu);
+            
+            if (menu) {
+                menu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        menu.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>
