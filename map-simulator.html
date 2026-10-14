@@ -11,7 +11,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #070b14; color: #fff; overflow: hidden; }
-        .glass-panel { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(12px); border: 1px solid rgba(34, 211, 238, 0.3); box-shadow: 0 0 20px rgba(34, 211, 238, 0.08); }
+        .glass-panel { 
+            background: rgba(15, 23, 42, 0.95); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(34, 211, 238, 0.3); 
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.08);
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+        /* Scrollbar personalizada */
+        .glass-panel::-webkit-scrollbar { width: 6px; }
+        .glass-panel::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.3); }
+        .glass-panel::-webkit-scrollbar-thumb { background: #22d3ee; border-radius: 3px; }
+        
         #map { width: 100%; height: 100%; background: #070b14; z-index: 1; }
         
         /* Animações dos Marcadores */
@@ -28,16 +40,20 @@
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
         }
 
-        /* Customização da Barra de Rolagem do Log */
-        #alerts-list::-webkit-scrollbar { width: 4px; }
-        #alerts-list::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); }
-        #alerts-list::-webkit-scrollbar-thumb { background: #22d3ee; border-radius: 2px; }
+        /* Responsividade para telas menores */
+        @media (max-width: 1024px) {
+            .sidebar-responsive {
+                width: 100%;
+                max-height: 40vh;
+                position: relative;
+            }
+        }
     </style>
 </head>
 <body class="h-screen flex flex-col">
 
     <!-- Topbar -->
-    <header class="bg-gray-900 border-b border-gray-800 px-4 md:px-6 py-3 flex justify-between items-center z-20 shadow-xl">
+    <header class="bg-gray-900 border-b border-gray-800 px-4 md:px-6 py-3 flex justify-between items-center z-20 shadow-xl flex-shrink-0">
         <div class="flex items-center space-x-3 md:space-x-4">
             <a href="index.html" class="text-orange-500 font-black text-lg md:text-xl tracking-tighter hover:text-orange-400 transition">YAKAMI<span class="text-white">.TECH</span></a>
             <span class="hidden md:inline-block text-[10px] md:text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-wider">🛰️ ASTRA-Net Master GIS | dMRV, Normam 204 & DePIN</span>
@@ -52,66 +68,69 @@
     </header>
 
     <!-- Main Workspace -->
-    <div class="flex-1 flex flex-col lg:flex-row relative overflow-hidden">
+    <div class="flex-1 flex flex-col lg:flex-row relative overflow-hidden min-h-0">
         
         <!-- Contêiner do Mapa Real -->
-        <div class="flex-1 relative bg-gray-950 order-2 lg:order-1" id="map-container">
+        <div class="flex-1 relative bg-gray-950 order-2 lg:order-1 min-h-0">
             <div id="map" class="absolute inset-0"></div>
         </div>
 
         <!-- Sidebar de Telemetria e Governança -->
-        <aside class="w-full lg:w-[450px] bg-gray-900 border-t lg:border-t-0 lg:border-l border-gray-800 flex flex-col p-4 md:p-5 space-y-4 z-20 shadow-2xl overflow-y-auto order-1 lg:order-2 max-h-[40vh] lg:max-h-none">
-            
-            <!-- Legenda das Cores no Mapa -->
-            <div class="glass-panel p-3 rounded-xl space-y-2 text-[11px]">
-                <p class="font-bold text-gray-300 uppercase tracking-wider text-[10px]">Legenda dos Ativos Flutuantes:</p>
-                <div class="grid grid-cols-2 gap-1.5">
-                    <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-blue-900 border border-blue-400"></span><span>Hermasa (Soja)</span></div>
-                    <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-red-600 border border-red-300"></span><span>Atem (Combustível)</span></div>
-                    <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-sky-400 border border-white"></span><span>Catamarã (Misto)</span></div>
-                    <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-orange-600 border border-orange-300"></span><span>Portos Oficiais</span></div>
-                    <div class="flex items-center space-x-2 col-span-2"><span class="w-3 h-3 rounded-full bg-green-600 border border-green-300"></span><span>Eco Flow (Reserva / TI)</span></div>
-                </div>
-            </div>
-
-            <!-- Painel Principal de Inspeção -->
-            <div id="telemetry-panel" class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-orange-500 flex-1">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-xs font-black uppercase tracking-wider text-orange-400 flex items-center"><i class="fas fa-id-card mr-2"></i> Inspeção de Ativos</h2>
-                    <button onclick="clearSelection()" class="text-[10px] text-gray-400 hover:text-white underline">Limpar</button>
-                </div>
-                <div id="telemetry-content" class="text-xs text-gray-300 space-y-2 pt-1 max-h-[300px] overflow-y-auto pr-1">
-                    <p class="text-gray-400 italic flex items-center justify-center h-20">Clique em qualquer ativo no mapa para carregar os dados completos de Normam 204, Carga e dMRV.</p>
-                </div</div>
-
-            <!-- Botão de Envio de Payload dMRV -->
-            <button id="btn-payload" onclick="enviarPayloadBlockchain()" class="w-full bg-gradient-to-r from-cyan-600 to-green-600 hover:from-cyan-500 hover:to-green-500 text-gray-950 font-black py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-900/40 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
-                <i id="icon-payload" class="fas fa-satellite-dish text-sm"></i> 
-                <span id="text-payload">Enviar Payload à Blockchain (Sepolia)</span>
-            </button>
-
-            <!-- Sumário Global de Impacto -->
-            <div class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-green-500">
-                <h2 class="text-xs font-black uppercase tracking-wider text-green-400 flex items-center"><i class="fas fa-coins mr-2"></i> Balanço de Carbono & Tokenomics</h2>
-                <div class="grid grid-cols-2 gap-2 text-xs pt-1">
-                    <div class="bg-gray-950/70 p-2.5 rounded border border-gray-800">
-                        <span class="text-gray-400 text-[10px] block">Sequestro Verificado:</span>
-                        <b class="text-green-400 text-sm font-mono">342.150 tCO2e</b>
-                    </div>
-                    <div class="bg-gray-950/70 p-2.5 rounded border border-gray-800">
-                        <span class="text-gray-400 text-[10px] block">Tokens Fracionados (YKM):</span>
-                        <b class="text-cyan-400 text-sm font-mono">18.450.000 YKM</b>
+        <aside class="w-full lg:w-[420px] bg-gray-900 border-t lg:border-t-0 lg:border-l border-gray-800 flex flex-col z-20 shadow-2xl order-1 lg:order-2 sidebar-responsive overflow-hidden">
+            <div class="flex flex-col h-full overflow-y-auto p-4 space-y-4">
+                
+                <!-- Legenda das Cores no Mapa -->
+                <div class="glass-panel p-3 rounded-xl space-y-2 text-[11px] flex-shrink-0">
+                    <p class="font-bold text-gray-300 uppercase tracking-wider text-[10px]">Legenda dos Ativos Flutuantes:</p>
+                    <div class="grid grid-cols-2 gap-1.5">
+                        <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-blue-900 border border-blue-400"></span><span>Hermasa (Soja)</span></div>
+                        <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-red-600 border border-red-300"></span><span>Atem (Combustível)</span></div>
+                        <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-sky-400 border border-white"></span><span>Catamarã (Misto)</span></div>
+                        <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-orange-600 border border-orange-300"></span><span>Portos Oficiais</span></div>
+                        <div class="flex items-center space-x-2 col-span-2"><span class="w-3 h-3 rounded-full bg-green-600 border border-green-300"></span><span>Eco Flow (Reserva / TI)</span></div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Log de Transações -->
-            <div id="alerts-panel" class="glass-panel p-4 rounded-xl flex-1 flex flex-col border-l-4 border-l-cyan-600 min-h-[150px]">
-                <h2 class="text-xs font-black uppercase tracking-wider text-cyan-400 mb-2 flex items-center justify-between">
-                    <span><i class="fas fa-bell mr-2"></i> Log de Transações DePIN</span>
-                    <span class="text-[10px] text-gray-500 font-normal">Sepolia Testnet</span>
-                </h2>
-                <div id="alerts-list" class="flex-1 overflow-y-auto space-y-1.5 text-[11px] font-mono text-gray-300 pr-1"></div>
+                <!-- Painel Principal de Inspeção -->
+                <div id="telemetry-panel" class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-orange-500 flex-shrink-0">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-xs font-black uppercase tracking-wider text-orange-400 flex items-center"><i class="fas fa-id-card mr-2"></i> Inspeção de Ativos</h2>
+                        <button onclick="clearSelection()" class="text-[10px] text-gray-400 hover:text-white underline">Limpar</button>
+                    </div>
+                    <div id="telemetry-content" class="text-xs text-gray-300 space-y-2 pt-1 max-h-[350px] overflow-y-auto pr-1">
+                        <p class="text-gray-400 italic flex items-center justify-center h-20">Clique em qualquer ativo no mapa para carregar os dados completos de Normam 204, Carga e dMRV.</p>
+                    </div>
+                </div>
+
+                <!-- Botão de Envio de Payload dMRV -->
+                <button id="btn-payload" onclick="enviarPayloadBlockchain()" class="w-full bg-gradient-to-r from-cyan-600 to-green-600 hover:from-cyan-500 hover:to-green-500 text-gray-950 font-black py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-900/40 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0">
+                    <i id="icon-payload" class="fas fa-satellite-dish text-sm"></i> 
+                    <span id="text-payload">Enviar Payload à Blockchain (Sepolia)</span>
+                </button>
+
+                <!-- Sumário Global de Impacto -->
+                <div class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-green-500 flex-shrink-0">
+                    <h2 class="text-xs font-black uppercase tracking-wider text-green-400 flex items-center"><i class="fas fa-coins mr-2"></i> Balanço de Carbono & Tokenomics</h2>
+                    <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+                        <div class="bg-gray-950/70 p-2.5 rounded border border-gray-800">
+                            <span class="text-gray-400 text-[10px] block">Sequestro Verificado:</span>
+                            <b class="text-green-400 text-sm font-mono">342.150 tCO2e</b>
+                        </div>
+                        <div class="bg-gray-950/70 p-2.5 rounded border border-gray-800">
+                            <span class="text-gray-400 text-[10px] block">Tokens Fracionados (YKM):</span>
+                            <b class="text-cyan-400 text-sm font-mono">18.450.000 YKM</b>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Log de Transações -->
+                <div id="alerts-panel" class="glass-panel p-4 rounded-xl flex-1 flex flex-col border-l-4 border-l-cyan-600 min-h-[150px]">
+                    <h2 class="text-xs font-black uppercase tracking-wider text-cyan-400 mb-2 flex items-center justify-between flex-shrink-0">
+                        <span><i class="fas fa-bell mr-2"></i> Log de Transações DePIN</span>
+                        <span class="text-[10px] text-gray-500 font-normal">Sepolia Testnet</span>
+                    </h2>
+                    <div id="alerts-list" class="flex-1 overflow-y-auto space-y-1.5 text-[11px] font-mono text-gray-300 pr-1"></div>
+                </div>
             </div>
         </aside>
     </div>
@@ -119,17 +138,18 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script>
-        // 1. Inicialização do Mapa com CartoDB Dark Matter (Muito mais profissional que o filtro CSS)
+        // 1. Inicialização do Mapa com OpenStreetMap padrão (SEM API KEY)
         const map = L.map('map', { zoomControl: false }).setView([-5.0000, -60.0000], 6);
         L.control.zoom({ position: 'topleft' }).addTo(map);
 
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        // Usando OpenStreetMap padrão (não requer API key)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-            subdomains: 'abcd',
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            subdomains: 'abcd'
         }).addTo(map);
 
-        // 2. Base de Dados Completa
+        // 2. Base de Dados Completa (mesma do código anterior)
         const ativosLogisticos = [
             { id: 'v_herm_1', type: 'vessel_hermasa', name: 'Comboio Hermasa 01 (Descendo Madeira)', lat: -8.500, lng: -63.800, speed: '8.5 nós', status: 'Conforme Normam 204', operador: 'Hermasa Navegação da Amazônia (Amaggi)', destino: 'Itacoatiara / Santarém', normam204: { inscricaoCapitania: 'CPAM-RO-2023-8841', arqueacaoBruta: '2.450 AB', tripulacaoMinima: '8 Tripulantes', certificados: 'VLD Válido' }, manifestoCarga: { tipo: 'Soja em Grãos a Granel', volume: '4.200 Toneladas', lote: 'HE-MADEIRA-2026-01' }, passageiros: [{ nome: 'Carlos Mendes', documento: '***.452.782-**', funcao: 'Comandante' }] },
             { id: 'v_herm_2', type: 'vessel_hermasa', name: 'Comboio Hermasa 02 (Descendo Madeira)', lat: -5.350, lng: -60.800, speed: '8.0 nós', status: 'Conforme Normam 204', operador: 'Hermasa Navegação da Amazônia (Amaggi)', destino: 'Itacoatiara', normam204: { inscricaoCapitania: 'CPAM-RO-2023-8842', arqueacaoBruta: '2.450 AB', tripulacaoMinima: '8 Tripulantes', certificados: 'VLD Válido' }, manifestoCarga: { tipo: 'Soja em Grãos a Granel', volume: '3.900 Toneladas', lote: 'HE-MADEIRA-2026-02' }, passageiros: [{ nome: 'Roberto Farias', documento: '***.332.190-**', funcao: 'Mestre Fluvial' }] },
@@ -165,8 +185,7 @@
             const listEl = document.getElementById('alerts-list');
             if (!listEl) return;
             listEl.innerHTML = alerts.map(a => `<div class="border-b border-gray-800/60 pb-1.5 flex items-start space-x-1"><span class="text-gray-500 shrink-0">[${a.timestamp}]</span> <b class="text-cyan-400 shrink-0">${a.type}:</b> <span class="text-gray-300 break-words">${a.message}</span></div>`).join('');
-            // Auto-scroll para o topo para mostrar a ação mais recente
-            listEl.scrollTop = 0; 
+            listEl.scrollTop = 0;
         }
 
         function clearSelection() {
@@ -269,7 +288,6 @@
             const icon = document.getElementById('icon-payload');
             const text = document.getElementById('text-payload');
             
-            // Estado de carregamento
             btn.disabled = true;
             icon.className = 'fas fa-circle-notch fa-spin text-sm';
             text.innerText = 'Criptografando e Enviando...';
@@ -278,7 +296,6 @@
                 addAlert('DePIN', 'Payload dMRV compactado enviado e validado na Sepolia Testnet.');
                 alert('✅ Sucesso!\n\nPayload dMRV compactado (Edge Computing) registrado de forma imutável no Smart Contract YAKAMI TrustFlow.\n\nHash: 0x7f83b1657ff1fc53b92dc1...');
                 
-                // Restaura estado
                 btn.disabled = false;
                 icon.className = 'fas fa-satellite-dish text-sm';
                 text.innerText = 'Enviar Payload à Blockchain (Sepolia)';
@@ -311,7 +328,7 @@
             });
         }
 
-        // 6. Loop de Animação Otimizado (Apenas atualiza coordenadas, não recria ícones)
+        // 6. Loop de Animação Otimizado
         setInterval(() => {
             ativosLogisticos.filter(i => i.type.startsWith('vessel')).forEach(v => {
                 v.lng += (Math.random() - 0.4) * 0.002;
@@ -324,7 +341,7 @@
 
         // Inicialização
         renderMarkers();
-        addAlert('SISTEMA', 'Master Dashboard ASTRA-Net GIS inicializado. Conexão segura estabelecida.');
+        addAlert('SISTEMA', 'Master Dashboard ASTRA-Net GIS inicializado com OpenStreetMap.');
     </script>
 </body>
 </html>
