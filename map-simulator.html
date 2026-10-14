@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YAKAMI TECH - Centro de Operações ASTRA-Net GIS (Master Dashboard dMRV & DePIN)</title>
+    <title>YAKAMI TECH - Centro de Operações ASTRA-Net GIS (Master Dashboard)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Leaflet CSS -->
@@ -34,7 +34,7 @@
     <header class="bg-gray-900 border-b border-gray-800 px-6 py-3 flex justify-between items-center z-20 shadow-xl">
         <div class="flex items-center space-x-4">
             <a href="index.html" class="text-orange-500 font-black text-xl tracking-tighter">YAKAMI<span class="text-white">.TECH</span></a>
-            <span class="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-wider">🛰️ ASTRA-Net Master GIS | dMRV, Normam 204 & DePIN Comunitário</span>
+            <span class="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-wider">🛰️ ASTRA-Net Master GIS | dMRV, Normam 204 & DePIN</span>
         </div>
         <div class="flex items-center space-x-4 text-sm">
             <div class="flex items-center space-x-2 bg-gray-800/80 px-3 py-1.5 rounded-lg border border-gray-700">
@@ -56,17 +56,23 @@
         <!-- Sidebar de Telemetria e Governança -->
         <aside class="w-[470px] bg-gray-900 border-l border-gray-800 flex flex-col p-5 space-y-4 z-20 shadow-2xl overflow-y-auto">
             
-            <!-- Painel Geral -->
-            <div class="glass-panel p-3 rounded-xl flex justify-between items-center text-xs">
-                <span class="text-gray-300 font-bold">Status do Sistema:</span>
-                <span class="text-green-400 font-mono">Modo de Demonstração Integral</span>
+            <!-- Legenda das Cores no Mapa -->
+            <div class="glass-panel p-3 rounded-xl space-y-2 text-[11px]">
+                <p class="font-bold text-gray-300 uppercase tracking-wider">Legenda dos Ativos Flutantes:</p>
+                <div class="grid grid-cols-2 gap-1.5">
+                    <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-blue-900 border border-blue-400"></span><span>Hermasa (Soja)</span></div>
+                    <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-red-600 border border-red-300"></span><span>Atem (Combustível)</span></div>
+                    <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-sky-400 border border-white"></span><span>Catamarã (Misto)</span></div>
+                    <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-orange-600 border border-orange-300"></span><span>Portos Oficiais</span></div>
+                    <div class="flex items-center space-x-2 col-span-2"><span class="w-3 h-3 rounded-full bg-green-600 border border-green-300"></span><span>Eco Flow (Reserva / TI)</span></div>
+                </div>
             </div>
 
             <!-- Painel Principal de Inspeção -->
             <div id="telemetry-panel" class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-orange-500">
-                <h2 class="text-xs font-black uppercase tracking-wider text-orange-400 flex items-center"><i class="fas id-card mr-2"></i> Inspeção de Ativos & Normas Regulatórias</h2>
+                <h2 class="text-xs font-black uppercase tracking-wider text-orange-400 flex items-center"><i class="fas fa-id-card mr-2"></i> Inspeção de Ativos & Normas Regulatórias</h2>
                 <div id="telemetry-content" class="text-xs text-gray-300 space-y-2 pt-1">
-                    <p class="text-gray-400 italic">Clique em qualquer embarcação (Hermasa, Atem ou Catamarã), Porto Oficial ou Estação Eco Flow nas Reservas/Terras Indígenas para auditar os dados.</p>
+                    <p class="text-gray-400 italic">Clique em qualquer ativo no mapa (Balsas Hermasa, Atem, Catamarã, Portos ou Estações Eco Flow) para carregar os dados completos.</p>
                 </div>
             </div>
 
@@ -106,7 +112,7 @@
     <script>
         const map = L.map('map', {
             zoomControl: false
-        }).setView([-3.4000, -60.0000], 6);
+        }).setView([-5.0000, -60.0000], 6);
 
         L.control.zoom({ position: 'topleft' }).addTo(map);
 
@@ -115,99 +121,121 @@
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // Base unificada com Frotas, Normam 204, Catamarã Misto e Estações em TI / RDS
+        // BASE COMPLETA: Hermasa, Atem, Catamarã Misto, Portos de Passagem e Estações Eco Flow
         const ativosLogisticos = [
-            // --- EMBARCAÇÕES HERMASA (RIO MADEIRA) ---
+            // --- FROTAS HERMASA (AZUL MARINHO - RIO MADEIRA) ---
             { 
-                id: 'v_herm_1', type: 'vessel', name: 'Comboio Hermasa 04 (Rio Madeira)', 
-                lat: -5.350, lng: -60.800, speed: '8.0 nós', status: 'Conforme Normam 204', 
+                id: 'v_herm_1', type: 'vessel_hermasa', name: 'Comboio Hermasa 01 (Descendo Madeira)', 
+                lat: -8.500, lng: -63.800, speed: '8.5 nós', status: 'Conforme Normam 204', 
                 operador: 'Hermasa Navegação da Amazônia (Amaggi)', destino: 'Itacoatiara / Santarém',
-                normam204: {
-                    inscricaoCapitania: 'CPAM-RO-2023-8841',
-                    arqueacaoBruta: '2.450 AB',
-                    tripulacaoMinima: '8 Tripulantes habilitados',
-                    certificados: 'Vistoria de Segurança da Navegação (VLD) - OK'
-                },
-                manifestoCarga: { tipo: 'Soja em Grãos a Granel', volume: '4.100 Toneladas', lote: 'HE-MADEIRA-2026-02' },
-                passageiros: [
-                    { nome: 'Roberto Farias', documento: '***.332.190-**', funcao: 'Mestre Fluvial (Comandante)' },
-                    { nome: 'Carlos Eduardo', documento: '***.881.442-**', funcao: 'Oficial de Máquinas' }
-                ]
+                normam204: { inscricaoCapitania: 'CPAM-RO-2023-8841', arqueacaoBruta: '2.450 AB', tripulacaoMinima: '8 Tripulantes', certificados: 'VLD Válido' },
+                manifestoCarga: { tipo: 'Soja em Grãos a Granel', volume: '4.200 Toneladas', lote: 'HE-MADEIRA-2026-01' },
+                passageiros: [{ nome: 'Carlos Mendes', documento: '***.452.782-**', funcao: 'Comandante' }]
+            },
+            { 
+                id: 'v_herm_2', type: 'vessel_hermasa', name: 'Comboio Hermasa 02 (Descendo Madeira)', 
+                lat: -5.350, lng: -60.800, speed: '8.0 nós', status: 'Conforme Normam 204', 
+                operador: 'Hermasa Navegação da Amazônia (Amaggi)', destino: 'Itacoatiara',
+                normam204: { inscricaoCapitania: 'CPAM-RO-2023-8842', arqueacaoBruta: '2.450 AB', tripulacaoMinima: '8 Tripulantes', certificados: 'VLD Válido' },
+                manifestoCarga: { tipo: 'Soja em Grãos a Granel', volume: '3.900 Toneladas', lote: 'HE-MADEIRA-2026-02' },
+                passageiros: [{ nome: 'Roberto Farias', documento: '***.332.190-**', funcao: 'Mestre Fluvial' }]
+            },
+            { 
+                id: 'v_herm_3', type: 'vessel_hermasa', name: 'Comboio Hermasa 03 (Subindo Madeira)', 
+                lat: -7.200, lng: -63.200, speed: '7.5 nós', status: 'Conforme Normam 204', 
+                operador: 'Hermasa Navegação da Amazônia (Amaggi)', destino: 'Porto Velho (RO)',
+                normam204: { inscricaoCapitania: 'CPAM-RO-2023-8843', arqueacaoBruta: '2.450 AB', tripulacaoMinima: '8 Tripulantes', certificados: 'VLD Válido' },
+                manifestoCarga: { tipo: 'Lastro / Insumos Vazios', volume: '0 t', lote: 'HE-RETORNO-01' },
+                passageiros: [{ nome: 'Marcos Lima', documento: '***.112.990-**', funcao: 'Tripulação' }]
             },
 
-            // --- EMBARCAÇÕES ATEM (RIO AMAZONAS) ---
+            // --- FROTAS ATEM (VERMELHO - RIO AMAZONAS) ---
             { 
-                id: 'v_atem_1', type: 'vessel', name: 'Balsa Atem 02 (Rio Amazonas)', 
-                lat: -2.850, lng: -58.200, speed: '8.8 nós', status: 'Conforme Normam 204', 
+                id: 'v_atem_1', type: 'vessel_atem', name: 'Balsa Atem 01 (Manaus ➔ Santarém)', 
+                lat: -3.120, lng: -59.500, speed: '9.0 nós', status: 'Conforme Normam 204', 
                 operador: 'Atem Distribuidora de Petróleo', destino: 'Santarém (PA)',
-                normam204: {
-                    inscricaoCapitania: 'CPAM-AM-2021-1920',
-                    arqueacaoBruta: '3.120 AB',
-                    tripulacaoMinima: '10 Tripulantes (Especializado Químico/Inflamável)',
-                    certificados: 'Certificado Nacional de Prevenção de Poluição por Óleo (CNPO) - Válido'
-                },
-                manifestoCarga: { tipo: 'Derivados de Petróleo (Diesel S-10)', volume: '2.100.000 Litros', lote: 'ATEM-AMZ-02' },
-                passageiros: [
-                    { nome: 'Silvio Santos', documento: '***.554.112-**', funcao: 'Comandante de Petroleiro' },
-                    { nome: 'Renato Aragão', documento: '***.990.123-**', funcao: 'Técnico de Contenção e Bombeio' }
-                ]
+                normam204: { inscricaoCapitania: 'CPAM-AM-2021-1920', arqueacaoBruta: '3.120 AB', tripulacaoMinima: '10 Tripulantes', certificados: 'CNPO Válido' },
+                manifestoCarga: { tipo: 'Diesel S-10 / Derivados', volume: '2.500.000 Litros', lote: 'ATEM-AMZ-01' },
+                passageiros: [{ nome: 'Paulo Antunes', documento: '***.881.002-**', funcao: 'Comandante Petroleiro' }]
+            },
+            { 
+                id: 'v_atem_2', type: 'vessel_atem', name: 'Balsa Atem 02 (Itacoatiara ➔ Parintins)', 
+                lat: -2.850, lng: -58.200, speed: '8.8 nós', status: 'Conforme Normam 204', 
+                operador: 'Atem Distribuidora de Petróleo', destino: 'Parintins / Santarém',
+                normam204: { inscricaoCapitania: 'CPAM-AM-2021-1921', arqueacaoBruta: '3.120 AB', tripulacaoMinima: '10 Tripulantes', certificados: 'CNPO Válido' },
+                manifestoCarga: { tipo: 'Gasolina / Combustíveis', volume: '2.100.000 Litros', lote: 'ATEM-AMZ-02' },
+                passageiros: [{ nome: 'Silvio Santos', documento: '***.554.112-**', funcao: 'Engenheiro de Bordo' }]
             },
 
-            // --- CATAMARÃ MISTO REGIONAL (RIO NEGRO / SOLIMÕES) ---
+            // --- CATAMARÃ MISTO REGIONAL (AZUL CLARO - RIO NEGRO / SOLIMÕES) ---
             { 
-                id: 'v_cata_1', type: 'vessel', name: 'Catamarã Misto "Soberano da Amazônia"', 
-                lat: -3.080, lng: -60.250, speed: '14.2 nós', status: 'Conforme Normam 204 (Passageiros & Carga)', 
-                operador: 'Expresso Fluvial Rio Negro Ltda.', destino: 'Manaus ➔ Barcelos / S. Gabriel',
-                normam204: {
-                    inscricaoCapitania: 'CPAM-AM-2024-5510',
-                    arqueacaoBruta: '480 AB',
-                    tripulacaoMinima: '6 Tripulantes (Mestre, Contramestre, Marítimos)',
-                    certificados: 'Passe de Saída da Capitania dos Portos - Emitido Digitalmente'
-                },
-                manifestoCarga: { tipo: 'Carga Geral Mista, Alimentos e 12 Veículos utilitários', volume: '85 Toneladas', lote: 'CATA-RN-2026-90' },
+                id: 'v_cata_1', type: 'vessel_cata', name: 'Catamarã Misto "Soberano da Amazônia"', 
+                lat: -3.080, lng: -60.250, speed: '14.2 nós', status: 'Conforme Normam 204', 
+                operador: 'Expresso Fluvial Rio Negro Ltda.', destino: 'Manaus ➔ Barcelos',
+                normam204: { inscricaoCapitania: 'CPAM-AM-2024-5510', arqueacaoBruta: '480 AB', tripulacaoMinima: '6 Tripulantes', certificados: 'Passe de Saída Digital OK' },
+                manifestoCarga: { tipo: 'Carga Geral, Encomendas e 12 Veículos', volume: '85 Toneladas', lote: 'CATA-RN-2026-90' },
                 passageiros: [
                     { nome: 'Adalberto Ribeiro', documento: '***.112.334-**', funcao: 'Comandante' },
-                    { nome: 'Mariana Costa', documento: '***.776.554-**', funcao: 'Comissária de Bordo' },
-                    { nome: 'Passageiros cadastrados: 184 pessoas a bordo', documento: 'Manifesto Eletrônico Validado', funcao: 'Passageiro' }
+                    { nome: '184 Passageiros Cadastrados', documento: 'Manifesto Validado', funcao: 'Passageiros' }
                 ]
             },
 
-            // --- PORTOS DE PASSAGEM (EX: BORBA E MANAUS) ---
+            // --- PORTOS DE PASSAGEM (LARANJA - RIO MADEIRA & AMAZONAS) ---
+            {
+                id: 'p_pvh', type: 'port', name: 'Porto de Porto Velho (RO)',
+                lat: -8.761, lng: -63.903, jurisdicao: 'DRF/Porto Velho', codigo: '2.50.15.01-0', administrador: 'Sociedade Portos e Hidrovias de Rondônia[cite: 10]',
+                dmrv: { ppl: { radiacao: '21.5 MJ/m²', temp: '32.4 °C', umiAr: '78%', umiSolo: '34%' }, risco: { co: '0.4 ppm', co2: '412 ppm' }, logistica: { nivelAgua: '14.82 m', hidrocarbonetos: '0.00 ppm' } }
+            },
+            {
+                id: 'p_hum', type: 'port', name: 'Porto Fluvial de Humaitá (AM)',
+                lat: -7.506, lng: -63.020, jurisdicao: 'Delegacia Fluvial de Humaitá', codigo: 'AM-HUM-01', administrador: 'Prefeitura / SNPH',
+                dmrv: { ppl: { radiacao: '22.0 MJ/m²', temp: '33.1 °C', umiAr: '75%', umiSolo: '31%' }, risco: { co: '0.5 ppm', co2: '418 ppm' }, logistica: { nivelAgua: '13.90 m', hidrocarbonetos: '0.00 ppm' } }
+            },
+            {
+                id: 'p_man', type: 'port', name: 'Porto de Manicoré (AM)',
+                lat: -5.811, lng: -61.297, jurisdicao: 'Agência Fluvial de Manicoré', codigo: 'AM-MAN-02', administrador: 'SNPH Amazonas',
+                dmrv: { ppl: { radiacao: '20.8 MJ/m²', temp: '31.8 °C', umiAr: '82%', umiSolo: '42%' }, risco: { co: '0.3 ppm', co2: '409 ppm' }, logistica: { nivelAgua: '16.40 m', hidrocarbonetos: '0.00 ppm' } }
+            },
             {
                 id: 'p_bor', type: 'port', name: 'Porto Municipal de Borba (AM)',
-                lat: -4.388, lng: -59.592, jurisdicao: 'SNPH Regional / Borba', codigo: 'AM-BOR-04',
-                administrador: 'SNPH Amazonas / Prefeitura Municipal de Borba', tipoUso: 'Uso Público',
-                dmrv: {
-                    ppl: { radiacao: '20.5 MJ/m²/dia', temp: '31.5 °C', umiAr: '84%', umiSolo: '45% (TDR)', precip: '32 mm' },
-                    risco: { co: '0.3 ppm', co2: '408 ppm', pm25: '5.9 µg/m³', pm10: '12.8 µg/m³' },
-                    logistica: { nivelAgua: '17.10 m', ruido: '60.1 dB', hidrocarbonetos: '0.00 ppm' }
-                }
+                lat: -4.388, lng: -59.592, jurisdicao: 'SNPH Regional / Borba', codigo: 'AM-BOR-04', administrador: 'SNPH Amazonas',
+                dmrv: { ppl: { radiacao: '20.5 MJ/m²', temp: '31.5 °C', umiAr: '84%', umiSolo: '45%' }, risco: { co: '0.3 ppm', co2: '408 ppm' }, logistica: { nivelAgua: '17.10 m', hidrocarbonetos: '0.00 ppm' } }
+            },
+            {
+                id: 'p_mao', type: 'port', name: 'Porto de Manaus (SNPH / Chibatão / Super Terminais)',
+                lat: -3.139, lng: -60.021, jurisdicao: 'ALF/Porto de Manaus', codigo: '2.93.15.02-6', administrador: 'SNPH / Super Terminais / Chibatão[cite: 10, 11]',
+                dmrv: { ppl: { radiacao: '22.5 MJ/m²', temp: '33.8 °C', umiAr: '74%', umiSolo: '29%' }, risco: { co: '0.8 ppm', co2: '430 ppm' }, logistica: { nivelAgua: '15.20 m', hidrocarbonetos: '0.01 ppm' } }
+            },
+            {
+                id: 'p_ita', type: 'port', name: 'Terminal Hermasa & Portos de Itacoatiara (AM)',
+                lat: -3.130, lng: -58.435, jurisdicao: 'ALF/Porto de Manaus', codigo: '2.93.16.03-0', administrador: 'Hermasa Navegação S/A',
+                dmrv: { ppl: { radiacao: '21.8 MJ/m²', temp: '32.9 °C', umiAr: '77%', umiSolo: '35%' }, risco: { co: '0.6 ppm', co2: '420 ppm' }, logistica: { nivelAgua: '15.50 m', hidrocarbonetos: '0.00 ppm' } }
+            },
+            {
+                id: 'p_par', type: 'port', name: 'Porto Fluvial de Parintins (AM)',
+                lat: -2.628, lng: -56.738, jurisdicao: 'Delegacia Fluvial de Parintins', codigo: 'AM-PAR-01', administrador: 'Prefeitura de Parintins / SNPH',
+                dmrv: { ppl: { radiacao: '21.4 MJ/m²', temp: '32.5 °C', umiAr: '79%', umiSolo: '38%' }, risco: { co: '0.3 ppm', co2: '407 ppm' }, logistica: { nivelAgua: '16.20 m', hidrocarbonetos: '0.00 ppm' } }
+            },
+            {
+                id: 'p_stm', type: 'port', name: 'Porto de Santarém (Cargill / CDP - PA)',
+                lat: -2.443, lng: -54.708, jurisdicao: 'DRF/Santarém', codigo: '2.10.15.01-5', administrador: 'Cia. Docas do Pará / Cargill[cite: 11]',
+                dmrv: { ppl: { radiacao: '22.1 MJ/m²', temp: '33.0 °C', umiAr: '76%', umiSolo: '33%' }, risco: { co: '0.5 ppm', co2: '415 ppm' }, logistica: { nivelAgua: '16.80 m', hidrocarbonetos: '0.00 ppm' } }
             },
 
-            // --- ESTAÇÕES YAKAMI ECO FLOW EM RESERVAS E TERRAS INDÍGENAS ---
+            // --- ESTAÇÕES YAKAMI ECO FLOW (VERDE - RESERVAS E TERRAS INDÍGENAS) ---
             {
                 id: 'eco_borba', type: 'ecoflow', name: 'ECO Station DePIN - Município de Borba (RDS)',
                 lat: -4.100, lng: -59.400, status: 'Ativo / Tokenomics Comunitário',
-                carbonoSequestrado: '68.400 tCO2e / ano', biomassa: '1.710 t/ha', sensorBiotico: 'Preservado (LoRaWAN)',
-                comunidadeLocal: 'Associação RibEirinha de Borba (ARIB)',
-                tokensFracionados: '3.420.000 YKM distribuídos à comunidade',
-                dmrv: {
-                    ppl: { radiacao: '20.8 MJ/m²/dia', temp: '31.8 °C', umiAr: '83%', umiSolo: '43% (TDR)', precip: '28 mm' },
-                    risco: { co: '0.2 ppm', co2: '404 ppm', pm25: '4.5 µg/m³', pm10: '9.8 µg/m³' },
-                    logistica: { nivelAgua: '16.80 m', ruido: '48.2 dB', hidrocarbonetos: '0.00 ppm' }
-                }
+                carbonoSequestrado: '68.400 tCO2e / ano', comunidadeLocal: 'Associação Ribeirinha de Borba (ARIB)',
+                tokensFracionados: '3.420.000 YKM repartidos à comunidade',
+                dmrv: { ppl: { radiacao: '20.8 MJ/m²', temp: '31.8 °C', umiAr: '83%', umiSolo: '43%' }, risco: { co: '0.2 ppm', co2: '404 ppm' }, logistica: { nivelAgua: '16.80 m', hidrocarbonetos: '0.00 ppm' } }
             },
             {
-                id: 'eco_indigena', type: 'ecoflow', name: 'ECO Station DePIN - Terra Indígena Andirá-Marau',
-                lat: -3.350, lng: -57.800, status: 'Ativo / Guarda Indígena da Floresta',
-                carbonoSequestrado: '115.200 tCO2e / ano', biomassa: '2.100 t/ha', sensorBiotico: 'Santuário Ecológico',
-                comunidadeLocal: 'Povo Sateré-Mawé (TI Andirá-Marau)',
-                tokensFracionados: '5.760.000 YKM distribuídos ao fundo comunitário indígena',
-                dmrv: {
-                    ppl: { radiacao: '21.2 MJ/m²/dia', temp: '32.1 °C', umiAr: '81%', umiSolo: '46% (TDR)', precip: '22 mm' },
-                    risco: { co: '0.1 ppm', co2: '402 ppm', pm25: '3.2 µg/m³', pm10: '7.1 µg/m³' },
-                    logistica: { nivelAgua: '17.40 m', ruido: '42.0 dB (Zera Poluição)', hidrocarbonetos: '0.00 ppm' }
-                }
+                id: 'eco_indigena', type: 'ecoflow', name: 'ECO Station DePIN - TI Andirá-Marau',
+                lat: -3.350, lng: -57.800, status: 'Ativo / Guarda Indígena',
+                carbonoSequestrado: '115.200 tCO2e / ano', comunidadeLocal: 'Povo Sateré-Mawé (TI Andirá-Marau)',
+                tokensFracionados: '5.760.000 YKM repartidos ao fundo indígena',
+                dmrv: { ppl: { radiacao: '21.2 MJ/m²', temp: '32.1 °C', umiAr: '81%', umiSolo: '46%' }, risco: { co: '0.1 ppm', co2: '402 ppm' }, logistica: { nivelAgua: '17.40 m', hidrocarbonetos: '0.00 ppm' } }
             }
         ];
 
@@ -245,7 +273,7 @@
                 return;
             }
 
-            if (ativo.type === 'vessel') {
+            if (ativo.type.startsWith('vessel')) {
                 let passageirosHtml = ativo.passageiros.map(p => `
                     <div class="bg-gray-900 p-1.5 rounded flex justify-between items-center text-[11px]">
                         <div><span class="text-white font-bold">${p.nome}</span> <span class="text-gray-400">(${p.funcao})</span></div>
@@ -265,11 +293,10 @@
 
                         <!-- DADOS NORMAM 204 -->
                         <div class="bg-gray-900 p-2 rounded border border-cyan-500/30 text-[11px] space-y-1">
-                            <p class="font-bold text-cyan-300"><i class="fas fa-ship mr-1"></i> Dados Regulatórios Marinha (Normam 204):</p>
+                            <p class="font-bold text-cyan-300"><i class="fas fa-ship mr-1"></i> Regulatório Marinha (Normam 204):</p>
                             <p>• Inscrição Capitania: <b>${ativo.normam204.inscricaoCapitania}</b></p>
-                            <p>• Arqueação Bruta: <b>${ativo.normam204.arqueacaoBruta}</b></p>
-                            <p>• Tripulação Mínima: <b>${ativo.normam204.tripulacaoMinima}</b></p>
-                            <p>• Certificado: <span class="text-green-400">${ativo.normam204.certificados}</span></p>
+                            <p>• Arqueação Bruta: <b>${ativo.normam204.arqueacaoBruta}</b> | Tripulação: <b>${ativo.normam204.tripulacaoMinima}</b></p>
+                            <p>• Certificados: <span class="text-green-400">${ativo.normam204.certificados}</span></p>
                         </div>
 
                         <!-- MANIFESTO DE CARGA -->
@@ -280,12 +307,10 @@
                             <p>• Lote: <span class="font-mono text-cyan-300">${ativo.manifestoCarga.lote}</span></p>
                         </div>
 
-                        <!-- LISTA DE PASSAGEIROS -->
+                        <!-- TRIPULAÇÃO / PASSAGEIROS -->
                         <div>
-                            <p class="text-[11px] font-bold text-cyan-300 mb-1"><i class="fas fa-users mr-1"></i> Tripulação & Passageiros:</p>
-                            <div class="space-y-1 max-h-24 overflow-y-auto pr-1">
-                                ${passageirosHtml}
-                            </div>
+                            <p class="text-[11px] font-bold text-cyan-300 mb-1"><i class="fas fa-users mr-1"></i> Tripulação / Passageiros:</p>
+                            <div class="space-y-1 max-h-24 overflow-y-auto pr-1">${passageirosHtml}</div>
                         </div>
                     </div>
                 `;
@@ -294,8 +319,7 @@
                     <div class="bg-gray-950 p-2.5 rounded border border-green-500/40 space-y-1">
                         <p class="font-bold text-green-400"><i class="fas fa-hand-holding-usd mr-1"></i> DePIN Tokenomics Comunitário:</p>
                         <p>• Jurisdição: <b>${ativo.comunidadeLocal}</b></p>
-                        <p>• Tokens Fracionados: <b class="text-cyan-300">${ativo.tokensFracionados}</b></p>
-                        <p class="text-[10px] text-gray-400 italic">Repasse automático de créditos de contrapartida via Smart Contract para carteiras da comunidade local.</p>
+                        <p>• Repasse de Crédito: <b class="text-cyan-300">${ativo.tokensFracionados}</b></p>
                     </div>
                 ` : '';
 
@@ -313,12 +337,10 @@
                             <div class="bg-gray-900 p-2 rounded border border-gray-800">
                                 <p class="font-bold text-cyan-400">Parâmetros PPL & Clima:</p>
                                 <p>• Radiação: ${ativo.dmrv.ppl.radiacao} | Temp: ${ativo.dmrv.ppl.temp}</p>
-                                <p>• Umidade Solo: ${ativo.dmrv.ppl.umiSolo}</p>
                             </div>
                             <div class="bg-gray-900 p-2 rounded border border-gray-800">
                                 <p class="font-bold text-orange-400">Risco & Hidrologia:</p>
-                                <p>• Nível da Água: ${ativo.dmrv.logistica.nivelAgua}</p>
-                                <p>• Hidrocarbonetos: <b class="text-cyan-300">${ativo.dmrv.logistica.hidrocarbonetos}</b></p>
+                                <p>• Nível da Água: ${ativo.dmrv.logistica.nivelAgua} | Hidrocarbonetos: <b class="text-cyan-300">${ativo.dmrv.logistica.hidrocarbonetos}</b></p>
                             </div>
                         </div>
                     </div>
@@ -334,12 +356,23 @@
         function renderMarkers() {
             ativosLogisticos.forEach(item => {
                 let htmlIcon = '';
-                if (item.type === 'vessel') {
-                    htmlIcon = `<div style="background-color: #0891b2; border: 2px solid #22d3ee; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-ship text-white text-[10px]"></i></div>`;
+                
+                // CORES E ÍCONES ESPECÍFICOS POR TIPO DE ATIVO
+                if (item.type === 'vessel_hermasa') {
+                    // AZUL MARINHO - HERMASA (SOJA)
+                    htmlIcon = `<div style="background-color: #1e3a8a; border: 2px solid #60a5fa; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(96,165,250,0.8);"><i class="fas fa-boxes text-white text-[10px]"></i></div>`;
+                } else if (item.type === 'vessel_atem') {
+                    // VERMELHO - ATEM (PETRÓLEO/COMBUSTÍVEL)
+                    htmlIcon = `<div style="background-color: #dc2626; border: 2px solid #fca5a5; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(252,165,165,0.8);"><i class="fas fa-gas-pump text-white text-[10px]"></i></div>`;
+                } else if (item.type === 'vessel_cata') {
+                    // AZUL CLARO - CATAMARÃ MISTO (PASSAGEIROS & CARGA)
+                    htmlIcon = `<div style="background-color: #0284c7; border: 2px solid #38bdf8; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(56,189,248,0.8);"><i class="fas fa-ship text-white text-[10px]"></i></div>`;
                 } else if (item.type === 'port') {
-                    htmlIcon = `<div class="pulse-port" style="background-color: #ea580c; border: 2px solid #fdba74; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-anchor text-white text-[10px]"></i></div>`;
-                } else {
-                    htmlIcon = `<div class="pulse-eco" style="background-color: #16a34a; border: 2px solid #86efac; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-leaf text-white text-xs"></i></div>`;
+                    // LARANJA - PORTOS OFICIAIS
+                    htmlIcon = `<div class="pulse-port" style="background-color: #ea580c; border: 2px solid #fdba74; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(249,115,22,0.8);"><i class="fas fa-anchor text-white text-[10px]"></i></div>`;
+                } else if (item.type === 'ecoflow') {
+                    // VERDE - ESTAÇÕES YAKAMI ECO FLOW
+                    htmlIcon = `<div class="pulse-eco" style="background-color: #16a34a; border: 2px solid #86efac; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(34,197,94,0.8);"><i class="fas fa-leaf text-white text-xs"></i></div>`;
                 }
 
                 const customIcon = L.divIcon({
@@ -360,7 +393,7 @@
         }
 
         setInterval(() => {
-            ativosLogisticos.filter(i => i.type === 'vessel').forEach(v => {
+            ativosLogisticos.filter(i => i.type.startsWith('vessel')).forEach(v => {
                 v.lng += (Math.random() - 0.4) * 0.002;
                 v.lat += (Math.random() - 0.5) * 0.001;
             });
@@ -368,7 +401,7 @@
         }, 4000);
 
         renderMarkers();
-        addAlert('SISTEMA', 'Master Dashboard ASTRA-Net GIS inicializado com sucesso.');
+        addAlert('SISTEMA', 'Master Dashboard ASTRA-Net GIS inicializado com mapa de cores exclusivo.');
     </script>
 </body>
 </html>
