@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YAKAMI TECH - Centro de Operações ASTRA-Net GIS (Portos Oficiais & Logística)</title>
+    <title>YAKAMI TECH - Centro de Operações ASTRA-Net GIS (Auditoria DePIN 3 Camadas)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Leaflet CSS -->
@@ -15,10 +15,16 @@
         #map { width: 100%; height: 100%; background: #070b14; }
         .leaflet-tile-pane { filter: invert(100%) hue-rotate(180deg) brightness(90%) contrast(95%); }
         .pulse-port { animation: pulse-ring 2s infinite; }
+        .pulse-eco { animation: pulse-eco 2.5s infinite; }
         @keyframes pulse-ring {
             0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); }
             70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(249, 115, 22, 0); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+        }
+        @keyframes pulse-eco {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
         }
     </style>
 </head>
@@ -28,12 +34,12 @@
     <header class="bg-gray-900 border-b border-gray-800 px-6 py-3 flex justify-between items-center z-20 shadow-xl">
         <div class="flex items-center space-x-4">
             <a href="index.html" class="text-orange-500 font-black text-xl tracking-tighter">YAKAMI<span class="text-white">.TECH</span></a>
-            <span class="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-wider">🛰️ ASTRA-Net | Recintos Portuários Fluviais (Região Norte)</span>
+            <span class="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-wider">🛰️ ASTRA-Net | Auditoria DePIN 3 Camadas & Crédito de Carbono</span>
         </div>
         <div class="flex items-center space-x-4 text-sm">
             <div class="flex items-center space-x-2 bg-gray-800/80 px-3 py-1.5 rounded-lg border border-gray-700">
                 <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                <span class="text-xs text-gray-300 font-semibold">Norma 204: Ativa</span>
+                <span class="text-xs text-gray-300 font-semibold">Arquitetura DePIN: 100% Sincronizada</span>
             </div>
             <a href="index.html" class="bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 px-4 py-2 rounded-lg text-xs font-bold text-gray-950 transition-all shadow-lg shadow-cyan-500/20">Voltar ao Início</a>
         </div>
@@ -48,36 +54,44 @@
         </div>
 
         <!-- Sidebar de Telemetria e Governança -->
-        <aside class="w-[410px] bg-gray-900 border-l border-gray-800 flex flex-col p-5 space-y-4 z-20 shadow-2xl overflow-y-auto">
+        <aside class="w-[430px] bg-gray-900 border-l border-gray-800 flex flex-col p-5 space-y-4 z-20 shadow-2xl overflow-y-auto">
             
-            <!-- Painel de Filtros e Camadas -->
+            <!-- Painel de Destaque -->
             <div class="glass-panel p-3 rounded-xl flex justify-between items-center text-xs">
-                <span class="text-gray-300 font-bold">Base Integrada:</span>
-                <span class="text-cyan-400 font-mono">Portos Oficiais & Frotas</span>
+                <span class="text-gray-300 font-bold">Modo de Inspeção:</span>
+                <span class="text-green-400 font-mono">Processo de Auditoria Ativo</span>
             </div>
 
-            <!-- Painel de Telemetria do Ativo Selecionado -->
+            <!-- Painel de Telemetria e Auditoria em 3 Camadas -->
             <div id="telemetry-panel" class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-orange-500">
-                <h2 class="text-xs font-black uppercase tracking-wider text-orange-400 flex items-center"><i class="fas fa-anchor mr-2"></i> Inspeção de Recinto e Frotas</h2>
-                <div id="telemetry-content" class="text-xs text-gray-300 space-y-1.5 pt-1">
-                    <p class="text-gray-400 italic">Clique em um porto oficial ou embarcação no mapa para inspecionar os dados cadastrais e ambientais.</p>
+                <h2 class="text-xs font-black uppercase tracking-wider text-orange-400 flex items-center"><i class="fas fa-microchip mr-2"></i> Inspeção de Ativos & Processo DePIN</h2>
+                <div id="telemetry-content" class="text-xs text-gray-300 space-y-2 pt-1">
+                    <p class="text-gray-400 italic">Clique em qualquer ativo no mapa (Embarcação, Porto ou Estação Eco Flow) para ver o fluxo detalhado das 3 camadas (Satélite ➔ Gateway ➔ Sistema Blockchain).</p>
                 </div>
             </div>
 
-            <!-- Painel Orbital e Blockchain -->
-            <div id="orbital-panel" class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-cyan-400">
-                <h2 class="text-xs font-black uppercase tracking-wider text-cyan-400 flex items-center"><i class="fas fa-satellite mr-2"></i> Satélite YAKAMI-SAT 1 & DePIN</h2>
-                <div class="flex justify-between text-xs text-gray-300 pt-1"><span>Link LEO / Banda S:</span><span class="font-mono text-cyan-300">Conectado (600km)</span></div>
-                <div class="flex justify-between text-xs text-gray-300"><span>Registro Imutável:</span><span class="text-green-400 font-bold">Smart Contract (Sepolia OK)</span></div>
+            <!-- Resumo de Carbono Regional -->
+            <div class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-green-500">
+                <h2 class="text-xs font-black uppercase tracking-wider text-green-400 flex items-center"><i class="fas fa-chart-line mr-2"></i> Sumário Regional (Norte)</h2>
+                <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+                    <div class="bg-gray-950/70 p-2 rounded border border-gray-800">
+                        <span class="text-gray-400 text-[10px] block">Sequestro Verificado:</span>
+                        <b class="text-green-400 text-sm font-mono">142.850 tCO2e</b>
+                    </div>
+                    <div class="bg-gray-950/70 p-2 rounded border border-gray-800">
+                        <span class="text-gray-400 text-[10px] block">Ativos Conectados:</span>
+                        <b class="text-cyan-400 text-sm font-mono">11 Terminais / Frotas</b>
+                    </div>
+                </div>
             </div>
 
-            <!-- Painel de Alertas de Auditoria -->
+            <!-- Painel de Alertas / Transações DePIN -->
             <div id="alerts-panel" class="glass-panel p-4 rounded-xl flex-1 flex flex-col border-l-4 border-l-cyan-600">
                 <h2 class="text-xs font-black uppercase tracking-wider text-cyan-400 mb-2 flex items-center justify-between">
-                    <span><i class="fas fa-bell mr-2"></i> Auditoria de Tráfego</span>
-                    <span class="text-[10px] text-gray-500 font-normal">Tempo Real</span>
+                    <span><i class="fas fa-bell mr-2"></i> Log de Transações DePIN</span>
+                    <span class="text-[10px] text-gray-500 font-normal">Sepolia Testnet</span>
                 </h2>
-                <div id="alerts-list" class="flex-1 overflow-y-auto space-y-1.5 text-[11px] font-mono text-gray-300 pr-1 max-h-48"></div>
+                <div id="alerts-list" class="flex-1 overflow-y-auto space-y-1.5 text-[11px] font-mono text-gray-300 pr-1 max-h-36"></div>
             </div>
         </aside>
     </div>
@@ -87,7 +101,7 @@
     <script>
         const map = L.map('map', {
             zoomControl: false
-        }).setView([-3.1190, -55.0000], 5); // Visão pan-amazônica (AM, PA, AP, RO)
+        }).setView([-3.1190, -60.0217], 7);
 
         L.control.zoom({ position: 'topleft' }).addTo(map);
 
@@ -96,78 +110,71 @@
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // Base de Dados unindo Frotas e os Portos Oficiais da Região Norte (Documento RFB / Portos)
+        // Base unificada com dados detalhados para a auditoria em 3 camadas
         const ativosLogisticos = [
-            // --- EMBARCAÇÕES EM ROTA ---
+            // --- EMBARCAÇÕES ---
             { 
                 id: 'v1', type: 'vessel', name: 'Comboio Hermasa IV (Cargill)', 
                 lat: -3.100, lng: -59.300, speed: '9.2 nós', status: 'Conforme Norma 204', 
-                cargo: 'Soja / Grãos (Exportação)', operador: 'Hermasa Navegação da Amazônia S/A',
-                destino: 'Terminal Itacoatiara / Santarém', pufHash: '0x8f3c...b21a' 
+                cargo: 'Soja / Grãos (Exportação)', operador: 'Hermasa Navegação da Amazônia S/A', destino: 'Itacoatiara / Santarém',
+                camada1: 'YAKAMI-SAT 1 (Rastreio AIS & Radar Banda S)',
+                camada2: 'Gateway IoT Portuário Itacoatiara (LoRaWAN 915MHz + Chip PUF)',
+                camada3: 'Smart Contract TrustFlow (Registro Imutável de Rota Fluvial)'
             },
             { 
                 id: 'v2', type: 'vessel', name: 'Balsa Atem IV (Combustíveis)', 
                 lat: -3.150, lng: -60.010, speed: '7.8 nós', status: 'Monitorado por Satélite', 
-                cargo: 'Derivados de Petróleo (Diesel)', operador: 'Atem Distribuidora',
-                destino: 'Parintins / Interior', pufHash: '0x4d2e...99c4' 
+                cargo: 'Derivados de Petróleo', operador: 'Atem Distribuidora', destino: 'Parintins',
+                camada1: 'YAKAMI-SAT 1 (Telemetria de Carga e Alerta de Rota)',
+                camada2: 'Gateway Móvel DePIN (Autenticação Criptográfica de Hardware)',
+                camada3: 'Smart Contract de Compliance Fluvial (Marinha - Norma 204)'
             },
 
-            // --- INSTALAÇÕES PORTUÁRIAS FLUVIAIS (REGIÃO NORTE) ---
+            // --- INSTALAÇÕES PORTUÁRIAS OFICIAIS ---
             {
                 id: 'p1', type: 'port', name: 'Porto de Manaus (SNPH / Estação Hidroviária)',
                 lat: -3.139, lng: -60.021, jurisdicao: 'ALF/Porto de Manaus', codigo: '2.93.15.02-6',
-                administrador: 'SNPH / Estação Hidroviária do Amazonas S/A', tipoUso: 'Uso Público[cite: 11]',
-                endereco: 'Rua Quintino Bocaiúva / Rua Marques de Santa Cruz, Manaus - AM[cite: 11]',
-                agua: { ph: '6.8', turbidez: '45 NTU', oxigenio: '6.2 mg/L', statusAmbiental: 'Normal' }
+                administrador: 'SNPH / Estação Hidroviária do Amazonas S/A', tipoUso: 'Uso Público',
+                agua: { ph: '6.8', turbidez: '45 NTU', oxigenio: '6.2 mg/L', statusAmbiental: 'Normal' },
+                camada1: 'Varredura Hiperespectral LEO (Cobertura de VANTs e Satélite)',
+                camada2: 'Estação Gateway LoRaWAN Central Manaus (Sensores Hídricos RDS Guardian)',
+                camada3: 'Oracle de Dados Ambientais conectado à API SUFRAMA / ANA'
             },
             {
-                id: 'p2', type: 'port', name: 'Super Terminais Com. e Ind. Ltda',
-                lat: -3.155, lng: -59.980, jurisdicao: 'ALF/Porto de Manaus', codigo: '2.93.16.01-4',
-                administrador: 'Super Terminais Com. e Ind. Ltda', tipoUso: 'Uso Privativo Misto[cite: 13]',
-                endereco: 'Rua Ponta Grossa, nº 256, Colônia Oliveira Machado, Manaus - AM[cite: 13]',
-                agua: { ph: '6.7', turbidez: '48 NTU', oxigenio: '6.1 mg/L', statusAmbiental: 'Monitorado' }
-            },
-            {
-                id: 'p3', type: 'port', name: 'Terminal Hermasa Navegação da Amazônia',
+                id: 'p2', type: 'port', name: 'Terminal Hermasa (Itacoatiara)',
                 lat: -3.130, lng: -58.435, jurisdicao: 'ALF/Porto de Manaus', codigo: '2.93.16.03-0',
-                administrador: 'Hermasa Navegação da Amazônia S/A', tipoUso: 'Uso Privativo Misto[cite: 13]',
-                endereco: 'Estrada das Indústrias, km 7,5, Itacoatiara - AM[cite: 13]',
-                agua: { ph: '6.9', turbidez: '42 NTU', oxigenio: '6.5 mg/L', statusAmbiental: 'Excelente' }
+                administrador: 'Hermasa Navegação da Amazônia S/A', tipoUso: 'Uso Privativo Misto',
+                agua: { ph: '6.9', turbidez: '42 NTU', oxigenio: '6.5 mg/L', statusAmbiental: 'Excelente' },
+                camada1: 'Monitoramento de Escoamento de Grãos via Satélite 6U',
+                camada2: 'Node Gateway DePIN no Terminal (Leitura de Calado e Peso)',
+                camada3: 'Tokenização Logística e Certificado de Origem Sustentável'
             },
             {
-                id: 'p4', type: 'port', name: 'Chibatão Navegação e Comércio',
-                lat: -3.158, lng: -59.985, jurisdicao: 'ALF/Porto de Manaus', codigo: '2.93.16.05-7',
-                administrador: 'Chibatão Navegação e Comércio Ltda.', tipoUso: 'Uso Privativo Misto[cite: 13]',
-                endereco: 'Rua Zebu, nº 201, Colônia Oliveira Machado, Manaus - AM[cite: 13]',
-                agua: { ph: '6.8', turbidez: '46 NTU', oxigenio: '6.0 mg/L', statusAmbiental: 'Normal' }
+                id: 'p3', type: 'port', name: 'Porto de Santarém (Cargill / CDP)',
+                lat: -2.443, lng: -54.708, jurisdicao: 'DRF/Santarém', codigo: '2.10.15.01-5',
+                administrador: 'Cia. Docas do Pará / Cargill Agrícola S/A', tipoUso: 'Público / Privativo Misto',
+                agua: { ph: '7.0', turbidez: '35 NTU', oxigenio: '7.0 mg/L', statusAmbiental: 'Ideal' },
+                camada1: 'Sensoriamento de Eclusas e Canais de Navegação Pará/Amazonas',
+                camada2: 'Gateway Portuário Santarém (Protocolo MQTT + Chip PUF)',
+                camada3: 'Smart Contract de Auditoria de Carga Granel'
+            },
+
+            // --- ESTAÇÕES YAKAMI ECO FLOW (CARBONO) ---
+            {
+                id: 'eco1', type: 'ecoflow', name: 'ECO Station - RDS Purus',
+                lat: -3.700, lng: -61.500, status: 'Ativo / DePIN Node',
+                carbonoSequestrado: '34.200 tCO2e / ano', biomassa: '1.250 t/ha', sensorBiotico: 'Estável (IoT LoRaWAN)',
+                camada1: 'YAKAMI-SAT 1 (Análise Multiespectral de Índice de Vegetação NDVI)',
+                camada2: 'Sensores de Solo e Fluxo de CO2 nas Torres IoT Eco Flow (LoRaWAN)',
+                camada3: 'Minting de Créditos de Carbono Verificados na Sepolia Testnet'
             },
             {
-                id: 'p5', type: 'port', name: 'Porto de Santarém (Cargill / CDP)',
-                lat: -2.443, lng: -54.708, jurisdicao: 'DRF/Santarém', codigo: '2.10.15.01-5 / 2.10.16.02-0',
-                administrador: 'Cia. Docas do Pará / Cargill Agrícola S/A', tipoUso: 'Público / Privativo Misto[cite: 11, 13]',
-                endereco: 'Av. Cuiabá s/n, Lote 04-CDP, Santarém - PA[cite: 11, 13]',
-                agua: { ph: '7.0', turbidez: '35 NTU', oxigenio: '7.0 mg/L', statusAmbiental: 'Ideal' }
-            },
-            {
-                id: 'p6', type: 'port', name: 'Porto de Belém (Val de Cans / Transpetro)',
-                lat: -1.455, lng: -48.490, jurisdicao: 'ALF/Porto de Belém', codigo: '2.91.15.01-9',
-                administrador: 'Cia. Docas do Estado do Pará / Transpetro[cite: 11, 13]', tipoUso: 'Público / Privativo Misto[cite: 11, 13]',
-                endereco: 'Av. Marechal Hermes s/n, Belém - PA[cite: 11]',
-                agua: { ph: '6.5', turbidez: '60 NTU', oxigenio: '5.5 mg/L', statusAmbiental: 'Atencioso' }
-            },
-            {
-                id: 'p7', type: 'port', name: 'Porto de Santana (Cia. Docas de Santana)',
-                lat: -0.058, lng: -51.178, jurisdicao: 'DRF/Macapá', codigo: '2.40.15.02-4',
-                administrador: 'Cia. Docas de Santana (Amapá)', tipoUso: 'Uso Público[cite: 11]',
-                endereco: 'Rua Cláudio Monteiro, nº 1.380, Santana - AP[cite: 11]',
-                agua: { ph: '6.9', turbidez: '55 NTU', oxigenio: '6.3 mg/L', statusAmbiental: 'Normal' }
-            },
-            {
-                id: 'p8', type: 'port', name: 'Porto de Porto Velho (Rondônia)',
-                lat: -8.761, lng: -63.903, jurisdicao: 'DRF/Porto Velho', codigo: '2.50.15.01-0',
-                administrador: 'Sociedade Portos e Hidrovias de Rondônia', tipoUso: 'Uso Público[cite: 11]',
-                endereco: 'Rua Terminal dos Milagres n° 400, Porto Velho - RO[cite: 11]',
-                agua: { ph: '7.2', turbidez: '40 NTU', oxigenio: '6.6 mg/L', statusAmbiental: 'Normal' }
+                id: 'eco2', type: 'ecoflow', name: 'ECO Station - RDS Rio Negro',
+                lat: -2.600, lng: -60.800, status: 'Ativo / DePIN Node',
+                carbonoSequestrado: '58.100 tCO2e / ano', biomassa: '1.890 t/ha', sensorBiotico: 'Excelente',
+                camada1: 'Mapeamento de Cobertura Florestal e Alagados via Satélite',
+                camada2: 'Estação de Solo Eco Flow com Criptografia de Hardware PUF',
+                camada3: 'Contrato Inteligente YAKAMI TrustFlow (Validação de Crédito Imutável)'
             }
         ];
 
@@ -193,8 +200,8 @@
             const ativo = ativosLogisticos.find(e => e.id === id);
             if (ativo) {
                 updateTelemetryPanel(ativo);
-                addAlert('GIS', `Inspecionando: ${ativo.name}`);
-                map.setView([ativo.lat, ativo.lng], 12, { animate: true });
+                addAlert('DePIN', `Auditoria iniciada: ${ativo.name}`);
+                map.setView([ativo.lat, ativo.lng], 10, { animate: true });
             }
         }
 
@@ -205,51 +212,67 @@
                 return;
             }
 
-            if (ativo.type === 'vessel') {
-                content.innerHTML = `
-                    <div class="bg-gray-950/70 p-3 rounded-lg border border-gray-800 space-y-1.5">
-                        <p><b>Embarcação:</b> <span class="text-white font-bold">${ativo.name}</span></p>
-                        <p><b>Operador:</b> <span class="text-cyan-300">${ativo.operador}</span></p>
-                        <p><b>Carga:</b> <span class="text-gray-300">${ativo.cargo}</span></p>
-                        <p><b>Destino:</b> <span class="text-orange-300">${ativo.destino}</span></p>
-                        <p><b>Velocidade:</b> <span class="font-mono text-cyan-400">${ativo.speed}</span></p>
-                        <p><b>Norma 204:</b> <span class="text-green-400 font-bold">${ativo.status}</span></p>
-                        <p><b>Hash PUF (Hardware):</b> <span class="font-mono text-xs text-gray-400">${ativo.pufHash}</span></p>
+            let badgeColor = ativo.type === 'vessel' ? 'text-cyan-400' : (ativo.type === 'port' ? 'text-orange-400' : 'text-green-400');
+            let tipoLabel = ativo.type === 'vessel' ? 'Embarcação Fluvial' : (ativo.type === 'port' ? 'Instalação Portuária' : 'Estação Eco Flow (Carbono)');
+
+            let extraInfo = '';
+            if (ativo.type === 'port') {
+                extraInfo = `
+                    <p><b>Administrador:</b> ${ativo.administrador}</p>
+                    <p><b>Jurisdição RFB:</b> ${ativo.jurisdicao} (Cód: ${ativo.codigo})</p>
+                    <div class="grid grid-cols-2 gap-1 text-[11px] pt-1 bg-gray-950 p-2 rounded border border-gray-800 mt-1">
+                        <div>pH Água: <b class="text-white">${ativo.agua.ph}</b></div>
+                        <div>Oxigênio: <b class="text-white">${ativo.agua.oxigenio}</b></div>
                     </div>
-                    <button onclick="alert('Alerta enviado via YAKAMI-SAT 1 para a Capitania dos Portos.')" class="mt-2 w-full bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white font-bold py-2 px-3 rounded-lg text-xs uppercase tracking-wider transition-all shadow-lg shadow-red-900/40 flex items-center justify-center space-x-2">
-                        <i class="fas fa-satellite-dish"></i> <span>Emitir Alerta / SOS Fluvial</span>
-                    </button>
+                `;
+            } else if (ativo.type === 'ecoflow') {
+                extraInfo = `
+                    <p><b>Sequestro Verificado:</b> <span class="text-green-400 font-bold">${ativo.carbonoSequestrado}</span></p>
+                    <p><b>Biomassa Local:</b> <span class="text-white">${ativo.biomassa}</span></p>
+                    <p><b>Sensor Biótico:</b> <span class="text-cyan-400">${ativo.sensorBiotico}</span></p>
                 `;
             } else {
-                content.innerHTML = `
-                    <div class="bg-gray-950/70 p-3 rounded-lg border border-gray-800 space-y-1.5">
-                        <p><b>Instalação Portuária:</b> <span class="text-white font-bold">${ativo.name}</span></p>
-                        <p><b>Administrador:</b> <span class="text-cyan-300">${ativo.administrador}</span></p>
-                        <p><b>Regime:</b> <span class="text-orange-300">${ativo.tipoUso}</span></p>
-                        <p><b>Jurisdição RFB:</b> <span class="text-gray-300">${ativo.jurisdicao} (Código: ${ativo.codigo})</span></p>
-                        <p><b>Endereço:</b> <span class="text-gray-400 text-[11px]">${ativo.endereco}</span></p>
-                        <p class="text-cyan-400 font-semibold pt-1 border-t border-gray-800">📊 RDS Guardian (Qualidade Hídrica):</p>
-                        <div class="grid grid-cols-2 gap-1 text-[11px] pt-1">
-                            <div class="bg-gray-900 p-1.5 rounded">pH: <b class="text-white">${ativo.agua.ph}</b></div>
-                            <div class="bg-gray-900 p-1.5 rounded">Turbidez: <b class="text-white">${ativo.agua.turbidez}</b></div>
-                            <div class="bg-gray-900 p-1.5 rounded">Oxigênio: <b class="text-white">${ativo.agua.oxigenio}</b></div>
-                            <div class="bg-gray-900 p-1.5 rounded">Status: <b class="text-green-400">${ativo.agua.statusAmbiental}</b></div>
-                        </div>
-                    </div>
-                    <button onclick="alert('Relatório de Conformidade Portuária gerado e transmitido para órgãos reguladores.')" class="mt-2 w-full bg-cyan-600 hover:bg-cyan-500 text-gray-950 font-bold py-2 px-3 rounded-lg text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center space-x-2">
-                        <i class="fas fa-file-invoice"></i> <span>Baixar Laudo Oficial (PDF)</span>
-                    </button>
+                extraInfo = `
+                    <p><b>Operador:</b> ${ativo.operador}</p>
+                    <p><b>Carga:</b> ${ativo.cargo}</p>
+                    <p><b>Destino:</b> ${ativo.destino}</p>
+                    <p><b>Norma 204:</b> <span class="text-green-400 font-bold">${ativo.status}</span></p>
                 `;
             }
+
+            content.innerHTML = `
+                <div class="bg-gray-950/80 p-3 rounded-lg border border-gray-800 space-y-2">
+                    <div class="flex justify-between items-center border-b border-gray-800 pb-1">
+                        <span class="text-[10px] uppercase font-bold ${badgeColor}">${tipoLabel}</span>
+                        <span class="text-[10px] text-green-400 font-mono">● Online</span>
+                    </div>
+                    <p class="font-bold text-white text-sm">${ativo.name}</p>
+                    ${extraInfo}
+                    
+                    <div class="pt-2 border-t border-gray-800 space-y-1.5">
+                        <p class="text-[11px] font-bold text-cyan-300"><i class="fas fa-layer-group mr-1"></i> Fluxo de Auditoria em 3 Camadas:</p>
+                        <div class="space-y-1 text-[11px] bg-gray-900 p-2 rounded border border-gray-800">
+                            <p class="text-gray-300"><b>1. 🛰️ Satélite:</b> ${ativo.camada1}</p>
+                            <p class="text-gray-300"><b>2. 📡 Gateway DePIN:</b> ${ativo.camada2}</p>
+                            <p class="text-cyan-300"><b>3. 🔗 Sistema/Chain:</b> ${ativo.camada3}</p>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="alert('Auditoria Criptográfica concluída com sucesso! Prova de zk-SNARK gerada e validada na rede Sepolia.')" class="mt-2 w-full bg-gradient-to-r from-cyan-600 to-green-600 hover:from-cyan-500 hover:to-green-500 text-gray-950 font-bold py-2 px-3 rounded-lg text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center space-x-2">
+                    <i class="fas fa-shield-alt"></i> <span>Executar Prova de Auditoria Web3</span>
+                </button>
+            `;
         }
 
         function renderMarkers() {
             ativosLogisticos.forEach(item => {
                 let htmlIcon = '';
                 if (item.type === 'vessel') {
-                    htmlIcon = `<div style="background-color: #0891b2; border: 2px solid #22d3ee; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(34,211,238,0.7);"><i class="fas fa-ship text-white text-xs"></i></div>`;
-                } else {
-                    htmlIcon = `<div class="pulse-port" style="background-color: #ea580c; border: 2px solid #fdba74; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(249,115,22,0.8);"><i class="fas fa-anchor text-white text-xs"></i></div>`;
+                    htmlIcon = `<div style="background-color: #0891b2; border: 2px solid #22d3ee; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-ship text-white text-[10px]"></i></div>`;
+                } else if (item.type === 'port') {
+                    htmlIcon = `<div class="pulse-port" style="background-color: #ea580c; border: 2px solid #fdba74; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-anchor text-white text-[10px]"></i></div>`;
+                } else if (item.type === 'ecoflow') {
+                    htmlIcon = `<div class="pulse-eco" style="background-color: #16a34a; border: 2px solid #86efac; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-leaf text-white text-xs"></i></div>`;
                 }
 
                 const customIcon = L.divIcon({
@@ -269,7 +292,6 @@
             });
         }
 
-        // Simulação de movimento das embarcações
         setInterval(() => {
             ativosLogisticos.filter(i => i.type === 'vessel').forEach(v => {
                 v.lng += (Math.random() - 0.4) * 0.002;
@@ -279,7 +301,7 @@
         }, 4000);
 
         renderMarkers();
-        addAlert('SISTEMA', 'Base de portos oficiais (AM, PA, AP, RO) e frotas carregada com sucesso.');
+        addAlert('SISTEMA', 'Painel de Auditoria DePIN 3 Camadas inicializado com sucesso.');
     </script>
 </body>
 </html>
