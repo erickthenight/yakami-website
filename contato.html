@@ -3,109 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato & Protocolo | YAKAMI TECH - Canais Institucionais</title>
     
     <!-- SEO Primário -->
-    <title>Contato | YAKAMI TECH - Conecte-se à Soberania</title>
-    <meta name="description" content="Canais oficiais da YAKAMI TECH para parcerias governamentais, institucionais e tecnológicas. Base em Manaus/AM.">
-    <meta name="keywords" content="YAKAMI TECH, contato, parcerias, ProSAME, nanossatélite, Amazônia, soberania de dados">
+    <meta name="description" content="Entre em contato com a diretoria e equipe técnica da YAKAMI TECH. Submissão de propostas para investidores, parcerias governamentais e imprensa.">
+    <meta name="keywords" content="YAKAMI TECH, contato, Manaus, Amazônia, investidores, parcerias, defesa, ProSAME">
     <meta name="author" content="YAKAMI TECH">
+    <meta name="robots" content="index, follow">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="Contato | YAKAMI TECH">
-    <meta property="og:description" content="Entre em contato para parcerias estratégicas na Amazônia.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yakami.tech/contato.html">
+    <meta property="og:title" content="Contato & Protocolo | YAKAMI TECH">
+    <meta property="og:description" content="Canal direto de comunicação com a YAKAMI TECH para investimentos, P&D e acordos institucionais.">
     
-    <!-- Estilos Externos -->
+    <!-- External Styles -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Estilos Customizados -->
     <style>
         html { scroll-behavior: smooth; }
         body { 
             font-family: 'Inter', system-ui, -apple-system, sans-serif; 
-            background-color: #0f172a; 
+            background-color: #0a0f1a; 
+            color: #ffffff;
             line-height: 1.6;
         }
         
-        /* Foco acessível */
         :focus-visible {
-            outline: 2px solid #f97316;
+            outline: 2px solid #22d3ee;
             outline-offset: 2px;
         }
-        
-        /* Hero Background */
-        .hero-bg-contact {
-            background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.8) 100%), 
-                              url('assets/map-impact-points.jpg');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        .hero-bg-contact::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, transparent 0%, rgba(15, 23, 42, 0.4) 100%);
-            pointer-events: none;
-        }
 
-        /* Glass Panel */
         .glass-panel {
             background: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(249, 115, 22, 0.2);
+            border: 1px solid rgba(34, 211, 238, 0.2);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .glass-panel:hover {
             border-color: rgba(249, 115, 22, 0.4);
-            box-shadow: 0 8px 32px rgba(249, 115, 22, 0.15);
+            box-shadow: 0 8px 32px rgba(249, 115, 22, 0.12);
         }
-        
-        /* Form Input Styles */
+
         .form-input {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(75, 85, 99, 0.5);
+            background-color: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(51, 65, 85, 0.8);
+            color: #ffffff;
             transition: all 0.2s ease;
         }
         .form-input:focus {
-            border-color: #f97316;
-            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+            border-color: #22d3ee;
+            box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.2);
             outline: none;
         }
-        .form-input::placeholder {
-            color: rgba(156, 163, 175, 0.7);
-        }
-        
-        /* Button Animation */
-        .btn-submit {
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-submit::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-        .btn-submit:hover::after {
-            transform: translateX(100%);
-        }
-        
-        /* Map Hover Effect */
-        .map-container {
-            filter: grayscale(100%) contrast(1.2) brightness(0.75);
-            transition: filter 0.7s ease;
-        }
-        .map-container:hover {
-            filter: grayscale(0%) contrast(1) brightness(1);
-        }
-        
-        /* Mobile Menu */
+
         .mobile-menu {
             transform: translateX(-100%);
             transition: transform 0.3s ease;
@@ -113,55 +67,42 @@
         .mobile-menu.active {
             transform: translateX(0);
         }
-        
-        /* Screen Reader Only */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
     </style>
 </head>
-<body class="text-white antialiased">
+<body class="antialiased">
 
-    <!-- Header -->
-    <header class="fixed top-0 w-full z-50 p-4 bg-gray-900/90 backdrop-blur-md border-b border-gray-800" role="banner">
+    <!-- Header / Navegação -->
+    <header class="fixed top-0 w-full z-50 p-4 bg-gray-900/95 backdrop-blur-md border-b border-gray-800" role="banner">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-black tracking-tighter focus:outline-none focus:ring-2 focus:ring-orange-400 rounded" aria-label="YAKAMI TECH - Página inicial">
+            <a href="index.html" class="text-2xl font-black tracking-tighter focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded">
                 <span class="text-orange-500">YAKAMI</span><span class="text-white">.TECH</span>
             </a>
             
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center space-x-8 font-semibold text-sm uppercase tracking-widest" role="navigation" aria-label="Principal">
-                <a href="index.html" class="hover:text-cyan-400 transition-colors focus:outline-none focus:text-cyan-400">Home</a>
-                <a href="empresa.html" class="hover:text-cyan-400 transition-colors focus:outline-none focus:text-cyan-400">Empresa</a>
-                <a href="equipe.html" class="hover:text-cyan-400 transition-colors focus:outline-none focus:text-cyan-400">Equipe</a>
-                <a href="#" class="text-cyan-400" aria-current="page">Contato</a>
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-8 font-semibold text-sm uppercase tracking-widest" aria-label="Principal">
+                <a href="index.html" class="hover:text-cyan-400 transition-colors">Home</a>
+                <a href="empresa.html" class="hover:text-cyan-400 transition-colors">Empresa</a>
+                <a href="equipe.html" class="hover:text-cyan-400 transition-colors">Equipe</a>
+                <a href="prosame.html" class="hover:text-cyan-400 transition-colors">ProSAME</a>
+                <a href="contato.html" class="text-cyan-400 border-b-2 border-cyan-400 pb-1" aria-current="page">Contato</a>
             </nav>
-            
+
             <!-- Mobile Menu Button -->
-            <button class="md:hidden text-white p-2 focus:outline-none focus:ring-2 focus:ring-orange-400 rounded" 
+            <button class="md:hidden text-white p-2 focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded" 
                     aria-label="Abrir menu" 
-                    aria-expanded="false"
-                    aria-controls="mobile-menu"
                     id="mobile-menu-toggle">
                 <i class="fas fa-bars text-xl"></i>
             </button>
         </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu fixed inset-0 z-40 bg-gray-900/98 pt-20 px-6 md:hidden" role="dialog" aria-modal="true">
-            <nav class="flex flex-col space-y-4 text-center" aria-label="Mobile">
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="mobile-menu fixed inset-0 z-40 bg-gray-900/98 pt-20 px-6 md:hidden">
+            <nav class="flex flex-col space-y-4 text-center">
                 <a href="index.html" class="text-lg hover:text-cyan-400 py-2">Home</a>
                 <a href="empresa.html" class="text-lg hover:text-cyan-400 py-2">Empresa</a>
                 <a href="equipe.html" class="text-lg hover:text-cyan-400 py-2">Equipe</a>
-                <a href="#" class="text-lg text-cyan-400 py-2">Contato</a>
+                <a href="prosame.html" class="text-lg hover:text-cyan-400 py-2">ProSAME</a>
+                <a href="contato.html" class="text-lg text-cyan-400 py-2">Contato</a>
                 <button id="mobile-menu-close" class="absolute top-6 right-6 text-gray-400 hover:text-white p-2" aria-label="Fechar menu">
                     <i class="fas fa-times text-xl"></i>
                 </button>
@@ -169,264 +110,196 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <main class="relative hero-bg-contact min-h-[45vh] flex items-center justify-center text-center pt-20" role="main">
-        <div class="relative z-10 p-6 max-w-5xl mx-auto">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight uppercase">
-                Canais de <br><span class="text-orange-500">Inteligência</span>
-            </h1>
-            <p class="text-lg sm:text-xl md:text-2xl font-light text-gray-300 max-w-3xl mx-auto">
-                Abertos para parcerias governamentais, institucionais e tecnológicas.
-            </p>
-        </div>
-        
-        <!-- Scroll Indicator -->
-        <a href="#contato-form" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-400 hover:text-orange-400 transition-colors focus:outline-none focus:text-orange-400" aria-label="Rolar para formulário">
-            <i class="fas fa-chevron-down text-2xl"></i>
-        </a>
-    </main>
-
-    <!-- Contact Section -->
-    <section id="contato-form" class="py-24 px-6 bg-gray-950" aria-labelledby="contact-title">
+    <!-- Conteúdo Principal -->
+    <main class="pt-32 pb-20 px-4 sm:px-6">
         <div class="container mx-auto max-w-6xl">
-            <h2 id="contact-title" class="sr-only">Informações de Contato e Formulário</h2>
             
-            <div class="grid lg:grid-cols-2 gap-16 items-start">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 mb-4">
+                    <i class="fas fa-paper-plane text-orange-400 text-xs mr-2"></i>
+                    <span class="text-orange-400 font-bold text-xs tracking-wider uppercase">Canais de Comunicação</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white mb-4">
+                    Protocolo Institucional
+                </h1>
+                <p class="text-gray-300 text-base sm:text-lg font-light">
+                    Canal direto para submissão de propostas de cooperação, relacionamento com investidores e parcerias em defesa e tecnologia espacial.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-10 items-start">
                 
-                <!-- Contact Info -->
-                <div class="space-y-12">
-                    <div>
-                        <h3 class="text-2xl sm:text-3xl font-black mb-8 border-l-4 border-orange-500 pl-4 uppercase tracking-wider">Base de Operações</h3>
-                        <div class="space-y-8">
-                            <!-- Address -->
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center border border-orange-500/30 mr-6" aria-hidden="true">
-                                    <i class="fas fa-map-marked-alt text-orange-500 text-xl"></i>
+                <!-- Coluna Esquerda: Informações Institucionais -->
+                <div class="lg:col-span-5 space-y-6">
+                    
+                    <div class="glass-panel p-8 rounded-3xl">
+                        <h2 class="text-xs font-bold tracking-[0.2em] text-cyan-400 uppercase mb-6 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400"></span> BASE DE OPERAÇÕES
+                        </h2>
+
+                        <div class="space-y-6">
+                            <!-- Endereço -->
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center shrink-0 text-orange-400">
+                                    <i class="fas fa-map-marker-alt"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-lg font-bold">Endereço Estratégico</h4>
-                                    <p class="text-gray-400 text-sm mt-1">
+                                    <h3 class="text-white font-bold text-sm">Endereço Estratégico</h3>
+                                    <p class="text-gray-400 text-xs leading-relaxed mt-1">
                                         Rua Parque dos Franceses, 960<br>
                                         Chapada, Manaus – AM, Brasil
                                     </p>
                                 </div>
                             </div>
-                            
-                            <!-- Email -->
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center border border-cyan-500/30 mr-6" aria-hidden="true">
-                                    <i class="fas fa-envelope-open-text text-cyan-400 text-xl"></i>
+
+                            <!-- E-mail -->
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 text-cyan-400">
+                                    <i class="fas fa-envelope"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-lg font-bold">E-mail Institucional</h4>
-                                    <p class="text-gray-400 text-sm mt-1">
-                                        <a href="mailto:yakami.tech@gmail.com" class="hover:text-cyan-400 transition-colors focus:outline-none focus:text-cyan-400">
-                                            yakami.tech@gmail.com
-                                        </a>
-                                    </p>
+                                    <h3 class="text-white font-bold text-sm">E-mail Institucional</h3>
+                                    <a href="mailto:yakami.tech@gmail.com" class="text-gray-400 hover:text-cyan-400 text-xs transition-colors mt-1 block">
+                                        yakami.tech@gmail.com
+                                    </a>
                                 </div>
                             </div>
-                            
-                            <!-- Phone/WhatsApp -->
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center border border-green-500/30 mr-6" aria-hidden="true">
-                                    <i class="fab fa-whatsapp text-green-500 text-xl"></i>
+
+                            <!-- WhatsApp / Telefone -->
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 text-emerald-400">
+                                    <i class="fab fa-whatsapp"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-lg font-bold">Linha Direta</h4>
-                                    <p class="text-gray-400 text-sm mt-1">
-                                        <a href="https://wa.me/5592982000722" class="hover:text-green-400 transition-colors focus:outline-none focus:text-green-400" target="_blank" rel="noopener">
-                                            +55 92 98200-0722
-                                        </a>
-                                    </p>
+                                    <h3 class="text-white font-bold text-sm">Linha Direta</h3>
+                                    <a href="https://wa.me/5592982000722" target="_blank" rel="noopener" class="text-gray-400 hover:text-emerald-400 text-xs transition-colors mt-1 block">
+                                        +55 92 98200-0722
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- ProSAME Dossier Card -->
-                    <article class="glass-panel p-8 rounded-3xl border-cyan-500/30" aria-labelledby="prosame-card-title">
-                        <h3 id="prosame-card-title" class="text-xl font-bold mb-4">Acesso ao Dossiê ProSAME</h3>
-                        <p class="text-gray-400 text-sm mb-6">
-                            Para parcerias técnicas ou submissão de Cartas de Intenção, utilize nosso canal de qualificação.
+                    <!-- Card ProSAME -->
+                    <div class="glass-panel p-8 rounded-3xl border-cyan-500/30">
+                        <h3 class="text-lg font-bold text-white mb-2">Acesso ao Dossiê ProSAME</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-4">
+                            Para parcerias técnicas ou submissão de Cartas de Intenção relativas ao PNAE/AEB, utilize o portal de qualificação.
                         </p>
-                        <a href="missao-amazonia.html" class="text-cyan-400 font-bold hover:text-cyan-300 transition-all flex items-center focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded px-2 py-1">
-                            Acessar Portal de Qualificação <i class="fas fa-chevron-right ml-2" aria-hidden="true"></i>
+                        <a href="prosame.html" class="inline-flex items-center text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors gap-2">
+                            Acessar Portal ProSAME <i class="fas fa-arrow-right"></i>
                         </a>
-                    </article>
+                    </div>
+
                 </div>
 
-                <!-- Contact Form -->
-                <div class="glass-panel p-8 sm:p-10 rounded-3xl shadow-2xl">
-                    <h3 class="text-2xl sm:text-3xl font-black mb-8 uppercase tracking-wider">Protocolar Mensagem</h3>
-                    
-                    <form action="https://formsubmit.co/yakami.tech@gmail.com" method="POST" class="space-y-6" novalidate>
-                        <!-- FormSubmit Configuration -->
-                        <input type="hidden" name="_subject" value="Novo Contato - YAKAMI TECH">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_next" value="https://yakami.tech/obrigado.html">
-                        
-                        <!-- Honeypot Anti-Spam -->
-                        <input type="text" name="_honey" class="sr-only" tabindex="-1" autocomplete="off">
-                        
-                        <!-- Name Field -->
-                        <div>
-                            <label for="name" class="sr-only">Seu Nome Completo</label>
-                            <input type="text" 
-                                   id="name" 
-                                   name="name" 
-                                   placeholder="Seu Nome Completo" 
-                                   required
-                                   pattern="^[A-Za-zÀ-ÿ\s\.']+$"
-                                   minlength="3"
-                                   class="form-input w-full rounded-xl p-4 text-white"
-                                   aria-required="true">
+                <!-- Coluna Direita: Formulário Integrado -->
+                <div class="lg:col-span-7">
+                    <div class="glass-panel p-8 sm:p-10 rounded-3xl border-orange-500/30">
+                        <h2 class="text-xl font-bold text-white mb-6 flex items-center justify-between">
+                            <span>PROTOCOLAR MENSAGEM</span>
+                            <span class="text-xs font-normal text-gray-400"><i class="fas fa-lock text-cyan-400 mr-1"></i> Seguro</span>
+                        </h2>
+
+                        <!-- FormSubmit Integration -->
+                        <form action="https://formsubmit.co/yakami.tech@gmail.com" method="POST" class="space-y-5">
+                            
+                            <!-- Configurações Ocultas do FormSubmit -->
+                            <input type="hidden" name="_subject" value="[YAKAMI TECH SITE] Novo Protocolo de Contato">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_template" value="table">
+                            <!-- Retorno automático para o site sem tela em inglês -->
+                            <input type="hidden" name="_next" value="https://www.yakami.com.br/contato.html?status=sucesso">
+
+                            <div>
+                                <label for="name" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Nome Completo</label>
+                                <input type="text" id="name" name="nome" required placeholder="Digite seu nome completo" 
+                                       class="w-full px-4 py-3.5 rounded-xl form-input text-sm">
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">E-mail Corporativo / Institucional</label>
+                                <input type="email" id="email" name="email" required placeholder="nome@empresa.com" 
+                                       class="w-full px-4 py-3.5 rounded-xl form-input text-sm">
+                            </div>
+
+                            <div>
+                                <label for="subject" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Assunto Estratégico</label>
+                                <select id="subject" name="assunto" required class="w-full px-4 py-3.5 rounded-xl form-input text-sm text-gray-200">
+                                    <option value="" disabled selected>Selecione a finalidade do contato</option>
+                                    <option value="Investidores">Investimentos & Relação com Investidores (IR)</option>
+                                    <option value="Governo e Defesa">Parcerias Governamentais & Defesa Nacional</option>
+                                    <option value="ProSAME">ProSAME / AEB / Admissão Espacial</option>
+                                    <option value="P&D e Tecnologia">Cooperação Técnica & P&D (Universidades/ICTs)</option>
+                                    <option value="Imprensa">Imprensa e Comunicação Institucional</option>
+                                    <option value="Outros">Outros Assuntos</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Mensagem / Proposta</label>
+                                <textarea id="message" name="mensagem" rows="5" required placeholder="Descreva sucintamente o objetivo do contato..." 
+                                          class="w-full px-4 py-3.5 rounded-xl form-input text-sm resize-none"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm tracking-wider uppercase rounded-xl transition-all shadow-lg shadow-orange-600/30 flex items-center justify-center gap-2">
+                                <i class="fas fa-paper-plane"></i> ENVIAR PARA PROTOCOLO
+                            </button>
+                        </form>
+
+                        <!-- Toast de Sucesso Automático caso enviado -->
+                        <div id="success-message" class="hidden mt-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs text-center font-semibold">
+                            <i class="fas fa-check-circle text-sm mr-1"></i> Protocolo enviado com sucesso! Nossa equipe retornará em até 24h.
                         </div>
-                        
-                        <!-- Email Field -->
-                        <div>
-                            <label for="email" class="sr-only">Seu E-mail Profissional</label>
-                            <input type="email" 
-                                   id="email" 
-                                   name="email" 
-                                   placeholder="Seu E-mail Profissional" 
-                                   required
-                                   pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                                   class="form-input w-full rounded-xl p-4 text-white"
-                                   aria-required="true">
-                        </div>
-                        
-                        <!-- Subject Dropdown -->
-                        <div>
-                            <label for="subject" class="sr-only">Assunto</label>
-                            <select id="subject" 
-                                    name="subject" 
-                                    class="form-input w-full rounded-xl p-4 text-white appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiI+PHBhdGggZmlsbD0iIzZCNzI4MCIgZD0iTTIgNGw0IDQgNC00Ii8+PC9zdmc+')] bg-no-repeat bg-right-4 bg-center">
-                                <option value="" disabled selected>Selecione o Assunto</option>
-                                <option value="Proposta de Parceria">Proposta de Parceria</option>
-                                <option value="Investimento">Investimento / Seed Round</option>
-                                <option value="Imprensa">Imprensa / Media</option>
-                                <option value="ProSAME">Qualificação ProSAME / AEB</option>
-                                <option value="Outros">Outros Assuntos</option>
-                            </select>
-                        </div>
-                        
-                        <!-- Message Field -->
-                        <div>
-                            <label for="message" class="sr-only">Mensagem</label>
-                            <textarea id="message" 
-                                      name="message" 
-                                      rows="5" 
-                                      placeholder="Como podemos colaborar para a soberania de dados na Amazônia?" 
-                                      required
-                                      maxlength="1000"
-                                      class="form-input w-full rounded-xl p-4 text-white resize-none"></textarea>
-                            <p class="text-gray-500 text-xs mt-1 text-right"><span id="char-count">0</span>/1000</p>
-                        </div>
-                        
-                        <!-- Submit Button -->
-                        <button type="submit" 
-                                class="btn-submit w-full bg-orange-600 hover:bg-orange-500 text-white font-black py-4 rounded-xl transition-all shadow-lg shadow-orange-600/20 text-lg uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
-                                id="submit-btn">
-                            Enviar para Protocolo
-                        </button>
-                        
-                        <p class="text-center text-gray-500 text-xs mt-4">
-                            Seus dados serão tratados com confidencialidade em conformidade com a LGPD.
-                        </p>
-                    </form>
+
+                    </div>
                 </div>
+
             </div>
+
         </div>
-    </section>
+    </main>
 
-    <!-- Map Section -->
-    <section class="w-full h-[450px] map-container" aria-label="Localização da YAKAMI TECH em Manaus">
-        <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.9678385412493!2d-60.0244795!3d-3.1032338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x926c100523e160e3%3A0xc34538ec0139b854!2sR.%20Parque%20dos%20Franceses%2C%20960%20-%20Chapada%2C%20Manaus%20-%20AM!5e0!3m2!1spt-BR!2sbr!4v1714948000000!5m2!1spt-BR!2sbr" 
-            width="100%" 
-            height="100%" 
-            style="border:0;" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Mapa da localização da YAKAMI TECH">
-        </iframe>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 bg-gray-950 border-t border-gray-900 text-center text-gray-600 text-sm" role="contentinfo">
-        <div class="container mx-auto px-6">
-            <p>© 2026 YAKAMI TECH. Operação Soberania Amazônica.</p>
-            <div class="mt-4 flex justify-center gap-4 text-xs text-gray-500">
-                <a href="politica-privacidade.html" class="hover:text-cyan-400 transition-colors focus:outline-none focus:text-cyan-400">Política de Privacidade</a>
-                <span aria-hidden="true">•</span>
-                <a href="termos-uso.html" class="hover:text-cyan-400 transition-colors focus:outline-none focus:text-cyan-400">Termos de Uso</a>
-            </div>
+    <!-- Rodapé Minimalista -->
+    <footer class="py-8 bg-gray-950 border-t border-gray-900 text-center text-gray-500 text-xs">
+        <div class="container mx-auto px-4">
+            <p>© 2026 YAKAMI TECH. Todos os direitos reservados. Infraestrutura Ciberfísica e Espacial para a Amazônia.</p>
         </div>
     </footer>
 
-    <!-- JavaScript para Funcionalidades -->
+    <!-- Scripts -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // === Mobile Menu Toggle ===
-            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-            const mobileMenuClose = document.getElementById('mobile-menu-close');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            function toggleMobileMenu() {
-                const isActive = mobileMenu.classList.toggle('active');
-                mobileMenuToggle.setAttribute('aria-expanded', isActive);
-                document.body.style.overflow = isActive ? 'hidden' : '';
-            }
-            
-            mobileMenuToggle?.addEventListener('click', toggleMobileMenu);
-            mobileMenuClose?.addEventListener('click', toggleMobileMenu);
-            
-            mobileMenu?.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.remove('active');
-                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                    document.body.style.overflow = '';
-                });
-            });
-            
-            // === Character Counter for Message ===
-            const messageInput = document.getElementById('message');
-            const charCount = document.getElementById('char-count');
-            
-            if (messageInput && charCount) {
-                messageInput.addEventListener('input', () => {
-                    charCount.textContent = messageInput.value.length;
-                });
-            }
-            
-            // === Form Validation (Basic) ===
-            const form = document.querySelector('form');
-            const submitBtn = document.getElementById('submit-btn');
-            
-            form?.addEventListener('submit', function(e) {
-                const email = document.getElementById('email').value;
-                const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                
-                if (!emailPattern.test(email)) {
-                    e.preventDefault();
-                    alert('Por favor, insira um e-mail profissional válido.');
-                    document.getElementById('email').focus();
-                    return false;
+            // Controle de Menu Mobile
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const close = document.getElementById('mobile-menu-close');
+            const menu = document.getElementById('mobile-menu');
+
+            if (toggle) toggle.addEventListener('click', () => menu.classList.add('active'));
+            if (close) close.addEventListener('click', () => menu.classList.remove('active'));
+
+            // Seleção automática do assunto via parâmetro URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const assuntoParam = urlParams.get('assunto');
+            const statusParam = urlParams.get('status');
+
+            if (assuntoParam) {
+                const select = document.getElementById('subject');
+                if (select) {
+                    for (let i = 0; i < select.options.length; i++) {
+                        if (select.options[i].value.toLowerCase().includes(assuntoParam.toLowerCase())) {
+                            select.selectedIndex = i;
+                            break;
+                        }
+                    }
                 }
-                
-                // Show loading state
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Enviando...';
-            });
-            
-            // === Skip Link for Accessibility ===
-            const skipLink = document.createElement('a');
-            skipLink.href = '#contato-form';
-            skipLink.className = 'sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:bg-orange-600 focus:text-white focus:px-4 focus:py-2 focus:rounded focus:z-50';
-            skipLink.textContent = 'Pular para formulário de contato';
-            document.body.insertBefore(skipLink, document.body.firstChild);
+            }
+
+            // Exibir mensagem de sucesso caso retornado do FormSubmit
+            if (statusParam === 'sucesso') {
+                const successDiv = document.getElementById('success-message');
+                if (successDiv) successDiv.classList.remove('hidden');
+            }
         });
     </script>
 </body>
