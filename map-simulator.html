@@ -47,7 +47,6 @@
         .custom-scroll::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.3); }
         .custom-scroll::-webkit-scrollbar-thumb { background: #22d3ee; border-radius: 3px; }
 
-        /* Checkbox customizado */
         .filter-checkbox {
             appearance: none;
             width: 18px;
@@ -76,7 +75,8 @@
 </head>
 <body class="h-screen flex flex-col">
 
-    <header class="bg-gray-900 border-b border-gray-800 px-4 md:px-6 py-3 flex justify-between items-center z-20 shadow-xl flex-shrink-0">
+    <!-- HEADER PRINCIPAL -->
+    <header class="bg-gray-900 border-b border-gray-800 px-4 md:px-6 py-3 flex justify-between items-center z-30 shadow-xl flex-shrink-0">
         <div class="flex items-center space-x-3 md:space-x-4">
             <a href="index.html" class="text-orange-500 font-black text-lg md:text-xl tracking-tighter hover:text-orange-400 transition">YAKAMI<span class="text-white">.TECH</span></a>
             <span class="hidden md:inline-block text-[10px] md:text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-wider">
@@ -92,26 +92,62 @@
         </div>
     </header>
 
-    <div class="flex-1 flex flex-col lg:flex-row relative overflow-hidden min-h-0">
-        
-        <div class="flex-1 relative bg-gray-950 order-2 lg:order-1 min-h-0">
-            <div id="map" class="absolute inset-0"></div>
-            
-            <div class="absolute top-4 left-4 z-10 glass-panel p-3 rounded-lg text-xs space-y-1">
-                <div class="flex items-center space-x-2">
-                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                    <span class="text-green-400 font-bold">SISTEMA OPERACIONAL</span>
+    <!-- BARRA SECUNDÁRIA: MÉTRICAS GLOBAIS (NOVO) -->
+    <div class="bg-gray-900/95 border-b border-gray-800 px-4 py-2 flex items-center justify-between z-20 flex-shrink-0">
+        <!-- Status do Sistema -->
+        <div class="flex items-center space-x-4 text-xs">
+            <div class="flex items-center space-x-2">
+                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                <span class="text-green-400 font-bold">SISTEMA OPERACIONAL</span>
+            </div>
+            <div class="text-gray-400 mono text-[10px] hidden md:block">
+                Última atualização: <span id="last-update" class="text-cyan-400">--:--:--</span>
+            </div>
+            <div class="text-gray-400 mono text-[10px] hidden md:block">
+                Ativos monitorados: <span id="active-assets" class="text-cyan-400">0</span>
+            </div>
+        </div>
+
+        <!-- Balanço de Carbono & Tokenomics (MOVIDO DO SIDEBAR) -->
+        <div class="flex items-center space-x-6 text-xs">
+            <div class="flex items-center space-x-2 bg-green-900/20 border border-green-500/30 px-3 py-1.5 rounded-lg">
+                <i class="fas fa-leaf text-green-400"></i>
+                <div>
+                    <span class="text-gray-400 text-[10px] block">Sequestro Verificado:</span>
+                    <b class="text-green-400 font-mono">342.150 tCO2e</b>
                 </div>
-                <div class="text-gray-400 mono text-[10px]">
-                    Última atualização: <span id="last-update">--:--:--</span>
-                </div>
-                <div class="text-gray-400 mono text-[10px]">
-                    Ativos monitorados: <span id="active-assets" class="text-cyan-400">0</span>
+            </div>
+            <div class="flex items-center space-x-2 bg-cyan-900/20 border border-cyan-500/30 px-3 py-1.5 rounded-lg">
+                <i class="fas fa-coins text-cyan-400"></i>
+                <div>
+                    <span class="text-gray-400 text-[10px] block">Tokens Fracionados (YKM):</span>
+                    <b class="text-cyan-400 font-mono">18.450.000 YKM</b>
                 </div>
             </div>
         </div>
 
-        <aside class="w-full lg:w-[450px] bg-gray-900 border-t lg:border-t-0 lg:border-l border-gray-800 flex flex-col z-20 shadow-2xl order-1 lg:order-2 overflow-hidden">
+        <!-- Log de Transações Rápido (MOVIDO DO SIDEBAR) -->
+        <div class="hidden lg:flex items-center space-x-2 bg-gray-800/50 border border-cyan-500/20 px-3 py-1.5 rounded-lg max-w-[300px]">
+            <i class="fas fa-bell text-cyan-400 text-xs"></i>
+            <div class="flex-1 overflow-hidden">
+                <div id="quick-log" class="text-[10px] text-gray-300 mono truncate">
+                    Aguardando transações...
+                </div>
+            </div>
+            <span class="text-[9px] text-gray-500">Sepolia</span>
+        </div>
+    </div>
+
+    <!-- MAIN WORKSPACE -->
+    <div class="flex-1 flex flex-col lg:flex-row relative overflow-hidden min-h-0">
+        
+        <!-- Contêiner do Mapa -->
+        <div class="flex-1 relative bg-gray-950 order-2 lg:order-1 min-h-0">
+            <div id="map" class="absolute inset-0"></div>
+        </div>
+
+        <!-- Sidebar de Controle (AGORA MAIS LIMPA) -->
+        <aside class="w-full lg:w-[420px] bg-gray-900 border-t lg:border-t-0 lg:border-l border-gray-800 flex flex-col z-20 shadow-2xl order-1 lg:order-2 overflow-hidden">
             <div class="flex flex-col h-full overflow-y-auto custom-scroll p-4 space-y-4">
                 
                 <!-- FILTROS DE ATIVOS -->
@@ -158,7 +194,7 @@
                     </div>
                 </div>
 
-                <!-- FILTROS DE RIOS (NOVO) -->
+                <!-- FILTROS DE RIOS -->
                 <div class="glass-panel p-4 rounded-xl space-y-3 flex-shrink-0">
                     <h3 class="text-xs font-black uppercase tracking-wider text-blue-400 flex items-center">
                         <i class="fas fa-water mr-2"></i> Rios da Bacia Amazônica
@@ -195,21 +231,22 @@
                     </div>
                 </div>
 
-                <!-- Painel de Inspeção -->
-                <div id="telemetry-panel" class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-orange-500 flex-shrink-0">
+                <!-- Painel de Inspeção (AGORA COM MAIS ESPAÇO) -->
+                <div id="telemetry-panel" class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-orange-500 flex-1 min-h-[300px]">
                     <div class="flex justify-between items-center">
                         <h2 class="text-xs font-black uppercase tracking-wider text-orange-400 flex items-center">
                             <i class="fas fa-id-card mr-2"></i> Inspeção de Ativos
                         </h2>
                         <button onclick="clearSelection()" class="text-[10px] text-gray-400 hover:text-white underline">Limpar</button>
                     </div>
-                    <div id="telemetry-content" class="text-xs text-gray-300 space-y-2 pt-1 max-h-[300px] overflow-y-auto custom-scroll pr-1">
+                    <div id="telemetry-content" class="text-xs text-gray-300 space-y-2 pt-1 overflow-y-auto custom-scroll pr-1 max-h-[400px]">
                         <p class="text-gray-400 italic flex items-center justify-center h-20">
                             Clique em qualquer ativo no mapa para inspecionar conformidade NORMAM 204, carga e dados dMRV.
                         </p>
                     </div>
                 </div>
 
+                <!-- Botão de Envio Blockchain -->
                 <button id="btn-payload" onclick="enviarPayloadBlockchain()" class="w-full bg-gradient-to-r from-cyan-600 to-green-600 hover:from-cyan-500 hover:to-green-500 text-gray-950 font-black py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-900/40 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0">
                     <i id="icon-payload" class="fas fa-satellite-dish text-sm"></i> 
                     <span id="text-payload">Enviar Payload à Blockchain (Sepolia)</span>
@@ -250,30 +287,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-green-500 flex-shrink-0">
-                    <h2 class="text-xs font-black uppercase tracking-wider text-green-400 flex items-center">
-                        <i class="fas fa-coins mr-2"></i> Balanço de Carbono & Tokenomics
-                    </h2>
-                    <div class="grid grid-cols-2 gap-2 text-xs pt-1">
-                        <div class="bg-gray-950/70 p-2.5 rounded border border-gray-800">
-                            <span class="text-gray-400 text-[10px] block">Sequestro Verificado:</span>
-                            <b class="text-green-400 text-sm font-mono">342.150 tCO2e</b>
-                        </div>
-                        <div class="bg-gray-950/70 p-2.5 rounded border border-gray-800">
-                            <span class="text-gray-400 text-[10px] block">Tokens Fracionados (YKM):</span>
-                            <b class="text-cyan-400 text-sm font-mono">18.450.000 YKM</b>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="alerts-panel" class="glass-panel p-4 rounded-xl flex-1 flex flex-col border-l-4 border-l-cyan-600 min-h-[150px]">
-                    <h2 class="text-xs font-black uppercase tracking-wider text-cyan-400 mb-2 flex items-center justify-between flex-shrink-0">
-                        <span><i class="fas fa-bell mr-2"></i> Log de Transações DePIN</span>
-                        <span class="text-[10px] text-gray-500 font-normal">Sepolia Testnet</span>
-                    </h2>
-                    <div id="alerts-list" class="flex-1 overflow-y-auto space-y-1.5 text-[11px] font-mono text-gray-300 pr-1 custom-scroll"></div>
-                </div>
             </div>
         </aside>
     </div>
@@ -293,10 +306,9 @@
             subdomains: 'abc'
         }).addTo(map);
 
-        // CAMADAS DE RIOS (Polilinhas simplificadas dos rios principais)
+        // CAMADAS DE RIOS
         const riverLayers = {};
         
-        // Rio Amazonas/Solimões (trecho principal)
         const amazonasRiver = L.polyline([
             [-3.3, -70.0], [-3.2, -68.5], [-3.15, -67.0], [-3.1, -65.5], 
             [-3.05, -64.0], [-3.0, -62.5], [-2.95, -61.0], [-2.9, -59.5],
@@ -305,7 +317,6 @@
         amazonasRiver.bindPopup('<b>Rio Amazonas/Solimões</b><br>Extensão: 6.400 km');
         riverLayers.amazonas = amazonasRiver;
 
-        // Rio Negro
         const negroRiver = L.polyline([
             [-0.5, -67.0], [-1.0, -66.0], [-1.5, -65.0], [-2.0, -64.0],
             [-2.5, -63.0], [-2.8, -62.0], [-3.0, -61.0], [-3.1, -60.0]
@@ -313,7 +324,6 @@
         negroRiver.bindPopup('<b>Rio Negro</b><br>Maior afluente do Amazonas');
         riverLayers.negro = negroRiver;
 
-        // Rio Madeira
         const madeiraRiver = L.polyline([
             [-10.0, -65.0], [-9.5, -64.5], [-9.0, -64.0], [-8.5, -63.5],
             [-8.0, -63.0], [-7.5, -62.5], [-7.0, -62.0], [-6.5, -61.5],
@@ -323,7 +333,6 @@
         madeiraRiver.bindPopup('<b>Rio Madeira</b><br>Principal via de escoamento da soja');
         riverLayers.madeira = madeiraRiver;
 
-        // Rio Tapajós
         const tapajosRiver = L.polyline([
             [-9.0, -56.0], [-8.0, -55.5], [-7.0, -55.0], [-6.0, -54.8],
             [-5.0, -54.7], [-4.0, -54.7], [-3.0, -54.7], [-2.44, -54.7]
@@ -331,7 +340,6 @@
         tapajosRiver.bindPopup('<b>Rio Tapajós</b><br>Porto de Santarém (Cargill)');
         riverLayers.tapajos = tapajosRiver;
 
-        // Filtros de Rios
         document.querySelectorAll('.river-checkbox').forEach(checkbox => {
             checkbox.addEventListener('change', function() {
                 const river = this.dataset.river;
@@ -343,21 +351,14 @@
             });
         });
 
-        // BASE DE DADOS REAL - PORTOS DA ANTAQ (Coordenadas Reais)
+        // BASE DE DADOS REAL - PORTOS DA ANTAQ
         const ativosLogisticos = [
-            // EMBARCAÇÕES HERMASA (Rio Madeira - coordenadas reais no rio)
             { id: 'v_herm_1', type: 'vessel_hermasa', name: 'Comboio Hermasa 01', lat: -7.850, lng: -63.500, speed: '8.5 nós', status: 'Conforme NORMAM 204', operador: 'Hermasa Navegação', destino: 'Itacoatiara', normam204: { inscricao: 'CPAM-RO-2023-8841', AB: '2.450 AB', trip: '8', certs: 'VLD Válido' }, carga: { tipo: 'Soja', volume: '4.200 t', lote: 'HE-2026-01' } },
             { id: 'v_herm_2', type: 'vessel_hermasa', name: 'Comboio Hermasa 02', lat: -6.200, lng: -62.100, speed: '8.0 nós', status: 'Conforme NORMAM 204', operador: 'Hermasa Navegação', destino: 'Itacoatiara', normam204: { inscricao: 'CPAM-RO-2023-8842', AB: '2.450 AB', trip: '8', certs: 'VLD Válido' }, carga: { tipo: 'Soja', volume: '3.900 t', lote: 'HE-2026-02' } },
             { id: 'v_herm_3', type: 'vessel_hermasa', name: 'Comboio Hermasa 03', lat: -5.100, lng: -61.300, speed: '7.5 nós', status: 'Conforme NORMAM 204', operador: 'Hermasa Navegação', destino: 'Porto Velho', normam204: { inscricao: 'CPAM-RO-2023-8843', AB: '2.450 AB', trip: '8', certs: 'VLD Válido' }, carga: { tipo: 'Lastro', volume: '0 t', lote: 'HE-RET-01' } },
-
-            // EMBARCAÇÕES ATEM (Rio Amazonas - coordenadas reais no rio)
             { id: 'v_atem_1', type: 'vessel_atem', name: 'Balsa Atem 01', lat: -2.950, lng: -58.800, speed: '9.0 nós', status: 'Conforme NORMAM 204', operador: 'Atem Distribuidora', destino: 'Santarém', normam204: { inscricao: 'CPAM-AM-2021-1920', AB: '3.120 AB', trip: '10', certs: 'CNPO Válido' }, carga: { tipo: 'Diesel S-10', volume: '2.5M L', lote: 'AT-01' } },
             { id: 'v_atem_2', type: 'vessel_atem', name: 'Balsa Atem 02', lat: -2.700, lng: -57.100, speed: '8.8 nós', status: 'Conforme NORMAM 204', operador: 'Atem Distribuidora', destino: 'Parintins', normam204: { inscricao: 'CPAM-AM-2021-1921', AB: '3.120 AB', trip: '10', certs: 'CNPO Válido' }, carga: { tipo: 'Gasolina', volume: '2.1M L', lote: 'AT-02' } },
-
-            // CATAMARÃ (Rio Negro - coordenada real no rio)
             { id: 'v_cata_1', type: 'vessel_cata', name: 'Catamarã Soberano', lat: -2.850, lng: -60.500, speed: '14.2 nós', status: 'Conforme NORMAM 204', operador: 'Expresso Rio Negro', destino: 'Barcelos', normam204: { inscricao: 'CPAM-AM-2024-5510', AB: '480 AB', trip: '6', certs: 'Passe OK' }, carga: { tipo: 'Misto + 184 pax', volume: '85 t', lote: 'CAT-90' } },
-
-            // PORTOS REAIS DA ANTAQ/SNPH (Coordenadas exatas dos cais portuários)
             { id: 'p_pvh', type: 'port', name: 'Porto de Porto Velho (RO)', lat: -8.7619, lng: -63.9039, admin: 'SPHR', codigo: '2.50.15.01-0', nivel: '14.82m', tipo: 'Interior' },
             { id: 'p_hum', type: 'port', name: 'Porto de Humaitá (AM)', lat: -7.5197, lng: -63.0208, admin: 'SNPH', codigo: 'AM-HUM-01', nivel: '13.90m', tipo: 'Interior' },
             { id: 'p_lab', type: 'port', name: 'Porto de Lábrea (AM)', lat: -7.2667, lng: -64.8000, admin: 'SNPH', codigo: 'AM-LAB-01', nivel: '14.20m', tipo: 'Interior' },
@@ -376,8 +377,6 @@
             { id: 'p_bel', type: 'port', name: 'Porto de Belém (PA)', lat: -1.4558, lng: -48.5039, admin: 'CDP Belém', codigo: '2.05.15.01-0', nivel: '6.50m', tipo: 'Organizado' },
             { id: 'p_mcp', type: 'port', name: 'Porto de Santana (AP)', lat: -0.0583, lng: -51.1833, admin: 'CDP', codigo: '2.02.15.01-2', nivel: '7.20m', tipo: 'Organizado' },
             { id: 'p_bvb', type: 'port', name: 'Porto de Boa Vista (RR)', lat: 2.8233, lng: -60.6750, admin: 'SNPH', codigo: 'RR-BVB-01', nivel: '8.90m', tipo: 'Interior' },
-
-            // ECO FLOW STATIONS (Posicionadas em aeroportos e comunidades reais)
             { id: 'eco_manaus_aero', type: 'ecoflow', name: 'ECO Station - Aeroporto Eduardo Gomes (MAO)', lat: -3.0386, lng: -60.0497, aeroporto: 'SBEG', carbono: '45.000 tCO2e/ano', tokens: '2.25M YKM', comunidade: 'Zona Industrial de Manaus' },
             { id: 'eco_pvh_aero', type: 'ecoflow', name: 'ECO Station - Aeroporto Porto Velho (PVH)', lat: -8.7092, lng: -63.9022, aeroporto: 'SBPV', carbono: '38.500 tCO2e/ano', tokens: '1.92M YKM', comunidade: 'Porto Velho/RO' },
             { id: 'eco_stm_aero', type: 'ecoflow', name: 'ECO Station - Aeroporto Santarém (STM)', lat: -2.4247, lng: -54.7858, aeroporto: 'SBSN', carbono: '52.300 tCO2e/ano', tokens: '2.61M YKM', comunidade: 'Santarém/PA' },
@@ -395,7 +394,6 @@
             ecoflow: true
         };
 
-        // Sistema de Filtros
         document.querySelectorAll('.filter-checkbox[data-type]').forEach(checkbox => {
             checkbox.addEventListener('change', function() {
                 const type = this.dataset.type;
@@ -574,21 +572,13 @@
         function addAlert(type, message) {
             const timestamp = new Date().toLocaleTimeString();
             alerts.unshift({ timestamp, type, message });
-            if (alerts.length > 50) alerts.pop();
-            updateAlertsPanel();
-        }
-
-        function updateAlertsPanel() {
-            const listEl = document.getElementById('alerts-list');
-            if (!listEl) return;
-            listEl.innerHTML = alerts.map(a => `
-                <div class="border-b border-gray-800/60 pb-1.5 flex items-start space-x-1">
-                    <span class="text-gray-500 shrink-0">[${a.timestamp}]</span>
-                    <b class="text-cyan-400 shrink-0">${a.type}:</b>
-                    <span class="text-gray-300 break-words">${a.message}</span>
-                </div>
-            `).join('');
-            listEl.scrollTop = 0;
+            if (alerts.length > 10) alerts.pop();
+            
+            // Atualiza o quick-log no header
+            const quickLog = document.getElementById('quick-log');
+            if (quickLog && alerts.length > 0) {
+                quickLog.textContent = `${alerts[0].type}: ${alerts[0].message}`;
+            }
         }
 
         function updateHydrologicalData() {
