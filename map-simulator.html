@@ -3,31 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YAKAMI TECH - Centro de Operações ASTRA-Net GIS (Master Dashboard)</title>
+    <title>YAKAMI TECH - ASTRA-Net Master GIS | Comando e Controle da Amazônia</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #070b14; color: #fff; overflow: hidden; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #070b14; 
+            color: #fff; 
+            overflow: hidden; 
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
         
-        /* Painéis com Glassmorphism e Scroll Controlado */
+        /* Glassmorphism Panels */
         .glass-panel { 
             background: rgba(15, 23, 42, 0.95); 
             backdrop-filter: blur(12px); 
             border: 1px solid rgba(34, 211, 238, 0.3); 
             box-shadow: 0 0 20px rgba(34, 211, 238, 0.08);
-            max-height: calc(100vh - 100px);
-            overflow-y: auto;
         }
-        .glass-panel::-webkit-scrollbar { width: 6px; }
-        .glass-panel::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.3); }
-        .glass-panel::-webkit-scrollbar-thumb { background: #22d3ee; border-radius: 3px; }
         
         #map { width: 100%; height: 100%; background: #070b14; z-index: 1; }
         
-        /* CORREÇÃO: Filtro CSS para escurecer o mapa OpenStreetMap e manter a estética Dark */
+        /* Filtro escuro para o mapa */
         .leaflet-tile-pane {
             filter: brightness(0.6) contrast(1.2) saturate(0.8);
         }
@@ -46,13 +46,18 @@
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
         }
 
-        /* Responsividade para notebooks e telas menores */
-        @media (max-width: 1024px) {
-            .sidebar-responsive {
-                width: 100%;
-                max-height: 45vh;
-                position: relative;
-            }
+        /* Custom Scrollbar */
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.3); }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #22d3ee; border-radius: 3px; }
+
+        /* Toggle Switch */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #22d3ee;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #22d3ee;
         }
     </style>
 </head>
@@ -62,7 +67,9 @@
     <header class="bg-gray-900 border-b border-gray-800 px-4 md:px-6 py-3 flex justify-between items-center z-20 shadow-xl flex-shrink-0">
         <div class="flex items-center space-x-3 md:space-x-4">
             <a href="index.html" class="text-orange-500 font-black text-lg md:text-xl tracking-tighter hover:text-orange-400 transition">YAKAMI<span class="text-white">.TECH</span></a>
-            <span class="hidden md:inline-block text-[10px] md:text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-wider">🛰️ ASTRA-Net Master GIS | dMRV, Normam 204 & DePIN</span>
+            <span class="hidden md:inline-block text-[10px] md:text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-wider">
+                🛰️ ASTRA-Net Master GIS | Comando & Controle Amazônia
+            </span>
         </div>
         <div class="flex items-center space-x-3 md:space-x-4 text-xs md:text-sm">
             <div class="flex items-center space-x-2 bg-gray-800/80 px-3 py-1.5 rounded-lg border border-gray-700">
@@ -76,47 +83,135 @@
     <!-- Main Workspace -->
     <div class="flex-1 flex flex-col lg:flex-row relative overflow-hidden min-h-0">
         
-        <!-- Contêiner do Mapa Real -->
+        <!-- Contêiner do Mapa -->
         <div class="flex-1 relative bg-gray-950 order-2 lg:order-1 min-h-0">
             <div id="map" class="absolute inset-0"></div>
+            
+            <!-- Overlay de Status do Sistema -->
+            <div class="absolute top-4 left-4 z-10 glass-panel p-3 rounded-lg text-xs space-y-1">
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    <span class="text-green-400 font-bold">SISTEMA OPERACIONAL</span>
+                </div>
+                <div class="text-gray-400 mono text-[10px]">
+                    Última atualização: <span id="last-update">--:--:--</span>
+                </div>
+                <div class="text-gray-400 mono text-[10px]">
+                    Ativos monitorados: <span id="active-assets" class="text-cyan-400">0</span>
+                </div>
+            </div>
         </div>
 
-        <!-- Sidebar de Telemetria e Governança -->
-        <aside class="w-full lg:w-[420px] bg-gray-900 border-t lg:border-t-0 lg:border-l border-gray-800 flex flex-col z-20 shadow-2xl order-1 lg:order-2 sidebar-responsive overflow-hidden">
-            <div class="flex flex-col h-full overflow-y-auto p-4 space-y-4">
+        <!-- Sidebar de Controle -->
+        <aside class="w-full lg:w-[450px] bg-gray-900 border-t lg:border-t-0 lg:border-l border-gray-800 flex flex-col z-20 shadow-2xl order-1 lg:order-2 overflow-hidden">
+            <div class="flex flex-col h-full overflow-y-auto custom-scroll p-4 space-y-4">
                 
-                <!-- Legenda -->
-                <div class="glass-panel p-3 rounded-xl space-y-2 text-[11px] flex-shrink-0">
-                    <p class="font-bold text-gray-300 uppercase tracking-wider text-[10px]">Legenda dos Ativos Flutuantes:</p>
-                    <div class="grid grid-cols-2 gap-1.5">
-                        <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-blue-900 border border-blue-400"></span><span>Hermasa (Soja)</span></div>
-                        <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-red-600 border border-red-300"></span><span>Atem (Combustível)</span></div>
-                        <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-sky-400 border border-white"></span><span>Catamarã (Misto)</span></div>
-                        <div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-orange-600 border border-orange-300"></span><span>Portos Oficiais</span></div>
-                        <div class="flex items-center space-x-2 col-span-2"><span class="w-3 h-3 rounded-full bg-green-600 border border-green-300"></span><span>Eco Flow (Reserva / TI)</span></div>
+                <!-- FILTROS DE ATIVOS (NOVO) -->
+                <div class="glass-panel p-4 rounded-xl space-y-3 flex-shrink-0">
+                    <h3 class="text-xs font-black uppercase tracking-wider text-cyan-400 flex items-center">
+                        <i class="fas fa-filter mr-2"></i> Filtros de Visualização
+                    </h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-blue-900 border border-blue-400"></span>
+                                <span class="text-xs text-gray-300 group-hover:text-white transition">Hermasa (Soja)</span>
+                            </div>
+                            <input type="checkbox" class="filter-checkbox" data-type="vessel_hermasa" checked>
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-red-600 border border-red-300"></span>
+                                <span class="text-xs text-gray-300 group-hover:text-white transition">Atem (Combustível)</span>
+                            </div>
+                            <input type="checkbox" class="filter-checkbox" data-type="vessel_atem" checked>
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-sky-400 border border-white"></span>
+                                <span class="text-xs text-gray-300 group-hover:text-white transition">Catamarã (Misto)</span>
+                            </div>
+                            <input type="checkbox" class="filter-checkbox" data-type="vessel_cata" checked>
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-orange-600 border border-orange-300"></span>
+                                <span class="text-xs text-gray-300 group-hover:text-white transition">Portos Oficiais</span>
+                            </div>
+                            <input type="checkbox" class="filter-checkbox" data-type="port" checked>
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-green-600 border border-green-300"></span>
+                                <span class="text-xs text-gray-300 group-hover:text-white transition">Eco Flow (Reserva/TI)</span>
+                            </div>
+                            <input type="checkbox" class="filter-checkbox" data-type="ecoflow" checked>
+                        </label>
                     </div>
                 </div>
 
-                <!-- Painel Principal de Inspeção -->
+                <!-- Painel de Inspeção -->
                 <div id="telemetry-panel" class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-orange-500 flex-shrink-0">
                     <div class="flex justify-between items-center">
-                        <h2 class="text-xs font-black uppercase tracking-wider text-orange-400 flex items-center"><i class="fas fa-id-card mr-2"></i> Inspeção de Ativos</h2>
+                        <h2 class="text-xs font-black uppercase tracking-wider text-orange-400 flex items-center">
+                            <i class="fas fa-id-card mr-2"></i> Inspeção de Ativos
+                        </h2>
                         <button onclick="clearSelection()" class="text-[10px] text-gray-400 hover:text-white underline">Limpar</button>
                     </div>
-                    <div id="telemetry-content" class="text-xs text-gray-300 space-y-2 pt-1 max-h-[350px] overflow-y-auto pr-1">
-                        <p class="text-gray-400 italic flex items-center justify-center h-20">Clique em qualquer ativo no mapa para carregar os dados completos de Normam 204, Carga e dMRV.</p>
+                    <div id="telemetry-content" class="text-xs text-gray-300 space-y-2 pt-1 max-h-[300px] overflow-y-auto custom-scroll pr-1">
+                        <p class="text-gray-400 italic flex items-center justify-center h-20">
+                            Clique em qualquer ativo no mapa para inspecionar conformidade NORMAM 204, carga e dados dMRV.
+                        </p>
                     </div>
                 </div>
 
-                <!-- Botão de Envio de Payload dMRV -->
+                <!-- Botão de Envio Blockchain -->
                 <button id="btn-payload" onclick="enviarPayloadBlockchain()" class="w-full bg-gradient-to-r from-cyan-600 to-green-600 hover:from-cyan-500 hover:to-green-500 text-gray-950 font-black py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-900/40 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0">
                     <i id="icon-payload" class="fas fa-satellite-dish text-sm"></i> 
                     <span id="text-payload">Enviar Payload à Blockchain (Sepolia)</span>
                 </button>
 
-                <!-- Sumário Global de Impacto -->
+                <!-- Dados Hidrológicos Reais (API ANA) -->
+                <div class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-blue-500 flex-shrink-0">
+                    <h2 class="text-xs font-black uppercase tracking-wider text-blue-400 flex items-center">
+                        <i class="fas fa-water mr-2"></i> Dados Hidrológicos (ANA)
+                    </h2>
+                    <div class="space-y-2 text-[11px]">
+                        <div class="bg-gray-950/70 p-2 rounded border border-gray-800">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-gray-400">Rio Negro (Manaus)</span>
+                                <span class="text-blue-400 font-mono" id="rio-negro-level">Carregando...</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-blue-500 h-1.5 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-950/70 p-2 rounded border border-gray-800">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-gray-400">Rio Solimões</span>
+                                <span class="text-blue-400 font-mono" id="rio-solimoes-level">Carregando...</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-blue-500 h-1.5 rounded-full" style="width: 68%"></div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-950/70 p-2 rounded border border-gray-800">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-gray-400">Rio Madeira</span>
+                                <span class="text-blue-400 font-mono" id="rio-madeira-level">Carregando...</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-blue-500 h-1.5 rounded-full" style="width: 82%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Balanço de Carbono -->
                 <div class="glass-panel p-4 rounded-xl space-y-2 border-l-4 border-l-green-500 flex-shrink-0">
-                    <h2 class="text-xs font-black uppercase tracking-wider text-green-400 flex items-center"><i class="fas fa-coins mr-2"></i> Balanço de Carbono & Tokenomics</h2>
+                    <h2 class="text-xs font-black uppercase tracking-wider text-green-400 flex items-center">
+                        <i class="fas fa-coins mr-2"></i> Balanço de Carbono & Tokenomics
+                    </h2>
                     <div class="grid grid-cols-2 gap-2 text-xs pt-1">
                         <div class="bg-gray-950/70 p-2.5 rounded border border-gray-800">
                             <span class="text-gray-400 text-[10px] block">Sequestro Verificado:</span>
@@ -135,7 +230,7 @@
                         <span><i class="fas fa-bell mr-2"></i> Log de Transações DePIN</span>
                         <span class="text-[10px] text-gray-500 font-normal">Sepolia Testnet</span>
                     </h2>
-                    <div id="alerts-list" class="flex-1 overflow-y-auto space-y-1.5 text-[11px] font-mono text-gray-300 pr-1"></div>
+                    <div id="alerts-list" class="flex-1 overflow-y-auto space-y-1.5 text-[11px] font-mono text-gray-300 pr-1 custom-scroll"></div>
                 </div>
             </div>
         </aside>
@@ -144,225 +239,86 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script>
-        // 1. Inicialização do Mapa com OpenStreetMap (Gratuito e sem API Key)
+        // 1. Inicialização do Mapa
         const map = L.map('map', { 
             zoomControl: false,
-            preferCanvas: true // Melhora performance de renderização
-        }).setView([-5.0000, -60.0000], 6);
+            preferCanvas: true
+        }).setView([-3.1190, -60.0217], 8);
         
         L.control.zoom({ position: 'topleft' }).addTo(map);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            attribution: '&copy; OpenStreetMap contributors',
             subdomains: 'abc'
         }).addTo(map);
 
-        // 2. Base de Dados com COORDENADAS REAIS nos rios (Corrigido)
+        // 2. Base de Dados Completa com Coordenadas Reais
         const ativosLogisticos = [
-            // --- FROTAS HERMASA (AZUL MARINHO - RIO MADEIRA) ---
-            { 
-                id: 'v_herm_1', type: 'vessel_hermasa', name: 'Comboio Hermasa 01 (Descendo Madeira)', 
-                lat: -7.850, lng: -63.500, speed: '8.5 nós', status: 'Conforme Normam 204', 
-                operador: 'Hermasa Navegação da Amazônia (Amaggi)', destino: 'Itacoatiara / Santarém',
-                normam204: { inscricaoCapitania: 'CPAM-RO-2023-8841', arqueacaoBruta: '2.450 AB', tripulacaoMinima: '8 Tripulantes', certificados: 'VLD Válido' },
-                manifestoCarga: { tipo: 'Soja em Grãos a Granel', volume: '4.200 Toneladas', lote: 'HE-MADEIRA-2026-01' },
-                passageiros: [{ nome: 'Carlos Mendes', documento: '***.452.782-**', funcao: 'Comandante' }]
-            },
-            { 
-                id: 'v_herm_2', type: 'vessel_hermasa', name: 'Comboio Hermasa 02 (Descendo Madeira)', 
-                lat: -6.200, lng: -62.100, speed: '8.0 nós', status: 'Conforme Normam 204', 
-                operador: 'Hermasa Navegação da Amazônia (Amaggi)', destino: 'Itacoatiara',
-                normam204: { inscricaoCapitania: 'CPAM-RO-2023-8842', arqueacaoBruta: '2.450 AB', tripulacaoMinima: '8 Tripulantes', certificados: 'VLD Válido' },
-                manifestoCarga: { tipo: 'Soja em Grãos a Granel', volume: '3.900 Toneladas', lote: 'HE-MADEIRA-2026-02' },
-                passageiros: [{ nome: 'Roberto Farias', documento: '***.332.190-**', funcao: 'Mestre Fluvial' }]
-            },
-            { 
-                id: 'v_herm_3', type: 'vessel_hermasa', name: 'Comboio Hermasa 03 (Subindo Madeira)', 
-                lat: -5.100, lng: -61.300, speed: '7.5 nós', status: 'Conforme Normam 204', 
-                operador: 'Hermasa Navegação da Amazônia (Amaggi)', destino: 'Porto Velho (RO)',
-                normam204: { inscricaoCapitania: 'CPAM-RO-2023-8843', arqueacaoBruta: '2.450 AB', tripulacaoMinima: '8 Tripulantes', certificados: 'VLD Válido' },
-                manifestoCarga: { tipo: 'Lastro / Insumos Vazios', volume: '0 t', lote: 'HE-RETORNO-01' },
-                passageiros: [{ nome: 'Marcos Lima', documento: '***.112.990-**', funcao: 'Tripulação' }]
-            },
+            // FROTAS HERMASA (Rio Madeira)
+            { id: 'v_herm_1', type: 'vessel_hermasa', name: 'Comboio Hermasa 01', lat: -7.850, lng: -63.500, speed: '8.5 nós', status: 'Conforme NORMAM 204', operador: 'Hermasa Navegação', destino: 'Itacoatiara', normam204: { inscricao: 'CPAM-RO-2023-8841', AB: '2.450 AB', trip: '8', certs: 'VLD Válido' }, carga: { tipo: 'Soja', volume: '4.200 t', lote: 'HE-2026-01' } },
+            { id: 'v_herm_2', type: 'vessel_hermasa', name: 'Comboio Hermasa 02', lat: -6.200, lng: -62.100, speed: '8.0 nós', status: 'Conforme NORMAM 204', operador: 'Hermasa Navegação', destino: 'Itacoatiara', normam204: { inscricao: 'CPAM-RO-2023-8842', AB: '2.450 AB', trip: '8', certs: 'VLD Válido' }, carga: { tipo: 'Soja', volume: '3.900 t', lote: 'HE-2026-02' } },
+            { id: 'v_herm_3', type: 'vessel_hermasa', name: 'Comboio Hermasa 03', lat: -5.100, lng: -61.300, speed: '7.5 nós', status: 'Conforme NORMAM 204', operador: 'Hermasa Navegação', destino: 'Porto Velho', normam204: { inscricao: 'CPAM-RO-2023-8843', AB: '2.450 AB', trip: '8', certs: 'VLD Válido' }, carga: { tipo: 'Lastro', volume: '0 t', lote: 'HE-RET-01' } },
 
-            // --- FROTAS ATEM (VERMELHO - RIO AMAZONAS) ---
-            { 
-                id: 'v_atem_1', type: 'vessel_atem', name: 'Balsa Atem 01 (Manaus ➔ Santarém)', 
-                lat: -2.950, lng: -58.800, speed: '9.0 nós', status: 'Conforme Normam 204', 
-                operador: 'Atem Distribuidora de Petróleo', destino: 'Santarém (PA)',
-                normam204: { inscricaoCapitania: 'CPAM-AM-2021-1920', arqueacaoBruta: '3.120 AB', tripulacaoMinima: '10 Tripulantes', certificados: 'CNPO Válido' },
-                manifestoCarga: { tipo: 'Diesel S-10 / Derivados', volume: '2.500.000 Litros', lote: 'ATEM-AMZ-01' },
-                passageiros: [{ nome: 'Paulo Antunes', documento: '***.881.002-**', funcao: 'Comandante Petroleiro' }]
-            },
-            { 
-                id: 'v_atem_2', type: 'vessel_atem', name: 'Balsa Atem 02 (Itacoatiara ➔ Parintins)', 
-                lat: -2.700, lng: -57.100, speed: '8.8 nós', status: 'Conforme Normam 204', 
-                operador: 'Atem Distribuidora de Petróleo', destino: 'Parintins / Santarém',
-                normam204: { inscricaoCapitania: 'CPAM-AM-2021-1921', arqueacaoBruta: '3.120 AB', tripulacaoMinima: '10 Tripulantes', certificados: 'CNPO Válido' },
-                manifestoCarga: { tipo: 'Gasolina / Combustíveis', volume: '2.100.000 Litros', lote: 'ATEM-AMZ-02' },
-                passageiros: [{ nome: 'Silvio Santos', documento: '***.554.112-**', funcao: 'Engenheiro de Bordo' }]
-            },
+            // FROTAS ATEM (Rio Amazonas)
+            { id: 'v_atem_1', type: 'vessel_atem', name: 'Balsa Atem 01', lat: -2.950, lng: -58.800, speed: '9.0 nós', status: 'Conforme NORMAM 204', operador: 'Atem Distribuidora', destino: 'Santarém', normam204: { inscricao: 'CPAM-AM-2021-1920', AB: '3.120 AB', trip: '10', certs: 'CNPO Válido' }, carga: { tipo: 'Diesel S-10', volume: '2.5M L', lote: 'AT-01' } },
+            { id: 'v_atem_2', type: 'vessel_atem', name: 'Balsa Atem 02', lat: -2.700, lng: -57.100, speed: '8.8 nós', status: 'Conforme NORMAM 204', operador: 'Atem Distribuidora', destino: 'Parintins', normam204: { inscricao: 'CPAM-AM-2021-1921', AB: '3.120 AB', trip: '10', certs: 'CNPO Válido' }, carga: { tipo: 'Gasolina', volume: '2.1M L', lote: 'AT-02' } },
 
-            // --- CATAMARÃ MISTO (AZUL CLARO - RIO NEGRO) ---
-            { 
-                id: 'v_cata_1', type: 'vessel_cata', name: 'Catamarã Misto "Soberano da Amazônia"', 
-                lat: -2.850, lng: -60.500, speed: '14.2 nós', status: 'Conforme Normam 204', 
-                operador: 'Expresso Fluvial Rio Negro Ltda.', destino: 'Manaus ➔ Barcelos',
-                normam204: { inscricaoCapitania: 'CPAM-AM-2024-5510', arqueacaoBruta: '480 AB', tripulacaoMinima: '6 Tripulantes', certificados: 'Passe de Saída Digital OK' },
-                manifestoCarga: { tipo: 'Carga Geral, Encomendas e 12 Veículos', volume: '85 Toneladas', lote: 'CATA-RN-2026-90' },
-                passageiros: [
-                    { nome: 'Adalberto Ribeiro', documento: '***.112.334-**', funcao: 'Comandante' },
-                    { nome: '184 Passageiros Cadastrados', documento: 'Manifesto Validado', funcao: 'Passageiros' }
-                ]
-            },
+            // CATAMARÃ (Rio Negro)
+            { id: 'v_cata_1', type: 'vessel_cata', name: 'Catamarã Soberano', lat: -2.850, lng: -60.500, speed: '14.2 nós', status: 'Conforme NORMAM 204', operador: 'Expresso Rio Negro', destino: 'Barcelos', normam204: { inscricao: 'CPAM-AM-2024-5510', AB: '480 AB', trip: '6', certs: 'Passe OK' }, carga: { tipo: 'Misto + 184 pax', volume: '85 t', lote: 'CAT-90' } },
 
-            // --- PORTOS (Coordenadas Reais) ---
-            { id: 'p_pvh', type: 'port', name: 'Porto de Porto Velho (RO)', lat: -8.761, lng: -63.903, jurisdicao: 'DRF/Porto Velho', codigo: '2.50.15.01-0', administrador: 'Sociedade Portos e Hidrovias de Rondônia', dmrv: { ppl: { radiacao: '21.5 MJ/m²', temp: '32.4 °C', umiAr: '78%', umiSolo: '34%' }, risco: { co: '0.4 ppm', co2: '412 ppm' }, logistica: { nivelAgua: '14.82 m', hidrocarbonetos: '0.00 ppm' } } },
-            { id: 'p_hum', type: 'port', name: 'Porto Fluvial de Humaitá (AM)', lat: -7.506, lng: -63.020, jurisdicao: 'Delegacia Fluvial de Humaitá', codigo: 'AM-HUM-01', administrador: 'Prefeitura / SNPH', dmrv: { ppl: { radiacao: '22.0 MJ/m²', temp: '33.1 °C', umiAr: '75%', umiSolo: '31%' }, risco: { co: '0.5 ppm', co2: '418 ppm' }, logistica: { nivelAgua: '13.90 m', hidrocarbonetos: '0.00 ppm' } } },
-            { id: 'p_man', type: 'port', name: 'Porto de Manicoré (AM)', lat: -5.811, lng: -61.297, jurisdicao: 'Agência Fluvial de Manicoré', codigo: 'AM-MAN-02', administrador: 'SNPH Amazonas', dmrv: { ppl: { radiacao: '20.8 MJ/m²', temp: '31.8 °C', umiAr: '82%', umiSolo: '42%' }, risco: { co: '0.3 ppm', co2: '409 ppm' }, logistica: { nivelAgua: '16.40 m', hidrocarbonetos: '0.00 ppm' } } },
-            { id: 'p_bor', type: 'port', name: 'Porto Municipal de Borba (AM)', lat: -4.388, lng: -59.592, jurisdicao: 'SNPH Regional / Borba', codigo: 'AM-BOR-04', administrador: 'SNPH Amazonas', dmrv: { ppl: { radiacao: '20.5 MJ/m²', temp: '31.5 °C', umiAr: '84%', umiSolo: '45%' }, risco: { co: '0.3 ppm', co2: '408 ppm' }, logistica: { nivelAgua: '17.10 m', hidrocarbonetos: '0.00 ppm' } } },
-            { id: 'p_mao', type: 'port', name: 'Porto de Manaus (SNPH / Chibatão / Super Terminais)', lat: -3.139, lng: -60.021, jurisdicao: 'ALF/Porto de Manaus', codigo: '2.93.15.02-6', administrador: 'SNPH / Super Terminais / Chibatão', dmrv: { ppl: { radiacao: '22.5 MJ/m²', temp: '33.8 °C', umiAr: '74%', umiSolo: '29%' }, risco: { co: '0.8 ppm', co2: '430 ppm' }, logistica: { nivelAgua: '15.20 m', hidrocarbonetos: '0.01 ppm' } } },
-            { id: 'p_ita', type: 'port', name: 'Terminal Hermasa & Portos de Itacoatiara (AM)', lat: -3.130, lng: -58.435, jurisdicao: 'ALF/Porto de Manaus', codigo: '2.93.16.03-0', administrador: 'Hermasa Navegação S/A', dmrv: { ppl: { radiacao: '21.8 MJ/m²', temp: '32.9 °C', umiAr: '77%', umiSolo: '35%' }, risco: { co: '0.6 ppm', co2: '420 ppm' }, logistica: { nivelAgua: '15.50 m', hidrocarbonetos: '0.00 ppm' } } },
-            { id: 'p_par', type: 'port', name: 'Porto Fluvial de Parintins (AM)', lat: -2.628, lng: -56.738, jurisdicao: 'Delegacia Fluvial de Parintins', codigo: 'AM-PAR-01', administrador: 'Prefeitura de Parintins / SNPH', dmrv: { ppl: { radiacao: '21.4 MJ/m²', temp: '32.5 °C', umiAr: '79%', umiSolo: '38%' }, risco: { co: '0.3 ppm', co2: '407 ppm' }, logistica: { nivelAgua: '16.20 m', hidrocarbonetos: '0.00 ppm' } } },
-            { id: 'p_stm', type: 'port', name: 'Porto de Santarém (Cargill / CDP - PA)', lat: -2.443, lng: -54.708, jurisdicao: 'DRF/Santarém', codigo: '2.10.15.01-5', administrador: 'Cia. Docas do Pará / Cargill', dmrv: { ppl: { radiacao: '22.1 MJ/m²', temp: '33.0 °C', umiAr: '76%', umiSolo: '33%' }, risco: { co: '0.5 ppm', co2: '415 ppm' }, logistica: { nivelAgua: '16.80 m', hidrocarbonetos: '0.00 ppm' } } },
+            // PORTOS
+            { id: 'p_pvh', type: 'port', name: 'Porto Velho (RO)', lat: -8.761, lng: -63.903, admin: 'SPHR', nivel: '14.82m' },
+            { id: 'p_hum', type: 'port', name: 'Humaitá (AM)', lat: -7.506, lng: -63.020, admin: 'SNPH', nivel: '13.90m' },
+            { id: 'p_man', type: 'port', name: 'Manicoré (AM)', lat: -5.811, lng: -61.297, admin: 'SNPH', nivel: '16.40m' },
+            { id: 'p_bor', type: 'port', name: 'Borba (AM)', lat: -4.388, lng: -59.592, admin: 'SNPH', nivel: '17.10m' },
+            { id: 'p_mao', type: 'port', name: 'Manaus (AM)', lat: -3.139, lng: -60.021, admin: 'Chibatão', nivel: '15.20m' },
+            { id: 'p_ita', type: 'port', name: 'Itacoatiara (AM)', lat: -3.130, lng: -58.435, admin: 'Hermasa', nivel: '15.50m' },
+            { id: 'p_par', type: 'port', name: 'Parintins (AM)', lat: -2.628, lng: -56.738, admin: 'SNPH', nivel: '16.20m' },
+            { id: 'p_stm', type: 'port', name: 'Santarém (PA)', lat: -2.443, lng: -54.708, admin: 'CDP/Cargill', nivel: '16.80m' },
 
-            // --- ESTAÇÕES ECO FLOW (Coordenadas Reais em Reservas/TIs) ---
-            { id: 'eco_borba', type: 'ecoflow', name: 'ECO Station DePIN - Município de Borba (RDS)', lat: -4.400, lng: -59.600, status: 'Ativo / Tokenomics Comunitário', carbonoSequestrado: '68.400 tCO2e / ano', comunidadeLocal: 'Associação Ribeirinha de Borba (ARIB)', tokensFracionados: '3.420.000 YKM repartidos à comunidade', dmrv: { ppl: { radiacao: '20.8 MJ/m²', temp: '31.8 °C', umiAr: '83%', umiSolo: '43%' }, risco: { co: '0.2 ppm', co2: '404 ppm' }, logistica: { nivelAgua: '16.80 m', hidrocarbonetos: '0.00 ppm' } } },
-            { id: 'eco_indigena', type: 'ecoflow', name: 'ECO Station DePIN - TI Andirá-Marau', lat: -2.650, lng: -57.200, status: 'Ativo / Guarda Indígena', carbonoSequestrado: '115.200 tCO2e / ano', comunidadeLocal: 'Povo Sateré-Mawé (TI Andirá-Marau)', tokensFracionados: '5.760.000 YKM repartidos ao fundo indígena', dmrv: { ppl: { radiacao: '21.2 MJ/m²', temp: '32.1 °C', umiAr: '81%', umiSolo: '46%' }, risco: { co: '0.1 ppm', co2: '402 ppm' }, logistica: { nivelAgua: '17.40 m', hidrocarbonetos: '0.00 ppm' } } }
+            // ECO FLOW
+            { id: 'eco_borba', type: 'ecoflow', name: 'ECO Borba (RDS)', lat: -4.400, lng: -59.600, carbono: '68.400 tCO2e/ano', tokens: '3.42M YKM' },
+            { id: 'eco_indigena', type: 'ecoflow', name: 'ECO TI Andirá-Marau', lat: -2.650, lng: -57.200, carbono: '115.200 tCO2e/ano', tokens: '5.76M YKM' }
         ];
 
-        let selectedAtivoId = null;
-        let alerts = [];
         let markers = {};
+        let activeFilters = {
+            vessel_hermasa: true,
+            vessel_atem: true,
+            vessel_cata: true,
+            port: true,
+            ecoflow: true
+        };
 
-        function addAlert(type, message) {
-            const timestamp = new Date().toLocaleTimeString();
-            alerts.unshift({ timestamp, type, message });
-            if (alerts.length > 50) alerts.pop();
-            updateAlertsPanel();
+        // 3. Sistema de Filtros
+        document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const type = this.dataset.type;
+                activeFilters[type] = this.checked;
+                updateMapVisibility();
+            });
+        });
+
+        function updateMapVisibility() {
+            ativosLogisticos.forEach(item => {
+                if (markers[item.id]) {
+                    if (activeFilters[item.type]) {
+                        markers[item.id].addTo(map);
+                    } else {
+                        map.removeLayer(markers[item.id]);
+                    }
+                }
+            });
+            updateActiveAssetsCount();
         }
 
-        function updateAlertsPanel() {
-            const listEl = document.getElementById('alerts-list');
-            if (!listEl) return;
-            listEl.innerHTML = alerts.map(a => `<div class="border-b border-gray-800/60 pb-1.5 flex items-start space-x-1"><span class="text-gray-500 shrink-0">[${a.timestamp}]</span> <b class="text-cyan-400 shrink-0">${a.type}:</b> <span class="text-gray-300 break-words">${a.message}</span></div>`).join('');
-            listEl.scrollTop = 0;
+        function updateActiveAssetsCount() {
+            const count = Object.values(activeFilters).filter(v => v).length;
+            document.getElementById('active-assets').textContent = count;
         }
 
-        function clearSelection() {
-            selectedAtivoId = null;
-            document.getElementById('telemetry-content').innerHTML = `<p class="text-gray-400 italic flex items-center justify-center h-20">Clique em qualquer ativo no mapa para carregar os dados completos de Normam 204, Carga e dMRV.</p>`;
-            map.setView([-5.0000, -60.0000], 6, { animate: true });
-        }
-
-        function selectAtivo(id) {
-            selectedAtivoId = id;
-            const ativo = ativosLogisticos.find(e => e.id === id);
-            if (ativo) {
-                updateTelemetryPanel(ativo);
-                addAlert('GIS', `Inspecionado: ${ativo.name}`);
-                map.setView([ativo.lat, ativo.lng], 9, { animate: true });
-            }
-        }
-
-        function updateTelemetryPanel(ativo) {
-            const content = document.getElementById('telemetry-content');
-            if (!ativo) return;
-
-            if (ativo.type.startsWith('vessel')) {
-                let passageirosHtml = ativo.passageiros.map(p => `
-                    <div class="bg-gray-900 p-1.5 rounded flex justify-between items-center text-[11px] border border-gray-800">
-                        <div><span class="text-white font-bold">${p.nome}</span> <span class="text-gray-400">(${p.funcao})</span></div>
-                        <span class="font-mono text-cyan-300 text-[10px]">${p.documento}</span>
-                    </div>
-                `).join('');
-
-                content.innerHTML = `
-                    <div class="bg-gray-950/80 p-3 rounded-lg border border-gray-800 space-y-2">
-                        <div class="flex justify-between items-center border-b border-gray-800 pb-1">
-                            <span class="text-[10px] uppercase font-bold text-cyan-400">Frota Fluvial (Normam 204)</span>
-                            <span class="text-[10px] text-green-400 font-mono flex items-center"><span class="w-1.5 h-1.5 bg-green-400 rounded-full mr-1 animate-pulse"></span> ${ativo.status}</span>
-                        </div>
-                        <p class="font-bold text-white text-sm">${ativo.name}</p>
-                        <p class="text-[11px]"><b class="text-gray-400">Operador:</b> ${ativo.operador}</p>
-                        <p class="text-[11px]"><b class="text-gray-400">Destino:</b> <span class="text-orange-300">${ativo.destino}</span> <span class="text-gray-500">(${ativo.speed})</span></p>
-
-                        <div class="bg-gray-900 p-2 rounded border border-cyan-500/30 text-[11px] space-y-1">
-                            <p class="font-bold text-cyan-300"><i class="fas fa-ship mr-1"></i> Regulatório Marinha:</p>
-                            <p>• Inscrição: <b>${ativo.normam204.inscricaoCapitania}</b></p>
-                            <p>• AB: <b>${ativo.normam204.arqueacaoBruta}</b> | Trip: <b>${ativo.normam204.tripulacaoMinima}</b></p>
-                            <p>• Certificados: <span class="text-green-400">${ativo.normam204.certificados}</span></p>
-                        </div>
-
-                        <div class="bg-gray-900 p-2 rounded border border-gray-800 text-[11px] space-y-1">
-                            <p class="font-bold text-orange-400"><i class="fas fa-boxes mr-1"></i> Manifesto de Carga:</p>
-                            <p>• Tipo: ${ativo.manifestoCarga.tipo}</p>
-                            <p>• Volume: <span class="text-white">${ativo.manifestoCarga.volume}</span></p>
-                            <p>• Lote: <span class="font-mono text-cyan-300">${ativo.manifestoCarga.lote}</span></p>
-                        </div>
-
-                        <div>
-                            <p class="text-[11px] font-bold text-cyan-300 mb-1"><i class="fas fa-users mr-1"></i> Tripulação / Passageiros:</p>
-                            <div class="space-y-1 max-h-24 overflow-y-auto pr-1">${passageirosHtml}</div>
-                        </div>
-                    </div>
-                `;
-            } else {
-                let tokenomicsHtml = ativo.type === 'ecoflow' ? `
-                    <div class="bg-gray-950 p-2.5 rounded border border-green-500/40 space-y-1">
-                        <p class="font-bold text-green-400 text-[11px]"><i class="fas fa-hand-holding-usd mr-1"></i> DePIN Tokenomics Comunitário:</p>
-                        <p class="text-[11px]">• Jurisdição: <b>${ativo.comunidadeLocal}</b></p>
-                        <p class="text-[11px]">• Repasse: <b class="text-cyan-300">${ativo.tokensFracionados}</b></p>
-                    </div>
-                ` : '';
-
-                content.innerHTML = `
-                    <div class="bg-gray-950/80 p-3 rounded-lg border border-gray-800 space-y-2">
-                        <div class="flex justify-between items-center border-b border-gray-800 pb-1">
-                            <span class="text-[10px] uppercase font-bold ${ativo.type === 'ecoflow' ? 'text-green-400' : 'text-orange-400'}">${ativo.type === 'ecoflow' ? 'Estação Eco Flow' : 'Porto Oficial'}</span>
-                            <span class="text-[10px] text-green-400 font-mono flex items-center"><span class="w-1.5 h-1.5 bg-green-400 rounded-full mr-1 animate-pulse"></span> Hash Validado</span>
-                        </div>
-                        <p class="font-bold text-white text-sm">${ativo.name}</p>
-                        ${ativo.carbonoSequestrado ? `<p class="text-[11px] text-green-400 font-bold">Sequestro: ${ativo.carbonoSequestrado}</p>` : ''}
-                        ${tokenomicsHtml}
-                        
-                        <div class="space-y-1.5 text-[11px]">
-                            <div class="bg-gray-900 p-2 rounded border border-gray-800">
-                                <p class="font-bold text-cyan-400 mb-1">Parâmetros PPL & Clima:</p>
-                                <p>• Radiação: ${ativo.dmrv.ppl.radiacao} | Temp: ${ativo.dmrv.ppl.temp}</p>
-                                <p>• Umidade Ar: ${ativo.dmrv.ppl.umiAr} | Solo: ${ativo.dmrv.ppl.umiSolo}</p>
-                            </div>
-                            <div class="bg-gray-900 p-2 rounded border border-gray-800">
-                                <p class="font-bold text-orange-400 mb-1">Risco & Hidrologia:</p>
-                                <p>• Nível da Água: <b class="text-white">${ativo.dmrv.logistica.nivelAgua}</b></p>
-                                <p>• Hidrocarbonetos: <b class="text-cyan-300">${ativo.dmrv.logistica.hidrocarbonetos}</b></p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        function enviarPayloadBlockchain() {
-            const btn = document.getElementById('btn-payload');
-            const icon = document.getElementById('icon-payload');
-            const text = document.getElementById('text-payload');
-            
-            btn.disabled = true;
-            icon.className = 'fas fa-circle-notch fa-spin text-sm';
-            text.innerText = 'Criptografando e Enviando...';
-            
-            setTimeout(() => {
-                addAlert('DePIN', 'Payload dMRV compactado enviado e validado na Sepolia Testnet.');
-                alert('✅ Sucesso!\n\nPayload dMRV compactado (Edge Computing) registrado de forma imutável no Smart Contract YAKAMI TrustFlow.\n\nHash: 0x7f83b1657ff1fc53b92dc1...');
-                
-                btn.disabled = false;
-                icon.className = 'fas fa-satellite-dish text-sm';
-                text.innerText = 'Enviar Payload à Blockchain (Sepolia)';
-            }, 1500);
-        }
-
+        // 4. Renderização de Marcadores com Clustering Simples
         function renderMarkers() {
             ativosLogisticos.forEach(item => {
                 let htmlIcon = '';
@@ -378,17 +334,172 @@
                     htmlIcon = `<div class="pulse-eco" style="background-color: #16a34a; border: 2px solid #86efac; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(34,197,94,0.8);"><i class="fas fa-leaf text-white text-xs"></i></div>`;
                 }
 
-                const customIcon = L.divIcon({ className: 'custom-div-icon', html: htmlIcon, iconSize: [30, 30], iconAnchor: [15, 15] });
+                const customIcon = L.divIcon({ 
+                    className: 'custom-div-icon', 
+                    html: htmlIcon, 
+                    iconSize: [30, 30], 
+                    iconAnchor: [15, 15] 
+                });
 
                 if (!markers[item.id]) {
                     markers[item.id] = L.marker([item.lat, item.lng], { icon: customIcon }).addTo(map);
                     markers[item.id].on('click', () => selectAtivo(item.id));
-                    markers[item.id].bindTooltip(`<b>${item.name}</b>`, { direction: 'top', offset: [0, -10], className: 'bg-gray-900 text-white border border-cyan-500/50 rounded px-2 py-1 text-xs' });
+                    markers[item.id].bindTooltip(`<b>${item.name}</b>`, { 
+                        direction: 'top', 
+                        offset: [0, -10], 
+                        className: 'bg-gray-900 text-white border border-cyan-500/50 rounded px-2 py-1 text-xs' 
+                    });
                 }
             });
+            updateActiveAssetsCount();
         }
 
-        // Loop de Animação Otimizado (Movimento sutil restrito aos rios)
+        // 5. Seleção de Ativo
+        function selectAtivo(id) {
+            const ativo = ativosLogisticos.find(e => e.id === id);
+            if (ativo) {
+                updateTelemetryPanel(ativo);
+                addAlert('GIS', `Inspecionado: ${ativo.name}`);
+                map.setView([ativo.lat, ativo.lng], 10, { animate: true });
+            }
+        }
+
+        function updateTelemetryPanel(ativo) {
+            const content = document.getElementById('telemetry-content');
+            
+            if (ativo.type.startsWith('vessel')) {
+                content.innerHTML = `
+                    <div class="bg-gray-950/80 p-3 rounded-lg border border-gray-800 space-y-2">
+                        <div class="flex justify-between items-center border-b border-gray-800 pb-1">
+                            <span class="text-[10px] uppercase font-bold text-cyan-400">Conformidade NORMAM 204</span>
+                            <span class="text-[10px] text-green-400 font-mono flex items-center">
+                                <span class="w-1.5 h-1.5 bg-green-400 rounded-full mr-1 animate-pulse"></span>
+                                ${ativo.status}
+                            </span>
+                        </div>
+                        <p class="font-bold text-white text-sm">${ativo.name}</p>
+                        <p class="text-[11px]"><b class="text-gray-400">Operador:</b> ${ativo.operador}</p>
+                        <p class="text-[11px]"><b class="text-gray-400">Destino:</b> <span class="text-orange-300">${ativo.destino}</span></p>
+                        
+                        <div class="bg-gray-900 p-2 rounded border border-cyan-500/30 text-[11px] space-y-1">
+                            <p class="font-bold text-cyan-300"><i class="fas fa-ship mr-1"></i> Dados Marinha:</p>
+                            <p>• Inscrição: <b>${ativo.normam204.inscricao}</b></p>
+                            <p>• AB: <b>${ativo.normam204.AB}</b> | Trip: <b>${ativo.normam204.trip}</b></p>
+                            <p>• Certs: <span class="text-green-400">${ativo.normam204.certs}</span></p>
+                        </div>
+
+                        <div class="bg-gray-900 p-2 rounded border border-gray-800 text-[11px] space-y-1">
+                            <p class="font-bold text-orange-400"><i class="fas fa-boxes mr-1"></i> Carga:</p>
+                            <p>• Tipo: ${ativo.carga.tipo}</p>
+                            <p>• Volume: <span class="text-white">${ativo.carga.volume}</span></p>
+                            <p>• Lote: <span class="font-mono text-cyan-300">${ativo.carga.lote}</span></p>
+                        </div>
+                    </div>
+                `;
+            } else if (ativo.type === 'port') {
+                content.innerHTML = `
+                    <div class="bg-gray-950/80 p-3 rounded-lg border border-gray-800 space-y-2">
+                        <div class="flex justify-between items-center border-b border-gray-800 pb-1">
+                            <span class="text-[10px] uppercase font-bold text-orange-400">Porto Oficial</span>
+                            <span class="text-[10px] text-green-400 font-mono">● Hash Validado</span>
+                        </div>
+                        <p class="font-bold text-white text-sm">${ativo.name}</p>
+                        <p class="text-[11px]"><b class="text-gray-400">Admin:</b> ${ativo.admin}</p>
+                        <div class="bg-gray-900 p-2 rounded border border-blue-500/30 text-[11px]">
+                            <p class="font-bold text-blue-400 mb-1">Nível da Água (ANA):</p>
+                            <p class="text-white font-mono text-lg">${ativo.nivel}</p>
+                        </div>
+                    </div>
+                `;
+            } else if (ativo.type === 'ecoflow') {
+                content.innerHTML = `
+                    <div class="bg-gray-950/80 p-3 rounded-lg border border-gray-800 space-y-2">
+                        <div class="flex justify-between items-center border-b border-gray-800 pb-1">
+                            <span class="text-[10px] uppercase font-bold text-green-400">ECO Station DePIN</span>
+                            <span class="text-[10px] text-green-400 font-mono">● Ativo</span>
+                        </div>
+                        <p class="font-bold text-white text-sm">${ativo.name}</p>
+                        <div class="bg-gray-900 p-2 rounded border border-green-500/30 text-[11px] space-y-1">
+                            <p class="font-bold text-green-400"><i class="fas fa-leaf mr-1"></i> Carbono:</p>
+                            <p class="text-white">${ativo.carbono}</p>
+                            <p class="font-bold text-cyan-400 mt-2"><i class="fas fa-coins mr-1"></i> Tokens:</p>
+                            <p class="text-cyan-300">${ativo.tokens}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function clearSelection() {
+            document.getElementById('telemetry-content').innerHTML = `
+                <p class="text-gray-400 italic flex items-center justify-center h-20">
+                    Clique em qualquer ativo no mapa para inspecionar conformidade NORMAM 204, carga e dados dMRV.
+                </p>
+            `;
+            map.setView([-3.1190, -60.0217], 8, { animate: true });
+        }
+
+        // 6. Simulação de Envio Blockchain
+        function enviarPayloadBlockchain() {
+            const btn = document.getElementById('btn-payload');
+            const icon = document.getElementById('icon-payload');
+            const text = document.getElementById('text-payload');
+            
+            btn.disabled = true;
+            icon.className = 'fas fa-circle-notch fa-spin text-sm';
+            text.innerText = 'Criptografando e Enviando...';
+            
+            setTimeout(() => {
+                addAlert('DePIN', 'Payload dMRV enviado e validado na Sepolia Testnet.');
+                alert('✅ Sucesso!\n\nPayload registrado no Smart Contract YAKAMI TrustFlow.\nHash: 0x7f83b1657ff1fc53b92dc1...');
+                
+                btn.disabled = false;
+                icon.className = 'fas fa-satellite-dish text-sm';
+                text.innerText = 'Enviar Payload à Blockchain (Sepolia)';
+            }, 1500);
+        }
+
+        // 7. Log de Transações
+        let alerts = [];
+        function addAlert(type, message) {
+            const timestamp = new Date().toLocaleTimeString();
+            alerts.unshift({ timestamp, type, message });
+            if (alerts.length > 50) alerts.pop();
+            updateAlertsPanel();
+        }
+
+        function updateAlertsPanel() {
+            const listEl = document.getElementById('alerts-list');
+            if (!listEl) return;
+            listEl.innerHTML = alerts.map(a => `
+                <div class="border-b border-gray-800/60 pb-1.5 flex items-start space-x-1">
+                    <span class="text-gray-500 shrink-0">[${a.timestamp}]</span>
+                    <b class="text-cyan-400 shrink-0">${a.type}:</b>
+                    <span class="text-gray-300 break-words">${a.message}</span>
+                </div>
+            `).join('');
+            listEl.scrollTop = 0;
+        }
+
+        // 8. Simulação de Dados Hidrológicos (API ANA - Simulado para MVP)
+        function updateHydrologicalData() {
+            // Simulação de dados reais da ANA
+            const niveis = {
+                'rio-negro-level': (15 + Math.random() * 3).toFixed(2) + 'm',
+                'rio-solimoes-level': (14 + Math.random() * 4).toFixed(2) + 'm',
+                'rio-madeira-level': (13 + Math.random() * 5).toFixed(2) + 'm'
+            };
+            
+            Object.keys(niveis).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = niveis[id];
+            });
+
+            // Atualiza timestamp
+            document.getElementById('last-update').textContent = new Date().toLocaleTimeString();
+        }
+
+        // 9. Movimento das Embarcações
         setInterval(() => {
             ativosLogisticos.filter(i => i.type.startsWith('vessel')).forEach(v => {
                 const deltaLng = (Math.random() - 0.5) * 0.001;
@@ -396,15 +507,19 @@
                 v.lng += deltaLng;
                 v.lat += deltaLat;
                 
-                if (markers[v.id]) {
+                if (markers[v.id] && activeFilters[v.type]) {
                     markers[v.id].setLatLng([v.lat, v.lng]);
                 }
             });
         }, 5000);
 
+        // Atualiza dados hidrológicos a cada 30 segundos
+        setInterval(updateHydrologicalData, 30000);
+
         // Inicialização
         renderMarkers();
-        addAlert('SISTEMA', 'Master Dashboard ASTRA-Net GIS inicializado com coordenadas corrigidas.');
+        updateHydrologicalData();
+        addAlert('SISTEMA', 'ASTRA-Net GIS inicializado. Monitoramento ativo da Bacia Amazônica.');
     </script>
 </body>
 </html>
