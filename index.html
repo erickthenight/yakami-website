@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="YAKAMI TECH - Infraestrutura ciberfísica, nanossatélites e soberania de dados a partir da Zona Franca de Manaus para a Amazônia.">
-    <meta name="keywords" content="nanossatélites, Amazônia, soberania de dados, DePIN, Web3, chip PUF, YAKAMI-SAT1, Zone Franca de Manaus">
+    <meta name="keywords" content="nanossatélites, Amazônia, soberania de dados, DePIN, Web3, chip PUF, YAKAMI-SAT1, Zona Franca de Manaus">
     <meta name="author" content="YAKAMI TECH — Engenharia e Inteligência de Dados">
     <meta name="robots" content="index, follow">
     
@@ -191,10 +191,13 @@
         </div>
     </main>
 
-    <!-- Seção Tecnologia (As 3 Tecnologias Principais) -->
+    <!-- Seção Tecnologia (Com Imagem de Destaque + As 3 Tecnologias-Âncora) -->
     <section id="tecnologia" class="py-24 bg-gray-950 relative overflow-hidden" aria-labelledby="tecnologia-heading">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-cyan-900/20 blur-3xl" aria-hidden="true"></div>
+        
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             
+            <!-- Cabeçalho da Seção -->
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <h2 id="tecnologia-heading" class="text-xs font-bold tracking-[0.3em] text-cyan-400 uppercase mb-3">ARQUITETURA CIBERFÍSICA</h2>
                 <h3 class="text-3xl lg:text-5xl font-black text-white uppercase tracking-tight">As 3 Tecnologias-Âncora da YAKAMI</h3>
@@ -203,6 +206,55 @@
                 </p>
             </div>
 
+            <!-- Bloco em Destaque: Imagem do Satélite & Mapa + Descrição Visual -->
+            <div class="grid lg:grid-cols-12 gap-12 items-center mb-16">
+                
+                <!-- Imagem do Satélite com Mapa Integrado -->
+                <div class="lg:col-span-6 relative group">
+                    <div class="absolute inset-0 bg-cyan-500 rounded-3xl blur opacity-20 group-hover:opacity-30 transition duration-500" aria-hidden="true"></div>
+                    <img 
+                        src="assets/tech-cubesat-6u-detail.jpg" 
+                        alt="Nanossatélite YAKAMI 6U em órbita terrestre" 
+                        class="relative rounded-3xl shadow-2xl border border-gray-700 neon-glow w-full object-cover"
+                        loading="lazy"
+                        onerror="this.src='https://via.placeholder.com/600x400/1e293b/94a3b8?text=CubeSat+6U'"
+                    >
+                    <div class="absolute -bottom-6 -right-4 lg:-bottom-8 lg:-right-8 hidden sm:block">
+                        <img 
+                            src="assets/map-impact-points.jpg" 
+                            alt="Mapa mostrando pontos de impacto e cobertura na Amazônia"
+                            class="w-48 lg:w-60 rounded-2xl border-4 border-gray-900 shadow-cyan-500/20 shadow-2xl transform transition hover:scale-105"
+                            loading="lazy"
+                            onerror="this.src='https://via.placeholder.com/256x256/1e293b/94a3b8?text=Mapa'"
+                        >
+                    </div>
+                </div>
+
+                <!-- Resumo Executivo Visual -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="inline-flex items-center px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-wider">
+                        <i class="fas fa-shield-alt mr-2"></i> Soberania Regional Integrada
+                    </div>
+                    <h4 class="text-2xl sm:text-3xl font-bold text-white leading-snug">
+                        Inovação de Ponta a Ponta: Do Espaço ao Hardware Ciberfísico
+                    </h4>
+                    <p class="text-gray-300 text-sm sm:text-base leading-relaxed font-light">
+                        Nossa engenharia combina o monitoramento orbital de alta precisão com o processamento descentralizado em solo. Cada camada foi concebida para atender rigorosos padrões de defesa nacional, sustentabilidade e conformidade regulatória.
+                    </p>
+                    <div class="grid sm:grid-cols-2 gap-4 pt-2">
+                        <div class="glass-panel p-4 rounded-xl">
+                            <p class="text-cyan-400 font-bold text-sm mb-1"><i class="fas fa-satellite mr-1.5"></i> Carga Útil Dedicada</p>
+                            <p class="text-gray-400 text-xs">Visão multiespectral e IoT otimizada para ecossistemas tropicais.</p>
+                        </div>
+                        <div class="glass-panel p-4 rounded-xl">
+                            <p class="text-orange-400 font-bold text-sm mb-1"><i class="fas fa-lock mr-1.5"></i> Criptografia Física</p>
+                            <p class="text-gray-400 text-xs">Segurança intransponível instalada em campo nas estações de coleta.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Os 3 Cards das Tecnologias-Âncora -->
             <div class="grid lg:grid-cols-3 gap-8">
                 
                 <!-- Tecnologia 1: Nanossatélites 6U -->
