@@ -84,7 +84,7 @@
         }
         .hero-bg-mission.with-image {
             background-image: linear-gradient(135deg, rgba(10, 15, 26, 0.95) 0%, rgba(10, 15, 26, 0.85) 100%), 
-                            url('assets/map-south-america-night.jpg');
+                              url('assets/map-south-america-night.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -349,7 +349,7 @@
         </div>
     </section>
 
-    <!-- Formulário de Manifestação de Interesse -->
+    <!-- Formulário de Manifestação de Interesse (Integrado com FormSubmit) -->
     <section id="letter-of-intent" class="py-20 px-6" aria-labelledby="form-title">
         <div class="container mx-auto max-w-5xl">
             <div class="glass-panel p-6 sm:p-8 md:p-12 rounded-3xl shadow-2xl">
@@ -372,7 +372,16 @@
                     <strong>Ocorreu um erro.</strong> Por favor, verifique os campos e tente novamente.
                 </div>
 
-                <form id="prosame-contact-form" class="space-y-6" novalidate>
+                <!-- Formulário Integrado com FormSubmit -->
+                <form action="https://formsubmit.co/yakami.tech@gmail.com" method="POST" id="prosame-contact-form" class="space-y-6">
+                    
+                    <!-- Configurações Ocultas do FormSubmit -->
+                    <input type="hidden" name="_subject" value="[YAKAMI TECH - PROSAME] Nova Solicitação de Dossiê / Anexos">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="https://www.yakami.com.br/prosame.html?status=sucesso">
+
+                    <!-- Honeypot anti-spam -->
                     <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off">
                     
                     <div class="grid sm:grid-cols-2 gap-6">
@@ -493,9 +502,8 @@
                     </div>
 
                     <button type="submit" 
-                            class="btn-primary w-full bg-cyan-600 hover:bg-cyan-500 text-white font-black py-4 rounded-xl transition-all flex items-center justify-center gap-2 text-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
+                            class="btn-primary w-full bg-cyan-600 hover:bg-cyan-500 text-white font-black py-4 rounded-xl transition-all flex items-center justify-center gap-2 text-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
                             id="submit-btn">
-                        <span class="spinner" aria-hidden="true"></span>
                         <span><i class="fas fa-paper-plane mr-2" aria-hidden="true"></i> SOLICITAR ACESSO AO DOSSIÊ TÉCNICO</span>
                     </button>
                     
@@ -561,50 +569,15 @@
                     charCount.textContent = descricao.value.length;
                 });
             }
-            
-            // Form submission logic
-            const form = document.getElementById('prosame-contact-form');
-            const submitBtn = document.getElementById('submit-btn');
-            const formSuccess = document.getElementById('form-success');
-            const formError = document.getElementById('form-error');
 
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Reset messages
-                    if (formSuccess) formSuccess.style.display = 'none';
-                    if (formError) formError.style.display = 'none';
-
-                    // Check honeypot
-                    const hp = form.querySelector('input[name="website"]');
-                    if (hp && hp.value) {
-                        return; // Bot detected silently
-                    }
-
-                    // HTML5 Validation check
-                    if (!form.checkValidity()) {
-                        form.reportValidity();
-                        if (formError) formError.style.display = 'block';
-                        return;
-                    }
-
-                    // Add loading state
-                    submitBtn.classList.add('btn-loading');
-                    submitBtn.disabled = true;
-
-                    // Simulate server response (ready for backend endpoint integration)
-                    setTimeout(() => {
-                        submitBtn.classList.remove('btn-loading');
-                        submitBtn.disabled = false;
-                        if (formSuccess) {
-                            formSuccess.style.display = 'block';
-                            formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }
-                        form.reset();
-                        if (charCount) charCount.textContent = '0';
-                    }, 1200);
-                });
+            // Exibir toast de sucesso caso venha redirecionado do FormSubmit
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('status') === 'sucesso') {
+                const successDiv = document.getElementById('form-success');
+                if (successDiv) {
+                    successDiv.style.display = 'block';
+                    successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
             }
         });
     </script>
