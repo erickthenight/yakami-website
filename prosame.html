@@ -71,13 +71,11 @@
             line-height: 1.6;
         }
         
-        /* Foco acessível para navegação por teclado */
         :focus-visible {
             outline: 2px solid #22d3ee;
             outline-offset: 2px;
         }
         
-        /* Hero Background com fallback */
         .hero-bg-mission {
             background: linear-gradient(135deg, rgba(10, 15, 26, 0.95) 0%, rgba(10, 15, 26, 0.85) 100%);
             background-color: #0a0f1a;
@@ -90,7 +88,6 @@
             background-attachment: fixed;
         }
         
-        /* Glassmorphism Panel */
         .glass-panel {
             background: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(12px);
@@ -103,7 +100,6 @@
             box-shadow: 0 8px 32px rgba(34, 211, 238, 0.1);
         }
         
-        /* Form Input Styles */
         .form-input {
             background: rgba(30, 41, 59, 0.5);
             border: 1px solid rgba(75, 85, 99, 0.5);
@@ -118,7 +114,6 @@
             color: rgba(156, 163, 175, 0.7);
         }
         
-        /* Button Animations */
         .btn-primary {
             position: relative;
             overflow: hidden;
@@ -135,55 +130,10 @@
             transform: translateX(100%);
         }
         
-        /* Loading Spinner */
-        .spinner {
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            display: none;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .btn-loading .spinner { display: inline-block; }
-        .btn-loading span { opacity: 0.7; }
-        
-        /* Success/Error Messages */
-        .form-message {
-            padding: 1rem;
-            border-radius: 0.75rem;
-            margin-bottom: 1rem;
-            display: none;
-            animation: slideIn 0.3s ease;
-        }
-        .form-message.success {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            color: #4ade80;
-            display: block;
-        }
-        .form-message.error {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #f87171;
-            display: block;
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Honeypot (anti-spam) */
         .hp-field {
-            position: absolute;
-            left: -9999px;
-            opacity: 0;
+            display: none !important;
         }
         
-        /* Mobile Menu */
         .mobile-menu {
             transform: translateX(-100%);
             transition: transform 0.3s ease;
@@ -349,10 +299,10 @@
         </div>
     </section>
 
-    <!-- Formulário de Manifestação de Interesse (Integrado com FormSubmit) -->
+    <!-- Formulário de Manifestação de Interesse -->
     <section id="letter-of-intent" class="py-20 px-6" aria-labelledby="form-title">
         <div class="container mx-auto max-w-5xl">
-            <div class="glass-panel p-6 sm:p-8 md:p-12 rounded-3xl shadow-2xl">
+            <div class="glass-panel p-6 sm:p-8 md:p-12 rounded-3xl shadow-2xl relative">
                 <div class="text-center mb-8">
                     <i class="fas fa-handshake text-5xl text-orange-500 mb-4" aria-hidden="true"></i>
                     <h2 id="form-title" class="text-2xl sm:text-3xl md:text-4xl font-black mb-4">Solicitação de Dossiê Técnico</h2>
@@ -363,26 +313,37 @@
                     </p>
                 </div>
 
-                <div id="form-success" class="form-message success" role="alert" aria-live="polite">
-                    <i class="fas fa-check-circle mr-2" aria-hidden="true"></i>
-                    <strong>Interesse registrado com sucesso!</strong> Em breve você receberá o dossiê técnico no e-mail informado.
-                </div>
-                <div id="form-error" class="form-message error" role="alert" aria-live="assertive">
-                    <i class="fas fa-exclamation-circle mr-2" aria-hidden="true"></i>
-                    <strong>Ocorreu um erro.</strong> Por favor, verifique os campos e tente novamente.
+                <!-- MODAL / CARD DE CONFIRMAÇÃO DE ENVIO COM SUCESSO -->
+                <div id="form-success" class="hidden p-8 rounded-2xl bg-emerald-950/80 border-2 border-emerald-500 text-center shadow-2xl space-y-4 my-6">
+                    <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto text-3xl">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-white">Solicitação Protocolada com Sucesso!</h3>
+                    <p class="text-gray-300 text-sm max-w-xl mx-auto leading-relaxed">
+                        Sua mensagem e os dados de sua instituição foram encaminhados diretamente ao protocolo institucional da <strong>YAKAMI TECH</strong>. O Dossiê Técnico com os 21 Anexos ProSAME será enviado para o seu e-mail em breve.
+                    </p>
+                    <div class="pt-2">
+                        <button type="button" onclick="resetForm()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-2.5 rounded-full text-xs uppercase tracking-wider transition">
+                            Enviar Nova Solicitação
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Formulário Integrado com FormSubmit -->
+                <!-- ERRO DE ENVIO -->
+                <div id="form-error" class="hidden p-4 rounded-xl bg-red-950/80 border border-red-500 text-red-300 text-sm text-center my-4">
+                    <i class="fas fa-exclamation-triangle mr-2"></i> Ocorreu uma falha ao enviar. Por favor, tente novamente ou entre em contato pelo e-mail <strong>yakami.tech@gmail.com</strong>.
+                </div>
+
+                <!-- FORMULÁRIO PRINCIPAL -->
                 <form action="https://formsubmit.co/yakami.tech@gmail.com" method="POST" id="prosame-contact-form" class="space-y-6">
                     
-                    <!-- Configurações Ocultas do FormSubmit -->
+                    <!-- Configurações Ocultas FormSubmit -->
                     <input type="hidden" name="_subject" value="[YAKAMI TECH - PROSAME] Nova Solicitação de Dossiê / Anexos">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_next" value="https://www.yakami.com.br/prosame.html?status=sucesso">
 
-                    <!-- Honeypot anti-spam -->
-                    <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off">
+                    <!-- Campo Honeypot Antispam (Invisível) -->
+                    <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off">
                     
                     <div class="grid sm:grid-cols-2 gap-6">
                         <div>
@@ -395,8 +356,7 @@
                                    required 
                                    minlength="3"
                                    placeholder="Ex: João Silva" 
-                                   class="form-input w-full rounded-xl p-4 text-white"
-                                   aria-required="true">
+                                   class="form-input w-full rounded-xl p-4 text-white">
                         </div>
                         
                         <div>
@@ -408,8 +368,7 @@
                                    name="instituicao" 
                                    required
                                    placeholder="Ex: UFAM, INPE, Marinha do Brasil" 
-                                   class="form-input w-full rounded-xl p-4 text-white"
-                                   aria-required="true">
+                                   class="form-input w-full rounded-xl p-4 text-white">
                         </div>
                         
                         <div>
@@ -421,8 +380,7 @@
                                    name="email" 
                                    required
                                    placeholder="contato@orgao.gov.br" 
-                                   class="form-input w-full rounded-xl p-4 text-white"
-                                   aria-required="true">
+                                   class="form-input w-full rounded-xl p-4 text-white">
                         </div>
                         
                         <div>
@@ -455,8 +413,7 @@
                         <select id="interesse" 
                                 name="interesse" 
                                 required
-                                class="form-input w-full rounded-xl p-4 text-white bg-gray-900"
-                                aria-required="true">
+                                class="form-input w-full rounded-xl p-4 text-white bg-gray-900">
                             <option value="">Selecione...</option>
                             <option value="tecnico">Parceiro Técnico (Desenvolvimento de Hardware/Firmware)</option>
                             <option value="usuario">Potencial Usuário dos Dados (Defesa / Logística / Carbono)</option>
@@ -502,9 +459,10 @@
                     </div>
 
                     <button type="submit" 
-                            class="btn-primary w-full bg-cyan-600 hover:bg-cyan-500 text-white font-black py-4 rounded-xl transition-all flex items-center justify-center gap-2 text-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
+                            class="btn-primary w-full bg-cyan-600 hover:bg-cyan-500 text-white font-black py-4 rounded-xl transition-all flex items-center justify-center gap-2 text-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
                             id="submit-btn">
-                        <span><i class="fas fa-paper-plane mr-2" aria-hidden="true"></i> SOLICITAR ACESSO AO DOSSIÊ TÉCNICO</span>
+                        <span id="btn-icon"><i class="fas fa-paper-plane mr-2"></i></span>
+                        <span id="btn-text">SOLICITAR ACESSO AO DOSSIÊ TÉCNICO</span>
                     </button>
                     
                     <p class="text-center text-gray-500 text-xs mt-4">
@@ -534,10 +492,10 @@
         </div>
     </footer>
 
-    <!-- JavaScript Completo -->
+    <!-- JavaScript Completo e Tratamento AJAX -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Mobile Menu Toggle
+            // Mobile Menu
             const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
             const mobileMenuClose = document.getElementById('mobile-menu-close');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -551,16 +509,6 @@
             if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', toggleMobileMenu);
             if (mobileMenuClose) mobileMenuClose.addEventListener('click', toggleMobileMenu);
             
-            if (mobileMenu) {
-                mobileMenu.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileMenu.classList.remove('active');
-                        if (mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                        document.body.style.overflow = '';
-                    });
-                });
-            }
-            
             // Character counter
             const descricao = document.getElementById('descricao');
             const charCount = document.getElementById('char-count');
@@ -570,16 +518,70 @@
                 });
             }
 
-            // Exibir toast de sucesso caso venha redirecionado do FormSubmit
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('status') === 'sucesso') {
-                const successDiv = document.getElementById('form-success');
-                if (successDiv) {
-                    successDiv.style.display = 'block';
-                    successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
+            // Envio via AJAX sem recarregar e com Modal de Confirmação
+            const form = document.getElementById('prosame-contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const btnIcon = document.getElementById('btn-icon');
+            const btnText = document.getElementById('btn-text');
+            const formSuccess = document.getElementById('form-success');
+            const formError = document.getElementById('form-error');
+
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    formError.classList.add('hidden');
+                    
+                    // Estado de Carregamento no Botão
+                    submitBtn.disabled = true;
+                    btnIcon.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>';
+                    btnText.textContent = 'ENVIANDO PROTOCOLO...';
+
+                    const formData = new FormData(form);
+
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok || response.status === 200) {
+                            // Esconde formulário e mostra card verde de sucesso
+                            form.classList.add('hidden');
+                            formSuccess.classList.remove('hidden');
+                            formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        } else {
+                            throw new Error('Falha no envio');
+                        }
+                    })
+                    .catch(error => {
+                        formError.classList.remove('hidden');
+                        submitBtn.disabled = false;
+                        btnIcon.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>';
+                        btnText.textContent = 'SOLICITAR ACESSO AO DOSSIÊ TÉCNICO';
+                    });
+                });
             }
         });
+
+        // Função para reexibir formulário limpo
+        function resetForm() {
+            const form = document.getElementById('prosame-contact-form');
+            const formSuccess = document.getElementById('form-success');
+            const submitBtn = document.getElementById('submit-btn');
+            const btnIcon = document.getElementById('btn-icon');
+            const btnText = document.getElementById('btn-text');
+
+            if (form) form.reset();
+            if (formSuccess) formSuccess.classList.add('hidden');
+            if (form) form.classList.remove('hidden');
+            
+            submitBtn.disabled = false;
+            btnIcon.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>';
+            btnText.textContent = 'SOLICITAR ACESSO AO DOSSIÊ TÉCNICO';
+        }
     </script>
 </body>
 </html>
